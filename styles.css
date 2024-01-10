@@ -151,6 +151,10 @@ a:focus {
     text-decoration: none;
 }
 
+
+
+
+
 /* Content Styles */
 .content p, .content li {
     font-family: 'Roboto', sans-serif;
@@ -196,9 +200,61 @@ a:focus {
 }
 
 
+#content {
+    padding: 20px;
+    background-color: #fff; /* Assuming a light theme based on the image */
+}
+
+#content h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.project-item {
+    border: 1px solid #ccc; /* Light border */
+    text-align: center;
+    overflow: hidden; /* Ensures nothing goes outside the item's box */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions for hover effects */
+}
+
+.project-item a {
+    display: block; /* Makes the entire area clickable */
+    padding: 15px; /* Moved padding from .project-item to here */
+    color: inherit; /* Ensures the text color is inherited */
+    text-decoration: none; /* Removes the underline from links */
+    height: 100%; /* Ensures the link covers the entire item */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.project-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.project-item h2 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.project-item p {
+    font-size: 0.9em;
+    color: #666; /* Lighter text color for the description */
+}
+
+.project-item a:hover, .project-item a:focus {
+    background-color: #e7f5ff; /* More visually appealing hover state color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
 
 /* Responsive Styles for Mobile Devices */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 500px), (pointer: none), (pointer: coarse) {
 
     .sidebar {
         position: relative;
@@ -229,6 +285,11 @@ a:focus {
 
     .navbar li {
         padding: 10px 0; /* Adjust padding for better mobile view */
+    }
+
+    /* New CSS classes for toggling display */
+    .sidebar-footer {
+        display: none;
     }
 }
 

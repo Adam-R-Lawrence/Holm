@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhD Student's Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<header>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
+        <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Writings</a></li>
+            <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
+        </ul>
+    </nav>
+
+    <div class="language-toggle" onclick="toggleLanguage()">
+        <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
+        <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
+    </div>
+</header>
+
+<div class="content">
+    <!-- Your main page content goes here -->
+    <div class="scrollable-space"></div>
+    <div class="scrollable-space"></div>
+
+</div>
+
+
+<footer>
+    <p>&copy; 2024 Adam Lawrence</p>
+</footer>
+
+
+<script>
+    function toggleTheme() {
+        var sunIcon = document.getElementById('theme-sun');
+        var moonIcon = document.getElementById('theme-moon');
+
+        if (sunIcon.style.display === "inline") {
+            sunIcon.style.display = "none";
+            moonIcon.style.display = "inline";
+            document.body.classList.remove('dark-theme');
+
+        } else {
+            sunIcon.style.display = "inline";
+            moonIcon.style.display = "none";
+            document.body.classList.add('dark-theme');
+
+        }
+    }
+
+
+    function toggleLanguage() {
+        var englishIcon = document.getElementById('language-english');
+        var chineseIcon = document.getElementById('language-chinese');
+
+        // Toggle the display properties
+        if (englishIcon.style.display === 'inline') {
+            englishIcon.style.display = 'none';
+            chineseIcon.style.display = 'inline';
+            // Additional logic to switch content to Chinese
+        } else {
+            chineseIcon.style.display = 'none';
+            englishIcon.style.display = 'inline';
+            // Additional logic to switch content to English
+        }
+    }
+
+
+</script>
+</body>
+</html>

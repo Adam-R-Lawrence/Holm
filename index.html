@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
-
+    <script src="functions.js"></script>
 </head>
-<body>
+<body  class="body-transition">
 <div class="sidebar">
     <div class="theme-toggle" onclick="toggleTheme()">
         <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
@@ -49,6 +49,7 @@
 
             <li><a href="projects.html">Projects</a></li>
             <li><a href="blog.html">Writings</a></li>
+            <li><a href="publications.html">Publications</a></li>
             <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
 
         </ul>
@@ -56,7 +57,8 @@
 
     <div class="sidebar-footer">
         <hr class="divider">
-        <a href="Savannah_Tan_Link.html">Savannah Tan</a>
+        <p>&copy; 2024 Adam Lawrence</p>
+
     </div>
 </div>
 
@@ -82,42 +84,5 @@
 </div>
 
 
-<script>
-    function toggleTheme() {
-        var sunIcon = document.getElementById('theme-sun');
-        var moonIcon = document.getElementById('theme-moon');
-
-        if (sunIcon.style.display === "inline") {
-            sunIcon.style.display = "none";
-            moonIcon.style.display = "inline";
-            document.body.classList.remove('dark-theme');
-
-        } else {
-            sunIcon.style.display = "inline";
-            moonIcon.style.display = "none";
-            document.body.classList.add('dark-theme');
-
-        }
-    }
-
-
-    function toggleLanguage() {
-        var englishIcon = document.getElementById('language-english');
-        var chineseIcon = document.getElementById('language-chinese');
-
-        // Toggle the display properties
-        if (englishIcon.style.display === 'inline') {
-            englishIcon.style.display = 'none';
-            chineseIcon.style.display = 'inline';
-            // Additional logic to switch content to Chinese
-        } else {
-            chineseIcon.style.display = 'none';
-            englishIcon.style.display = 'inline';
-            // Additional logic to switch content to English
-        }
-    }
-
-
-</script>
 </body>
 </html>

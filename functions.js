@@ -1,6 +1,5 @@
 function toggleImagesForDarkMode() {
     const isDarkMode = document.body.classList.contains('dark-theme');
-    console.log("Toggling images for dark mode:", isDarkMode); // Debugging
 
     const logos = document.querySelectorAll('#logos img');
     logos.forEach(img => {
@@ -13,20 +12,23 @@ function toggleImagesForDarkMode() {
 }
 
 function toggleTheme() {
-    const lightThemeIcon = document.getElementById('theme-sun');
-    const darkThemeIcon = document.getElementById('theme-moon');
     document.body.classList.toggle('dark-theme');
 
     const isDarkMode = document.body.classList.contains('dark-theme');
-    console.log("Dark mode after toggle:", isDarkMode); // Debugging
+
+    const lightThemeIcon = document.getElementById('theme-moon');
+    const darkThemeIcon = document.getElementById('theme-sun');
 
     lightThemeIcon.style.display = isDarkMode ? "none" : "inline";
     darkThemeIcon.style.display = isDarkMode ? "inline" : "none";
 
     toggleImagesForDarkMode();
 
-    localStorage.setItem('darkMode', isDarkMode.toString());
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+
 }
+
+
 function toggleLanguage() {
     const englishIcon = document.getElementById('language-english');
     const chineseIcon = document.getElementById('language-chinese');
@@ -44,10 +46,15 @@ function toggleLanguage() {
 
 // Function to apply saved preferences
 function applyPreferences() {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
     const isChinese = localStorage.getItem('language') === "chinese";
 
-    console.log("Applying preferences - Dark Mode:", isDarkMode, ", Language is Chinese:", isChinese); // Debugging
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.toggle('dark-theme');
+    }
+
+    const isDarkMode = document.body.classList.contains('dark-theme');
+
+
 
     const darkThemeIcon = document.getElementById('theme-sun');
     const lightThemeIcon = document.getElementById('theme-moon');
@@ -57,7 +64,6 @@ function applyPreferences() {
     lightThemeIcon.style.display = isDarkMode ? "none" : "inline";
     darkThemeIcon.style.display = isDarkMode ? "inline" : "none";
 
-    document.body.classList.toggle('dark-theme', isDarkMode);
     toggleImagesForDarkMode();
 
     englishIcon.style.display = isChinese ? 'none' : 'inline';

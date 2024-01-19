@@ -1,7 +1,10 @@
-/* CSS toggles */
 :root {
     --light-theme-border-color: #2c3e50;
     --dark-theme-border-color: white;
+    --text-color-light: #333;
+    --text-color-dark: #f8f8f8;
+    --light-theme-background-color: #2c3e50;
+    --dark-theme-background-color: white;
 }
 
 body, html {
@@ -88,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar li {
     margin: 7px 0;
-    border: 2px solid var(--light-theme-border-color);
+    border: 0.1em solid var(--light-theme-border-color);
     border-radius: 15px;
     width: 100%;
     box-sizing: border-box;
@@ -97,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar a {
-    color: #333;
+    color: var(--text-color-light);
     text-decoration: none;
     display: block;
 }
@@ -326,7 +329,7 @@ footer {
 
 
 /* Responsive Styles for Mobile Devices */
-@media screen and (max-width: 500px), (pointer: none), (pointer: coarse) {
+@media screen and (max-width: 500px), (max-height: 500px), (pointer: none), (pointer: coarse) {
 
     .sidebar {
         position: relative;
@@ -399,10 +402,14 @@ footer {
 /* Dark Theme */
 .dark-theme {
     background-color: #333; /* Dark background */
-    color: #f8f8f8;
-    --light-theme-border-color: --dark-theme-border-color; /* Orange color */
+    color: var(--text-color-dark);
+    --light-theme-border-color: var(--dark-theme-border-color); /* Correct way to assign the value */
+    --text-color-light: var(--text-color-dark);
 }
-
+/* Ensure the navbar a tag color uses the variable, this will make it automatically switch */
+.navbar a {
+    color: var(--text-color-light); /* Now this will change when the theme is toggled */
+}
 
 .dark-theme .sidebar {
     background-color: #121212;

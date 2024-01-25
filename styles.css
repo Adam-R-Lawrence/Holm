@@ -378,6 +378,43 @@ a:focus {
     text-align: justify;
 }
 
+
+/* Writing styling */
+.blog-directory {
+    background-color: #f3f3f3; /* Light grey background */
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.blog-directory h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.blog-directory ul {
+    list-style: none;
+    padding: 0;
+}
+
+.blog-directory li {
+    margin-bottom: 10px;
+}
+
+.blog-directory a {
+    text-decoration: none;
+    color: #1a76d2; /* A shade of blue */
+    transition: color 0.3s ease-in-out;
+}
+
+.blog-directory a:hover,
+.blog-directory a:focus {
+    color: #0d47a1; /* A darker shade of blue for hover/focus state */
+}
+
+
 /* Header styling */
 header {
     background-color: var(--border-color);
@@ -412,6 +449,13 @@ footer {
     width: 100%;
 }
 
+/* Class to explicitly hide the footer */
+.hide-footer {
+    display: none;
+}
+
+
+
 
 @media (max-width: 60em) {
     .projects-grid {
@@ -440,6 +484,10 @@ footer {
 
 /* Styles for mobile devices and thin and short screens*/
 @media screen and (max-width: 500px), (max-height: 500px), (pointer: none), (pointer: coarse) {
+
+    .hide-footer {
+        display: block;
+    }
 
     .container {
         flex-direction: column; /* Stack sidebar and content vertically */    }

@@ -127,7 +127,7 @@ a:focus {
     border-radius: 15px;
     width: 100%;
     box-sizing: border-box;
-    padding: 0.6em 0em;
+    padding: 0.4em 0em;
 }
 
 .navbar a {
@@ -382,6 +382,7 @@ a:focus {
 .writings-directory {
     padding: 1em;
     font-family: Arial, sans-serif;
+    width: 60%;
 }
 
 .writings-directory h1 {
@@ -416,8 +417,7 @@ a:focus {
 }
 
 .writings-directory .explanatory-text {
-    font-size: 1em;
-
+    font-size: 0.9em;
     color: var(--text-color);
     margin-bottom: 0;
 }
@@ -428,19 +428,23 @@ a:focus {
 }
 
 .writings-directory .date {
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: #666;
-    margin-left: 0.5em;
+    display: block;
+    text-align: right;
+}
+
+.writings-directory .month-day,
+.writings-directory .year {
+    display: block;
 }
 
 .writings-directory .writing-image {
-    width: 50px;
+    width: 5em; /* Increased size for impact */
     height: auto;
     margin-right: 0.5em;
+    order: -1; /* This will move the image before the date in flex container */
 }
-
-
-
 
 
 
@@ -497,7 +501,7 @@ footer {
 }
 
 
-@media screen and (min-height: 501px) and (max-height: 700px) and (min-width: 501px)  { /* Adjust the height as needed */
+@media screen and (min-height: 501px) and (max-height: 750px) and (min-width: 501px)  { /* Adjust the height as needed */
 
 
     .profile-photo {
@@ -511,10 +515,23 @@ footer {
     .navbar li {
         margin: 2px 0;
     }
+
+    .hide-footer {
+        display: block;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
 }
 
 /* Styles for mobile devices and thin and short screens*/
 @media screen and (max-width: 500px), (max-height: 500px), (pointer: none), (pointer: coarse) {
+
+    .writings-directory {
+
+        width: 90%;
+    }
 
     .hide-footer {
         display: block;

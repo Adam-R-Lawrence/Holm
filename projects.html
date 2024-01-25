@@ -141,45 +141,15 @@
             </div>
         </div>
     </div>
+
 </div>
 
+<footer class="hide-footer">
+    <p>&copy; 2024 Adam Lawrence</p>
+</footer>
 
-<script>
-    function toggleTheme() {
-        var sunIcon = document.getElementById('theme-sun');
-        var moonIcon = document.getElementById('theme-moon');
-
-        if (sunIcon.style.display === "inline") {
-            sunIcon.style.display = "none";
-            moonIcon.style.display = "inline";
-            document.body.classList.remove('dark-theme');
-
-        } else {
-            sunIcon.style.display = "inline";
-            moonIcon.style.display = "none";
-            document.body.classList.add('dark-theme');
-
-        }
-    }
+<script src="functions.js"></script>
 
 
-    function toggleLanguage() {
-        var englishIcon = document.getElementById('language-english');
-        var chineseIcon = document.getElementById('language-chinese');
-
-        // Toggle the display properties
-        if (englishIcon.style.display === 'inline') {
-            englishIcon.style.display = 'none';
-            chineseIcon.style.display = 'inline';
-            // Additional logic to switch content to Chinese
-        } else {
-            chineseIcon.style.display = 'none';
-            englishIcon.style.display = 'inline';
-            // Additional logic to switch content to English
-        }
-    }
-
-
-</script>
 </body>
 </html>

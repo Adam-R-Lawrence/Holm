@@ -10,77 +10,80 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body  class="body-transition">
-<div class="sidebar">
-    <div class="theme-toggle" onclick="toggleTheme()">
-        <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
-        <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
+
+<div class="container">
+
+    <div class="sidebar">
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
+            <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
+        </div>
+
+        <!-- Add language toggle icon in the top-right corner of the sidebar -->
+
+        <div class="language-toggle" onclick="toggleLanguage()">
+            <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
+            <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
+        </div>
+
+
+
+
+        <div class="profile-photo">
+            <img src="images/Profile_photo1.jpg">
+        </div>
+
+        <h2>Adam Lawrence</h2>
+        <p>Your biography for the left-hand sidebar</p>
+        <!-- Add your social links here -->
+        <div id="logos">
+            <ul>
+                <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
+                <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
+                <li><a href="https://www.linkedin.com/in/agdam-lawrence-5469021a7/"><img src="images/Youtube_black.png" alt="Youtube Logo" class="logo"></a></li>
+                <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Twitter_black.png" alt="Twitter Logo" class="logo"></a></li>
+                <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Gmail_black.png" alt="Email" class="logo"></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html">Writings</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
+
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <hr class="divider">
+            <p>&copy; 2024 Adam Lawrence</p>
+
+        </div>
     </div>
 
-    <!-- Add language toggle icon in the top-right corner of the sidebar -->
 
-    <div class="language-toggle" onclick="toggleLanguage()">
-        <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
-        <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
-    </div>
-
-
-
-
-    <div class="profile-photo">
-        <img src="images/Profile_photo1.jpg">
-    </div>
-
-    <h2>Adam Lawrence</h2>
-    <p>Your biography for the left-hand sidebar</p>
-    <!-- Add your social links here -->
-    <div id="logos">
-        <ul>
-            <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
-            <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
-            <li><a href="https://www.linkedin.com/in/agdam-lawrence-5469021a7/"><img src="images/Youtube_black.png" alt="Youtube Logo" class="logo"></a></li>
-            <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Twitter_black.png" alt="Twitter Logo" class="logo"></a></li>
-            <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Gmail_black.png" alt="Email" class="logo"></a></li>
+    <div class="content">
+        <h1>About Me</h1>
+        <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics, finding new ways to bridge human communication and technology.</p>
+        <img src="images/Test.png" alt="Research" class="content-image">
+        <h2>Current Research</h2>
+        <p>My current project focuses on the semantic analysis of natural language to improve machine understanding. It's a challenging yet thrilling field that combines computer science, artificial intelligence, and linguistics. You can find more about my <a href="research.html" class="content-link">research here</a>.</p>
+        <h2>Publications</h2>
+        <ul class="publications-list">
+            <li>"The Syntax of Silence" - Journal of Linguistics, 2023</li>
+            <li>"Understanding Pragmatics" - Proceedings of ACL, 2022</li>
+            <!-- Add more publications here -->
         </ul>
+        <h2>Teaching</h2>
+        <p>I am also passionate about teaching and have been involved in several courses related to artificial intelligence and natural language processing.</p>
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me via email or connect with me on social media.</p>
+        <div class="scrollable-space"></div>
     </div>
-
-    <div class="navbar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="blog.html">Writings</a></li>
-            <li><a href="publications.html">Publications</a></li>
-            <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
-
-        </ul>
-    </div>
-
-    <div class="sidebar-footer">
-        <hr class="divider">
-        <p>&copy; 2024 Adam Lawrence</p>
-
-    </div>
-</div>
-
-
-
-<div class="content">
-    <h1>About Me</h1>
-    <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics, finding new ways to bridge human communication and technology.</p>
-    <img src="images/Test.png" alt="Research" class="content-image">
-    <h2>Current Research</h2>
-    <p>My current project focuses on the semantic analysis of natural language to improve machine understanding. It's a challenging yet thrilling field that combines computer science, artificial intelligence, and linguistics. You can find more about my <a href="research.html" class="content-link">research here</a>.</p>
-    <h2>Publications</h2>
-    <ul class="publications-list">
-        <li>"The Syntax of Silence" - Journal of Linguistics, 2023</li>
-        <li>"Understanding Pragmatics" - Proceedings of ACL, 2022</li>
-        <!-- Add more publications here -->
-    </ul>
-    <h2>Teaching</h2>
-    <p>I am also passionate about teaching and have been involved in several courses related to artificial intelligence and natural language processing.</p>
-    <h2>Contact</h2>
-    <p>Feel free to reach out to me via email or connect with me on social media.</p>
-    <div class="scrollable-space"></div>
 </div>
 
 <script src="functions.js"></script>

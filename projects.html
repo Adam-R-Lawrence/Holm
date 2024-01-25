@@ -13,121 +13,125 @@
 
 </head>
 <body>
-<div class="sidebar">
-    <div class="theme-toggle" onclick="toggleTheme()">
-        <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
-        <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
+
+<div class="container">
+    <div class="sidebar">
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
+            <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
+        </div>
+
+        <!-- Add language toggle icon in the top-right corner of the sidebar -->
+
+        <div class="language-toggle" onclick="toggleLanguage()">
+            <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
+            <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
+        </div>
+
+
+
+
+        <div class="profile-photo">
+            <img src="images/Profile_photo1.jpg">
+        </div>
+
+        <h2>Adam Lawrence</h2>
+        <p>Your biography for the left-hand sidebar</p>
+        <!-- Add your social links here -->
+        <div id="logos">
+            <ul>
+                <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
+                <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
+                <li><a href="https://www.linkedin.com/in/agdam-lawrence-5469021a7/"><img src="images/Youtube_black.png" alt="Youtube Logo" class="logo"></a></li>
+                <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Twitter_black.png" alt="Twitter Logo" class="logo"></a></li>
+                <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Gmail_black.png" alt="Email" class="logo"></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="blog.html">Writings</a></li>
+                <li><a href="publications.html">Publications</a></li>
+
+                <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
+
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <hr class="divider">
+            <a href="Savannah_Tan_Link.html">Savannah Tan</a>
+        </div>
     </div>
 
-    <!-- Add language toggle icon in the top-right corner of the sidebar -->
-
-    <div class="language-toggle" onclick="toggleLanguage()">
-        <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
-        <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
-    </div>
 
 
+    <div class="content">
+        <h1>My Projects</h1>
+        <div class="projects-grid">
+            <div class="project-item">
+                <a href="vadum.html">
+                    <h2>Project Title 1</h2>
+                    <p>Short description of Project 1...</p>
+                    <img src="images/Test.png" alt="Project 1">
+                </a>
+            </div>
+            <!-- Repeat for each project -->
+            <div class="project-item">
+                <a href="vadum.html">
+                <h2>Project Title 2</h2>
+                <p>Short description of Project 2...</p>
+                <img src="images/Test.png" alt="Project 2">
+                </a>
 
 
-    <div class="profile-photo">
-        <img src="images/Profile_photo1.jpg">
-    </div>
+            </div>
+            <!-- ... more projects -->
+            <div class="project-item">
+                <a href="vadum.html">
 
-    <h2>Adam Lawrence</h2>
-    <p>Your biography for the left-hand sidebar</p>
-    <!-- Add your social links here -->
-    <div id="logos">
-        <ul>
-            <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
-            <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
-            <li><a href="https://www.linkedin.com/in/agdam-lawrence-5469021a7/"><img src="images/Youtube_black.png" alt="Youtube Logo" class="logo"></a></li>
-            <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Twitter_black.png" alt="Twitter Logo" class="logo"></a></li>
-            <li><a href="https://github.com/Agdam-R-Lawrence"><img src="images/Gmail_black.png" alt="Email" class="logo"></a></li>
-        </ul>
-    </div>
+                <h2>Project Title 3</h2>
+                <p>Short description of Project 3...</p>
+                <img src="images/Test.png" alt="Project 3">
+                </a>
 
-    <div class="navbar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
 
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="blog.html">Writings</a></li>
-            <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
+            </div>
 
-        </ul>
-    </div>
+            <div class="project-item">
+                <a href="vadum.html">
 
-    <div class="sidebar-footer">
-        <hr class="divider">
-        <a href="Savannah_Tan_Link.html">Savannah Tan</a>
+                <h2>Project Title 4</h2>
+                <p>Short description of Project 4...</p>
+                <img src="images/Test.png" alt="Project 4">
+                </a>
+
+            </div>
+            <!-- Repeat for each project -->
+            <div class="project-item">
+                <a href="vadum.html">
+
+                <h2>Project Title 5</h2>
+                <p>Short description of Project 5...</p>
+                <img src="images/Test.png" alt="Project 5">
+                </a>
+
+            </div>
+            <!-- ... more projects -->
+            <div class="project-item">
+                <a href="vadum.html">
+
+                <h2>Project Title 6</h2>
+                <p>Short description of Project 6...</p>
+                <img src="images/Test.png" alt="Project 6">
+                </a>
+            </div>
+        </div>
     </div>
 </div>
-
-
-
-<div class="content">
-    <h1>My Projects</h1>
-    <div class="projects-grid">
-        <div class="project-item">
-            <a href="vadum.html">
-                <h2>Project Title 1</h2>
-                <p>Short description of Project 1...</p>
-                <img src="images/Test.png" alt="Project 1">
-            </a>
-        </div>
-        <!-- Repeat for each project -->
-        <div class="project-item">
-            <a href="vadum.html">
-            <h2>Project Title 2</h2>
-            <p>Short description of Project 2...</p>
-            <img src="images/Test.png" alt="Project 2">
-            </a>
-
-
-        </div>
-        <!-- ... more projects -->
-        <div class="project-item">
-            <a href="vadum.html">
-
-            <h2>Project Title 3</h2>
-            <p>Short description of Project 3...</p>
-            <img src="images/Test.png" alt="Project 3">
-            </a>
-
-
-        </div>
-
-        <div class="project-item">
-            <a href="vadum.html">
-
-            <h2>Project Title 4</h2>
-            <p>Short description of Project 4...</p>
-            <img src="images/Test.png" alt="Project 4">
-            </a>
-
-        </div>
-        <!-- Repeat for each project -->
-        <div class="project-item">
-            <a href="vadum.html">
-
-            <h2>Project Title 5</h2>
-            <p>Short description of Project 5...</p>
-            <img src="images/Test.png" alt="Project 5">
-            </a>
-
-        </div>
-        <!-- ... more projects -->
-        <div class="project-item">
-            <a href="vadum.html">
-
-            <h2>Project Title 6</h2>
-            <p>Short description of Project 6...</p>
-            <img src="images/Test.png" alt="Project 6">
-            </a>
-        </div>
-    </div>
-</div>
-
 
 
 <script>

@@ -394,8 +394,10 @@ a:focus {
 .writings-directory {
     padding: 1em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 60%;
-    max-width: 800px; /* Max width to maintain readability */
+    max-width: 50em; /* Max width to maintain readability */
+
+    flex-grow: 1;
+
 }
 
 .writings-directory h1 {

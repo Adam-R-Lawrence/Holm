@@ -75,3 +75,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
     applyPreferences();
     document.body.classList.add('fade-in');
 });
+
+
+function checkFooterVisibility() {
+    const footer = document.querySelector('footer'); // Replace 'footer' with the correct selector for your footer
+    const sidebar = document.querySelector('.sidebar');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Footer is visible, adjust sidebar height
+                sidebar.style.height = '93.5vh';
+            } else {
+                // Footer is not visible, set sidebar height back to original
+                sidebar.style.height = '97vh';
+            }
+        });
+    });
+
+    observer.observe(footer);
+}
+
+// Run the function when the document is ready
+document.addEventListener('DOMContentLoaded', checkFooterVisibility);

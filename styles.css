@@ -293,7 +293,7 @@ a:focus {
 }
 
 .content img.content-image,
-.project-content img.content-image {
+.individual-content img.content-image {
     max-width: 80%;
     height: auto;
     display: block;
@@ -373,11 +373,11 @@ a:focus {
 
 /* Specific project styling */
 
-.project-content p, .project-content li {
+.individual-content p, .individual-content li {
     font-family: 'Roboto', sans-serif;
 }
 
-.project-content {
+.individual-content {
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 1em;
@@ -400,7 +400,6 @@ a:focus {
     text-align: left; /* Align left for a more traditional look */
     font-size: 2.5em; /* Slightly smaller for less dominance */
     margin-bottom: 0.5em;
-    color: #333; /* Darker color for the title for better readability */
 }
 
 .writings-directory .writing-item {
@@ -428,7 +427,6 @@ a:focus {
 
 .writings-directory .explanatory-text {
     font-size: 1em; /* Make the text slightly larger for readability */
-    color: #555; /* A darker shade for the explanatory text */
 }
 
 .writings-directory .writing-meta {

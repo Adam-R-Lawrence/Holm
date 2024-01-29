@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhD Student's Personal Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Adam Lawrence - Vadum</title>
+    <link rel="stylesheet" href="../styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
-    <script src="functions.js"></script>
+
+    <link rel="icon" href="../images/favicon/favicon.ico" sizes="48x48" >
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../images/favicon/apple-touch-icon.png"/>
+    <link rel="manifest" href="../images/favicon/site.webmanifest" />
+    <link rel="mask-icon" href="../images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
 </head>
+
 <body>
 <header>
     <div class="theme-toggle" onclick="toggleTheme()">
@@ -19,10 +28,10 @@
 
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="blog.html">Writings</a></li>
-            <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../writings.html">Writings</a></li>
+            <li><a href="../Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
         </ul>
     </nav>
 
@@ -32,10 +41,10 @@
     </div>
 </header>
 
-<div class="project-content">
+<div class="individual-content">
     <h1>Vadum</h1>
     <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics, finding new ways to bridge human communication and technology.</p>
-    <img src="images/Test.png" alt="Research" class="content-image">
+    <img src="../images/Test.png" alt="Research" class="content-image">
     <h2>Current Research</h2>
     <p>My current project focuses on the semantic analysis of natural language to improve machine understanding. It's a challenging yet thrilling field that combines computer science, artificial intelligence, and linguistics. You can find more about my <a href="research.html" class="content-link">research here</a>.</p>
     <h2>Publications</h2>
@@ -56,43 +65,7 @@
     <p>&copy; 2024 Adam Lawrence</p>
 </footer>
 
+<script src="../functions.js"></script>
 
-<script>
-    function toggleTheme() {
-        var sunIcon = document.getElementById('theme-sun');
-        var moonIcon = document.getElementById('theme-moon');
-
-        if (sunIcon.style.display === "inline") {
-            sunIcon.style.display = "none";
-            moonIcon.style.display = "inline";
-            document.body.classList.remove('dark-theme');
-
-        } else {
-            sunIcon.style.display = "inline";
-            moonIcon.style.display = "none";
-            document.body.classList.add('dark-theme');
-
-        }
-    }
-
-
-    function toggleLanguage() {
-        var englishIcon = document.getElementById('language-english');
-        var chineseIcon = document.getElementById('language-chinese');
-
-        // Toggle the display properties
-        if (englishIcon.style.display === 'inline') {
-            englishIcon.style.display = 'none';
-            chineseIcon.style.display = 'inline';
-            // Additional logic to switch content to Chinese
-        } else {
-            chineseIcon.style.display = 'none';
-            englishIcon.style.display = 'inline';
-            // Additional logic to switch content to English
-        }
-    }
-
-
-</script>
 </body>
 </html>

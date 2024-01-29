@@ -51,6 +51,12 @@ a:focus {
     text-decoration: none;
 }
 
+.container {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
 /* Sidebar Styles */
 .sidebar {
     background-color: var(--sidebar-color);
@@ -244,11 +250,7 @@ a:focus {
     font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
+
 
 .content {
     flex-grow: 1;
@@ -573,31 +575,41 @@ footer {
     }
 
     .container {
-        flex-direction: column; /* Stack sidebar and content vertically */    }
+        display: flex; /* This makes it a flex container */
+        flex-direction: column; /* Stacks children vertically */
+        width: 100%; /* Adjust as per requirement */
+        align-items: stretch; /* Stretches children across the cross axis */
+    }
+
 
 
     .sidebar {
-        position: relative;
+        background-color: var(--sidebar-color);
+        color: var(--text-color);
         width: 100%;
         height: auto;
-        min-width: 0;
+        min-width: 100%;
         max-width: 100%;
-        order: -1; /* Move sidebar to the top */
-        border-right: none;
-        top: 0; /* Reset top position for mobile */
-        bottom: 0; /* Sidebar stretches to bottom of view */
-        left: 0; /* Align sidebar to the left edge */
-        margin: 0; /* Remove margin for mobile */
-        border-width: 0; /* Keep border width consistent */
-        border-radius: 0; /* Reset border-radius for mobile */
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow-y: hidden;
         padding: 10px;
-        text-align: center; /* Center text */
-        color: var(--text-color);
-        background-color: var(--sidebar-color);
+        text-align: center;
+        border-style: solid;
+        border-color: var(--border-color);
+        border-radius: 0;
+        border-width: 0;
+        order: -1;
+        border-right: none;
+        margin: 0;
+        padding-bottom: 48em;
     }
 
     .content {
         text-align: justify;
+        order: 1; /* Ensures content is placed below sidebar */
+
     }
 
     .navbar ul {

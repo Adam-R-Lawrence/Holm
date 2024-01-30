@@ -21,7 +21,7 @@
 
 <body>
 <header>
-    <div class="theme-toggle" onclick="toggleTheme()">
+    <div id="theme-toggle" onclick="toggleTheme()">
         <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
         <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
     </div>
@@ -35,13 +35,13 @@
         </ul>
     </nav>
 
-    <div class="language-toggle" onclick="toggleLanguage()">
+    <div id="language-toggle" onclick="toggleLanguage()">
         <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
         <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
     </div>
 </header>
 
-<div class="individual-content">
+<div id="individual-content">
     <h1>Vadum</h1>
     <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics, finding new ways to bridge human communication and technology.</p>
     <img src="../images/Test.png" alt="Research" class="content-image">

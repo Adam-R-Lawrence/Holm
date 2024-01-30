@@ -1,7 +1,7 @@
 function toggleImagesForDarkMode() {
     const isDarkMode = document.body.classList.contains('dark-theme');
 
-    const logos = document.querySelectorAll('#logos img');
+    const logos = document.querySelectorAll('#sidebar-logos img');
     logos.forEach(img => {
         if (isDarkMode) {
             img.src = img.src.replace('_black', '_white');
@@ -55,7 +55,6 @@ function applyPreferences() {
     const isDarkMode = document.body.classList.contains('dark-theme');
 
 
-
     const darkThemeIcon = document.getElementById('theme-sun');
     const lightThemeIcon = document.getElementById('theme-moon');
     const englishIcon = document.getElementById('language-english');
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 function checkFooterVisibility() {
     const footer = document.querySelector('footer'); // Replace 'footer' with the correct selector for your footer
-    const sidebar = document.querySelector('.sidebar');
+    const sidebar = document.querySelector('#sidebar');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

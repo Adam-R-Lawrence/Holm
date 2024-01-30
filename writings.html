@@ -17,39 +17,43 @@
     <meta name="theme-color" content="#ffffff">
 
 </head>
-<body class="body-transition">
+<body>
 
-<div class="container">
+<div id="container">
 
-    <div class="sidebar">
-        <div class="theme-toggle" onclick="toggleTheme()">
-            <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
-            <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+
+        <!-- Dark/Light theme toggle -->
+        <div id="theme-toggle" onclick="toggleTheme()">
+            <i id="theme-sun" class="fas fa-sun" style="display: none;"></i>
+            <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i>
         </div>
 
-        <!-- Add language toggle icon in the top-right corner of the sidebar -->
-
-        <div class="language-toggle" onclick="toggleLanguage()">
-            <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
-            <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
+        <!-- Language toggle -->
+        <div id="language-toggle" onclick="toggleLanguage()">
+            <i id="language-english" style="display: none;">EN</i>
+            <i id="language-chinese" style="display: inline;">文</i>
         </div>
 
-
-
-
-        <div class="profile-photo">
-            <img src="images/Profile_photo1.jpg">
+        <!-- Headshot image -->
+        <div id="profile-photo">
+            <img src="images/Profile_photo.jpg" alt="Headshot">
         </div>
 
-        <h2>Adam Lawrence</h2>
-        <div id="primer">
+        <!-- Name -->
+        <h2 id="sidebar-name"> Adam Lawrence </h2>
+
+        <!-- Short bio -->
+        <div id="sidebar-bio">
             <p>◦Computational Mechanics◦</p>
             <p>◦Environmental Modeling◦</p>
             <p>◦Geography and History◦</p>
             <p>◦Literature and Languages◦</p>
         </div>
-        <!-- Add your social links here -->
-        <div id="logos">
+
+        <!-- Logos of links -->
+        <div id="sidebar-logos">
             <ul>
                 <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
                 <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
@@ -59,46 +63,45 @@
             </ul>
         </div>
 
-        <div class="navbar">
+        <!-- Navigation to other pages -->
+        <div id="sidebar-navbar">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="writings.html">Writings</a></li>
-                <!--<li><a href="publications.html">Publications</a></li> -->
                 <li><a href="index.html">Publications</a></li>
                 <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">Resume</a></li>
             </ul>
         </div>
-
-
     </div>
 
 
-    <div class="writings-directory">
+    <div id=main-content">
         <h1>Writings</h1>
-        <div class="writing-item">
-            <div class="writing-content">
-                <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
-                <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
-            </div>
-            <div class="writing-meta">
-                <!-- <img src="images/Gmail.png" alt="Image Description" class="writing-image">-->
-               <div class="date">
-                   <span class="month-day">May 1,</span>
-                   <span class="year">2024</span>
+        <div id="writings-directory">
+            <div class="writing-item">
+                <div class="writing-content">
+                    <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
+                    <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
+                </div>
+                <div class="writing-meta">
+                    <!-- <img src="images/Gmail.png" alt="Image Description" class="writing-image">-->
+                   <div class="date">
+                       <span class="month-day">May 1,</span>
+                       <span class="year">2024</span>
+                   </div>
                </div>
            </div>
-       </div>
-       <!-- Repeat the above block for each writing item -->
-        <div class="writing-item">
-            <div class="writing-content">
-                <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
-                <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
-            </div>
-            <div class="writing-meta">
-                <div class="date">
-                    <span class="month-day">May 1,</span>
-                    <span class="year">2024</span>
+            <div class="writing-item">
+                <div class="writing-content">
+                    <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
+                    <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
+                </div>
+                <div class="writing-meta">
+                    <div class="date">
+                        <span class="month-day">May 1,</span>
+                        <span class="year">2024</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,8 +109,6 @@
         <div class="scrollable-space"></div>
 
     </div>
-
-
 
 </div>
 

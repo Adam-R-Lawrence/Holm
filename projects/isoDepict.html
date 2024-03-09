@@ -17,9 +17,32 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+    />
+
+
+
+    <style>
+        .hljs-copy-button {
+            --hljs-theme-color: black;
+            --hljs-theme-background: grey;
+        }
+
+    </style>
+
+
+
 </head>
 
 <body>
+
 <header>
     <div id="theme-toggle" onclick="toggleTheme()">
         <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
@@ -42,7 +65,59 @@
 </header>
 
 <div id="individual-content">
+
+
+
+
     <h1>Vadum</h1>
+
+
+    <pre><code class="language-js">function readmeDemo() {
+  alert("Hello world!");
+}</code></pre>
+
+    <pre><code class="language-cpp">
+/*
+David Cary 2010-09-14
+quick demo for wikibooks
+public domain
+*/
+#include &lt;iostream>
+#include &lt;vector>
+using namespace std;
+
+vector&lt;int> pick_vector_with_biggest_fifth_element(
+    vector&lt;int> left,
+    vector&lt;int> right
+){
+    if( (left[5]) &lt; (right[5]) ){
+        return( right );
+    };
+    // else
+    return( left );
+}
+
+int vector_demo(void){
+    cout &lt;&lt; "vector demo" &lt;&lt; endl;
+    vector&lt;int> left(7);
+    vector&lt;int> right(7);
+
+    left[5] = 7;
+    right[5] = 8;
+    cout &lt;&lt; left[5] &lt;&lt; endl;
+    cout &lt;&lt; right[5] &lt;&lt; endl;
+    vector&lt;int> biggest(
+        pick_vector_with_biggest_fifth_element( left, right )
+    );
+    cout &lt;&lt; biggest[5] &lt;&lt; endl;
+
+    return 0;
+}
+
+int main(void){
+    vector_demo();
+}</code></pre>
+
     <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics, finding new ways to bridge human communication and technology.</p>
     <img src="../images/Test.png" alt="Research" class="content-image">
     <h2>Current Research</h2>
@@ -66,6 +141,22 @@
 </footer>
 
 <script src="../functions.js"></script>
+
+<script>
+    hljs.addPlugin(
+        new CopyButtonPlugin()
+    );
+    hljs.highlightAll();
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((block) => {
+            highlightjsCopy(block);
+        });
+    });
+</script>
 
 </body>
 </html>

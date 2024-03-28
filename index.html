@@ -1,110 +1,75 @@
+<!-- Main Page -->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adam Lawrence</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adam Lawrence</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
+              rel="stylesheet">
 
-    <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-    <link rel="manifest" href="images/favicon/site.webmanifest" />
-    <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+        <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+        <link rel="manifest" href="images/favicon/site.webmanifest"/>
+        <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <!-- Flexbox container -->
-    <div id="container">
+        <div id="container">
 
-        <!-- Sidebar -->
-        <div id="sidebar">
+            <!-- Sidebar -->
+            <div id="sidebar-placeholder"></div>
 
-            <!-- Dark/Light theme toggle -->
-            <div id="theme-toggle" onclick="toggleTheme()">
-                <i id="theme-sun" class="fas fa-sun" style="display: none;"></i>
-                <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i>
-            </div>
+            <!-- Main Content -->
+            <div id="main-content">
 
-            <!-- Language toggle -->
-            <div id="language-toggle" onclick="toggleLanguage()">
-                <i id="language-english" style="display: none;">EN</i>
-                <i id="language-chinese" style="display: inline;">文</i>
-            </div>
+                <h1>About Me</h1>
+                <p>I am eagerly preparing to embark on my PhD journey in computational mechanics, specifically fluid-structure
+                    interaction within the Civil and Environmental Engineering department at the University of Illinois at
+                    Urbana-Champaign, commencing in August 2024. Originally from Melbourne, Australia, I completed both my
+                    bachelor's and master’s in environmental engineering at The University of Melbourne.</p>
 
-            <!-- Headshot image -->
-            <div id="profile-photo">
-                <img src="images/Profile_photo.jpg" alt="Headshot">
-            </div>
+                <p>On this website you will find the numerous pursuits that take up my time. From the work I am undertaking
+                    during my PhD, my personal passion projects, as well as my writings on a wide range of topics that interest
+                    me.</p>
 
-            <!-- Name -->
-            <h2 id="sidebar-name"> Adam Lawrence </h2>
+                <p>I am mostly interested in high fidelity and large-scale environmental modelling. My primary coding language
+                    is C++, utilizing the numerical library PetSC, developed up the road from Illinois at Argonne National
+                    Laboratory. However, most of my remote sensing visualization is done in Python.</p>
 
-            <!-- Short bio -->
-            <div id="sidebar-bio">
-                <p>◦Computational Mechanics◦</p>
-                <p>◦Environmental Modeling◦</p>
-                <p>◦Geography and History◦</p>
-                <p>◦Literature and Languages◦</p>
-            </div>
+                <p>Beyond my professional interests, I have a deep appreciation for geography and history, literature, and
+                    languages. Reading fuels all my curiosity and imagination, and I have shared a selection of my favorite
+                    books here. Additionally, I am proficient in Chinese, which I learnt by myself, for those comfortable in the
+                    language, feel free to explore this website in Chinese by clicking the toggle button in the navigation
+                    pane.</p>
 
-            <!-- Logos of links -->
-            <div id="sidebar-logos">
-                <ul>
-                    <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
-                    <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
-                    <li><a href="https://www.youtube.com/@arlawrence"><img src="images/Youtube_black.png" alt="Youtube Logo" class="logo"></a></li>
-                    <li><a href="https://twitter.com/arlawrence__"><img src="images/Twitter_black.png" alt="Twitter Logo" class="logo"></a></li>
-                    <li><a href="mailto:Adam_Lawrence@outlook.com.au"><img src="images/Gmail_black.png" alt="Email" class="logo"></a></li>
-                </ul>
-            </div>
+                <p>This all cumulates into environmental storytelling, which I have formulated as an engaging, scientific way of
+                    showcasing the environment and its relationship to humanity. </p>
 
-            <!-- Navigation to other pages -->
-            <div id="sidebar-navbar">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="writings.html">Writings</a></li>
-                    <li><a href="index.html">Publications</a></li>
-                    <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">Resume</a></li>
-                </ul>
+                <p>Non-scholarly interests include that of bushwalking and Australian football, the native sport of my
+                    country.</p>
+
+
+                <p>If you have any enquiries or thoughts, I would be delighted to engage with you, feel free contact me through
+                    any means given in the navigation pane. </p>
+
             </div>
         </div>
 
+        <footer>
+            <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
+        </footer>
 
-        <!-- Main Content -->
-        <div id="main-content">
+        <script src="functions.js"></script>
 
-            <h1>About Me</h1>
-            <p>I am eagerly preparing to embark on my PhD journey in computational mechanics, specifically fluid-structure interaction within the Civil and Environmental Engineering department at the University of Illinois at Urbana-Champaign, commencing in August 2024. Originally from Melbourne, Australia, I completed both my bachelor's and master’s in environmental engineering at The University of Melbourne.</p>
-
-            <p>On this website you will find the numerous pursuits that take up my time. From the work I am undertaking during my PhD, my personal passion projects, as well as my writings on a wide range of topics that interest me.</p>
-
-            <p>I am mostly interested in high fidelity and large-scale environmental modelling. My primary coding language is C++, utilizing the numerical library PetSC, developed up the road from Illinois at Argonne National Laboratory. However, most of my remote sensing visualization is done in Python.</p>
-
-            <p>Beyond my professional interests, I have a deep appreciation for geography and history, literature, and languages. Reading fuels all my curiosity and imagination, and I have shared a selection of my favorite books here. Additionally, I am proficient in Chinese, which I learnt by myself, for those comfortable in the language, feel free to explore this website in Chinese by clicking the toggle button in the navigation pane.</p>
-
-            <p>This all cumulates into environmental storytelling, which I have formulated as an engaging, scientific way of showcasing the environment and its relationship to humanity. </p>
-
-            <p>Non-scholarly interests include that of bushwalking and Australian football, the native sport of my country.</p>
-
-
-            <p>If you have any enquiries or thoughts, I would be delighted to engage with you, feel free contact me through any means given in the navigation pane. </p>
-
-        </div>
-    </div>
-
-    <footer>
-        <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
-    </footer>
-
-    <script src="functions.js"></script>
-
-</body>
+    </body>
 </html>

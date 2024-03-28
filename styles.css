@@ -29,6 +29,10 @@
 }
 
 
+.active {
+    color: #ff0000; /* or any style to denote active state */
+}
+
 body, html {
     margin: 0;
     padding: 0;

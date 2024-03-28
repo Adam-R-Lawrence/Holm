@@ -1,120 +1,69 @@
+<!-- Writings Directory -->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adam Lawrence - Writings</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adam Lawrence - Writings</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-    <link rel="manifest" href="images/favicon/site.webmanifest" />
-    <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+        <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+        <link rel="manifest" href="images/favicon/site.webmanifest" />
+        <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
 
-</head>
-<body>
+    </head>
 
-<div id="container">
+    <body>
 
-    <!-- Sidebar -->
-    <div id="sidebar">
+        <div id="container">
 
-        <!-- Dark/Light theme toggle -->
-        <div id="theme-toggle" onclick="toggleTheme()">
-            <i id="theme-sun" class="fas fa-sun" style="display: none;"></i>
-            <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i>
-        </div>
+            <div id="sidebar-placeholder"></div>
 
-        <!-- Language toggle -->
-        <div id="language-toggle" onclick="toggleLanguage()">
-            <i id="language-english" style="display: none;">EN</i>
-            <i id="language-chinese" style="display: inline;">文</i>
-        </div>
+            <div id=main-content">
+                <div id="writings-directory">
+                    <h1>Writings</h1>
 
-        <!-- Headshot image -->
-        <div id="profile-photo">
-            <img src="images/Profile_photo.jpg" alt="Headshot">
-        </div>
-
-        <!-- Name -->
-        <h2 id="sidebar-name"> Adam Lawrence </h2>
-
-        <!-- Short bio -->
-        <div id="sidebar-bio">
-            <p>◦Computational Mechanics◦</p>
-            <p>◦Environmental Modeling◦</p>
-            <p>◦Geography and History◦</p>
-            <p>◦Literature and Languages◦</p>
-        </div>
-
-        <!-- Logos of links -->
-        <div id="sidebar-logos">
-            <ul>
-                <li><a href="https://www.linkedin.com/in/adam-lawrence-5469021a7/"><img src="images/LinkedIN_black.png" alt="LinkedIn Logo" class="logo"></a></li>
-                <li><a href="https://github.com/Adam-R-Lawrence"><img src="images/Github_black.png" alt="GitHub Logo" class="logo"></a></li>
-                <li><a href="https://www.youtube.com/@arlawrence"><img src="images/Youtube_black.png" alt="Youtube Logo" class="logo"></a></li>
-                <li><a href="https://twitter.com/arlawrence__"><img src="images/Twitter_black.png" alt="Twitter Logo" class="logo"></a></li>
-                <li><a href="mailto:Adam_Lawrence@outlook.com.au"><img src="images/Gmail_black.png" alt="Email" class="logo"></a></li>
-            </ul>
-        </div>
-
-        <!-- Navigation to other pages -->
-        <div id="sidebar-navbar">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="writings.html">Writings</a></li>
-                <li><a href="index.html">Publications</a></li>
-                <li><a href="Adam_Lawrence_Resume.pdf" target="_blank">Resume</a></li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div id=main-content">
-        <div id="writings-directory">
-            <h1>Writings</h1>
-
-            <div class="writing-item">
-                <div class="writing-content">
-                    <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
-                    <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
-                </div>
-                <div class="writing-meta">
-                    <!-- <img src="images/Gmail.png" alt="Image Description" class="writing-image">-->
-                   <div class="date">
-                       <span class="month-day">May 1,</span>
-                       <span class="year">2024</span>
+                    <div class="writing-item">
+                        <div class="writing-content">
+                            <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
+                            <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
+                        </div>
+                        <div class="writing-meta">
+                            <!-- <img src="images/Gmail.png" alt="Image Description" class="writing-image">-->
+                           <div class="date">
+                               <span class="month-day">May 1,</span>
+                               <span class="year">2024</span>
+                           </div>
+                       </div>
                    </div>
-               </div>
-           </div>
-            <div class="writing-item">
-                <div class="writing-content">
-                    <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
-                    <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
-                </div>
-                <div class="writing-meta">
-                    <div class="date">
-                        <span class="month-day">May 1,</span>
-                        <span class="year">2024</span>
+                    <div class="writing-item">
+                        <div class="writing-content">
+                            <a href="writings/mason_and_dixon.html">Mason & Dixon</a>
+                            <p class="explanatory-text">A brief overview of the themes and content of the writing.</p>
+                        </div>
+                        <div class="writing-meta">
+                            <div class="date">
+                                <span class="month-day">May 1,</span>
+                                <span class="year">2024</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+        <footer>
+            <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
+        </footer>
 
-<footer>
-    <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
-</footer>
+        <script src="functions.js"></script>
 
-<script src="functions.js"></script>
-
-</body>
+    </body>
 </html>

@@ -95,5 +95,16 @@ function checkFooterVisibility() {
     observer.observe(footer);
 }
 
+// Load the sidebar
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('sidebar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('sidebar-placeholder').innerHTML = data;
+        });
+});
+
+
+
 // Run the function when the document is ready
 document.addEventListener('DOMContentLoaded', checkFooterVisibility);

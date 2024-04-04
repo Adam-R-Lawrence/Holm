@@ -76,35 +76,44 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
-function checkFooterVisibility() {
-    const footer = document.querySelector('footer'); // Replace 'footer' with the correct selector for your footer
-    const sidebar = document.querySelector('#sidebar');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Footer is visible, adjust sidebar height
-                sidebar.style.height = '93.5vh';
-            } else {
-                // Footer is not visible, set sidebar height back to original
-                sidebar.style.height = '97vh';
-            }
-        });
-    });
-
-    observer.observe(footer);
-}
+// JavaScript code
 
 // Load the sidebar
 document.addEventListener('DOMContentLoaded', function() {
     fetch('sidebar.html')
         .then(response => response.text())
         .then(data => {
+            // Insert the sidebar content
             document.getElementById('sidebar-placeholder').innerHTML = data;
+
+            // Now set up the IntersectionObserver
+            // Select the elements
+            const footer = document.querySelector('footer');
+            const sidebar = document.getElementById('sidebar');
+
+            // Callback function for IntersectionObserver
+            const callback = function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Change the height of sidebar-placeholder when the footer is visible
+                        sidebar.style.height = '94vh'; // Replace with the desired height
+                    } else {
+                        // Reset the height when the footer is not visible
+                        sidebar.style.height = '98vh'; // Replace with the original height
+                    }
+                });
+            };
+
+            // Create the observer, with the callback function and options
+            const observer = new IntersectionObserver(callback, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            // Start observing the footer
+            observer.observe(footer);
         });
 });
 
 
-
-// Run the function when the document is ready
-document.addEventListener('DOMContentLoaded', checkFooterVisibility);

@@ -429,21 +429,31 @@ a:focus {
 }
 
 #writings-directory a {
-    color: #1a76d2;
-    font-size: 1.5em;
-    font-weight: bold; /* Make the title bold */
-    margin-bottom: 0.25em;
-    transition: color 0.3s ease-in-out;
+    color: #1a76d2; /* Retains the blue color */
+    font-size: 1.5em; /* Keeps the font size larger */
+    font-weight: bold; /* Keeps the title bold */
+    margin-bottom: 0.25em; /* Keeps the bottom margin */
+    padding: 5px 10px; /* Adds padding around the link for better clickability */
+    border-radius: 5px; /* Rounds the corners */
+    background-color: #e8f0fe; /* Adds a light blue background */
+    text-decoration: none; /* Removes underline permanently */
+    transition: color 0.3s ease-in-out, background-color 0.3s ease; /* Smooth transition for color and background */
 }
 
 #writings-directory a:hover,
 #writings-directory a:focus {
-    color: #0d47a1;
-    text-decoration: underline; /* Underline on hover for clarity */
+    color: #0d47a1; /* Darker blue on hover/focus */
+    background-color: #c8d1f0; /* Changes background on hover/focus */
+    text-decoration: none; /* Ensures no underline on hover/focus */
 }
+
+
 
 #writings-directory .explanatory-text {
     font-size: 1em; /* Make the text slightly larger for readability */
+    margin-left: 0.25em;
+    font-style: italic; /* Makes the text italic */
+
 }
 
 #writings-directory .writing-meta {
@@ -455,6 +465,7 @@ a:focus {
     color: #888;
     text-align: right;
     margin-left: 1em;
+    margin-right: 0.5em;
 }
 
 #writings-directory .month-day,

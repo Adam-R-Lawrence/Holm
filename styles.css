@@ -20,7 +20,9 @@
     --sidebar-color: var(--light-theme-sidebar-color);
 
     /* Header and Footer Color */
-    --header-and-footer-color: #2c3e50;
+    --light-theme-header-and-footer-color: #2c3e50;
+    --dark-theme-header-and-footer-color: #333;
+    --header-and-footer-color: var(--light-theme-header-and-footer-color);
 
     /* Background Hover Colors */
     --light-theme-hover-color: #e7f5ff;
@@ -68,7 +70,7 @@ a:focus {
 /* Sidebar Styles */
 #sidebar {
     flex-shrink: 0; /* Prevents the item from shrinking */
-    flex-grow: 0; /* Allows the item to grow twice as much as others */
+    flex-grow: 1; /* Allows the sidebar to grow */
     background-color: var(--sidebar-color);
     color: var(--text-color);
     width: 15em;
@@ -108,6 +110,8 @@ a:focus {
     background-color: #aaa; /* Placeholder */
 
     overflow: hidden;
+    flex-shrink: 0; /* Prevents profile photo from shrinking */
+    flex-grow: 0; /* Prevents profile photo from growing */
 }
 
 #profile-photo img {
@@ -130,15 +134,13 @@ a:focus {
     white-space: nowrap;
 }
 
-
 /* Sidebar Navbar Styles */
 #sidebar-navbar {
-    flex-grow: 1; /* Allows it to fill available space */
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Aligns items to the start */
+    flex-grow: 1; /* Allows the navbar to grow and fill the available space */
     margin-bottom: -0.5em;
-
 }
 
 #sidebar-navbar ul {
@@ -147,10 +149,9 @@ a:focus {
     display: flex;
     flex-direction: column;
     height: 100%; /* Set height to 100% of its container */
-    justify-content: space-around; /* This will space out the li elements evenly */
+    justify-content: space-between; /* Adjust spacing based on available space */
     margin: 0;
     padding: 0;
-
 }
 
 #sidebar-navbar li {
@@ -160,11 +161,12 @@ a:focus {
     padding: 0.4em 0em;
     width: 100%;
     flex-grow: 1; /* Allows each li to grow and fill the space */
-    margin: 0.6em 0; /* Adjust margin to your preference */
+    flex-shrink: 1; /* Allows each li to shrink if necessary */
+    flex-basis: auto; /* Initial size of the flex item */
+    margin: 0.3em 0; /* Adjust margin to control spacing */
     display: flex; /* Make the li a flex container */
     align-items: center; /* Vertically center the flex items (anchor tags) */
     justify-content: center; /* Horizontally center the text */
-
 }
 
 #sidebar-navbar a {
@@ -220,6 +222,7 @@ a:focus {
 #sidebar-logos li:hover, .theme-toggle:hover, #language-toggle:hover {
     transform: scale(1.1); /* Slightly increase the size */
 }
+
 
 
 /* Theme and language toggle styling */
@@ -504,22 +507,43 @@ header a {
     text-decoration: none;
 }
 
+
+
 /* Footer styling */
+
+
+
+.footer-container {
+    background-color: var(--background-color); /* Match the footer background color */
+    padding: 0; /* Ensure no padding affects the layout */
+    margin: 0; /* Ensure no margin affects the layout */
+}
+
 footer {
     background-color: var(--header-and-footer-color);
     color: white;
+
     text-align: center;
     bottom: 0;
-    padding: 0;
     margin-bottom: 0;
     width: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+
+
     line-height: 0.1; /* Adjust line height to reduce space */
+    border-top-left-radius: 3em; /* Rounded top left corner */
+    border-top-right-radius: 3em; /* Rounded top right corner */
 
 
     display: flex;           /* Enable flexbox */
     justify-content: center; /* Center horizontally */
     align-items: center;     /* Center vertically */
 
+
+    border-top: 0.2em solid var(--border-color); /* Border on the top */
+    border-left: 0.2em solid var(--border-color); /* Border on the left */
+    border-right: 0.2em solid var(--border-color); /* Border on the right */
+    border-bottom: none; /* No border on the bottom */
 }
 
 
@@ -688,8 +712,10 @@ html {
     --background-color: var(--dark-theme-background-color);
     --sidebar-color: var(--dark-theme-sidebar-color);
     --hover-color: var(--dark-theme-hover-color);
-
+    --header-and-footer-color: var(--dark-theme-header-and-footer-color);
 }
+
+
 
 /* Fade-in styling */
 .fade-in {

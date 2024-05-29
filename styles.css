@@ -99,7 +99,7 @@ a:focus {
 }
 
 #sidebar h2 {
-    margin-bottom: 0.4em;
+    margin-bottom: 0;
     font-size: 1.5em;
 }
 
@@ -120,6 +120,15 @@ a:focus {
     object-fit: cover;
 }
 
+#sidebar-my-current-status {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+
 #sidebar h3, #sidebar a {
     color: var(--text-color);
     text-decoration: none;
@@ -132,6 +141,16 @@ a:focus {
     margin-bottom: 0.6em;
     margin-top: 0.2em;
     white-space: nowrap;
+}
+
+#sidebar-bio {
+    display: block;
+    font-size: 1em;
+
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-style: italic;
+
 }
 
 /* Sidebar Navbar Styles */
@@ -358,7 +377,8 @@ a:focus {
 
 .project-item a {
     display: block; /* Makes the entire area clickable */
-    padding: 15px; /* Moved padding from .project-item to here */
+    padding: 0.8em; /* Moved padding from .project-item to here */
+    padding-top: 0.1em;
     color: inherit; /* Ensures the text color is inherited */
     text-decoration: none; /* Removes the underline from links */
     height: 100%; /* Ensures the link covers the entire item */
@@ -379,11 +399,17 @@ a:focus {
 
 .project-item h2 {
     font-size: 2em;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .project-item p {
     font-size: 0.9em;
     text-align: justify;
+    margin-top: 0.1em;
+    font-style: italic;
 
 }
 
@@ -416,10 +442,13 @@ a:focus {
 
 }
 
-#writings-directory h1 {
-    text-align: left; /* Align left for a more traditional look */
-    font-size: 2.5em; /* Slightly smaller for less dominance */
+
+[data-page="writings"] h1, [data-page="publications"] h1 {
+    text-align: left;
+    font-size: 2.5em;
     margin-bottom: 0.5em;
+    margin-left: 0.3em;
+
 }
 
 #writings-directory .writing-item {
@@ -523,6 +552,8 @@ footer {
     background-color: var(--header-and-footer-color);
     color: white;
 
+    font-size: 0.75em;
+
     text-align: center;
     bottom: 0;
     margin-bottom: 0;
@@ -531,8 +562,8 @@ footer {
 
 
     line-height: 0.1; /* Adjust line height to reduce space */
-    border-top-left-radius: 3em; /* Rounded top left corner */
-    border-top-right-radius: 3em; /* Rounded top right corner */
+    /*border-top-left-radius: 3em; /* Rounded top left corner */
+    /*border-top-right-radius: 3em; /* Rounded top right corner */
 
 
     display: flex;           /* Enable flexbox */
@@ -585,9 +616,7 @@ footer {
     }
 }
 
-#sidebar-bio {
-    display: block;
-}
+
 
 @media screen and (min-height: 501px) and (max-height: 630px) and (min-width: 501px) {
     #sidebar-bio {

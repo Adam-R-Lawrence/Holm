@@ -82,6 +82,10 @@ a:focus {
     top: 1vh;
     overflow-y: hidden; /* Disable vertical scrollbar */
     height: 98vh;
+
+    max-height: 50em;
+
+
     padding: 1em;
     text-align: center;
     border-style: solid;

@@ -185,7 +185,6 @@ a:focus {
     border: 0.1em solid var(--border-color);
     border-radius: 15px;
     box-sizing: border-box;
-    padding: 0.4em 0em;
     width: 100%;
     flex-grow: 1; /* Allows each li to grow and fill the space */
     flex-shrink: 1; /* Allows each li to shrink if necessary */
@@ -194,12 +193,17 @@ a:focus {
     display: flex; /* Make the li a flex container */
     align-items: center; /* Vertically center the flex items (anchor tags) */
     justify-content: center; /* Horizontally center the text */
+    padding: 0; /* Remove padding from li */
 }
 
 #sidebar-navbar a {
     color: var(--text-color);
     text-decoration: none;
-    display: block;
+    display: flex; /* Make the a tag a flex container */
+    align-items: center; /* Center the content vertically */
+    justify-content: center; /* Center the content horizontally */
+    width: 100%; /* Make the a tag take full width of the li */
+    height: 100%; /* Make the a tag take full height of the li */
     font-size: 1.1em;
     margin: 0;
 }

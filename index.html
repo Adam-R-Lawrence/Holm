@@ -41,23 +41,16 @@
 
                 <p>On this website you will find the numerous pursuits that take up my time. From the work I am undertaking
                     during my PhD, my personal passion projects, as well as my writings on a wide range of topics that interest
-                    me.</p>
+                    me.
 
-                <p>I am mostly interested in high fidelity and large-scale environmental modelling. My primary coding language
-                    is C++, utilizing the numerical library PetSC, developed up the road from Illinois at Argonne National
-                    Laboratory. However, most of my remote sensing visualization is done in Python.</p>
+                    In my Projects section you will see, primarily the Torrentem, which has helped me develop.
 
-                <p>Beyond my professional interests, I have a deep appreciation for geography and history, literature, and
-                    languages. Reading fuels all my curiosity and imagination, and I have shared a selection of my favorite
-                    books here. Additionally, I am proficient in Chinese, which I learnt by myself, for those comfortable in the
-                    language, feel free to explore this website in Chinese by clicking the toggle button in the navigation
-                    pane.</p>
+                    In my writing section you
 
-                <p>This all cumulates into environmental storytelling, which I have formulated as an engaging, scientific way of
-                    showcasing the environment and its relationship to humanity. </p>
+                    In my Publications page you will view the papers that I am currently working on and have published thus far
 
-                <p>Non-scholarly interests include that of bushwalking and Australian football, the native sport of my
-                    country.</p>
+
+                </p>
 
 
                 <p>If you have any enquiries or thoughts, I would be delighted to engage with you, feel free contact me through
@@ -66,13 +59,63 @@
             </div>
         </div>
 
-        <!--
+
         <div class="footer-container">
             <footer>
-                <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
+                <p>
+                    &copy; 2025 Adam Lawrence | Last updated on
+                    <span id="last-updated">Loading...</span>
+                </p>
             </footer>
         </div>
-        -->
+
+        <script>
+            const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username
+            const GITHUB_REPO = 'Holm'; // Replace with your repository name
+
+            const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits`;
+
+            async function displayLastUpdated() {
+                const cacheKey = 'lastUpdatedDate';
+                const cacheTimeKey = 'lastUpdatedTime';
+                const cacheDuration = 60 * 60 * 1000; // 1 hour in milliseconds
+
+                const cachedDate = localStorage.getItem(cacheKey);
+                const cachedTime = localStorage.getItem(cacheTimeKey);
+                const now = Date.now();
+
+                if (cachedDate && cachedTime && (now - cachedTime) < cacheDuration) {
+                    document.getElementById('last-updated').textContent = cachedDate;
+                    return;
+                }
+
+                try {
+                    const response = await fetch(commitsApiUrl);
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.status}`);
+                    }
+                    const commits = await response.json();
+                    if (commits.length === 0) {
+                        document.getElementById('last-updated').textContent = 'No commits found.';
+                        return;
+                    }
+                    const latestCommitDate = new Date(commits[0].commit.committer.date);
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const formattedDate = latestCommitDate.toLocaleDateString(undefined, options);
+                    document.getElementById('last-updated').textContent = formattedDate;
+
+                    // Cache the result
+                    localStorage.setItem(cacheKey, formattedDate);
+                    localStorage.setItem(cacheTimeKey, now);
+                } catch (error) {
+                    console.error('Error fetching the latest commit:', error);
+                    document.getElementById('last-updated').textContent = 'Unavailable';
+                }
+            }
+
+            window.onload = displayLastUpdated;
+        </script>
+
 
         <script src="functions.js"></script>
 

@@ -2,97 +2,84 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Adam Lawrence - Projects</title>
-        <link rel="stylesheet" href="styles.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Lawrence - Projects</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
+          rel="stylesheet">
 
-        <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
-        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-        <link rel="manifest" href="images/favicon/site.webmanifest" />
-        <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <link rel="manifest" href="images/favicon/site.webmanifest"/>
+    <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <div id="container">
+<div id="container">
 
-            <div id="sidebar-placeholder"></div>
+    <div id="sidebar-placeholder"></div>
 
-            <div id="main-content" data-page="projects">
+    <div id="main-content" data-page="projects">
 
-                <h1>Projects</h1>
+        <h1>Projects</h1>
 
-                <div id="projects-grid">
-                    <div class="project-item">
-                        <a href="projects/isoDepict.html">
-                            <h2>Quanyan</h2>
-                            <p>Quanyan is suite of software relating to terrain and object generation, modelling, and meshing written in C++. Developed to be used with the Torrentem Fluid-Solid Interaction (FSI) solver.</p>
-                            <div class="image-container">
-                            <img src="images/isoDepict.jpg" alt="IsoDepict">
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Repeat for each project -->
-                    <div class="project-item">
-                        <a href="projects/isoDepict.html">
-                        <h2>Torrentem</h2>
-                        <p>Torrentem is a physics solver developed primarily in C++. It is primarily a computational fluid dynamic (CFD) and includes functionality for fluid-solid interaction (FSI). The solver utilizes the parallel PETSc numerical software library to enhance its computational capabilities.</p>
-                        <img src="images/isoDepict.jpg" alt="Quanyan">
-                        </a>
-                    </div>
-                    <!-- Repeat for each project -->
-                    <div class="project-item">
-                        <a href="projects/isoDepict.html">
-                            <h2>Ostium</h2>
-                            <p>Ostium is a collection of geospatial utilities developed in C++ and Python. It includes routines for river and waterbody identification, mapping visualisations, and parameter estimation and retrieval. Designed to be integrated with my other developed software.</p>
-                            <img src="images/isoDepict.jpg" alt="Quanyan">
-                        </a>
-                    </div>
+        <div id="projects-grid">
 
-                    <div class="project-item">
-                        <a href="projects/isoDepict.html">
-                            <h2>Aestuarium</h2>
-                            <p>Aesturaium is a 3D visualization engine and sandbox written in C++ and utilizing the Vulkan API. It is designed to be compatible with data from my other projects, Quanyan and Torrentem.</p>
-                            <div class="image-container">
-                                <img src="images/isoDepict.jpg" alt="IsoDepict">
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="project-item">
-                        <a href="projects/isoDepict.html">
-                            <h2>Holm</h2>
-                            <p>Holm is a personal website I am developing to chronicle my PhD journey and various academic, professional and personal passion endeavours. It serves as a platform where I share updates, insights, and breakthroughs, offering a comprehensive view of my progress and achievements.</p>
-                            <div class="image-container">
-                                <img src="images/isoDepict.jpg" alt="IsoDepict">
-                            </div>
-                        </a>
-                    </div>
-
-
-                    <!-- ... more projects -->
-
-                </div>
+            <div class="project-item">
+                <a href="projects/isoDepict.html">
+                    <h2>Torrentem</h2>
+                    <p>Torrentem is a parallel CPU/GPU multi-physics solver library developed in C++ to be the key
+                        driver in my PhD research. Developed to be used in a powerful and flexible way, it implements
+                        advanced numerical techniques such as RBVMS and stabilised finite element formulations, a
+                        level-set method, custom GPU based linear solvers, and a mesh partitioning and MPI communication
+                        model for Parallel CPU on multi-node HPCs. Currently closed source.</p>
+                    <img src="images/ProjectDirectory-Torrentem.png" alt="Torrentem">
+                </a>
             </div>
+            <!-- Repeat for each project -->
+            <div class="project-item">
+                <a href="projects/isoDepict.html">
+                    <h2>Vat Photo-polymerization Testbed</h2>
+                    <p>Using my Torrentem library, this project is a testbed for testing numerical modelling of vat based
+                        photo-polymerization. Vat photo-polymerization is a type of additive manufacturing, that involves
+                        the curing of a liquid polymer into a desired solid structure.</p>
+                    <img src="images/ProjectDirectory-VatPhotoPolymerization.png" alt="Vat Photo-Polymerization">
+                </a>
+            </div>
+            <div class="project-item">
+                <a href="projects/isoDepict.html">
+                    <h2>Numerical Wave Tank</h2>
+                    <p>Using my Torrentem library, this project is the implementation of a numerical wave tank. Which is
+                        used as a testbed for investigating new phenomena and numerical techniques in
+                        oceanography/surface hydrodynamic engineering.</p>
+                    <img src="images/ProjectDirectory-NumericalWaveTank.png" alt="Numerical Wave Tank">
+                </a>
+            </div>
+
+            <!-- ... more projects -->
+
         </div>
+    </div>
+</div>
 
-        <!--
-        <div class="footer-container">
-            <footer>
-                <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
-            </footer>
-        </div>
-        -->
+<!--
+<div class="footer-container">
+    <footer>
+        <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
+    </footer>
+</div>
+-->
 
-        <script src="functions.js"></script>
+<script src="functions.js"></script>
 
-    </body>
+</body>
 </html>

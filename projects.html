@@ -23,61 +23,56 @@
 </head>
 
 <body>
+<div class="wrapper">
+    <div id="container">
 
-<div id="container">
+        <div id="sidebar-placeholder"></div>
 
-    <div id="sidebar-placeholder"></div>
+        <div id="main-content" data-page="projects">
+            <h1>Projects</h1>
 
-    <div id="main-content" data-page="projects">
+            <div id="projects-grid">
 
-        <h1>Projects</h1>
+                <div class="project-item">
+                    <a href="projects/isoDepict.html">
+                        <h2>Torrentem</h2>
+                        <p>Torrentem is a parallel CPU/GPU multi-physics solver library developed in C++ to be the key
+                            driver in my PhD research. Developed to be used in a powerful and flexible way, it implements
+                            advanced numerical techniques such as RBVMS and stabilised finite element formulations, a
+                            level-set method, custom GPU based linear solvers, and a mesh partitioning and MPI communication
+                            model for Parallel CPU on multi-node HPCs. Currently closed source.</p>
+                        <img src="images/ProjectDirectory-Torrentem.png" alt="Torrentem" class="content-image">
+                    </a>
+                </div>
+                <!-- Repeat for each project -->
+                <div class="project-item">
+                    <a href="projects/isoDepict.html">
+                        <h2>Vat Photo-polymerization Testbed</h2>
+                        <p>Using my Torrentem library, this project is a testbed for testing numerical modelling of vat based
+                            photo-polymerization. Vat photo-polymerization is a type of additive manufacturing, that involves
+                            the curing of a liquid polymer into a desired solid structure.</p>
+                        <img src="images/ProjectDirectory-VatPhotoPolymerization.png" alt="Vat Photo-Polymerization" class="content-image">
+                    </a>
+                </div>
+                <div class="project-item">
+                    <a href="projects/isoDepict.html">
+                        <h2>Numerical Wave Tank</h2>
+                        <p>Using my Torrentem library, this project is the implementation of a numerical wave tank. Which is
+                            used as a testbed for investigating new phenomena and numerical techniques in
+                            oceanography/surface hydrodynamic engineering.</p>
+                        <img src="images/ProjectDirectory-NumericalWaveTank.png" alt="Numerical Wave Tank" class="content-image">
+                    </a>
+                </div>
 
-        <div id="projects-grid">
+                <!-- ... more projects -->
 
-            <div class="project-item">
-                <a href="projects/isoDepict.html">
-                    <h2>Torrentem</h2>
-                    <p>Torrentem is a parallel CPU/GPU multi-physics solver library developed in C++ to be the key
-                        driver in my PhD research. Developed to be used in a powerful and flexible way, it implements
-                        advanced numerical techniques such as RBVMS and stabilised finite element formulations, a
-                        level-set method, custom GPU based linear solvers, and a mesh partitioning and MPI communication
-                        model for Parallel CPU on multi-node HPCs. Currently closed source.</p>
-                    <img src="images/ProjectDirectory-Torrentem.png" alt="Torrentem">
-                </a>
             </div>
-            <!-- Repeat for each project -->
-            <div class="project-item">
-                <a href="projects/isoDepict.html">
-                    <h2>Vat Photo-polymerization Testbed</h2>
-                    <p>Using my Torrentem library, this project is a testbed for testing numerical modelling of vat based
-                        photo-polymerization. Vat photo-polymerization is a type of additive manufacturing, that involves
-                        the curing of a liquid polymer into a desired solid structure.</p>
-                    <img src="images/ProjectDirectory-VatPhotoPolymerization.png" alt="Vat Photo-Polymerization">
-                </a>
-            </div>
-            <div class="project-item">
-                <a href="projects/isoDepict.html">
-                    <h2>Numerical Wave Tank</h2>
-                    <p>Using my Torrentem library, this project is the implementation of a numerical wave tank. Which is
-                        used as a testbed for investigating new phenomena and numerical techniques in
-                        oceanography/surface hydrodynamic engineering.</p>
-                    <img src="images/ProjectDirectory-NumericalWaveTank.png" alt="Numerical Wave Tank">
-                </a>
-            </div>
-
-            <!-- ... more projects -->
-
         </div>
     </div>
-</div>
 
-<!--
-<div class="footer-container">
-    <footer>
-        <p>Copyright © 2024 Adam Lawrence | All rights reserved.</p>
-    </footer>
+    <div id="footer-placeholder"></div>
+
 </div>
--->
 
 <script src="functions.js"></script>
 

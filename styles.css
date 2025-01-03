@@ -30,69 +30,55 @@
     --hover-color: var(--light-theme-hover-color);
 }
 
-
-.active {
-    color: #ff0000; /* or any style to denote active state */
-}
-
-body, html {
-
+/* Global Reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure html and body take up the full height */
+html, body {
     height: 100%;
     font-family: 'Noto Serif SC', serif;
-    display: flex;
-    flex-direction: column;
     background-color: var(--background-color);
     color: var(--text-color);
-    min-height: 100vh;
+    scroll-behavior: smooth; /* Enable smooth scrolling */
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    margin: 0;
-    padding: 0;
-}
-
-a:hover,
-a:focus {
-    color: #1abc9c;
-    text-decoration: none;
-}
-
-#container {
-    background-color: var(--background-color);
+/* Flex container to manage layout */
+.wrapper {
     display: flex;
-    margin: 0 auto; /* Center the container */
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Container for Sidebar and Main Content */
+#container {
+    display: flex;
+    flex: 1; /* Allows the container to expand and fill available space */
+    margin: 0 auto; /* Center the container horizontally */
     padding: 0;
     max-width: 1000px; /* Adjust the max-width as needed */
     width: 100%; /* Ensures it takes full width up to the max-width */
 }
 
-
-
 /* Sidebar Styles */
 #sidebar {
-    flex-shrink: 0; /* Prevents the item from shrinking */
-    flex-grow: 1; /* Allows the sidebar to grow */
+    flex-shrink: 0; /* Prevents the sidebar from shrinking */
+    width: 15em;
     background-color: var(--sidebar-color);
     color: var(--text-color);
-    width: 15em;
     position: sticky;
     top: 1vh;
-    overflow-y: hidden; /* Disable vertical scrollbar */
+    overflow-y: auto; /* Enable vertical scrollbar if content overflows */
     height: 98vh;
-
     max-height: 50em;
-
 
     padding: 1em;
     text-align: center;
-    border-style: solid;
-    border-color: var(--border-color);
+    border: 0.2em solid var(--border-color);
     border-radius: 1.5em;
-    border-width: 0.2em;
-    box-sizing: border-box;
     margin: 0.5em;
 
     display: flex; /* Make it a flex container */
@@ -116,7 +102,6 @@ a:focus {
     height: 10em;
     border-radius: 50%;
     background-color: #aaa; /* Placeholder */
-
     overflow: hidden;
     flex-shrink: 0; /* Prevents profile photo from shrinking */
     flex-grow: 0; /* Prevents profile photo from growing */
@@ -136,7 +121,6 @@ a:focus {
     font-weight: bold;
 }
 
-
 #sidebar h3, #sidebar a {
     color: var(--text-color);
     text-decoration: none;
@@ -154,11 +138,9 @@ a:focus {
 #sidebar-bio {
     display: block;
     font-size: 1em;
-
     margin-top: 0;
     margin-bottom: 0.5em;
     font-style: italic;
-
 }
 
 /* Sidebar Navbar Styles */
@@ -184,7 +166,6 @@ a:focus {
 #sidebar-navbar li {
     border: 0.1em solid var(--border-color);
     border-radius: 15px;
-    box-sizing: border-box;
     width: 100%;
     flex-grow: 1; /* Allows each li to grow and fill the space */
     flex-shrink: 1; /* Allows each li to shrink if necessary */
@@ -254,10 +235,7 @@ a:focus {
     transform: scale(1.1); /* Slightly increase the size */
 }
 
-
-
 /* Theme and language toggle styling */
-
 #theme-toggle, #language-toggle {
     position: absolute;
     top: 0.6em;
@@ -270,7 +248,6 @@ a:focus {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
-
 }
 
 #theme-toggle {
@@ -280,8 +257,6 @@ a:focus {
 #language-toggle {
     right: 0.5em;
 }
-
-
 
 #language-toggle i#language-english, #language-toggle i#language-chinese {
     font-style: normal;
@@ -296,67 +271,65 @@ a:focus {
 }
 
 /* Main Content Styles */
-#main-content p, #main-content li {
-    font-family: 'Roboto', sans-serif;
+#main-content {
+    /* Removed max-width and margin to prevent affecting sibling sections */
+    flex: 1; /* Allows the main content to expand */
+    padding: 40px 2em;
+    width: 100%; /* Ensure it takes full width within its container */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    font-size: 1.1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
 }
 
-#main-content {
-    flex-grow: 1;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 1em;
-    padding-top: 0.3em;
+/* 1. Remove underlines for links in #main-content */
+#main-content a {
+    color: #1a73e8;
+    text-decoration: none; /* Removed underline */
+    transition: color 0.3s;
+}
+
+#main-content a:hover,
+#main-content a:focus {
+    color: #0c47a1;
+    /* Removed text-decoration: none; since it's already none */
+}
+
+/* 2. Ensure paragraphs in the project grid are unaffected */
+/* The following styles target only p elements within #main-content */
+#main-content p {
+    margin-bottom: 1.2em;
     text-align: justify;
 }
 
-
-#main-content h1 {
-    text-align: center;
-    margin-bottom: 0.2em;
+/* If #projects-grid is outside of #main-content, no additional changes are needed */
+/* However, if #projects-grid is inside #main-content, override the p styles */
+#projects-grid p {
+    margin-bottom: 0; /* Reset margin */
+    text-align: left; /* Reset text alignment */
+    font-size: 1em; /* Reset font size */
+    font-style: normal; /* Reset font style */
 }
 
-
-.scrollable-space {
-    height: 2000px;
+/* Optionally, if you want to ensure that only p's directly under #main-content are styled */
+#main-content > p {
+    margin-bottom: 1.2em;
+    text-align: justify;
 }
 
-.content-link {
-    color: #0077cc;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-    font-weight: bold;
+/* If #projects-grid is nested deeper, adjust accordingly */
+#main-content #projects-grid p {
+    /* Override styles if necessary */
+    margin-bottom: 0;
+    text-align: left;
+    font-size: 1em;
+    font-style: normal;
 }
 
-.content-link:hover,
-.content-link:focus {
-    color: #005599;
-    background-color: #e0e0e0;
-}
-
-a:hover,
-a:focus {
-    color: #1abc9c;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-
-}
-
-#main-content h1 {
-    text-align: center;
-    padding-bottom: 0.1em;
-    padding-top: 0.05em;
-    font-size: 3em;
-}
-
-#main-content img.content-image,
-#individual-content img.content-image {
-    max-width: 80%;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-}
-
+/* Publications List */
 #publications-list {
     padding-left: 20px;
 }
@@ -365,9 +338,7 @@ a:focus {
     margin-bottom: 10px;
 }
 
-
 /* Project list styling */
-
 #projects-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2 columns */
@@ -380,17 +351,14 @@ a:focus {
     text-align: center;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
-    border-style: solid;
-    border-color: var(--border-color);
+    border: 0.2em solid var(--border-color);
     border-radius: 1.3em;
-    border-width: 0.2em;
     box-sizing: border-box;
 }
 
 .project-item a {
     display: block; /* Makes the entire area clickable */
-    padding: 0.8em; /* Moved padding from .project-item to here */
-    padding-top: 0.1em;
+    padding: 0.8em 0.8em 0.1em 0.8em; /* Adjusted padding */
     color: inherit; /* Ensures the text color is inherited */
     text-decoration: none; /* Removes the underline from links */
     height: 100%; /* Ensures the link covers the entire item */
@@ -422,7 +390,6 @@ a:focus {
     text-align: justify;
     margin-top: 0.1em;
     font-style: italic;
-
 }
 
 .project-item a:hover, .project-item a:focus {
@@ -431,36 +398,25 @@ a:focus {
 }
 
 /* Specific project styling */
-
 #individual-content p, #individual-content li {
     font-family: 'Roboto', sans-serif;
 }
 
 #individual-content {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: 1em;
-    padding-top: 0.3em;
-
+    padding: 0.3em 1em 1em 1em;
     text-align: justify;
 }
-
-
 
 #writings-directory {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 1em;
-
-
 }
-
 
 [data-page="writings"] h1, [data-page="publications"] h1 {
     text-align: left;
     font-size: 2.5em;
     margin-bottom: 0.5em;
     margin-left: 0.3em;
-
 }
 
 #writings-directory .writing-item {
@@ -491,13 +447,10 @@ a:focus {
     text-decoration: none; /* Ensures no underline on hover/focus */
 }
 
-
-
 #writings-directory .explanatory-text {
     font-size: 1em; /* Make the text slightly larger for readability */
     margin-left: 0.25em;
     font-style: italic; /* Makes the text italic */
-
 }
 
 #writings-directory .writing-meta {
@@ -548,63 +501,46 @@ header a {
     text-decoration: none;
 }
 
-
-
-/* Footer styling */
-
-
-
+/* Footer container styles */
 .footer-container {
-    background-color: var(--background-color); /* Match the footer background color */
-    padding: 0; /* Ensure no padding affects the layout */
-    margin: 0 auto; /* Center the container */
-    max-width: 1000px; /* Adjust the max-width as needed */
-    width: 100%; /* Ensures it takes full width up to the max-width */
+    background-color: var(--header-and-footer-color); /* Footer background */
+    padding: 0; /* Remove default padding */
+    max-width: 1000px; /* Adjust as needed */
+    width: 100%; /* Full width up to max-width */
+    margin: 0 auto; /* Center horizontally */
 }
 
+/* Footer styles */
 footer {
-    background-color: var(--header-and-footer-color);
     color: white;
-
     font-size: 0.75em;
-
     text-align: center;
-    bottom: 0;
-    margin-bottom: 0;
     width: 100%;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-
-
-    line-height: 0.1; /* Adjust line height to reduce space */
-    /*border-top-left-radius: 3em; /* Rounded top left corner */
-    /*border-top-right-radius: 3em; /* Rounded top right corner */
-
+    line-height: 1.2; /* Adjust line height */
 
     display: flex;           /* Enable flexbox */
     justify-content: center; /* Center horizontally */
     align-items: center;     /* Center vertically */
 
+    border-top: 0.2em solid var(--border-color); /* Top border */
+    border-left: 0.2em solid var(--border-color); /* Left border */
+    border-right: 0.2em solid var(--border-color); /* Right border */
+    border-bottom: none; /* No bottom border */
 
-    border-top: 0.2em solid var(--border-color); /* Border on the top */
-    border-left: 0.2em solid var(--border-color); /* Border on the left */
-    border-right: 0.2em solid var(--border-color); /* Border on the right */
-    border-bottom: none; /* No border on the bottom */
-    margin-top: auto;
-    padding-bottom: 0.4em; /* No padding */
+    padding: 0.4em 0; /* Vertical padding */
 }
 
+/* Media Queries */
 
+/* Responsive Design for Smaller Screens */
 @media (max-width: 60em) {
     #projects-grid {
-        display: grid;
-        gap: 20px;
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
-
 @media screen and (min-height: 501px) and (max-height: 770px) and (min-width: 501px)  {
-
     #sidebar {
         height: 90vh;
         display: flex;
@@ -619,7 +555,6 @@ footer {
     #sidebar h2 {
         margin-top: 0.2em;
         font-size: 2em;
-
     }
 
     #sidebar-navbar li {
@@ -632,32 +567,28 @@ footer {
     }
 }
 
-
-
 @media screen and (min-height: 501px) and (max-height: 630px) and (min-width: 501px) {
     #sidebar-bio {
         display: none;
     }
 }
 
-/* Styles for mobile devices and thin and short screens*/
+/* Styles for mobile devices and thin and short screens */
 @media screen and (max-width: 500px), (max-height: 500px), (pointer: none), (pointer: coarse) {
 
     #writings-directory {
-
         width: 90%;
     }
 
     #container {
-        display: flex;
         flex-direction: column;
         width: 100%;
         align-items: stretch;
     }
 
     #profile-photo {
-        width: 10em;
-        height: 10em;
+        width: 6em; /* Reduced size for mobile */
+        height: 6em; /* Reduced size for mobile */
         border-radius: 50%;
         background-color: #aaa; /* Placeholder */
         overflow: hidden;
@@ -670,7 +601,6 @@ footer {
         width: 100%;
         height: 100%;
         object-fit: cover;
-
     }
 
     #sidebar {
@@ -687,20 +617,13 @@ footer {
         overflow-y: hidden;
         padding: 10px;
         text-align: center;
-        border-style: solid;
-        border-color: var(--border-color);
-        border-radius: 0;
-        border-width: 0;
-        order: -1;
+        border: none;
         border-right: none;
         margin: 0;
-        /*padding-bottom: 48em;*/
     }
 
     #main-content {
         text-align: justify;
-        order: 1;
-
     }
 
     #sidebar-navbar ul {
@@ -720,12 +643,11 @@ footer {
     }
 
     #projects-grid {
-
         grid-template-columns: 1fr;
     }
 }
 
-/* Scrollbar formatting */
+/* Scrollbar Formatting */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -749,7 +671,6 @@ html {
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
-
 /* Dark Theme Styling */
 .dark-theme {
     --border-color: var(--dark-theme-border-color);
@@ -759,8 +680,6 @@ html {
     --hover-color: var(--dark-theme-hover-color);
     --header-and-footer-color: var(--dark-theme-header-and-footer-color);
 }
-
-
 
 /* Fade-in styling */
 .fade-in {
@@ -774,7 +693,3 @@ html {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
-
-
-

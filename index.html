@@ -2,122 +2,66 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Adam Lawrence</title>
-        <link rel="stylesheet" href="styles.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
-              rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Lawrence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 
-        <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
-        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-        <link rel="manifest" href="images/favicon/site.webmanifest"/>
-        <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <link rel="manifest" href="images/favicon/site.webmanifest"/>
+    <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
 
-    </head>
+<body>
+<div class="wrapper">
+    <div id="container">
 
-    <body>
+        <!-- Sidebar -->
+        <div id="sidebar-placeholder"></div>
 
-        <div id="container">
+        <!-- Main Content -->
+        <div id="main-content" data-page="about-me">
+            <h1>About Me</h1>
 
-            <!-- Sidebar -->
-            <div id="sidebar-placeholder"></div>
+            <p>I am eagerly preparing to embark on my PhD journey in computational mechanics, specifically fluid-structure
+                interaction within the Civil and Environmental Engineering department at the University of Illinois at
+                Urbana-Champaign, commencing in August 2024. Originally from Melbourne, Australia, I completed both my
+                bachelor's and master’s in environmental engineering at The University of Melbourne.</p>
 
-            <!-- Main Content -->
-            <div id="main-content" data-page="about-me">
+            <p>On this website you will find the numerous pursuits that take up my time. From the work I am undertaking
+                during my PhD, my personal passion projects, as well as my writings on a wide range of topics that interest
+                me.
 
-                <h1>About Me</h1>
+                In my Projects section you will see, primarily the Torrentem, which has helped me develop.
 
-                <p>I am eagerly preparing to embark on my PhD journey in computational mechanics, specifically fluid-structure
-                    interaction within the Civil and Environmental Engineering department at the University of Illinois at
-                    Urbana-Champaign, commencing in August 2024. Originally from Melbourne, Australia, I completed both my
-                    bachelor's and master’s in environmental engineering at The University of Melbourne.</p>
+                In my writing section you
 
-                <p>On this website you will find the numerous pursuits that take up my time. From the work I am undertaking
-                    during my PhD, my personal passion projects, as well as my writings on a wide range of topics that interest
-                    me.
+                In my Publications page you will view the papers that I am currently working on and have published thus far
 
-                    In my Projects section you will see, primarily the Torrentem, which has helped me develop.
+            </p>
 
-                    In my writing section you
-
-                    In my Publications page you will view the papers that I am currently working on and have published thus far
-
-
-                </p>
+            <p>My journey is defined by projects like <a href="projects.html#torrentem">Torrentem</a>, a parallel solver for multi-physics simulations; <a href="projects.html#vat-photo-polymerization">Vat Photo-Polymerization</a>, modeling additive manufacturing; and the <a href="projects.html#numerical-wave-tank">Numerical Wave Tank</a>, simulating oceanographic dynamics. Discover more on the <a href="projects.html">Projects page</a>.</p>
 
 
-                <p>If you have any enquiries or thoughts, I would be delighted to engage with you, feel free contact me through
-                    any means given in the navigation pane. </p>
-
-            </div>
+            <p>If you have any enquiries or thoughts, I would be delighted to engage with you, feel free contact me through
+                any means given in the navigation pane. </p>
         </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</div>
 
 
-        <div class="footer-container">
-            <footer>
-                <p>
-                    &copy; 2025 Adam Lawrence | Last updated on
-                    <span id="last-updated">Loading...</span>
-                </p>
-            </footer>
-        </div>
-
-        <script>
-            const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username
-            const GITHUB_REPO = 'Holm'; // Replace with your repository name
-
-            const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits`;
-
-            async function displayLastUpdated() {
-                const cacheKey = 'lastUpdatedDate';
-                const cacheTimeKey = 'lastUpdatedTime';
-                const cacheDuration = 60 * 60 * 1000; // 1 hour in milliseconds
-
-                const cachedDate = localStorage.getItem(cacheKey);
-                const cachedTime = localStorage.getItem(cacheTimeKey);
-                const now = Date.now();
-
-                if (cachedDate && cachedTime && (now - cachedTime) < cacheDuration) {
-                    document.getElementById('last-updated').textContent = cachedDate;
-                    return;
-                }
-
-                try {
-                    const response = await fetch(commitsApiUrl);
-                    if (!response.ok) {
-                        throw new Error(`GitHub API error: ${response.status}`);
-                    }
-                    const commits = await response.json();
-                    if (commits.length === 0) {
-                        document.getElementById('last-updated').textContent = 'No commits found.';
-                        return;
-                    }
-                    const latestCommitDate = new Date(commits[0].commit.committer.date);
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    const formattedDate = latestCommitDate.toLocaleDateString(undefined, options);
-                    document.getElementById('last-updated').textContent = formattedDate;
-
-                    // Cache the result
-                    localStorage.setItem(cacheKey, formattedDate);
-                    localStorage.setItem(cacheTimeKey, now);
-                } catch (error) {
-                    console.error('Error fetching the latest commit:', error);
-                    document.getElementById('last-updated').textContent = 'Unavailable';
-                }
-            }
-
-            window.onload = displayLastUpdated;
-        </script>
-
-
-        <script src="functions.js"></script>
-
-    </body>
+<!-- External Script -->
+<script src="functions.js"></script>
+</body>
 </html>

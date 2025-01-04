@@ -28,6 +28,21 @@
     --light-theme-hover-color: #e7f5ff;
     --dark-theme-hover-color: #37474F;
     --hover-color: var(--light-theme-hover-color);
+
+    /* Link Colors */
+    --link-color: #1a73e8; /* Distinct blue for main links */
+    --link-hover-color: #1558b0; /* Darker blue for hover */
+}
+
+/* Dark Theme Styling */
+.dark-theme {
+    --border-color: var(--dark-theme-border-color);
+    --text-color: var(--dark-theme-text-color);
+    --background-color: var(--dark-theme-background-color);
+    --sidebar-color: var(--dark-theme-sidebar-color);
+    --hover-color: var(--dark-theme-hover-color);
+    --header-and-footer-color: var(--dark-theme-header-and-footer-color);
+    --link-hover-color: #9ecbff; /* Lighter blue for dark theme hover */
 }
 
 /* Global Reset */
@@ -44,6 +59,34 @@ html, body {
     background-color: var(--background-color);
     color: var(--text-color);
     scroll-behavior: smooth; /* Enable smooth scrolling */
+}
+
+/* Global Link Styles */
+a {
+    color: var(--link-color); /* Distinct blue for main links */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s;
+}
+
+a:hover,
+a:focus {
+    color: var(--link-hover-color); /* Darker blue on hover */
+}
+
+/* Override Link Styles for Sidebar */
+#sidebar a {
+    color: var(--text-color); /* Default text color */
+}
+
+#sidebar a:hover,
+#sidebar a:focus {
+    color: var(--text-color); /* Maintain default color on hover */
+    text-decoration: none; /* Remove underline on hover */
+    /* Optional: Add a subtle transformation or color change for hover effect */
+    /* Example: Slightly darken the text color */
+    /* color: #555; */
+    /* Or change font-weight */
+    /* font-weight: bold; */
 }
 
 /* Flex container to manage layout */
@@ -178,7 +221,8 @@ html, body {
 }
 
 #sidebar-navbar a {
-    color: var(--text-color);
+    /* Removed specific color assignment to use global link color */
+    /* color: var(--text-color); */
     text-decoration: none;
     display: flex; /* Make the a tag a flex container */
     align-items: center; /* Center the content vertically */
@@ -187,11 +231,12 @@ html, body {
     height: 100%; /* Make the a tag take full height of the li */
     font-size: 1.1em;
     margin: 0;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #sidebar-navbar li:hover,
 #sidebar-navbar li:focus-within {
-    background-color: #e0e0e0;
+    background-color: var(--hover-color);
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -272,41 +317,34 @@ html, body {
 
 /* Main Content Styles */
 #main-content {
-    /* Removed max-width and margin to prevent affecting sibling sections */
     flex: 1; /* Allows the main content to expand */
     padding: 40px 2em;
     width: 100%; /* Ensure it takes full width within its container */
-    background-color: var(--background-color);
-    color: var(--text-color);
     line-height: 1.6;
-    font-size: 1.1em;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* 1. Remove underlines for links in #main-content */
+#main-content h1 {
+    font-family: 'Playfair Display', serif; /* Enhanced font for headings */
+    font-size: 3em; /* Increased font size */
+    margin-bottom: 0.5em;
+    color: var(--text-color);
+    border-bottom: 0.2em solid var(--border-color);
+    padding-bottom: 0.2em;
+}
+
 #main-content a {
-    color: #1a73e8;
-    text-decoration: none; /* Removed underline */
-    transition: color 0.3s;
+    /* Inherited styles handle link colors */
+    text-decoration: none;
+    /* Transition is already handled globally */
 }
 
-#main-content a:hover,
-#main-content a:focus {
-    color: #0c47a1;
-    /* Removed text-decoration: none; since it's already none */
-}
 
-/* 2. Ensure paragraphs in the project grid are unaffected */
-/* The following styles target only p elements within #main-content */
 #main-content p {
     margin-bottom: 1.2em;
     text-align: justify;
 }
 
-/* If #projects-grid is outside of #main-content, no additional changes are needed */
-/* However, if #projects-grid is inside #main-content, override the p styles */
 #projects-grid p {
     margin-bottom: 0; /* Reset margin */
     text-align: left; /* Reset text alignment */
@@ -314,13 +352,11 @@ html, body {
     font-style: normal; /* Reset font style */
 }
 
-/* Optionally, if you want to ensure that only p's directly under #main-content are styled */
 #main-content > p {
     margin-bottom: 1.2em;
     text-align: justify;
 }
 
-/* If #projects-grid is nested deeper, adjust accordingly */
 #main-content #projects-grid p {
     /* Override styles if necessary */
     margin-bottom: 0;
@@ -341,7 +377,7 @@ html, body {
 /* Project list styling */
 #projects-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 columns */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
     gap: 1.5em;
 }
 
@@ -357,12 +393,17 @@ html, body {
 }
 
 .project-item a {
+    color: inherit; /* Ensure they inherit the default text color */
+    text-decoration: none; /* Remove underline */
     display: block; /* Makes the entire area clickable */
-    padding: 0.8em 0.8em 0.1em 0.8em; /* Adjusted padding */
-    color: inherit; /* Ensures the text color is inherited */
-    text-decoration: none; /* Removes the underline from links */
+    padding: 0.8em;
     height: 100%; /* Ensures the link covers the entire item */
     transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.project-item a:hover, .project-item a:focus {
+    background-color: var(--hover-color); /* More visually appealing hover state color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
 }
 
 .project-item .image-container {
@@ -379,10 +420,7 @@ html, body {
 
 .project-item h2 {
     font-size: 2em;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin: 0.5em 0;
 }
 
 .project-item p {
@@ -390,11 +428,6 @@ html, body {
     text-align: justify;
     margin-top: 0.1em;
     font-style: italic;
-}
-
-.project-item a:hover, .project-item a:focus {
-    background-color: var(--hover-color); /* More visually appealing hover state color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
 }
 
 /* Specific project styling */
@@ -429,7 +462,7 @@ html, body {
 }
 
 #writings-directory a {
-    color: #1a76d2; /* Retains the blue color */
+    color: var(--link-color); /* Inherit the global link color */
     font-size: 1.5em; /* Keeps the font size larger */
     font-weight: bold; /* Keeps the title bold */
     margin-bottom: 0.25em; /* Keeps the bottom margin */
@@ -442,7 +475,7 @@ html, body {
 
 #writings-directory a:hover,
 #writings-directory a:focus {
-    color: #0d47a1; /* Darker blue on hover/focus */
+    color: var(--link-hover-color); /* Use hover color variable */
     background-color: #c8d1f0; /* Changes background on hover/focus */
     text-decoration: none; /* Ensures no underline on hover/focus */
 }
@@ -499,6 +532,12 @@ header li {
 header a {
     color: white;
     text-decoration: none;
+    transition: color 0.3s;
+}
+
+header a:hover,
+header a:focus {
+    color: var(--link-hover-color); /* Optional: Change link color on hover in header */
 }
 
 /* Footer container styles */
@@ -669,16 +708,6 @@ html {
 
 * {
     -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-
-/* Dark Theme Styling */
-.dark-theme {
-    --border-color: var(--dark-theme-border-color);
-    --text-color: var(--dark-theme-text-color);
-    --background-color: var(--dark-theme-background-color);
-    --sidebar-color: var(--dark-theme-sidebar-color);
-    --hover-color: var(--dark-theme-hover-color);
-    --header-and-footer-color: var(--dark-theme-header-and-footer-color);
 }
 
 /* Fade-in styling */

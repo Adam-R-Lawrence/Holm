@@ -1,3 +1,2 @@
-To-Do List for 5/1/2025
-#TODO: Resume website logo
-#TODO: New Logo
+To-Do List for 6/1/2025
+# TODO: Bottom of Footer fix

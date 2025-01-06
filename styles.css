@@ -45,6 +45,17 @@
     --link-hover-color: #9ecbff; /* Lighter blue for dark theme hover */
 }
 
+.content-image {
+    display: block; /* Center the image in the container */
+    /* Center the image horizontally */
+    width: 90%; /* Adjust image size relative to the container */
+    border-radius: 8px; /* Add smooth rounded corners */
+    border: 0.2em solid transparent; /* Add a light border for definition */
+    transition: transform 0.2s ease-in-out; /* Smooth zoom effect on hover */
+    margin: 1em auto 0;
+}
+
+
 /* Global Reset */
 * {
     margin: 0;
@@ -340,29 +351,16 @@ a:focus {
 }
 
 
-#main-content p {
-    margin-bottom: 1.2em;
-    text-align: justify;
-}
 
-#projects-grid p {
-    margin-bottom: 0; /* Reset margin */
-    text-align: left; /* Reset text alignment */
-    font-size: 1em; /* Reset font size */
-    font-style: normal; /* Reset font style */
-}
 
-#main-content > p {
+#main-content  p {
     margin-bottom: 1.2em;
     text-align: justify;
 }
 
 #main-content #projects-grid p {
-    /* Override styles if necessary */
-    margin-bottom: 0;
-    text-align: left;
-    font-size: 1em;
-    font-style: normal;
+    margin-bottom: 1.2em;
+    text-align: justify;
 }
 
 /* Publications List */
@@ -382,17 +380,25 @@ a:focus {
 }
 
 .project-item {
+    text-align: justify;
     display: flex;
     flex-direction: column;
-    text-align: center;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
     border: 0.2em solid var(--border-color);
     border-radius: 1.3em;
     box-sizing: border-box;
+
 }
 
+.project-item:hover {
+    transform: scale(1.03); /* Slight zoom on hover */
+}
+
+
 .project-item a {
+    text-align: justify;
+
     color: inherit; /* Ensure they inherit the default text color */
     text-decoration: none; /* Remove underline */
     display: block; /* Makes the entire area clickable */
@@ -419,16 +425,11 @@ a:focus {
 }
 
 .project-item h2 {
-    font-size: 2em;
-    margin: 0.5em 0;
+    font-size: 2.5em;
+    margin: 0.1em 0;
 }
 
-.project-item p {
-    font-size: 0.9em;
-    text-align: justify;
-    margin-top: 0.1em;
-    font-style: italic;
-}
+
 
 /* Specific project styling */
 #individual-content p, #individual-content li {
@@ -451,6 +452,8 @@ a:focus {
     margin-bottom: 0.5em;
     margin-left: 0.3em;
 }
+
+
 
 #writings-directory .writing-item {
     display: flex;

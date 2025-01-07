@@ -375,7 +375,8 @@ a:focus {
 /* Project list styling */
 #projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    grid-template-columns: repeat(1, 1fr);
     gap: 1.5em;
 }
 
@@ -427,6 +428,7 @@ a:focus {
 .project-item h2 {
     font-size: 2.5em;
     margin: 0.1em 0;
+    text-align: center;
 }
 
 

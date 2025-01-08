@@ -426,10 +426,21 @@ a:focus {
 }
 
 .project-item h2 {
-    font-size: 2.5em;
+    /*
+      clamp(MIN, preferred, MAX)
+      - MIN: The smallest font size (e.g., 1.5em)
+      - preferred: A responsive unit like 5vw (5% of the viewport width)
+      - MAX: The largest font size (e.g., 2.5em)
+    */
+    font-size: clamp(1.5em, 5vw, 2.5em);
     margin: 0.1em 0;
     text-align: center;
+
+    /* Ensure the text wraps and doesn't overflow */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
+
 
 
 

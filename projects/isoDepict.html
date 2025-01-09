@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adam Lawrence - Vadum</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 
@@ -43,26 +43,8 @@
 
 <body>
 
-<header>
-    <div id="theme-toggle" onclick="toggleTheme()">
-        <i id="theme-sun" class="fas fa-sun" style="display: none;"></i> <!-- Initially visible -->
-        <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i> <!-- Initially hidden -->
-    </div>
+<div id="contentHeader-placeholder"></div>
 
-    <nav>
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../projects.html">Projects</a></li>
-            <li><a href="../writings.html">Writings</a></li>
-            <li><a href="../Adam_Lawrence_Resume.pdf" target="_blank">CV</a></li>
-        </ul>
-    </nav>
-
-    <div id="language-toggle" onclick="toggleLanguage()">
-        <i id="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
-        <i id="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
-    </div>
-</header>
 
 <div id="individual-content">
 
@@ -135,12 +117,11 @@ int main(void){
     <div class="scrollable-space"></div>
 </div>
 
+<div id="footer-placeholder"></div>
 
-<footer>
-    <p>&copy; 2024 Adam Lawrence</p>
-</footer>
 
-<script src="../functions.js"></script>
+<script src="/javascript/functions.js"></script>
+
 
 <script>
     hljs.addPlugin(

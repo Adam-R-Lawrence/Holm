@@ -1,2 +1,4 @@
-To-Do List for 8/1/2025
+# Q1 2025: All styling and About me page is fully complete
+
+To-Do List for 10/1/2025
 # TODO: About Me Image

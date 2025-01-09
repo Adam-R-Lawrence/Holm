@@ -64,3 +64,11 @@ coverage/
 *.njsproj
 *.sln
 *.sw?
+/.idea/
+/.idea/
+/.idea/.gitignore
+/.idea/Holm.iml
+/.idea/material_theme_project_new.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml

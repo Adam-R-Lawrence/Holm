@@ -1,4 +1,13 @@
-# Q1 2025: All styling and About me page is fully complete
+# Q1 2025: All styling and main pages are fully complete
 
-To-Do List for 10/1/2025
-# TODO: About Me Image
+To-Do List for 13/1/2025
+# TODO: Dark Mode fix
+
+
+
+# Useful commands
+ffmpeg -i input.webp -vf "scale=2339:-1" -compression_level 6 -q:v 50 output.webp
+ffmpeg -i input.webp -vf "scale=iw*0.378:ih*0.378" -compression_level 6 -q:v 50 output.webp
+ffmpeg -i input.webp -vf "scale=WIDTH:HEIGHT" -compression_level 6 -q:v 50 output.webp
+
+ffmpeg -i input.png output.webp

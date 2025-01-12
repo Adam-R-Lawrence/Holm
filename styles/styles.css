@@ -476,15 +476,19 @@ a:focus {
 
 #writings-directory a {
     color: var(--link-color); /* Inherit the global link color */
-    font-size: 1.5em; /* Keeps the font size larger */
+    font-size: clamp(1em, 2vw, 1.5em); /* Responsive font size between 1em and 1.5em */
     font-weight: bold; /* Keeps the title bold */
     margin-bottom: 0.25em; /* Keeps the bottom margin */
     padding: 5px 10px; /* Adds padding around the link for better clickability */
     border-radius: 5px; /* Rounds the corners */
     background-color: #e8f0fe; /* Adds a light blue background */
     text-decoration: none; /* Removes underline permanently */
-    transition: color 0.3s ease-in-out, background-color 0.3s ease; /* Smooth transition for color and background */
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+    overflow: hidden; /* Hides overflowing text */
+    text-overflow: ellipsis; /* Adds ellipsis (...) for overflowing text */
+    transition: color 0.3s ease-in-out, background-color 0.3s ease, font-size 0.3s ease; /* Smooth transition for color, background, and font size */
 }
+
 
 #writings-directory a:hover,
 #writings-directory a:focus {

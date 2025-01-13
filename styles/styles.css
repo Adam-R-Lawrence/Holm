@@ -45,57 +45,31 @@
     --link-hover-color: #9ecbff; /* Lighter blue for dark theme hover */
 }
 
-.content-image {
-    display: block;
-    width: 100%;
-    border-radius: 1em;
-    margin-bottom: 1.2em;
-}
 
 
-/* Global Reset */
+/* Global */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-/* Ensure html and body take up the full height */
-html, body {
     font-family: 'Noto Serif SC', serif;
     color: var(--text-color);
     scroll-behavior: smooth;
-    background-color: var(--background-color);
-
 }
+
 
 /* Global Link Styles */
 a {
-    color: var(--link-color); /* Distinct blue for main links */
-    text-decoration: none; /* Remove underline */
+    color: var(--link-color);
+    text-decoration: none;
     transition: color 0.3s;
 }
 
 a:hover,
 a:focus {
-    color: var(--link-hover-color); /* Darker blue on hover */
+    color: var(--link-hover-color);
 }
 
-/* Override Link Styles for Sidebar */
-#sidebar a {
-    color: var(--text-color); /* Default text color */
-}
-
-#sidebar a:hover,
-#sidebar a:focus {
-    color: var(--text-color); /* Maintain default color on hover */
-    text-decoration: none; /* Remove underline on hover */
-    /* Optional: Add a subtle transformation or color change for hover effect */
-    /* Example: Slightly darken the text color */
-    /* color: #555; */
-    /* Or change font-weight */
-    /* font-weight: bold; */
-}
 
 /* Flex container to manage layout */
 .wrapper {
@@ -109,6 +83,7 @@ a:focus {
     width: 100%; /* Ensures it takes full width up to the max-width */
     background-color: var(--background-color);
 }
+
 
 /* Container for Sidebar and Main Content */
 #container {
@@ -254,7 +229,7 @@ a:focus {
 #sidebar-navbar li:focus-within {
     background-color: var(--hover-color);
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #sidebar-logos {
@@ -312,23 +287,23 @@ a:focus {
 }
 
 #theme-toggle {
-    left: 0.5em;
+    position: absolute;
+    left: 0.5em; /* 0.5em from the left edge of the parent */
+    top: 3%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    /* Add other styles as needed */
 }
 
 #language-toggle {
-    right: 0.5em;
+    position: absolute;
+    right: 0.5em; /* 0.5em from the right edge of the parent */
+    top: 3%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    /* Add other styles as needed */
 }
 
 #language-toggle i#language-english, #language-toggle i#language-chinese {
     font-style: normal;
-}
-
-.icon-hidden {
-    display: none;
-}
-
-.icon-shown {
-    display: inline;
 }
 
 /* Main Content Styles */
@@ -357,7 +332,12 @@ a:focus {
 }
 
 
-
+.content-image {
+    display: block;
+    width: 100%;
+    border-radius: 1em;
+    margin-bottom: 1.2em;
+}
 
 #main-content  p {
     margin-bottom: 1.2em;
@@ -411,7 +391,7 @@ a:focus {
     display: block; /* Makes the entire area clickable */
     padding: 0.8em;
     height: 100%; /* Ensures the link covers the entire item */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .project-item a:hover, .project-item a:focus {
@@ -569,8 +549,7 @@ header a:focus {
 
 footer {
     background-color: var(--header-and-footer-color);
-    color: white;
-    font-size: 0.75em;
+    font-size: 0.8em;
     text-align: center;
     line-height: 1.2;
 
@@ -602,7 +581,10 @@ footer {
 
 }
 
+footer p {
+    color: white;
 
+}
 
 
 /* Media Queries */
@@ -709,9 +691,8 @@ footer {
         padding: 10px 0;
     }
 
-    #sidebar-footer {
-        display: none;
-    }
+
+
 
     h1, h2, h3, h4, h5, h6 {
         text-align: center;
@@ -737,24 +718,9 @@ footer {
     border: 3px solid var(--background-color);
 }
 
-html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) var(--sidebar-color);
-}
 
-* {
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-}
+ .hljs-copy-button {
+     --hljs-theme-color: black;
+     --hljs-theme-background: grey;
+ }
 
-/* Fade-in styling */
-.fade-in {
-    opacity: 0;
-    animation: fadeInAnimation ease 0.6s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-
-@keyframes fadeInAnimation {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}

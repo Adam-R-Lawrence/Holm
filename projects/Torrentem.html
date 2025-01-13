@@ -6,13 +6,14 @@
     <title>Adam Lawrence - Vadum</title>
     <link rel="stylesheet" href="/styles/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
+          rel="stylesheet">
 
-    <link rel="icon" href="../images/favicon/favicon.ico" sizes="48x48" >
+    <link rel="icon" href="../images/favicon/favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
     <link rel="apple-touch-icon" href="../images/favicon/apple-touch-icon.png"/>
-    <link rel="manifest" href="../images/favicon/site.webmanifest" />
+    <link rel="manifest" href="../images/favicon/site.webmanifest"/>
     <link rel="mask-icon" href="../images/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
@@ -28,37 +29,24 @@
     />
 
 
-
-    <style>
-        .hljs-copy-button {
-            --hljs-theme-color: black;
-            --hljs-theme-background: grey;
-        }
-
-    </style>
-
-
-
 </head>
 
 <body>
-
-<div id="contentHeader-placeholder"></div>
-
-
-<div id="individual-content">
+<div class="wrapper">
+    <div id="contentHeader-placeholder"></div>
 
 
+    <div id="individual-content">
 
 
-    <h1>Vadum</h1>
+        <h1>Vadum</h1>
 
 
-    <pre><code class="language-js">function readmeDemo() {
+        <pre><code class="language-js">function readmeDemo() {
   alert("Hello world!");
 }</code></pre>
 
-    <pre><code class="language-cpp">
+        <pre><code class="language-cpp">
 /*
 David Cary 2010-09-14
 quick demo for wikibooks
@@ -100,38 +88,39 @@ int main(void){
     vector_demo();
 }</code></pre>
 
-    <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics, finding new ways to bridge human communication and technology.</p>
-    <img src="../images/Test.png" alt="Research" class="content-image">
-    <h2>Current Research</h2>
-    <p>My current project focuses on the semantic analysis of natural language to improve machine understanding. It's a challenging yet thrilling field that combines computer science, artificial intelligence, and linguistics. You can find more about my <a href="research.html" class="content-link">research here</a>.</p>
-    <h2>Publications</h2>
-    <ul class="publications-list">
-        <li>"The Syntax of Silence" - Journal of Linguistics, 2023</li>
-        <li>"Understanding Pragmatics" - Proceedings of ACL, 2022</li>
-        <!-- Add more publications here -->
-    </ul>
-    <h2>Teaching</h2>
-    <p>I am also passionate about teaching and have been involved in several courses related to artificial intelligence and natural language processing.</p>
-    <h2>Contact</h2>
-    <p>Feel free to reach out to me via email or connect with me on social media.</p>
-    <div class="scrollable-space"></div>
+        <p>Welcome to my academic journey. As a PhD student, I delve into the complexities of computational linguistics,
+            finding new ways to bridge human communication and technology.</p>
+        <img src="../images/Test.png" alt="Research" class="content-image">
+        <h2>Current Research</h2>
+        <p>My current project focuses on the semantic analysis of natural language to improve machine understanding.
+            It's a challenging yet thrilling field that combines computer science, artificial intelligence, and
+            linguistics. You can find more about my <a href="research.html" class="content-link">research here</a>.</p>
+        <h2>Publications</h2>
+        <ul class="publications-list">
+            <li>"The Syntax of Silence" - Journal of Linguistics, 2023</li>
+            <li>"Understanding Pragmatics" - Proceedings of ACL, 2022</li>
+            <!-- Add more publications here -->
+        </ul>
+        <h2>Teaching</h2>
+        <p>I am also passionate about teaching and have been involved in several courses related to artificial
+            intelligence and natural language processing.</p>
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me via email or connect with me on social media.</p>
+        <div class="scrollable-space"></div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+
+    <script src="/javascript/functions.js"></script>
 </div>
-
-<div id="footer-placeholder"></div>
-
-
-<script src="/javascript/functions.js"></script>
-
 
 <script>
     hljs.addPlugin(
         new CopyButtonPlugin()
     );
     hljs.highlightAll();
-</script>
 
-
-<script>
     document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelectorAll('pre code').forEach((block) => {
             highlightjsCopy(block);

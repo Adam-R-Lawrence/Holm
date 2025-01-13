@@ -62,11 +62,11 @@
 
 /* Ensure html and body take up the full height */
 html, body {
-    height: 100%;
     font-family: 'Noto Serif SC', serif;
-    background-color: var(--background-color);
     color: var(--text-color);
-    scroll-behavior: smooth; /* Enable smooth scrolling */
+    scroll-behavior: smooth;
+    background-color: var(--background-color);
+
 }
 
 /* Global Link Styles */
@@ -102,6 +102,12 @@ a:focus {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Full viewport height */
+    flex: 1; /* Allows the container to expand and fill available space */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0;
+    max-width: 75em; /* Adjust the max-width as needed */
+    width: 100%; /* Ensures it takes full width up to the max-width */
+    background-color: var(--background-color);
 }
 
 /* Container for Sidebar and Main Content */
@@ -110,8 +116,10 @@ a:focus {
     flex: 1; /* Allows the container to expand and fill available space */
     margin: 0 auto; /* Center the container horizontally */
     padding: 0;
-    max-width: 1000px; /* Adjust the max-width as needed */
+    max-width: 75em; /* Adjust the max-width as needed */
     width: 100%; /* Ensures it takes full width up to the max-width */
+    background-color: var(--background-color);
+
 }
 
 /* Sidebar Styles */
@@ -329,6 +337,7 @@ a:focus {
     padding: 40px 2em;
     width: 100%; /* Ensure it takes full width within its container */
     line-height: 1.6;
+    background-color: var(--background-color);
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -557,34 +566,44 @@ header a:focus {
     color: var(--link-hover-color); /* Optional: Change link color on hover in header */
 }
 
-/* Footer container styles */
-.footer-container {
-    background-color: var(--header-and-footer-color); /* Footer background */
-    padding: 0; /* Remove default padding */
-    max-width: 1000px; /* Adjust as needed */
-    width: 100%; /* Full width up to max-width */
-    margin: 0 auto; /* Center horizontally */
-}
 
-/* Footer styles */
 footer {
+    background-color: var(--header-and-footer-color);
     color: white;
     font-size: 0.75em;
     text-align: center;
+    line-height: 1.2;
+
+    display: flex;
+    flex: 1; /* Allows the container to expand and fill available space */
+
+    justify-content: center;
+    align-items: center;
+
+    border-top: 0.2em solid var(--border-color);
+    border-left: 0.2em solid var(--border-color);
+    border-right: 0.2em solid var(--border-color);
+    border-bottom: none;
+
+    padding: 0.4em 0;
+
+
+    /*
+      This combination ensures:
+        1. The footer tries to fill 100% width on small screens.
+        2. On large screens, it will not exceed 60% of the viewport width.
+    */
+    /*max-width: 75em; !* Adjust the max-width as needed *!*/
+
     width: 100%;
-    line-height: 1.2; /* Adjust line height */
 
-    display: flex;           /* Enable flexbox */
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    /*max-width: 60vw;*/
+    margin: 0 auto; /* Centers it when there's leftover space */
 
-    border-top: 0.2em solid var(--border-color); /* Top border */
-    border-left: 0.2em solid var(--border-color); /* Left border */
-    border-right: 0.2em solid var(--border-color); /* Right border */
-    border-bottom: none; /* No bottom border */
-
-    padding: 0.4em 0; /* Vertical padding */
 }
+
+
+
 
 /* Media Queries */
 

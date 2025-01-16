@@ -46,7 +46,6 @@
 }
 
 
-
 /* Global */
 * {
     margin: 0;
@@ -62,7 +61,7 @@
 a {
     color: var(--link-color);
     text-decoration: none;
-    transition: color 0.3s;
+    /* Transition removed to disable smooth color changes on theme toggle */
 }
 
 a:hover,
@@ -94,7 +93,6 @@ a:focus {
     max-width: 75em; /* Adjust the max-width as needed */
     width: 100%; /* Ensures it takes full width up to the max-width */
     background-color: var(--background-color);
-
 }
 
 /* Sidebar Styles */
@@ -222,14 +220,14 @@ a:focus {
     height: 100%; /* Make the a tag take full height of the li */
     font-size: 1.1em;
     margin: 0;
-    transition: background-color 0.3s, color 0.3s;
+    /* Transition removed to disable smooth background and color changes on theme toggle */
 }
 
 #sidebar-navbar li:hover,
 #sidebar-navbar li:focus-within {
     background-color: var(--hover-color);
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
 }
 
 #sidebar-logos {
@@ -283,7 +281,7 @@ a:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Kept transitions for toggle interactivity */
 }
 
 #theme-toggle {
@@ -313,7 +311,7 @@ a:focus {
     width: 100%; /* Ensure it takes full width within its container */
     line-height: 1.6;
     background-color: var(--background-color);
-    transition: background-color 0.3s, color 0.3s;
+    /* Transition removed to disable smooth background and color changes on theme toggle */
 }
 
 #main-content h1 {
@@ -328,7 +326,7 @@ a:focus {
 #main-content a {
     /* Inherited styles handle link colors */
     text-decoration: none;
-    /* Transition is already handled globally */
+    /* Transition is already handled globally (removed) */
 }
 
 
@@ -371,7 +369,7 @@ a:focus {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s; /* Kept transitions for hover effects */
     border: 0.2em solid var(--border-color);
     border-radius: 1.3em;
     box-sizing: border-box;
@@ -391,7 +389,7 @@ a:focus {
     display: block; /* Makes the entire area clickable */
     padding: 0.8em;
     height: 100%; /* Ensures the link covers the entire item */
-    transition: background-color 0.3s, color 0.3s;
+    /* Transition removed to disable smooth background and color changes on theme toggle */
 }
 
 .project-item a:hover, .project-item a:focus {
@@ -429,7 +427,6 @@ a:focus {
 
 
 
-
 /* Specific project styling */
 #individual-content p, #individual-content li {
     font-family: 'Roboto', sans-serif;
@@ -452,8 +449,6 @@ a:focus {
     margin-left: 0.3em;
 }
 
-
-
 #writings-directory .writing-item {
     display: flex;
     align-items: center; /* Align items center for vertical centering */
@@ -475,9 +470,8 @@ a:focus {
     white-space: nowrap; /* Prevents text from wrapping to the next line */
     overflow: hidden; /* Hides overflowing text */
     text-overflow: ellipsis; /* Adds ellipsis (...) for overflowing text */
-    transition: color 0.3s ease-in-out, background-color 0.3s ease, font-size 0.3s ease; /* Smooth transition for color, background, and font size */
+    /* Transition removed to disable smooth color, background, and font-size changes on theme toggle */
 }
-
 
 #writings-directory a:hover,
 #writings-directory a:focus {
@@ -538,7 +532,7 @@ header li {
 header a {
     color: white;
     text-decoration: none;
-    transition: color 0.3s;
+    /* Transition removed to disable smooth color changes on theme toggle */
 }
 
 header a:hover,
@@ -583,7 +577,10 @@ footer {
 
 footer p {
     color: white;
+}
 
+#last-updated {
+    color: inherit; /* Ensures the span inherits the footer text color */
 }
 
 
@@ -691,9 +688,6 @@ footer p {
         padding: 10px 0;
     }
 
-
-
-
     h1, h2, h3, h4, h5, h6 {
         text-align: center;
     }
@@ -719,8 +713,7 @@ footer p {
 }
 
 
- .hljs-copy-button {
-     --hljs-theme-color: black;
-     --hljs-theme-background: grey;
- }
-
+.hljs-copy-button {
+    --hljs-theme-color: black;
+    --hljs-theme-background: grey;
+}

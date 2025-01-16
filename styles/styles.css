@@ -1,4 +1,12 @@
+/* ============================ */
+/*         :ROOT VARIABLES     */
+/* ============================ */
+
 :root {
+    /* ========================= */
+    /*          COLORS          */
+    /* ========================= */
+
     /* Border Colors */
     --light-theme-border-color: #2c3e50;
     --dark-theme-border-color: white;
@@ -19,34 +27,40 @@
     --dark-theme-sidebar-color: #2a2a2a;
     --sidebar-color: var(--light-theme-sidebar-color);
 
-    /* Header and Footer Color */
+    /* Header and Footer Colors */
     --light-theme-header-and-footer-color: #2c3e50;
     --dark-theme-header-and-footer-color: #333;
     --header-and-footer-color: var(--light-theme-header-and-footer-color);
 
-    /* Background Hover Colors */
+    /* Hover Colors */
     --light-theme-hover-color: #e7f5ff;
     --dark-theme-hover-color: #37474F;
     --hover-color: var(--light-theme-hover-color);
 
     /* Link Colors */
-    --link-color: #1a73e8; /* Distinct blue for main links */
-    --link-hover-color: #1558b0; /* Darker blue for hover */
+    --link-color: #1a73e8;          /* Distinct blue for main links */
+    --link-hover-color: #1558b0;    /* Darker blue for hover */
 }
 
-/* Dark Theme Styling */
+/* ============================ */
+/*       DARK THEME STYLING    */
+/* ============================ */
 .dark-theme {
+    /* Override colors for dark theme */
     --border-color: var(--dark-theme-border-color);
     --text-color: var(--dark-theme-text-color);
     --background-color: var(--dark-theme-background-color);
     --sidebar-color: var(--dark-theme-sidebar-color);
     --hover-color: var(--dark-theme-hover-color);
     --header-and-footer-color: var(--dark-theme-header-and-footer-color);
-    --link-hover-color: #9ecbff; /* Lighter blue for dark theme hover */
+
+    /* A lighter link hover color for dark backgrounds */
+    --link-hover-color: #9ecbff;
 }
 
-
-/* Global */
+/* ============================ */
+/*            GLOBAL           */
+/* ============================ */
 * {
     margin: 0;
     padding: 0;
@@ -56,8 +70,9 @@
     scroll-behavior: smooth;
 }
 
-
-/* Global Link Styles */
+/* ---------------------------- */
+/*        GLOBAL LINKS         */
+/* ---------------------------- */
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -69,74 +84,82 @@ a:focus {
     color: var(--link-hover-color);
 }
 
+/* ============================ */
+/*           LAYOUT            */
+/* ============================ */
 
-/* Flex container to manage layout */
+/* ---------------------------- */
+/*          Wrapper            */
+/* ---------------------------- */
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Full viewport height */
-    flex: 1; /* Allows the container to expand and fill available space */
-    margin: 0 auto; /* Center the container horizontally */
+    min-height: 100vh;       /* Full viewport height */
+    margin: 0 auto;          /* Center the container horizontally */
     padding: 0;
-    max-width: 75em; /* Adjust the max-width as needed */
-    width: 100%; /* Ensures it takes full width up to the max-width */
+    max-width: 75em;         /* Adjust the max-width as needed */
+    width: 100%;             /* Ensures it takes full width up to the max-width */
     background-color: var(--background-color);
 }
 
-
-/* Container for Sidebar and Main Content */
+/* ---------------------------- */
+/*         Container           */
+/* ---------------------------- */
 #container {
     display: flex;
-    flex: 1; /* Allows the container to expand and fill available space */
-    margin: 0 auto; /* Center the container horizontally */
+    flex: 1;                 /* Allows the container to expand and fill available space */
+    margin: 0 auto;          /* Center the container horizontally */
     padding: 0;
-    max-width: 75em; /* Adjust the max-width as needed */
-    width: 100%; /* Ensures it takes full width up to the max-width */
+    max-width: 75em;         /* Adjust the max-width as needed */
+    width: 100%;             /* Ensures it takes full width up to the max-width */
     background-color: var(--background-color);
 }
 
-/* Sidebar Styles */
+/* ============================ */
+/*           SIDEBAR           */
+/* ============================ */
 #sidebar {
-    flex-shrink: 0; /* Prevents the sidebar from shrinking */
+    flex-shrink: 0;                    /* Prevents the sidebar from shrinking */
     width: 15em;
     background-color: var(--sidebar-color);
     color: var(--text-color);
     position: sticky;
     top: 1vh;
-    overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+    overflow-y: auto;                  /* Enable vertical scrollbar if content overflows */
     height: 98vh;
     max-height: 50em;
-
     padding: 1em;
     text-align: center;
     border: 0.2em solid var(--border-color);
     border-radius: 1.5em;
     margin: 0.5em;
 
-    display: flex; /* Make it a flex container */
-    flex-direction: column; /* Align children vertically */
-    align-items: center; /* Align children in the center horizontally */
+    display: flex;                     /* Make it a flex container */
+    flex-direction: column;            /* Align children vertically */
+    align-items: center;               /* Align children in the center horizontally */
 }
 
-/* Adjust styles for children of sidebar to work with flexbox */
+/* Spacing for direct children of sidebar */
 #sidebar > * {
-    margin-bottom: 1em; /* Adds spacing between elements */
-    width: 100%; /* Ensures children take full width */
+    margin-bottom: 1em;
+    width: 100%;
 }
 
+/* Sidebar Title */
 #sidebar h2 {
     margin-bottom: 0;
     font-size: 1.5em;
 }
 
+/* Profile Photo */
 #profile-photo {
     width: 10em;
     height: 10em;
     border-radius: 50%;
     background-color: #aaa; /* Placeholder */
     overflow: hidden;
-    flex-shrink: 0; /* Prevents profile photo from shrinking */
-    flex-grow: 0; /* Prevents profile photo from growing */
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 #profile-photo img {
@@ -145,6 +168,7 @@ a:focus {
     object-fit: cover;
 }
 
+/* Current Status */
 #sidebar-my-current-status {
     font-size: 0.9em;
     color: var(--text-color);
@@ -153,13 +177,16 @@ a:focus {
     font-weight: bold;
 }
 
-#sidebar h3, #sidebar a {
+/* Sidebar Links and Subtitles */
+#sidebar h3,
+#sidebar a {
     color: var(--text-color);
     text-decoration: none;
     line-height: 2;
     display: block;
 }
 
+/* Sidebar Paragraphs */
 #sidebar p {
     font-size: 0.8em;
     margin-bottom: 0.6em;
@@ -167,6 +194,7 @@ a:focus {
     white-space: nowrap;
 }
 
+/* Sidebar Bio */
 #sidebar-bio {
     display: block;
     font-size: 1em;
@@ -175,12 +203,14 @@ a:focus {
     font-style: italic;
 }
 
-/* Sidebar Navbar Styles */
+/* ---------------------------- */
+/*       Sidebar Navbar         */
+/* ---------------------------- */
 #sidebar-navbar {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Aligns items to the start */
-    flex-grow: 1; /* Allows the navbar to grow and fill the available space */
+    justify-content: flex-start;   /* Aligns items to the start */
+    flex-grow: 1;                  /* Allows the navbar to grow and fill the available space */
     margin-bottom: -0.5em;
 }
 
@@ -189,8 +219,8 @@ a:focus {
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Set height to 100% of its container */
-    justify-content: space-between; /* Adjust spacing based on available space */
+    height: 100%;                  /* Set height to 100% of its container */
+    justify-content: space-between;/* Adjust spacing based on available space */
     margin: 0;
     padding: 0;
 }
@@ -199,25 +229,23 @@ a:focus {
     border: 0.1em solid var(--border-color);
     border-radius: 15px;
     width: 100%;
-    flex-grow: 1; /* Allows each li to grow and fill the space */
-    flex-shrink: 1; /* Allows each li to shrink if necessary */
-    flex-basis: auto; /* Initial size of the flex item */
-    margin: 0.3em 0; /* Adjust margin to control spacing */
-    display: flex; /* Make the li a flex container */
-    align-items: center; /* Vertically center the flex items (anchor tags) */
-    justify-content: center; /* Horizontally center the text */
-    padding: 0; /* Remove padding from li */
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    margin: 0.3em 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
 #sidebar-navbar a {
-    /* Removed specific color assignment to use global link color */
-    /* color: var(--text-color); */
     text-decoration: none;
-    display: flex; /* Make the a tag a flex container */
-    align-items: center; /* Center the content vertically */
-    justify-content: center; /* Center the content horizontally */
-    width: 100%; /* Make the a tag take full width of the li */
-    height: 100%; /* Make the a tag take full height of the li */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     font-size: 1.1em;
     margin: 0;
     /* Transition removed to disable smooth background and color changes on theme toggle */
@@ -230,6 +258,7 @@ a:focus {
     transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
 }
 
+/* Sidebar Logos */
 #sidebar-logos {
     display: flex;
     justify-content: center;
@@ -265,12 +294,17 @@ a:focus {
 }
 
 /* Scale logos on hover */
-#sidebar-logos li:hover, .theme-toggle:hover, #language-toggle:hover {
-    transform: scale(1.1); /* Slightly increase the size */
+#sidebar-logos li:hover,
+.theme-toggle:hover,
+#language-toggle:hover {
+    transform: scale(1.1);
 }
 
-/* Theme and language toggle styling */
-#theme-toggle, #language-toggle {
+/* ---------------------------- */
+/*   Theme and Language Toggles */
+/* ---------------------------- */
+#theme-toggle,
+#language-toggle {
     position: absolute;
     top: 0.6em;
     cursor: pointer;
@@ -285,30 +319,29 @@ a:focus {
 }
 
 #theme-toggle {
-    position: absolute;
-    left: 0.5em; /* 0.5em from the left edge of the parent */
-    top: 3%; /* Vertically center */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    /* Add other styles as needed */
+    left: 0.5em;
+    top: 3%;
+    transform: translateY(-50%);
 }
 
 #language-toggle {
-    position: absolute;
-    right: 0.5em; /* 0.5em from the right edge of the parent */
-    top: 3%; /* Vertically center */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    /* Add other styles as needed */
+    right: 0.5em;
+    top: 3%;
+    transform: translateY(-50%);
 }
 
-#language-toggle i#language-english, #language-toggle i#language-chinese {
+#language-toggle i#language-english,
+#language-toggle i#language-chinese {
     font-style: normal;
 }
 
-/* Main Content Styles */
+/* ============================ */
+/*        MAIN CONTENT         */
+/* ============================ */
 #main-content {
-    flex: 1; /* Allows the main content to expand */
-    padding: 40px 2em;
-    width: 100%; /* Ensure it takes full width within its container */
+    flex: 1;
+    padding: 2em 2em;
+    width: 100%;
     line-height: 1.6;
     background-color: var(--background-color);
     /* Transition removed to disable smooth background and color changes on theme toggle */
@@ -316,7 +349,7 @@ a:focus {
 
 #main-content h1 {
     font-family: 'Playfair Display', serif; /* Enhanced font for headings */
-    font-size: 3em; /* Increased font size */
+    font-size: 3em;                         /* Large font size for emphasis */
     margin-bottom: 0.5em;
     color: var(--text-color);
     border-bottom: 0.2em solid var(--border-color);
@@ -329,7 +362,7 @@ a:focus {
     /* Transition is already handled globally (removed) */
 }
 
-
+/* Content Images */
 .content-image {
     display: block;
     width: 100%;
@@ -337,17 +370,21 @@ a:focus {
     margin-bottom: 1.2em;
 }
 
-#main-content  p {
+/* Paragraphs in Main Content */
+#main-content p {
     margin-bottom: 1.2em;
     text-align: justify;
 }
 
+/* Paragraphs in Projects Grid */
 #main-content #projects-grid p {
     margin-bottom: 1.2em;
     text-align: justify;
 }
 
-/* Publications List */
+/* ============================ */
+/*      PUBLICATIONS LIST      */
+/* ============================ */
 #publications-list {
     padding-left: 20px;
 }
@@ -356,10 +393,13 @@ a:focus {
     margin-bottom: 10px;
 }
 
-/* Project list styling */
+/* ============================ */
+/*       PROJECT GRID          */
+/* ============================ */
 #projects-grid {
     display: grid;
-    /*grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    /* Responsive columns: uncomment or modify for responsive behavior */
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5em;
 }
@@ -373,26 +413,24 @@ a:focus {
     border: 0.2em solid var(--border-color);
     border-radius: 1.3em;
     box-sizing: border-box;
-
 }
 
 .project-item:hover {
-    transform: scale(1.03); /* Slight zoom on hover */
+    transform: scale(1.03);
 }
-
 
 .project-item a {
     text-align: justify;
-
-    color: inherit; /* Ensure they inherit the default text color */
-    text-decoration: none; /* Remove underline */
-    display: block; /* Makes the entire area clickable */
+    color: inherit;                /* Ensure they inherit the default text color */
+    text-decoration: none;         /* Remove underline */
+    display: block;                /* Makes the entire area clickable */
     padding: 0.8em;
-    height: 100%; /* Ensures the link covers the entire item */
+    height: 100%;                  /* Ensures link covers the entire item */
     /* Transition removed to disable smooth background and color changes on theme toggle */
 }
 
-.project-item a:hover, .project-item a:focus {
+.project-item a:hover,
+.project-item a:focus {
     background-color: var(--hover-color); /* More visually appealing hover state color */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
 }
@@ -401,7 +439,7 @@ a:focus {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Allows this container to expand */
+    flex-grow: 1;
 }
 
 .project-item img {
@@ -411,24 +449,23 @@ a:focus {
 
 .project-item h2 {
     /*
-      clamp(MIN, preferred, MAX)
-      - MIN: The smallest font size (e.g., 1.5em)
-      - preferred: A responsive unit like 5vw (5% of the viewport width)
-      - MAX: The largest font size (e.g., 2.5em)
+      clamp(MIN, preferred, MAX):
+      - MIN: 1.5em
+      - preferred: 5vw
+      - MAX: 2.5em
     */
     font-size: clamp(1.5em, 5vw, 2.5em);
     margin: 0.1em 0;
     text-align: center;
-
-    /* Ensure the text wraps and doesn't overflow */
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
-
-
-/* Specific project styling */
-#individual-content p, #individual-content li {
+/* ============================ */
+/*     INDIVIDUAL CONTENT      */
+/* ============================ */
+#individual-content p,
+#individual-content li {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -437,12 +474,16 @@ a:focus {
     text-align: justify;
 }
 
+/* ============================ */
+/*      WRITINGS DIRECTORY     */
+/* ============================ */
 #writings-directory {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 1em;
 }
 
-[data-page="writings"] h1, [data-page="publications"] h1 {
+[data-page="writings"] h1,
+[data-page="publications"] h1 {
     text-align: left;
     font-size: 2.5em;
     margin-bottom: 0.5em;
@@ -451,43 +492,43 @@ a:focus {
 
 #writings-directory .writing-item {
     display: flex;
-    align-items: center; /* Align items center for vertical centering */
+    align-items: center;        /* Align items center for vertical centering */
     justify-content: space-between;
     margin-bottom: 1em;
-    border-bottom: 1px solid #eee; /* Add a separator */
-    padding-bottom: 1em; /* Padding to separate text from the border */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1em;
 }
 
 #writings-directory a {
-    color: var(--link-color); /* Inherit the global link color */
-    font-size: clamp(1em, 2vw, 1.5em); /* Responsive font size between 1em and 1.5em */
-    font-weight: bold; /* Keeps the title bold */
-    margin-bottom: 0.25em; /* Keeps the bottom margin */
-    padding: 5px 10px; /* Adds padding around the link for better clickability */
-    border-radius: 5px; /* Rounds the corners */
-    background-color: #e8f0fe; /* Adds a light blue background */
-    text-decoration: none; /* Removes underline permanently */
-    white-space: nowrap; /* Prevents text from wrapping to the next line */
-    overflow: hidden; /* Hides overflowing text */
-    text-overflow: ellipsis; /* Adds ellipsis (...) for overflowing text */
+    color: var(--link-color);               /* Inherit the global link color */
+    font-size: clamp(1em, 2vw, 1.5em);      /* Responsive font size */
+    font-weight: bold;
+    margin-bottom: 0.25em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #e8f0fe;              /* Light blue background */
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     /* Transition removed to disable smooth color, background, and font-size changes on theme toggle */
 }
 
 #writings-directory a:hover,
 #writings-directory a:focus {
-    color: var(--link-hover-color); /* Use hover color variable */
-    background-color: #c8d1f0; /* Changes background on hover/focus */
-    text-decoration: none; /* Ensures no underline on hover/focus */
+    color: var(--link-hover-color);
+    background-color: #c8d1f0;
+    text-decoration: none;
 }
 
 #writings-directory .explanatory-text {
-    font-size: 1em; /* Make the text slightly larger for readability */
+    font-size: 1em;
     margin-left: 0.25em;
-    font-style: italic; /* Makes the text italic */
+    font-style: italic;
 }
 
 #writings-directory .writing-meta {
-    flex-shrink: 0; /* Prevent the meta from shrinking */
+    flex-shrink: 0;
 }
 
 #writings-directory .date {
@@ -504,13 +545,15 @@ a:focus {
 }
 
 #writings-directory .writing-image {
-    width: 5em; /* Increased size for impact */
+    width: 5em;
     height: auto;
     margin-right: 0.5em;
-    order: -1; /* This will move the image before the date in flex container */
+    order: -1;
 }
 
-/* Header styling */
+/* ============================ */
+/*           HEADER            */
+/* ============================ */
 header {
     background-color: var(--header-and-footer-color);
     color: white;
@@ -537,19 +580,19 @@ header a {
 
 header a:hover,
 header a:focus {
-    color: var(--link-hover-color); /* Optional: Change link color on hover in header */
+    color: var(--link-hover-color);
 }
 
-
+/* ============================ */
+/*           FOOTER            */
+/* ============================ */
 footer {
     background-color: var(--header-and-footer-color);
-    font-size: 0.8em;
+    font-size: 1em;
     text-align: center;
     line-height: 1.2;
 
     display: flex;
-    flex: 1; /* Allows the container to expand and fill available space */
-
     justify-content: center;
     align-items: center;
 
@@ -558,35 +601,28 @@ footer {
     border-right: 0.2em solid var(--border-color);
     border-bottom: none;
 
-    padding: 0.4em 0;
-
-
-    /*
-      This combination ensures:
-        1. The footer tries to fill 100% width on small screens.
-        2. On large screens, it will not exceed 60% of the viewport width.
-    */
-    /*max-width: 75em; !* Adjust the max-width as needed *!*/
 
     width: 100%;
-
-    /*max-width: 60vw;*/
-    margin: 0 auto; /* Centers it when there's leftover space */
-
+    margin: 0 auto;
 }
 
 footer p {
     color: white;
+    padding: 0.3em 0;
+
 }
 
 #last-updated {
-    color: inherit; /* Ensures the span inherits the footer text color */
+    color: inherit;
 }
 
+/* ============================ */
+/*        MEDIA QUERIES        */
+/* ============================ */
 
-/* Media Queries */
-
-/* Responsive Design for Smaller Screens */
+/* ---------------------------- */
+/* Smaller Screens: Adjust grid & layout */
+/* ---------------------------- */
 @media (max-width: 60em) {
     #projects-grid {
         grid-template-columns: 1fr;
@@ -594,7 +630,8 @@ footer p {
     }
 }
 
-@media screen and (min-height: 501px) and (max-height: 770px) and (min-width: 501px)  {
+/* Specific Height and Width Adjustments */
+@media screen and (min-height: 501px) and (max-height: 770px) and (min-width: 501px) {
     #sidebar {
         height: 90vh;
         display: flex;
@@ -627,28 +664,35 @@ footer p {
     }
 }
 
-/* Styles for mobile devices and thin and short screens */
-@media screen and (max-width: 500px), (max-height: 500px), (pointer: none), (pointer: coarse) {
+/* ---------------------------- */
+/* Mobile Devices & Thin/Short Screens */
+/* ---------------------------- */
+@media screen and (max-width: 500px),
+(max-height: 500px),
+(pointer: none),
+(pointer: coarse) {
 
+    /* Writings Directory */
     #writings-directory {
         width: 90%;
     }
 
+    /* Container Adjustments */
     #container {
         flex-direction: column;
         width: 100%;
         align-items: stretch;
     }
 
+    /* Profile Photo Adjustments */
     #profile-photo {
-        width: 6em; /* Reduced size for mobile */
-        height: 6em; /* Reduced size for mobile */
+        width: 6em;
+        height: 6em;
         border-radius: 50%;
-        background-color: #aaa; /* Placeholder */
+        background-color: #aaa;
         overflow: hidden;
-        display: block;       /* Make the photo a block element */
-        margin-left: auto;    /* Auto margin on the left */
-        margin-right: auto;   /* Auto margin on the right */
+        display: block;
+        margin: 0 auto;
     }
 
     #profile-photo img {
@@ -657,6 +701,7 @@ footer p {
         object-fit: cover;
     }
 
+    /* Sidebar Adjustments */
     #sidebar {
         display: block;
         background-color: var(--sidebar-color);
@@ -676,10 +721,12 @@ footer p {
         margin: 0;
     }
 
+    /* Main Content Text Alignment */
     #main-content {
         text-align: justify;
     }
 
+    /* Sidebar Navbar */
     #sidebar-navbar ul {
         flex-direction: column;
     }
@@ -688,16 +735,20 @@ footer p {
         padding: 10px 0;
     }
 
+    /* Headings Alignment */
     h1, h2, h3, h4, h5, h6 {
         text-align: center;
     }
 
+    /* Projects Grid */
     #projects-grid {
         grid-template-columns: 1fr;
     }
 }
 
-/* Scrollbar Formatting */
+/* ============================ */
+/*       SCROLLBAR STYLING     */
+/* ============================ */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -712,7 +763,9 @@ footer p {
     border: 3px solid var(--background-color);
 }
 
-
+/* ============================ */
+/*    HIGHLIGHT.JS COPY BTN    */
+/* ============================ */
 .hljs-copy-button {
     --hljs-theme-color: black;
     --hljs-theme-background: grey;

@@ -1,80 +1,104 @@
 <!-- Project Directory -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adam Lawrence - Projects</title>
+
+    <!-- Meta Description for better SEO/Accessibility -->
+    <meta name="description" content="A showcase of Adam Lawrence’s projects, including numerical solvers, additive manufacturing experiments, and HPC simulations.">
+
+    <!-- Styles and Fonts -->
     <link rel="stylesheet" href="styles/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
           rel="stylesheet">
 
-    <link rel="icon" href="./images/favicon/favicon.ico" sizes="48x48">
+    <!-- Favicon and App Icons -->
+    <link rel="icon" href="images/favicon/favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-    <link rel="manifest" href="images/favicon/site.webmanifest"/>
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="images/favicon/site.webmanifest">
     <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-
 </head>
 
 <body>
 <div class="wrapper">
     <div id="container">
-
+        <!-- Placeholder for injected sidebar via JS or server-side include -->
         <div id="sidebar-placeholder"></div>
 
+        <!-- Main Content -->
         <div id="main-content" data-page="projects">
             <h1>Projects</h1>
 
             <div id="projects-grid">
 
+                <!-- Torrentem Project -->
                 <div class="project-item">
                     <a href="projects/Torrentem.html">
                         <h2>Torrentem</h2>
-                        <p>Torrentem is a parallel CPU/GPU multi-physics solver library developed in C++ to be the key
-                            driver in my PhD research. Developed to be used in a powerful and flexible way, it implements
-                            advanced numerical techniques such as RBVMS and stabilised finite element formulations, a
-                            level-set method, custom GPU based linear solvers, and a mesh partitioning and MPI communication
-                            model for Parallel CPU on multi-node HPCs. Currently closed source.</p>
-                        <img src="images/project_directory/project_directory_torrentem.webp" alt="Torrentem" class="content-image">
-                    </a>
-                </div>
-                <!-- Repeat for each project -->
-                <div class="project-item">
-                    <a href="projects/Torrentem.html">
-                        <h2>Vat Photopolymerization</h2>
-                        <p>Using my Torrentem library, this project is a testbed for testing numerical modelling of vat based
-                            photo-polymerization. Vat photo-polymerization is a type of additive manufacturing, that involves
-                            the curing of a liquid polymer into a desired solid structure.</p>
-                        <img src="images/ProjectDirectory-VatPhotoPolymerization.png" alt="Vat Photo-Polymerization" class="content-image">
-                    </a>
-                </div>
-                <div class="project-item">
-                    <a href="projects/Torrentem.html">
-                        <h2>Numerical Wave Tank</h2>
-                        <p>Using my Torrentem library, this project is the implementation of a numerical wave tank. Which is
-                            used as a testbed for investigating new phenomena and numerical techniques in
-                            oceanography/surface hydrodynamic engineering.</p>
-                        <img src="images/ProjectDirectory-NumericalWaveTank.png" alt="Numerical Wave Tank" class="content-image">
+                        <p>
+                            Torrentem is a parallel CPU/GPU multi-physics solver library developed in C++
+                            to be the key driver in my PhD research. Developed for power and flexibility,
+                            it implements advanced numerical techniques such as RBVMS and stabilized
+                            finite element formulations, a level-set method, custom GPU-based linear solvers,
+                            and a mesh partitioning and MPI communication model for parallel CPU on multi-node HPCs.
+                            Currently closed source.
+                        </p>
+                        <img src="images/project_directory/project_directory_torrentem.webp"
+                             alt="Torrentem Project Screenshot"
+                             class="content-image">
                     </a>
                 </div>
 
-                <!-- ... more projects -->
+                <!-- Vat Photopolymerization Project -->
+                <div class="project-item">
+                    <!-- Link updated to a distinct page instead of Torrentem.html -->
+                    <a href="projects/VatPhotopolymerization.html">
+                        <h2>Vat Photopolymerization</h2>
+                        <p>
+                            Using my Torrentem library, this project is a testbed for simulating vat-based
+                            photo-polymerization, a type of additive manufacturing that involves curing
+                            a liquid polymer into a desired solid structure.
+                        </p>
+                        <img src="images/project_directory/project_directory_vat_photopolymerization.webp"
+                             alt="Vat Photopolymerization Project Screenshot"
+                             class="content-image">
+                    </a>
+                </div>
+
+                <!-- Numerical Wave Tank Project -->
+                <div class="project-item">
+                    <!-- Link updated to a distinct page instead of Torrentem.html -->
+                    <a href="projects/NumericalWaveTank.html">
+                        <h2>Numerical Wave Tank</h2>
+                        <p>
+                            Using my Torrentem library, this project is the implementation of a
+                            numerical wave tank, serving as a testbed to investigate new phenomena and
+                            numerical techniques in oceanography and surface hydrodynamic engineering.
+                        </p>
+                        <img src="images/project_directory/project_directory_numerical_wave_tank.webp"
+                             alt="Numerical Wave Tank Project Screenshot"
+                             class="content-image">
+                    </a>
+                </div>
+
+                <!-- ... Add more projects as needed ... -->
 
             </div>
         </div>
     </div>
 
+    <!-- Placeholder for footer injection -->
     <div id="footer-placeholder"></div>
-
 </div>
 
+<!-- JavaScript -->
 <script src="javascript/functions.js"></script>
-
 </body>
 </html>

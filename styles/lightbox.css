@@ -1,0 +1,73 @@
+/*
+       Force the lightbox to be hidden on page load
+       (overrides any potential conflicting styles).
+     */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically */
+}
+
+/* Enlarge the clicked image in the modal */
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    box-sizing: border-box;
+}
+
+/* Close Button */
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus {
+    color: #cccccc;
+    text-decoration: none;
+}
+
+/* Caption Text */
+.lightbox-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Make sure images set to trigger the lightbox show a pointer cursor */
+.lightbox-trigger {
+    cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 700px) {
+    .lightbox-close {
+        font-size: 25px;
+        top: 15px;
+        right: 20px;
+    }
+
+    .lightbox-caption {
+        font-size: 16px;
+        bottom: 20px;
+    }
+}

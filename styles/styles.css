@@ -303,40 +303,6 @@ a:focus {
     transform: scale(1.1);
 }
 
-/* ---------------------------- */
-/*   Theme and Language Toggles */
-/* ---------------------------- */
-#theme-toggle,
-#language-toggle {
-    position: absolute;
-    top: 0.6em;
-    cursor: pointer;
-    width: 1em;
-    height: 1em;
-    font-size: 20px;
-    font-style: normal;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease; /* Kept transitions for toggle interactivity */
-}
-
-#theme-toggle {
-    left: 0.5em;
-    top: 3%;
-    transform: translateY(-50%);
-}
-
-#language-toggle {
-    right: 0.5em;
-    top: 3%;
-    transform: translateY(-50%);
-}
-
-#language-toggle i#language-english,
-#language-toggle i#language-chinese {
-    font-style: normal;
-}
 
 /* ============================ */
 /*        MAIN CONTENT         */
@@ -553,14 +519,14 @@ a:focus {
     margin-right: 0.5em;
     order: -1;
 }
-
 /* ============================ */
-/*           HEADER            */
+/*           Content Page HEADER            */
 /* ============================ */
 header {
     background-color: var(--header-and-footer-color);
     color: white;
-    padding: 10px 0;
+    padding: 1em 0; /* Changed from 10px to 1em */
+    position: relative; /* Establishes a positioning context for absolute children */
 }
 
 header ul {
@@ -572,7 +538,7 @@ header ul {
 
 header li {
     display: inline;
-    margin: 0 10px;
+    margin: 0 1em; /* Changed from 10px to 1em */
 }
 
 header a {
@@ -584,7 +550,123 @@ header a {
 header a:hover,
 header a:focus {
     color: var(--link-hover-color);
+    cursor: pointer; /* Ensures cursor changes on hover and focus */
 }
+
+/* ---------------------------- */
+/*   Theme and Language Toggles for Main Pages */
+/* ---------------------------- */
+#theme-toggle.main-page-style,
+#language-toggle.main-page-style {
+    position: absolute;
+    top: 1.2em;
+    cursor: pointer;
+    width: 1em;
+    height: 1em;
+    font-size: 1.3em;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Kept transitions for toggle interactivity */
+    transform: translateY(-50%);
+}
+
+#theme-toggle.main-page-style {
+    left: 0.5em;
+}
+
+#language-toggle.main-page-style {
+    right: 0.5em;
+}
+
+/* ---------------------------- */
+/*   Theme Toggle for Content Pages */
+/* ---------------------------- */
+#theme-toggle.content-page-style {
+    cursor: pointer;
+    width: 1.5em; /* Adjusted size for better visibility */
+    height: 1.5em;
+    font-size: 1.3em;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Kept transitions for toggle interactivity */
+    position: absolute; /* Positioned relative to the header */
+    top: 50%; /* Vertically centered */
+    left: 1em; /* 1em from the left */
+    transform: translateY(-50%); /* Adjusts for perfect vertical centering */
+    color: white; /* Sets the icon color to white */
+
+}
+
+#theme-toggle.content-page-style i, #language-toggle.content-page-style i {
+    color: white; /* Sets the icon color to white */
+}
+
+#theme-toggle.content-page-style:hover, #language-toggle.content-page-style:hover,
+#theme-toggle.content-page-style:focus, #language-toggle.content-page-style:focus {
+    transform: translateY(-50%) scale(1.1); /* Slightly enlarges on hover/focus */
+    outline: none; /* Removes default outline */
+}
+
+
+/* ---------------------------- */
+/*   Language Toggle for Content Pages (Optional) */
+/* ---------------------------- */
+#language-toggle.content-page-style {
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 1.3em;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+}
+
+
+
+/* ---------------------------- */
+/*   Icon Styles for Language Toggle */
+/* ---------------------------- */
+#language-toggle i#language-english,
+#language-toggle i#language-chinese {
+    font-style: normal;
+    /* Ensures icons/text are properly aligned */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------------------------- */
+/*   Responsive Adjustments */
+/* ---------------------------- */
+@media (max-width: 600em) { /* Changed from px to em for consistency */
+    header {
+        padding: 0.8em 0;
+    }
+
+    header li {
+        margin: 0 0.8em;
+    }
+
+    #theme-toggle.main-page-style,
+    #language-toggle.main-page-style,
+    #theme-toggle.content-page-style,
+    #language-toggle.content-page-style {
+        width: 1.2em;
+        height: 1.2em;
+        font-size: 1.1em;
+    }
+}
+
 
 /* ============================ */
 /*           FOOTER            */

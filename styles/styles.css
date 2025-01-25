@@ -722,6 +722,9 @@ footer p {
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+
+
     }
 
     #profile-photo {
@@ -765,8 +768,7 @@ footer p {
     /* Container Adjustments */
     #container {
         flex-direction: column;
-        width: 100%;
-        align-items: stretch;
+
     }
 
     /* Profile Photo Adjustments */
@@ -786,24 +788,24 @@ footer p {
         object-fit: cover;
     }
 
-    /* Sidebar Adjustments */
     #sidebar {
         display: block;
         background-color: var(--sidebar-color);
         color: var(--text-color);
         width: 100%;
-        height: auto;
-        min-width: 100%;
-        max-width: 100%;
         position: relative;
-        top: 0;
-        left: 0;
-        overflow-y: hidden;
-        padding: 10px;
-        text-align: center;
         border: none;
-        border-right: none;
         margin: 0;
+        font-size: 1.05em;
+
+
+        padding: 1em 0.5em 0.5em 1em;
+        top: 0;
+        overflow-y: auto;                  /* Enable vertical scrollbar if content overflows */
+        max-height: 40em;
+
+        border-radius: 0em;
+
     }
 
     /* Main Content Text Alignment */

@@ -327,3 +327,17 @@ async function initialize() {
 
 // Initialize the application once the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initialize);
+
+
+
+    hljs.addPlugin(
+    new CopyButtonPlugin()
+    );
+    hljs.highlightAll();
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre code').forEach((block) => {
+        highlightjsCopy(block);
+    });
+});
+

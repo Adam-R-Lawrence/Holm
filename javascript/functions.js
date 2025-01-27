@@ -329,29 +329,15 @@ async function initialize() {
 document.addEventListener('DOMContentLoaded', initialize);
 
 
-// Get the button
-const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
 
-// Function to check scroll position and toggle button visibility
-function toggleScrollToTopBtn() {
-    const scrollPosition = window.scrollY;
-    const viewportHeight = window.innerHeight;
-    if (scrollPosition > 1.5 * viewportHeight) {
-        scrollToTopBtn.classList.add('show');
-    } else {
-        scrollToTopBtn.classList.remove('show');
-    }
-}
+    hljs.addPlugin(
+    new CopyButtonPlugin()
+    );
+    hljs.highlightAll();
 
-// Function to smoothly scroll to top
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre code').forEach((block) => {
+        highlightjsCopy(block);
     });
-}
-
-// Event listeners
-window.addEventListener('scroll', toggleScrollToTopBtn);
-scrollToTopBtn.addEventListener('click', scrollToTop);
+});
 

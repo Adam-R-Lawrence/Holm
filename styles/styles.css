@@ -40,6 +40,17 @@
     /* Link Colors */
     --link-color: #1a73e8;          /* Distinct blue for main links */
     --link-hover-color: #1558b0;    /* Darker blue for hover */
+
+    /* Highlight.js Colors for Light Theme */
+    --hljs-background: #f8f9fa;
+    --hljs-color: #4d4d4d;
+    --hljs-keyword-color: #d73a49;
+    --hljs-string-color: #0366d6;
+    --hljs-comment-color: #22863a;
+    --hljs-function-color: #005cc5;
+
+
+
 }
 
 /* ============================ */
@@ -53,9 +64,17 @@
     --sidebar-color: var(--dark-theme-sidebar-color);
     --hover-color: var(--dark-theme-hover-color);
     --header-and-footer-color: var(--dark-theme-header-and-footer-color);
-
-    /* A lighter link hover color for dark backgrounds */
     --link-hover-color: #9ecbff;
+
+    /* Highlight.js Colors for Dark Theme */
+    --hljs-background: #1e1e1e;
+    --hljs-color: #c9d1d9;
+    --hljs-keyword-color: #ff6c6b;
+    --hljs-string-color: #79b8ff;
+    --hljs-comment-color: #34d058;
+    --hljs-function-color: #58a6ff;
+
+
 }
 
 /* ============================ */
@@ -519,6 +538,7 @@ a:focus {
     margin-right: 0.5em;
     order: -1;
 }
+
 /* ============================ */
 /*           Content Page HEADER            */
 /* ============================ */
@@ -598,7 +618,6 @@ header a:focus {
     left: 1em; /* 1em from the left */
     transform: translateY(-50%); /* Adjusts for perfect vertical centering */
     color: white; /* Sets the icon color to white */
-
 }
 
 #theme-toggle.content-page-style i, #language-toggle.content-page-style i {
@@ -722,6 +741,9 @@ footer p {
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+
+
     }
 
     #profile-photo {
@@ -765,8 +787,7 @@ footer p {
     /* Container Adjustments */
     #container {
         flex-direction: column;
-        width: 100%;
-        align-items: stretch;
+
     }
 
     /* Profile Photo Adjustments */
@@ -786,24 +807,24 @@ footer p {
         object-fit: cover;
     }
 
-    /* Sidebar Adjustments */
     #sidebar {
         display: block;
         background-color: var(--sidebar-color);
         color: var(--text-color);
         width: 100%;
-        height: auto;
-        min-width: 100%;
-        max-width: 100%;
         position: relative;
-        top: 0;
-        left: 0;
-        overflow-y: hidden;
-        padding: 10px;
-        text-align: center;
         border: none;
-        border-right: none;
         margin: 0;
+        font-size: 1.05em;
+
+
+        padding: 1em 0.5em 0.5em 1em;
+        top: 0;
+        overflow-y: auto;                  /* Enable vertical scrollbar if content overflows */
+        max-height: 40em;
+
+        border-radius: 0em;
+
     }
 
     /* Main Content Text Alignment */
@@ -849,6 +870,62 @@ footer p {
 }
 
 /* ============================ */
+/*    HIGHLIGHT.JS STYLING     */
+/* ============================ */
+
+/* Light Theme for highlight.js */
+pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+    background: var(--hljs-background);
+    color: var(--hljs-color);
+    border-radius: 0.5em;
+}
+
+.hljs-keyword {
+    color: var(--hljs-keyword-color);
+    font-weight: bold;
+}
+
+.hljs-string {
+    color: var(--hljs-string-color);
+}
+
+.hljs-comment {
+    color: var(--hljs-comment-color);
+    font-style: italic;
+}
+
+.hljs-function {
+    color: var(--hljs-function-color);
+}
+
+/* Dark Theme for highlight.js */
+.dark-theme pre code {
+    background: var(--hljs-background);
+    color: var(--hljs-color);
+}
+
+.dark-theme .hljs-keyword {
+    color: var(--hljs-keyword-color);
+    font-weight: bold;
+}
+
+.dark-theme .hljs-string {
+    color: var(--hljs-string-color);
+}
+
+.dark-theme .hljs-comment {
+    color: var(--hljs-comment-color);
+    font-style: italic;
+}
+
+.dark-theme .hljs-function {
+    color: var(--hljs-function-color);
+}
+
+/* ============================ */
 /*    HIGHLIGHT.JS COPY BTN    */
 /* ============================ */
 .hljs-copy-button {
@@ -856,43 +933,26 @@ footer p {
     --hljs-theme-background: grey;
 }
 
+/* You can further customize the copy button styles if needed */
 
+/* styles.css */
 
-
-
-/* Scroll to Top Button Styles */
-#scroll-to-top-btn {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--header-and-footer-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
+.gallery.collage {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 1000;
+    flex-direction: column;
+    gap: 10px; /* Adjust spacing between rows */
 }
 
-/* Change the arrow color inside the button */
-#scroll-to-top-btn i {
-    color: white; /* Change this to your desired color */
+.collage-row {
+    display: flex;
+    gap: 10px; /* Adjust spacing between images in a row */
 }
 
-#scroll-to-top-btn.show {
-    opacity: 0.95;
-    visibility: visible;
+.collage-row img {
+    width: 48%; /* Adjust width to ensure two images fit side by side */
+    height: auto;
 }
 
-#scroll-to-top-btn:hover {
-    background-color: #4a9bc7;
+.gallery.original-image {
+    margin-bottom: 20px; /* Space between original image and other content */
 }

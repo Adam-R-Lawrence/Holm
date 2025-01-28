@@ -1,8 +1,8 @@
-// functions.js
+'use strict';
 
 // Constants for GitHub API
 const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username
-const GITHUB_REPO = 'Holm'; // Replace with your repository name
+const GITHUB_REPO = 'Holm';               // Replace with your repository name
 const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits`;
 
 /**
@@ -38,7 +38,6 @@ function toggleImagesForDarkMode() {
 function toggleTheme() {
     // Toggle the 'dark-theme' class on the body element
     document.body.classList.toggle('dark-theme');
-
     const isDarkMode = document.body.classList.contains('dark-theme');
 
     // Select theme toggle icons
@@ -46,8 +45,8 @@ function toggleTheme() {
     const darkThemeIcon = document.getElementById('theme-sun');
 
     // Update icon visibility based on the current theme
-    lightThemeIcon.style.display = isDarkMode ? "none" : "inline";
-    darkThemeIcon.style.display = isDarkMode ? "inline" : "none";
+    lightThemeIcon.style.display = isDarkMode ? 'none' : 'inline';
+    darkThemeIcon.style.display = isDarkMode ? 'inline' : 'none';
 
     // Toggle sidebar images to match the theme
     toggleImagesForDarkMode();
@@ -80,13 +79,12 @@ function toggleLanguage() {
  */
 function applyPreferences() {
     // Retrieve language preference from localStorage
-    const isChinese = localStorage.getItem('language') === "chinese";
+    const isChinese = localStorage.getItem('language') === 'chinese';
 
     // Apply saved theme preference
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('dark-theme');
     }
-
     const isDarkMode = document.body.classList.contains('dark-theme');
 
     // Select theme toggle icons
@@ -98,8 +96,8 @@ function applyPreferences() {
     const chineseIcon = document.getElementById('language-chinese');
 
     // Update theme icon visibility based on the current theme
-    lightThemeIcon.style.display = isDarkMode ? "none" : "inline";
-    darkThemeIcon.style.display = isDarkMode ? "inline" : "none";
+    lightThemeIcon.style.display = isDarkMode ? 'none' : 'inline';
+    darkThemeIcon.style.display = isDarkMode ? 'inline' : 'none';
 
     // Toggle sidebar images to match the theme
     toggleImagesForDarkMode();
@@ -271,7 +269,6 @@ async function displayLastUpdated() {
         }
 
         const commits = await response.json();
-
         if (commits.length === 0) {
             const lastUpdatedElement = document.getElementById('last-updated');
             if (lastUpdatedElement) {
@@ -324,20 +321,15 @@ async function initialize() {
     }
 }
 
-
 // Initialize the application once the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initialize);
 
+/* Highlight.js plugins and setup */
+hljs.addPlugin(new CopyButtonPlugin());
+hljs.highlightAll();
 
-
-    hljs.addPlugin(
-    new CopyButtonPlugin()
-    );
-    hljs.highlightAll();
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll('pre code').forEach((block) => {
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre code').forEach(block => {
         highlightjsCopy(block);
     });
 });
-

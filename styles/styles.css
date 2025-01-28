@@ -7,57 +7,59 @@
     /*          COLORS          */
     /* ========================= */
 
-    /* Border Colors */
+    /* --- Border Colors --- */
     --light-theme-border-color: #2c3e50;
     --dark-theme-border-color: white;
     --border-color: var(--light-theme-border-color);
 
-    /* Text Colors */
+    /* --- Text Colors --- */
     --light-theme-text-color: #333;
     --dark-theme-text-color: #f8f8f8;
     --text-color: var(--light-theme-text-color);
 
-    /* Background Colors */
+    /* --- Background Colors --- */
     --light-theme-background-color: #fff;
     --dark-theme-background-color: #333;
     --background-color: var(--light-theme-background-color);
 
-    /* Sidebar Background Colors */
+    /* --- Sidebar Background Colors --- */
     --light-theme-sidebar-color: #f1f1f1;
     --dark-theme-sidebar-color: #2a2a2a;
     --sidebar-color: var(--light-theme-sidebar-color);
 
-    /* Header and Footer Colors */
+    /* --- Header and Footer Colors --- */
     --light-theme-header-and-footer-color: #2c3e50;
     --dark-theme-header-and-footer-color: #333;
     --header-and-footer-color: var(--light-theme-header-and-footer-color);
 
-    /* Hover Colors */
+    /* --- Hover Colors --- */
     --light-theme-hover-color: #e7f5ff;
     --dark-theme-hover-color: #37474F;
     --hover-color: var(--light-theme-hover-color);
 
-    /* Link Colors */
+    /* --- Link Colors --- */
     --link-color: #1a73e8;          /* Distinct blue for main links */
     --link-hover-color: #1558b0;    /* Darker blue for hover */
 
-    /* Highlight.js Colors for Light Theme */
+    /* ========================= */
+    /*    Highlight.js Colors    */
+    /* ========================= */
+
+    /* --- Light Theme for Highlight.js --- */
     --hljs-background: #f8f9fa;
     --hljs-color: #4d4d4d;
     --hljs-keyword-color: #d73a49;
     --hljs-string-color: #0366d6;
     --hljs-comment-color: #22863a;
     --hljs-function-color: #005cc5;
-
-
-
 }
 
 /* ============================ */
 /*       DARK THEME STYLING    */
 /* ============================ */
+
 .dark-theme {
-    /* Override colors for dark theme */
+    /* --- Override Colors for Dark Theme --- */
     --border-color: var(--dark-theme-border-color);
     --text-color: var(--dark-theme-text-color);
     --background-color: var(--dark-theme-background-color);
@@ -66,20 +68,19 @@
     --header-and-footer-color: var(--dark-theme-header-and-footer-color);
     --link-hover-color: #9ecbff;
 
-    /* Highlight.js Colors for Dark Theme */
+    /* --- Highlight.js Colors for Dark Theme --- */
     --hljs-background: #1e1e1e;
     --hljs-color: #c9d1d9;
     --hljs-keyword-color: #ff6c6b;
     --hljs-string-color: #79b8ff;
     --hljs-comment-color: #34d058;
     --hljs-function-color: #58a6ff;
-
-
 }
 
 /* ============================ */
 /*            GLOBAL           */
 /* ============================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -93,9 +94,7 @@ body, html {
     background-color: var(--background-color);
 }
 
-/* ---------------------------- */
-/*        GLOBAL LINKS         */
-/* ---------------------------- */
+/* --- Global Links --- */
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -111,9 +110,7 @@ a:focus {
 /*           LAYOUT            */
 /* ============================ */
 
-/* ---------------------------- */
-/*          Wrapper            */
-/* ---------------------------- */
+/* --- Wrapper --- */
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -125,9 +122,7 @@ a:focus {
     background-color: var(--background-color);
 }
 
-/* ---------------------------- */
-/*         Container           */
-/* ---------------------------- */
+/* --- Container --- */
 #container {
     display: flex;
     flex: 1;                 /* Allows the container to expand and fill available space */
@@ -141,6 +136,8 @@ a:focus {
 /* ============================ */
 /*           SIDEBAR           */
 /* ============================ */
+
+/* --- Sidebar General Styles --- */
 #sidebar {
     flex-shrink: 0;                    /* Prevents the sidebar from shrinking */
     width: 15em;
@@ -157,23 +154,23 @@ a:focus {
     margin: 0.5em;
 
     display: flex;                     /* Make it a flex container */
-    flex-direction: column;            /* Align children vertically */
-    align-items: center;               /* Align children in the center horizontally */
+    flex-direction: column;           /* Align children vertically */
+    align-items: center;              /* Align children in the center horizontally */
 }
 
-/* Spacing for direct children of sidebar */
+/* --- Sidebar Children Spacing --- */
 #sidebar > * {
     margin-bottom: 1em;
     width: 100%;
 }
 
-/* Sidebar Title */
+/* --- Sidebar Title --- */
 #sidebar h2 {
     margin-bottom: 0;
     font-size: 1.5em;
 }
 
-/* Profile Photo */
+/* --- Profile Photo --- */
 #profile-photo {
     width: 10em;
     height: 10em;
@@ -190,7 +187,7 @@ a:focus {
     object-fit: cover;
 }
 
-/* Current Status */
+/* --- Current Status --- */
 #sidebar-my-current-status {
     font-size: 0.9em;
     color: var(--text-color);
@@ -199,7 +196,7 @@ a:focus {
     font-weight: bold;
 }
 
-/* Sidebar Links and Subtitles */
+/* --- Sidebar Links and Subtitles --- */
 #sidebar h3,
 #sidebar a {
     color: var(--text-color);
@@ -208,7 +205,7 @@ a:focus {
     display: block;
 }
 
-/* Sidebar Paragraphs */
+/* --- Sidebar Paragraphs --- */
 #sidebar p {
     font-size: 0.8em;
     margin-bottom: 0.6em;
@@ -216,7 +213,7 @@ a:focus {
     white-space: nowrap;
 }
 
-/* Sidebar Bio */
+/* --- Sidebar Bio --- */
 #sidebar-bio {
     display: block;
     font-size: 1em;
@@ -225,9 +222,7 @@ a:focus {
     font-style: italic;
 }
 
-/* ---------------------------- */
-/*       Sidebar Navbar         */
-/* ---------------------------- */
+/* --- Sidebar Navbar --- */
 #sidebar-navbar {
     display: flex;
     flex-direction: column;
@@ -280,7 +275,7 @@ a:focus {
     transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
 }
 
-/* Sidebar Logos */
+/* --- Sidebar Logos --- */
 #sidebar-logos {
     display: flex;
     justify-content: center;
@@ -315,16 +310,16 @@ a:focus {
     vertical-align: middle;
 }
 
-/* Scale logos on hover */
+/* --- Sidebar Logos Hover Effect --- */
 #sidebar-logos li:hover,
 #sidebar i:hover {
     transform: scale(1.1);
 }
 
-
 /* ============================ */
 /*        MAIN CONTENT         */
 /* ============================ */
+
 #main-content {
     flex: 1;
     padding: 2em 2em;
@@ -349,7 +344,7 @@ a:focus {
     /* Transition is already handled globally (removed) */
 }
 
-/* Content Images */
+/* --- Content Images --- */
 .content-image {
     display: block;
     width: 100%;
@@ -357,13 +352,13 @@ a:focus {
     margin-bottom: 1.2em;
 }
 
-/* Paragraphs in Main Content */
+/* --- Paragraphs in Main Content --- */
 #main-content p {
     margin-bottom: 1.2em;
     text-align: justify;
 }
 
-/* Paragraphs in Projects Grid */
+/* --- Paragraphs in Projects Grid --- */
 #main-content #projects-grid p {
     margin-bottom: 1.2em;
     text-align: justify;
@@ -372,6 +367,7 @@ a:focus {
 /* ============================ */
 /*      PUBLICATIONS LIST      */
 /* ============================ */
+
 #publications-list {
     padding-left: 20px;
 }
@@ -383,6 +379,7 @@ a:focus {
 /* ============================ */
 /*       PROJECT GRID          */
 /* ============================ */
+
 #projects-grid {
     display: grid;
     /* Responsive columns: uncomment or modify for responsive behavior */
@@ -451,19 +448,21 @@ a:focus {
 /* ============================ */
 /*     INDIVIDUAL CONTENT      */
 /* ============================ */
-#individual-content p,
-#individual-content li {
-    font-family: 'Roboto', sans-serif;
-}
 
 #individual-content {
     padding: 0.3em 1em 1em 1em;
     text-align: justify;
 }
 
+#individual-content p,
+#individual-content li {
+    font-family: 'Roboto', sans-serif;
+}
+
 /* ============================ */
 /*      WRITINGS DIRECTORY     */
 /* ============================ */
+
 #writings-directory {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-left: 1em;
@@ -539,8 +538,9 @@ a:focus {
 }
 
 /* ============================ */
-/*           Content Page HEADER            */
+/*           HEADER            */
 /* ============================ */
+
 header {
     background-color: var(--header-and-footer-color);
     color: white;
@@ -572,9 +572,7 @@ header a:focus {
     cursor: pointer; /* Ensures cursor changes on hover and focus */
 }
 
-/* ---------------------------- */
-/*   Theme and Language Toggles for Main Pages */
-/* ---------------------------- */
+/* --- Theme and Language Toggles for Main Pages --- */
 #theme-toggle.main-page-style,
 #language-toggle.main-page-style {
     position: absolute;
@@ -599,9 +597,7 @@ header a:focus {
     right: 0.5em;
 }
 
-/* ---------------------------- */
-/*   Theme Toggle for Content Pages */
-/* ---------------------------- */
+/* --- Theme Toggle for Content Pages --- */
 #theme-toggle.content-page-style {
     cursor: pointer;
     width: 1.5em; /* Adjusted size for better visibility */
@@ -619,20 +615,20 @@ header a:focus {
     color: white; /* Sets the icon color to white */
 }
 
-#theme-toggle.content-page-style i, #language-toggle.content-page-style i {
+#theme-toggle.content-page-style i,
+#language-toggle.content-page-style i {
     color: white; /* Sets the icon color to white */
 }
 
-#theme-toggle.content-page-style:hover, #language-toggle.content-page-style:hover,
-#theme-toggle.content-page-style:focus, #language-toggle.content-page-style:focus {
+#theme-toggle.content-page-style:hover,
+#language-toggle.content-page-style:hover,
+#theme-toggle.content-page-style:focus,
+#language-toggle.content-page-style:focus {
     transform: translateY(-50%) scale(1.1); /* Slightly enlarges on hover/focus */
     outline: none; /* Removes default outline */
 }
 
-
-/* ---------------------------- */
-/*   Language Toggle for Content Pages (Optional) */
-/* ---------------------------- */
+/* --- Language Toggle for Content Pages (Optional) --- */
 #language-toggle.content-page-style {
     cursor: pointer;
     width: 1.5em;
@@ -649,11 +645,7 @@ header a:focus {
     transform: translateY(-50%);
 }
 
-
-
-/* ---------------------------- */
-/*   Icon Styles for Language Toggle */
-/* ---------------------------- */
+/* --- Icon Styles for Language Toggle --- */
 #language-toggle i#language-english,
 #language-toggle i#language-chinese {
     font-style: normal;
@@ -663,10 +655,12 @@ header a:focus {
     justify-content: center;
 }
 
-/* ---------------------------- */
-/*   Responsive Adjustments */
-/* ---------------------------- */
-@media (max-width: 600em) { /* Changed from px to em for consistency */
+/* ============================ */
+/*        RESPONSIVE           */
+/* ============================ */
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 60em) { /* Changed from px to em for consistency */
     header {
         padding: 0.8em 0;
     }
@@ -685,64 +679,13 @@ header a:focus {
     }
 }
 
-
-/* ============================ */
-/*           FOOTER            */
-/* ============================ */
-footer {
-    background-color: var(--header-and-footer-color);
-    font-size: 1em;
-    text-align: center;
-    line-height: 1.2;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-top: 0.2em solid var(--border-color);
-    border-left: 0.2em solid var(--border-color);
-    border-right: 0.2em solid var(--border-color);
-    border-bottom: none;
-
-
-    width: 100%;
-    margin: 0 auto;
-}
-
-footer p {
-    color: white;
-    padding: 0.3em 0;
-
-}
-
-#last-updated {
-    color: inherit;
-}
-
-/* ============================ */
-/*        MEDIA QUERIES        */
-/* ============================ */
-
-/* ---------------------------- */
-/* Smaller Screens: Adjust grid & layout */
-/* ---------------------------- */
-@media (max-width: 60em) {
-    #projects-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-}
-
-/* Specific Height and Width Adjustments */
+/* --- Specific Height and Width Adjustments --- */
 @media screen and (min-height: 501px) and (max-height: 770px) and (min-width: 501px) {
     #sidebar {
         height: 90vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
-
-
-
     }
 
     #profile-photo {
@@ -770,26 +713,23 @@ footer p {
     }
 }
 
-/* ---------------------------- */
-/* Mobile Devices & Thin/Short Screens */
-/* ---------------------------- */
+/* --- Mobile Devices & Thin/Short Screens --- */
 @media screen and (max-width: 500px),
-(max-height: 500px),
-(pointer: none),
-(pointer: coarse) {
+screen and (max-height: 500px),
+screen and (pointer: none),
+screen and (pointer: coarse) {
 
-    /* Writings Directory */
+    /* --- Writings Directory --- */
     #writings-directory {
         width: 90%;
     }
 
-    /* Container Adjustments */
+    /* --- Container Adjustments --- */
     #container {
         flex-direction: column;
-
     }
 
-    /* Profile Photo Adjustments */
+    /* --- Profile Photo Adjustments --- */
     #profile-photo {
         width: 6em;
         height: 6em;
@@ -806,6 +746,7 @@ footer p {
         object-fit: cover;
     }
 
+    /* --- Sidebar Adjustments --- */
     #sidebar {
         display: block;
         background-color: var(--sidebar-color);
@@ -815,22 +756,21 @@ footer p {
         border: none;
         margin: 0;
         font-size: 1.05em;
-
-
         padding: 1em 0.5em 0.5em 1em;
         top: 0;
-        max-height: 40em;
-
         border-radius: 0em;
 
+        /* Override height and max-height */
+        height: 80vh; /* New desired height */
+        max-height: 80vh; /* Ensure max-height doesn't constrain */
     }
 
-    /* Main Content Text Alignment */
+    /* --- Main Content Text Alignment --- */
     #main-content {
         text-align: justify;
     }
 
-    /* Sidebar Navbar */
+    /* --- Sidebar Navbar --- */
     #sidebar-navbar ul {
         flex-direction: column;
     }
@@ -839,12 +779,167 @@ footer p {
         padding: 10px 0;
     }
 
-    /* Headings Alignment */
+    /* --- Headings Alignment --- */
     h1, h2, h3, h4, h5, h6 {
         text-align: center;
     }
 
-    /* Projects Grid */
+    /* --- Projects Grid --- */
+    #projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================ */
+/*           FOOTER            */
+/* ============================ */
+
+footer {
+    background-color: var(--header-and-footer-color);
+    font-size: 1em;
+    text-align: center;
+    line-height: 1.2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-top: 0.2em solid var(--border-color);
+    border-left: 0.2em solid var(--border-color);
+    border-right: 0.2em solid var(--border-color);
+    border-bottom: none;
+
+    width: 100%;
+    margin: 0 auto;
+}
+
+footer p {
+    color: white;
+    padding: 0.3em 0;
+}
+
+#last-updated {
+    color: inherit;
+}
+
+/* ============================ */
+/*        MEDIA QUERIES        */
+/* ============================ */
+
+/* --- Smaller Screens: Adjust grid & layout --- */
+@media (max-width: 60em) {
+    #projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* --- Specific Height and Width Adjustments --- */
+@media screen and (min-height: 501px) and (max-height: 770px) and (min-width: 501px) {
+    #sidebar {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #profile-photo {
+        display: none;
+    }
+
+    #sidebar h2 {
+        margin-top: 0.2em;
+        font-size: 2em;
+    }
+
+    #sidebar-navbar li {
+        margin: 0.1em 0;
+    }
+
+    #sidebar-logos {
+        margin-bottom: 0.5em;
+        margin-top: 0em;
+    }
+}
+
+@media screen and (min-height: 501px) and (max-height: 630px) and (min-width: 501px) {
+    #sidebar-bio {
+        display: none;
+    }
+}
+
+/* --- Mobile Devices & Thin/Short Screens --- */
+@media screen and (max-width: 500px),
+screen and (max-height: 500px),
+screen and (pointer: none),
+screen and (pointer: coarse) {
+
+    /* --- Writings Directory --- */
+    #writings-directory {
+        width: 90%;
+    }
+
+    /* --- Container Adjustments --- */
+    #container {
+        flex-direction: column;
+    }
+
+    /* --- Profile Photo Adjustments --- */
+    #profile-photo {
+        width: 6em;
+        height: 6em;
+        border-radius: 50%;
+        background-color: #aaa;
+        overflow: hidden;
+        display: block;
+        margin: 0 auto;
+    }
+
+    #profile-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* --- Sidebar Adjustments --- */
+    #sidebar {
+        display: block;
+        background-color: var(--sidebar-color);
+        color: var(--text-color);
+        width: 100%;
+        position: relative;
+        border: none;
+        margin: 0;
+        font-size: 1.05em;
+        padding: 1em 0.5em 0.5em 1em;
+        top: 0;
+        border-radius: 0em;
+
+        /* Override height and max-height */
+        height: 80vh; /* New desired height */
+        max-height: 80vh; /* Ensure max-height doesn't constrain */
+    }
+
+    /* --- Main Content Text Alignment --- */
+    #main-content {
+        text-align: justify;
+    }
+
+    /* --- Sidebar Navbar --- */
+    #sidebar-navbar ul {
+        flex-direction: column;
+    }
+
+    #sidebar-navbar li {
+        padding: 10px 0;
+    }
+
+    /* --- Headings Alignment --- */
+    h1, h2, h3, h4, h5, h6 {
+        text-align: center;
+    }
+
+    /* --- Projects Grid --- */
     #projects-grid {
         grid-template-columns: 1fr;
     }
@@ -853,6 +948,7 @@ footer p {
 /* ============================ */
 /*       SCROLLBAR STYLING     */
 /* ============================ */
+
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -871,7 +967,7 @@ footer p {
 /*    HIGHLIGHT.JS STYLING     */
 /* ============================ */
 
-/* Light Theme for highlight.js */
+/* --- Light Theme for Highlight.js --- */
 pre code {
     display: block;
     overflow-x: auto;
@@ -899,7 +995,7 @@ pre code {
     color: var(--hljs-function-color);
 }
 
-/* Dark Theme for highlight.js */
+/* --- Dark Theme for Highlight.js --- */
 .dark-theme pre code {
     background: var(--hljs-background);
     color: var(--hljs-color);
@@ -931,9 +1027,9 @@ pre code {
     --hljs-theme-background: grey;
 }
 
-/* You can further customize the copy button styles if needed */
-
-/* styles.css */
+/* ============================ */
+/*          GALLERY COLLAGE    */
+/* ============================ */
 
 .gallery.collage {
     display: flex;
@@ -955,8 +1051,10 @@ pre code {
     margin-bottom: 20px; /* Space between original image and other content */
 }
 
+/* ============================ */
+/*   SCROLL TO TOP BUTTON      */
+/* ============================ */
 
-/* Scroll to Top Button Styles */
 #scroll-to-top-btn {
     position: fixed;
     bottom: 40px;
@@ -983,14 +1081,13 @@ pre code {
     opacity: 1;
     visibility: visible;
     z-index: 1000;
-
 }
 
 #scroll-to-top-btn:hover {
     background-color: var(--header-and-footer-color);
 }
 
-/* Change arrow color */
+/* --- Change Arrow Color --- */
 #scroll-to-top-btn i {
     color: white; /* Default color of the arrow */
 }

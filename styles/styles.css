@@ -478,7 +478,8 @@ a:focus {
 
 #writings-directory .writing-item {
     display: flex;
-    align-items: center;        /* Align items center for vertical centering */
+    /* Changed from align-items: center to flex-start */
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 1em;
     border-bottom: 1px solid #eee;
@@ -489,7 +490,7 @@ a:focus {
     color: var(--link-color);               /* Inherit the global link color */
     font-size: clamp(1em, 2vw, 1.5em);      /* Responsive font size */
     font-weight: bold;
-    margin-bottom: 0.25em;
+    margin-bottom: 0.5em;
     padding: 5px 10px;
     border-radius: 5px;
     background-color: #e8f0fe;              /* Light blue background */
@@ -510,12 +511,13 @@ a:focus {
 #writings-directory .explanatory-text {
     font-size: 1em;
     margin-left: 0.25em;
+    margin-top: 0.5em;
     font-style: italic;
 }
 
 #writings-directory .writing-meta {
     flex-shrink: 0;
-}
+}p
 
 #writings-directory .date {
     font-size: 0.9em;
@@ -536,6 +538,7 @@ a:focus {
     margin-right: 0.5em;
     order: -1;
 }
+
 
 /* ============================ */
 /*           HEADER            */

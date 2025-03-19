@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4PHH3RMS01"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4PHH3RMS01');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Lawrence - Torrentem</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/lightbox.css">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="icon" href="../images/favicon/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../images/favicon/apple-touch-icon.png"/>
+    <link rel="manifest" href="../images/favicon/site.webmanifest"/>
+    <link rel="mask-icon" href="../images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Removed the default highlight.js stylesheet -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/cpp.min.js"></script>
+
+
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+    />
+
+
+</head>
+
+<body>
+<div class="wrapper">
+    <div id="contentHeader-placeholder"></div>
+
+
+    <div id="individual-content">
+
+        <h1>Finite Element Method (FEM) in C++</h1>
+
+
+
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p>
+                The Finite Element Method (FEM) is a powerful numerical technique for solving complex engineering and mathematical problems. This document explores the implementation of FEM in C++, focusing on quadrature integration and Newton's method for solving nonlinear systems. The presented examples demonstrate the application of these methods in practical scenarios.
+            </p>
+        </section>
+
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>
+                FEM is extensively used in structural analysis, heat transfer, fluid dynamics, and other fields requiring the solution of partial differential equations. By discretizing a continuous domain into smaller, manageable elements, FEM allows for approximate solutions with high accuracy. This document provides a detailed overview of implementing FEM in C++, highlighting key algorithms and code examples.
+            </p>
+        </section>
+
+        <section id="methods">
+            <h2>Methods</h2>
+
+            <h3>Quadrature Integration</h3>
+            <p>
+                Quadrature integration is essential in FEM for accurately computing integrals over elements. Gaussian quadrature is a popular choice due to its efficiency and precision. Below is an example of implementing Gaussian quadrature in C++:
+            </p>
+
+            <!-- Original Image -->
+            <div class="gallery original-image">
+                <img src="../images/project_directory/project_directory_torrentem.webp" alt="Research" class="content-image lightbox-trigger">
+            </div>
+
+            <pre><code class="language-cpp">#include &lt;iostream>
+#include &lt;vector>
+#include &lt;cmath>
+
+struct QuadraturePoint {
+    double weight;
+    double position;
+};
+
+std::vector&lt;QuadraturePoint> getGaussianQuadrature(int order) {
+    // Example for 2-point Gaussian quadrature
+    if(order == 2) {
+        return { {1.0, -1.0 / std::sqrt(3)}, {1.0, std::sqrt(3)} };
+    }
+    // Add more orders as needed
+    return {};
+}
+
+double integrate(const std::vector&lt;QuadraturePoint>& points, double (*f)(double)) {
+    double result = 0.0;
+    for(const auto& qp : points) {
+        result += qp.weight * f(qp.position);
+    }
+    return result;
+}
+
+double exampleFunction(double x) {
+    return std::pow(x, 2);
+}
+
+int main() {
+    auto quadraturePoints = getGaussianQuadrature(2);
+    double integral = integrate(quadraturePoints, exampleFunction);
+    std::cout &lt;&lt; "Integral: " &lt;&lt; integral &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+
+            <h3>Newton's Method</h3>
+            <p>
+                Newton's method is employed to solve nonlinear systems arising in FEM. The iterative approach refines solutions by linearizing the nonlinear equations. Below is an example implementation:
+            </p>
+
+            <pre><code class="language-cpp">#include &lt;iostream>
+#include &lt;vector>
+#include &lt;cmath>
+
+// Function and its derivative
+double f(double x) {
+    return x * x - 2; // Example: f(x) = x² - 2
+}
+
+double f_prime(double x) {
+    return 2 * x;
+}
+
+double newtonsMethod(double initial_guess, double tolerance, int max_iterations) {
+    double x = initial_guess;
+    for(int i = 0; i &lt; max_iterations; ++i) {
+        double fx = f(x);
+        double fpx = f_prime(x);
+        if(std::abs(fpx) &lt; 1e-12) {
+            std::cerr &lt;&lt; "Derivative too small." &lt;&lt; std::endl;
+            break;
+        }
+        double x_new = x - fx / fpx;
+        if(std::abs(x_new - x) &lt; tolerance) {
+            return x_new;
+        }
+        x = x_new;
+    }
+    std::cerr &lt;&lt; "Maximum iterations reached." &lt;&lt; std::endl;
+    return x;
+}
+
+int main() {
+    double root = newtonsMethod(1.0, 1e-6, 100);
+    std::cout &lt;&lt; "Root: " &lt;&lt; root &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+        </section>
+
+        <section id="results">
+            <h2>Results</h2>
+            <p>
+                The implementation of Gaussian quadrature and Newton's method in C++ has demonstrated reliable convergence and accuracy in solving FEM-related problems. The quadrature integration effectively approximates integrals over elements, while Newton's method efficiently solves nonlinear systems with a high rate of convergence.
+            </p>
+            <p>
+                For instance, the Gaussian quadrature example accurately computes the integral of \( f(x) = x^2 \) over the specified domain, and Newton's method successfully finds the root of the nonlinear equation \( x^2 - 2 = 0 \) with the desired precision.
+            </p>
+        </section>
+
+        <section id="discussion">
+            <h2>Discussion</h2>
+            <p>
+                The modular design of the C++ implementations allows for easy extension and integration into larger FEM frameworks. Future work may include extending the quadrature to higher orders, implementing more sophisticated solvers for nonlinear systems, and optimizing performance for large-scale problems.
+            </p>
+        </section>
+
+        <section id="conclusion">
+            <h2>Conclusion</h2>
+            <p>
+                This document outlined the fundamental components of implementing the Finite Element Method in C++. By leveraging Gaussian quadrature for integration and Newton's method for solving nonlinear equations, effective and efficient FEM simulations can be achieved. Continued development and optimization of these methods will further enhance their applicability in complex engineering and scientific problems.
+            </p>
+        </section>
+
+        <section id="references">
+            <h2>References</h2>
+            <ul>
+                <li>Cook, R. D., Malkus, D. S., &amp; Plesha, M. E. (2002). <em>Concepts and Applications of Finite Element Analysis</em>. Wiley.</li>
+                <li>Burden, R. L., &amp; Faires, J. D. (2011). <em>Numerical Analysis</em>. Brooks/Cole.</li>
+                <li>Strang, G., &amp; Fix, G. J. (1973). <em>An Analysis of the Finite Element Method</em>. Prentice-Hall.</li>
+            </ul>
+        </section>
+
+        <!-- 2x2 Collage Gallery -->
+        <section id="gallery-collage">
+            <h2>Illustrations</h2>
+            <div class="gallery collage">
+                <div class="collage-row">
+                    <img src="../images/project_directory/project_directory_torrentem.webp" alt="Finite Element Method Diagram" class="content-image lightbox-trigger">
+                    <img src="../images/project_directory/project_directory_torrentem.webp" alt="Quadrature Scheme" class="content-image lightbox-trigger">
+                </div>
+                <div class="collage-row">
+                    <img src="../images/project_directory/project_directory_torrentem.webp" alt="Newton's Method Illustration" class="content-image lightbox-trigger">
+                    <img src="../images/project_directory/project_directory_torrentem.webp" alt="Newton's Method Step" class="content-image lightbox-trigger">
+                </div>
+            </div>
+        </section>
+
+        <h2>Appendix</h2>
+        <p>
+            Additional resources and code snippets can be found in the accompanying GitHub repository. Please refer to the <a href="https://github.com/adamlawrence/fem-cpp" class="content-link" target="_blank" rel="noopener">FEM C++ Repository</a> for detailed implementations and documentation.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+            For further inquiries or collaboration opportunities, feel free to reach out via email at <a href="mailto:adam.lawrence@example.com" class="content-link">adam.lawrence@example.com</a> or connect with me on <a href="https://www.linkedin.com/in/adamlawrence" class="content-link" target="_blank" rel="noopener">LinkedIn</a> and <a href="https://github.com/adamlawrence" class="content-link" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+
+        <div class="scrollable-space"></div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+</div>
+
+<button id="scroll-to-top-btn" aria-label="Scroll to Top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+
+<!-- JavaScript References -->
+<script src="/javascript/functions.js"></script>
+<script src="/javascript/lightbox.js"></script>
+<script src="/javascript/scrollToTop.js"></script>
+
+</body>
+</html>

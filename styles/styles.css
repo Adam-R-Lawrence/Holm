@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
+
 /* ============================ */
 /*         :ROOT VARIABLES     */
 /* ============================ */
@@ -36,6 +38,10 @@
     --light-theme-hover-color: #e7f5ff;
     --dark-theme-hover-color: #37474F;
     --hover-color: var(--light-theme-hover-color);
+
+    /* --- Font Families --- */
+    --font-family-base: 'Noto Serif SC', serif;
+    --font-family-handwritten: 'Zhi Mang Xing', cursive;
 
     /* --- Link Colors --- */
     --link-color: #1a73e8;          /* Distinct blue for main links */
@@ -78,6 +84,14 @@
 }
 
 /* ============================ */
+/*       CHINESE TRANSLATION   */
+/* ============================ */
+
+.chinese {
+    --font-family-base: var(--font-family-handwritten);
+}
+
+/* ============================ */
 /*            GLOBAL           */
 /* ============================ */
 
@@ -85,7 +99,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Noto Serif SC', serif;
+    font-family: var(--font-family-base);
     color: var(--text-color);
     scroll-behavior: smooth;
 }

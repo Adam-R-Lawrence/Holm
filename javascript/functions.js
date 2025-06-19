@@ -1,4 +1,25 @@
 'use strict';
+// Redirect to custom 404 page for invalid routes
+document.addEventListener("DOMContentLoaded", () => {
+    const validRoutes = [
+        "",
+        "index.html",
+        "projects.html",
+        "publications.html",
+        "resume.html",
+        "writings.html",
+        "projects/Ostium.html",
+        "projects/Torrentem.html",
+        "projects/Vadum.html",
+        "writings/numerical_modelling_of_photopolymerization.html",
+        "404.html"
+    ];
+    let path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+    if (!validRoutes.includes(path)) {
+        window.location.replace("/404.html");
+    }
+});
+
 
 // Constants for GitHub API
 const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username

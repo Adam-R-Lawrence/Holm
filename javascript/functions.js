@@ -173,10 +173,10 @@ function toggleLanguage() {
     const englishIcon = document.getElementById('language-english');
     const chineseIcon = document.getElementById('language-chinese');
 
-    // Determine if the current language is Chinese by checking the display style
-    const isChinese = chineseIcon.style.display === 'inline';
+    // Determine the current language from the body class
+    const isChinese = document.body.classList.contains('chinese');
 
-    // Toggle the display styles of the language icons
+    // Show the icon for the language the user can switch to
     englishIcon.style.display = isChinese ? 'inline' : 'none';
     chineseIcon.style.display = isChinese ? 'none' : 'inline';
 
@@ -218,9 +218,9 @@ function applyPreferences() {
     // Toggle sidebar images to match the theme
     toggleImagesForDarkMode();
 
-    // Update language icon visibility based on the current language
-    englishIcon.style.display = isChinese ? 'none' : 'inline';
-    chineseIcon.style.display = isChinese ? 'inline' : 'none';
+    // Update language icon visibility so the user sees the alternate option
+    englishIcon.style.display = isChinese ? 'inline' : 'none';
+    chineseIcon.style.display = isChinese ? 'none' : 'inline';
 
     // Apply translations and font for the stored preference
     applyTranslations(isChinese ? 'chinese' : 'english');

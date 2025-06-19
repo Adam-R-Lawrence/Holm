@@ -88,7 +88,8 @@
 /* ============================ */
 
 .chinese {
-    --font-family-base: var(--font-family-handwritten);
+    /* Use the standard serif font for both languages */
+    --font-family-base: 'Noto Serif SC', serif;
 }
 
 /* ============================ */

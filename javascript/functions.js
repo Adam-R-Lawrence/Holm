@@ -45,7 +45,7 @@ const translations = {
         'header-writings': 'Writings',
         'header-resume': 'Resume',
 
-        'footer-text': '&copy; 2025 Adam Lawrence | Last updated on <span id="last-updated"></span>',
+        'footer-text': '&copy; %YEAR% Adam Lawrence | Last updated on <span id="last-updated"></span>',
 
         'about-header': 'About Me',
         'about-p1': 'I am a first year PhD student at the University of Illinois Urbana-Champaign, within the department of Civil and Environmental Engineering. My research entails all aspects of computational mechanics and modelling, mainly in free surface hydrodynamics, but also on more unique applications such as photopolymerization. I am under the guidance of Professor <a href="https://yan.cee.illinois.edu/">Jinhui Yan</a>.',
@@ -79,7 +79,7 @@ const translations = {
         'header-resume': '简历',
 
         // Footer
-        'footer-text': '© 2025 亚当·劳伦斯 | 最近更新：<span id="last-updated"></span>',
+        'footer-text': '© %YEAR% 亚当·劳伦斯 | 最近更新：<span id="last-updated"></span>',
 
         // Index page
         'about-header': '自我介绍',
@@ -228,6 +228,9 @@ function applyPreferences() {
     // Apply translations and font for the stored preference
     applyTranslations(isChinese ? 'chinese' : 'english');
     document.body.classList.toggle('chinese', isChinese);
+
+    // Update the footer year and last updated date after applying translations
+    displayLastUpdated();
 }
 
 /**
@@ -367,6 +370,12 @@ function loadContentHeader() {
  * Utilizes caching to minimize API requests.
  */
 async function displayLastUpdated() {
+    // Insert the current year into the footer text if a placeholder exists
+    const currentYear = new Date().getFullYear();
+    const footerTextElement = document.getElementById('footer-text');
+    if (footerTextElement) {
+        footerTextElement.innerHTML = footerTextElement.innerHTML.replace('%YEAR%', currentYear);
+    }
     const cacheKey = 'lastUpdatedDate';
     const cacheTimeKey = 'lastUpdatedTime';
     const cacheDuration = 60 * 60 * 1000; // 1 hour in milliseconds

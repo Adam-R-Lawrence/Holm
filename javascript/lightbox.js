@@ -20,6 +20,7 @@ function createLightboxModal() {
     img.className = 'lightbox-content';
     img.id = 'lightbox-img';
     img.alt = 'Enlarged Image';
+    img.loading = 'lazy';
 
     // Create the caption
     const caption = document.createElement('div');

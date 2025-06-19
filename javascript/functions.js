@@ -45,7 +45,7 @@ const translations = {
         'header-writings': 'Writings',
         'header-resume': 'Resume',
 
-        'footer-text': '&copy; 2025 Adam Lawrence | Last updated on <span id="last-updated"></span>',
+        'footer-text': '&copy; %YEAR% Adam Lawrence | Last updated on <span id="last-updated"></span>',
 
         'about-header': 'About Me',
         'about-p1': 'I am a first year PhD student at the University of Illinois Urbana-Champaign, within the department of Civil and Environmental Engineering. My research entails all aspects of computational mechanics and modelling, mainly in free surface hydrodynamics, but also on more unique applications such as photopolymerization. I am under the guidance of Professor <a href="https://yan.cee.illinois.edu/">Jinhui Yan</a>.',
@@ -79,7 +79,7 @@ const translations = {
         'header-resume': '简历',
 
         // Footer
-        'footer-text': '© 2025 亚当·劳伦斯 | 最近更新：<span id="last-updated"></span>',
+        'footer-text': '© %YEAR% 亚当·劳伦斯 | 最近更新：<span id="last-updated"></span>',
 
         // Index page
         'about-header': '自我介绍',
@@ -228,6 +228,9 @@ function applyPreferences() {
     // Apply translations and font for the stored preference
     applyTranslations(isChinese ? 'chinese' : 'english');
     document.body.classList.toggle('chinese', isChinese);
+
+    // Update the footer year and last updated date after applying translations
+    displayLastUpdated();
 }
 
 /**
@@ -367,6 +370,12 @@ function loadContentHeader() {
  * Utilizes caching to minimize API requests.
  */
 async function displayLastUpdated() {
+    // Insert the current year into the footer text if a placeholder exists
+    const currentYear = new Date().getFullYear();
+    const footerTextElement = document.getElementById('footer-text');
+    if (footerTextElement) {
+        footerTextElement.innerHTML = footerTextElement.innerHTML.replace('%YEAR%', currentYear);
+    }
     const cacheKey = 'lastUpdatedDate';
     const cacheTimeKey = 'lastUpdatedTime';
     const cacheDuration = 60 * 60 * 1000; // 1 hour in milliseconds
@@ -521,6 +530,76 @@ function loadPublicationsData() {
 }
 
 /**
+ * Loads writing data from a JSON file and populates the writings directory.
+ */
+function loadWritingsData() {
+    const directory = document.getElementById('writings-directory');
+    if (!directory) {
+        return; // Exit if not on the writings page
+    }
+
+    fetch('/data/writings.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load writings.json');
+            }
+            return response.json();
+        })
+        .then(writings => {
+            directory.innerHTML = '';
+            writings.forEach(writing => {
+                const item = document.createElement('div');
+                item.className = 'writing-item';
+
+                const content = document.createElement('div');
+                content.className = 'writing-content';
+
+                const link = document.createElement('a');
+                link.href = writing.link;
+                link.textContent = writing.title;
+
+                content.appendChild(link);
+
+                if (writing.summary) {
+                    const summary = document.createElement('p');
+                    summary.className = 'explanatory-text';
+                    summary.textContent = writing.summary;
+                    content.appendChild(summary);
+                }
+
+                const meta = document.createElement('div');
+                meta.className = 'writing-meta';
+
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'date';
+
+                const dateObj = new Date(writing.date);
+                if (isNaN(dateObj)) {
+                    dateDiv.textContent = writing.date;
+                } else {
+                    const monthDay = document.createElement('span');
+                    monthDay.className = 'month-day';
+                    monthDay.textContent = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ',';
+
+                    const year = document.createElement('span');
+                    year.className = 'year';
+                    year.textContent = dateObj.getFullYear();
+
+                    dateDiv.appendChild(monthDay);
+                    dateDiv.appendChild(year);
+                }
+
+                meta.appendChild(dateDiv);
+
+                item.appendChild(content);
+                item.appendChild(meta);
+                directory.appendChild(item);
+            });
+        })
+        .catch(error => console.error('Error loading writings:', error));
+}
+
+/**
  * Initializes the application by loading all common components
  * and applying user preferences.
  */
@@ -539,10 +618,10 @@ async function initialize() {
         loadProjectsData();
 
         // Load publication list if on the publications page
-        const mainContent = document.getElementById('main-content');
-        if (mainContent && mainContent.dataset.page === 'publications') {
-            loadPublicationsData();
-        }
+        loadPublicationsData();
+
+        // Dynamically build writing entries if on the writings page
+        loadWritingsData();
 
         // Add a fade-in effect to the body for smooth visual transition
         document.body.classList.add('fade-in');

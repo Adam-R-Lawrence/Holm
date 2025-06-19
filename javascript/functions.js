@@ -473,6 +473,76 @@ function loadProjectsData() {
 }
 
 /**
+ * Loads writing data from a JSON file and populates the writings directory.
+ */
+function loadWritingsData() {
+    const directory = document.getElementById('writings-directory');
+    if (!directory) {
+        return; // Exit if not on the writings page
+    }
+
+    fetch('/data/writings.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load writings.json');
+            }
+            return response.json();
+        })
+        .then(writings => {
+            directory.innerHTML = '';
+            writings.forEach(writing => {
+                const item = document.createElement('div');
+                item.className = 'writing-item';
+
+                const content = document.createElement('div');
+                content.className = 'writing-content';
+
+                const link = document.createElement('a');
+                link.href = writing.link;
+                link.textContent = writing.title;
+
+                content.appendChild(link);
+
+                if (writing.summary) {
+                    const summary = document.createElement('p');
+                    summary.className = 'explanatory-text';
+                    summary.textContent = writing.summary;
+                    content.appendChild(summary);
+                }
+
+                const meta = document.createElement('div');
+                meta.className = 'writing-meta';
+
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'date';
+
+                const dateObj = new Date(writing.date);
+                if (isNaN(dateObj)) {
+                    dateDiv.textContent = writing.date;
+                } else {
+                    const monthDay = document.createElement('span');
+                    monthDay.className = 'month-day';
+                    monthDay.textContent = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ',';
+
+                    const year = document.createElement('span');
+                    year.className = 'year';
+                    year.textContent = dateObj.getFullYear();
+
+                    dateDiv.appendChild(monthDay);
+                    dateDiv.appendChild(year);
+                }
+
+                meta.appendChild(dateDiv);
+
+                item.appendChild(content);
+                item.appendChild(meta);
+                directory.appendChild(item);
+            });
+        })
+        .catch(error => console.error('Error loading writings:', error));
+}
+
+/**
  * Initializes the application by loading all common components
  * and applying user preferences.
  */
@@ -489,6 +559,9 @@ async function initialize() {
 
         // Dynamically build project tiles if on the projects page
         loadProjectsData();
+
+        // Dynamically build writing entries if on the writings page
+        loadWritingsData();
 
         // Add a fade-in effect to the body for smooth visual transition
         document.body.classList.add('fade-in');

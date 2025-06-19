@@ -423,6 +423,56 @@ async function displayLastUpdated() {
 }
 
 /**
+ * Loads project data from a JSON file and populates the projects grid.
+ */
+function loadProjectsData() {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) {
+        return; // Exit if not on the projects page
+    }
+
+    fetch('/data/projects.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load projects.json');
+            }
+            return response.json();
+        })
+        .then(projects => {
+            grid.innerHTML = '';
+            projects.forEach(project => {
+                const item = document.createElement('div');
+                item.className = 'project-item';
+
+                const link = document.createElement('a');
+                link.href = project.link;
+
+                const title = document.createElement('h2');
+                title.textContent = project.title;
+
+                const desc = document.createElement('p');
+                desc.textContent = project.description || '';
+
+                const img = document.createElement('img');
+                img.src = project.image;
+                img.alt = project.title + ' image';
+                img.className = 'content-image';
+                img.loading = 'lazy';
+
+                link.appendChild(title);
+                if (project.description) {
+                    link.appendChild(desc);
+                }
+                link.appendChild(img);
+
+                item.appendChild(link);
+                grid.appendChild(item);
+            });
+        })
+        .catch(error => console.error('Error loading projects:', error));
+}
+
+/**
  * Initializes the application by loading all common components
  * and applying user preferences.
  */
@@ -436,6 +486,9 @@ async function initialize() {
 
         // Apply user preferences for theme and language
         applyPreferences();
+
+        // Dynamically build project tiles if on the projects page
+        loadProjectsData();
 
         // Add a fade-in effect to the body for smooth visual transition
         document.body.classList.add('fade-in');

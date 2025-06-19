@@ -473,6 +473,54 @@ function loadProjectsData() {
 }
 
 /**
+ * Loads publication data from a JSON file and populates the publications directory.
+ */
+function loadPublicationsData() {
+    const directory = document.getElementById('publications-directory');
+    if (!directory) {
+        return; // Exit if not on the publications page
+    }
+
+    fetch('/data/publications.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load publications.json');
+            }
+            return response.json();
+        })
+        .then(publications => {
+            directory.innerHTML = '';
+
+            const list = document.createElement('ul');
+            list.id = 'publications-list';
+
+            publications.forEach(pub => {
+                const item = document.createElement('li');
+
+                const link = document.createElement('a');
+                link.href = pub.link;
+                link.textContent = pub.title;
+
+                item.appendChild(link);
+
+                const details = [];
+                if (pub.authors) details.push(pub.authors);
+                if (pub.venue) details.push(pub.venue);
+                if (pub.year) details.push(pub.year);
+
+                if (details.length > 0) {
+                    item.appendChild(document.createTextNode(' - ' + details.join(', ')));
+                }
+
+                list.appendChild(item);
+            });
+
+            directory.appendChild(list);
+        })
+        .catch(error => console.error('Error loading publications:', error));
+}
+
+/**
  * Initializes the application by loading all common components
  * and applying user preferences.
  */
@@ -489,6 +537,12 @@ async function initialize() {
 
         // Dynamically build project tiles if on the projects page
         loadProjectsData();
+
+        // Load publication list if on the publications page
+        const mainContent = document.getElementById('main-content');
+        if (mainContent && mainContent.dataset.page === 'publications') {
+            loadPublicationsData();
+        }
 
         // Add a fade-in effect to the body for smooth visual transition
         document.body.classList.add('fade-in');

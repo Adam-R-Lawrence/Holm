@@ -931,8 +931,9 @@ pre code {
 /*    HIGHLIGHT.JS COPY BTN    */
 /* ============================ */
 .hljs-copy-button {
-    --hljs-theme-color: black;
-    --hljs-theme-background: grey;
+    /* Match the copy button colors to the current theme */
+    --hljs-theme-color: var(--hljs-color);
+    --hljs-theme-background: var(--hljs-background);
 }
 
 /* ============================ */

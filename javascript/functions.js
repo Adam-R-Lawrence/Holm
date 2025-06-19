@@ -625,6 +625,13 @@ async function initialize() {
 
         // Add a fade-in effect to the body for smooth visual transition
         document.body.classList.add('fade-in');
+        // Initialize highlight.js after the content is loaded so that
+        // theme preferences are applied correctly
+        hljs.highlightAll();
+        document.querySelectorAll('pre code').forEach(block => {
+            highlightjsCopy(block);
+        });
+
     } catch (error) {
         console.error('Error during initialization:', error);
     }
@@ -635,10 +642,3 @@ document.addEventListener('DOMContentLoaded', initialize);
 
 /* Highlight.js plugins and setup */
 hljs.addPlugin(new CopyButtonPlugin());
-hljs.highlightAll();
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('pre code').forEach(block => {
-        highlightjsCopy(block);
-    });
-});

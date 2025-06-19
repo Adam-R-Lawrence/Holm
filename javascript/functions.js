@@ -188,6 +188,9 @@ function toggleLanguage() {
     // Apply the chosen language
     applyTranslations(newLanguage);
     document.body.classList.toggle('chinese', newLanguage === 'chinese');
+
+    // Refresh the "Last Updated" date after the footer text is re-rendered
+    displayLastUpdated();
 }
 
 /**

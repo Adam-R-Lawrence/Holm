@@ -554,6 +554,7 @@ function loadPublicationsData() {
  */
 function loadWritingsData() {
     const directory = document.getElementById('writings-directory');
+    const filterContainer = document.getElementById('writing-filter-controls');
     if (!directory) {
         return; // Exit if not on the writings page
     }
@@ -567,9 +568,14 @@ function loadWritingsData() {
         })
         .then(writings => {
             directory.innerHTML = '';
+
+            const items = [];
             writings.forEach(writing => {
                 const item = document.createElement('div');
                 item.className = 'writing-item';
+                if (writing.year) {
+                    item.dataset.year = writing.year;
+                }
 
                 const content = document.createElement('div');
                 content.className = 'writing-content';
@@ -614,7 +620,35 @@ function loadWritingsData() {
                 item.appendChild(content);
                 item.appendChild(meta);
                 directory.appendChild(item);
+                items.push(item);
             });
+
+            if (filterContainer) {
+                const years = [...new Set(writings.map(w => w.year).filter(Boolean))];
+                const select = document.createElement('select');
+                select.id = 'year-filter';
+
+                const allOption = document.createElement('option');
+                allOption.value = 'all';
+                allOption.textContent = 'All Years';
+                select.appendChild(allOption);
+
+                years.forEach(year => {
+                    const opt = document.createElement('option');
+                    opt.value = year;
+                    opt.textContent = year;
+                    select.appendChild(opt);
+                });
+
+                filterContainer.appendChild(select);
+
+                select.addEventListener('change', () => {
+                    const val = select.value;
+                    items.forEach(item => {
+                        item.style.display = (val === 'all' || item.dataset.year === val) ? 'flex' : 'none';
+                    });
+                });
+            }
         })
         .catch(error => console.error('Error loading writings:', error));
 }

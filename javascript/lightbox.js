@@ -22,6 +22,13 @@ function createLightboxModal() {
     img.alt = 'Enlarged Image';
     img.loading = 'lazy';
 
+    // Create the video element (hidden by default)
+    const video = document.createElement('video');
+    video.className = 'lightbox-content';
+    video.id = 'lightbox-video';
+    video.controls = true;
+    video.style.display = 'none';
+
     // Create the caption
     const caption = document.createElement('div');
     caption.className = 'lightbox-caption';
@@ -30,6 +37,7 @@ function createLightboxModal() {
     // Append elements to the modal
     modal.appendChild(closeBtn);
     modal.appendChild(img);
+    modal.appendChild(video);
     modal.appendChild(caption);
 
     // Append the modal to the body
@@ -42,36 +50,67 @@ createLightboxModal();
 // Get the modal elements
 const lightboxModal = document.getElementById('lightbox-modal');
 const lightboxImg = document.getElementById('lightbox-img');
+const lightboxVideo = document.getElementById('lightbox-video');
 const lightboxCaption = document.getElementById('lightbox-caption');
 const closeBtn = document.querySelector('.lightbox-close');
 
-// Get all images with class 'lightbox-trigger'
+// Get all elements that should trigger the lightbox
 const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 
-// Open the modal when an image is clicked
-lightboxTriggers.forEach(img => {
-    img.addEventListener('click', () => {
-        lightboxModal.style.display = 'flex'; // Show the modal
-        lightboxImg.src = img.src;             // Use the clicked image's source
-        lightboxCaption.textContent = img.alt; // Use the clicked image's alt as the caption
+function getTriggerSource(el) {
+    return el.dataset.video || el.dataset.src || el.src || el.href;
+}
+
+function isVideoTrigger(el) {
+    const src = getTriggerSource(el);
+    return src ? /\.(mp4|webm|ogg|m4v)$/i.test(src) : false;
+}
+
+function openLightbox(el) {
+    const src = getTriggerSource(el);
+    const caption = el.alt || el.dataset.caption || '';
+    lightboxCaption.textContent = caption;
+    lightboxModal.style.display = 'flex';
+
+    if (isVideoTrigger(el)) {
+        lightboxImg.style.display = 'none';
+        lightboxVideo.style.display = 'block';
+        lightboxVideo.src = src;
+        lightboxVideo.play();
+    } else {
+        lightboxVideo.pause();
+        lightboxVideo.style.display = 'none';
+        lightboxImg.style.display = 'block';
+        lightboxImg.src = src;
+    }
+}
+
+// Open the modal when a trigger is clicked
+lightboxTriggers.forEach(trigger => {
+    trigger.addEventListener('click', e => {
+        e.preventDefault();
+        openLightbox(trigger);
     });
 });
 
-// Close the modal when clicking the close button
-closeBtn.addEventListener('click', () => {
+function closeLightbox() {
     lightboxModal.style.display = 'none';
-});
+    lightboxVideo.pause();
+}
+
+// Close the modal when clicking the close button
+closeBtn.addEventListener('click', closeLightbox);
 
 // Close the modal when clicking outside the image
 lightboxModal.addEventListener('click', (e) => {
     if (e.target === lightboxModal) {
-        lightboxModal.style.display = 'none';
+        closeLightbox();
     }
 });
 
 // Optional: Close the modal with the ESC key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        lightboxModal.style.display = 'none';
+        closeLightbox();
     }
 });

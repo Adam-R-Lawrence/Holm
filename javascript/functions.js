@@ -659,6 +659,16 @@ function loadWritingsData() {
  */
 async function initialize() {
     try {
+        // Set initial theme based on system preference if no saved value exists
+        if (!localStorage.getItem('theme')) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+
         // Load Google Analytics snippet
         await loadAnalytics();
 

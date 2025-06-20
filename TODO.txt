@@ -10,3 +10,4 @@ ffmpeg -i input.webp -vf "scale=iw*0.378:ih*0.378" -compression_level 6 -q:v 50 
 ffmpeg -i input.webp -vf "scale=WIDTH:HEIGHT" -compression_level 6 -q:v 50 output.webp
 
 ffmpeg -i input.png output.webp
+- If no theme is saved, pages check `prefers-color-scheme` to choose dark or light mode by default.

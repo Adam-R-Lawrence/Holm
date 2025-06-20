@@ -34,11 +34,17 @@ function createLightboxModal() {
     caption.className = 'lightbox-caption';
     caption.id = 'lightbox-caption';
 
+    // Create help text for keyboard navigation
+    const help = document.createElement('div');
+    help.className = 'lightbox-help';
+    help.textContent = 'Use \u2190 and \u2192 to navigate, ESC to close.';
+
     // Append elements to the modal
     modal.appendChild(closeBtn);
     modal.appendChild(img);
     modal.appendChild(video);
     modal.appendChild(caption);
+    modal.appendChild(help);
 
     // Append the modal to the body
     document.body.appendChild(modal);
@@ -54,8 +60,9 @@ const lightboxVideo = document.getElementById('lightbox-video');
 const lightboxCaption = document.getElementById('lightbox-caption');
 const closeBtn = document.querySelector('.lightbox-close');
 
-// Get all elements that should trigger the lightbox
-const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+// Get all elements that should trigger the lightbox in the order they appear
+const lightboxTriggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
+let currentIndex = -1;
 
 function getTriggerSource(el) {
     return el.dataset.video || el.dataset.src || el.src || el.href;
@@ -66,11 +73,12 @@ function isVideoTrigger(el) {
     return src ? /\.(mp4|webm|ogg|m4v)$/i.test(src) : false;
 }
 
-function openLightbox(el) {
+function displayItem(index) {
+    const el = lightboxTriggers[index];
+    if (!el) return;
     const src = getTriggerSource(el);
     const caption = el.alt || el.dataset.caption || '';
     lightboxCaption.textContent = caption;
-    lightboxModal.style.display = 'flex';
 
     if (isVideoTrigger(el)) {
         lightboxImg.style.display = 'none';
@@ -83,6 +91,12 @@ function openLightbox(el) {
         lightboxImg.style.display = 'block';
         lightboxImg.src = src;
     }
+    currentIndex = index;
+}
+
+function openLightbox(el) {
+    lightboxModal.style.display = 'flex';
+    displayItem(lightboxTriggers.indexOf(el));
 }
 
 // Open the modal when a trigger is clicked
@@ -112,5 +126,16 @@ lightboxModal.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeLightbox();
+        return;
+    }
+
+    if (lightboxModal.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            displayItem((currentIndex - 1 + lightboxTriggers.length) % lightboxTriggers.length);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            displayItem((currentIndex + 1) % lightboxTriggers.length);
+        }
     }
 });

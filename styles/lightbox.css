@@ -15,8 +15,9 @@
     align-items: center;    /* Center vertically */
 }
 
-/* Enlarge the clicked image in the modal */
-.lightbox-content {
+/* Enlarge the clicked media in the modal */
+img.lightbox-content,
+video.lightbox-content {
     max-width: 90%;
     max-height: 90%;
     box-sizing: border-box;

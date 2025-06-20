@@ -222,12 +222,43 @@ function loadSidebar() {
                 console.warn('Sidebar placeholder not found.');
             }
 
+            // Highlight the navigation item matching the current page
+            highlightActiveNav();
+
             // Initialize IntersectionObserver for sidebar height adjustment
             initializeSidebarObserver();
         })
         .catch(error => {
             console.error('Error loading sidebar:', error);
         });
+}
+
+/**
+ * Adds an 'active' class to the sidebar navigation item that
+ * corresponds to the current page path.
+ */
+function highlightActiveNav() {
+    const path = window.location.pathname.replace(/^\//, '').toLowerCase();
+
+    let navId = '';
+    if (path === '' || path === 'index.html') {
+        navId = 'nav-home';
+    } else if (path.startsWith('projects')) {
+        navId = 'nav-projects';
+    } else if (path.startsWith('writings')) {
+        navId = 'nav-writings';
+    } else if (path.startsWith('publications')) {
+        navId = 'nav-publications';
+    } else if (path.startsWith('resume')) {
+        navId = 'nav-resume';
+    }
+
+    if (navId) {
+        const navLink = document.getElementById(navId);
+        if (navLink && navLink.parentElement) {
+            navLink.parentElement.classList.add('active');
+        }
+    }
 }
 
 /**

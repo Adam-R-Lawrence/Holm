@@ -290,6 +290,12 @@ a:focus {
     transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
 }
 
+#sidebar-navbar li.active,
+#sidebar-navbar li.active a {
+    background-color: var(--hover-color);
+    font-weight: bold;
+}
+
 /* --- Sidebar Logos --- */
 #sidebar-logos {
     display: flex;

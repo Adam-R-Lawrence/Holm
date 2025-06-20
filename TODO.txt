@@ -1,7 +1,6 @@
 # Q1 2025: All styling and main pages are fully complete
 
 To-Do List for 13/1/2025
-# TODO: Dark Mode fix
 
 
 

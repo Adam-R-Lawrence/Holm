@@ -54,6 +54,17 @@ video.lightbox-content {
     word-wrap: break-word;
 }
 
+/* Help text for keyboard controls */
+.lightbox-help {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+}
+
 /* Make sure images set to trigger the lightbox show a pointer cursor */
 .lightbox-trigger {
     cursor: pointer;

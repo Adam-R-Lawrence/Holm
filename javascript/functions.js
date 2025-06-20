@@ -366,6 +366,26 @@ function loadContentHeader() {
 }
 
 /**
+ * Loads the Google Analytics script block and inserts it into the page head.
+ * @returns {Promise<void>}
+ */
+function loadAnalytics() {
+    return fetch('/commonDivsHTML/analytics.html')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load analytics.html');
+            }
+            return response.text();
+        })
+        .then(data => {
+            document.head.insertAdjacentHTML('afterbegin', data);
+        })
+        .catch(error => {
+            console.error('Error loading analytics:', error);
+        });
+}
+
+/**
  * Displays the last updated date based on the latest GitHub commit.
  * Utilizes caching to minimize API requests.
  */
@@ -605,6 +625,9 @@ function loadWritingsData() {
  */
 async function initialize() {
     try {
+        // Load Google Analytics snippet
+        await loadAnalytics();
+
         // Load footer first to ensure it's available for the sidebar observer
         await loadFooter();
 

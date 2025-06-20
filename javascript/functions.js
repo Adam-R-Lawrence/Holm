@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // Constants for GitHub API
 const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username
 const GITHUB_REPO = 'Holm';               // Replace with your repository name
-const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits`;
+// Limit results to the most recent commit to minimize payload size
+const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits?per_page=1`;
 
 
 // Cache for fetched translation data

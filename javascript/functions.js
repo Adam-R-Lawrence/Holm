@@ -26,83 +26,51 @@ const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username
 const GITHUB_REPO = 'Holm';               // Replace with your repository name
 const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits`;
 
-// Translation dictionary mapping element IDs to text in different languages
-const translations = {
-    english: {
-        'sidebar-name': 'Adam Lawrence',
-        'sidebar-my-current-status': 'PhD Candidate at UIUC',
-        'sidebar-bio-1': 'Computational Mechanics',
-        'sidebar-bio-2': 'Environmental Modelling',
-        'sidebar-bio-3': 'History and Geography',
-        'nav-home': 'Home',
-        'nav-projects': 'Projects',
-        'nav-writings': 'Writings',
-        'nav-publications': 'Publications',
-        'nav-resume': 'Resume',
 
-        'header-home': 'Home',
-        'header-projects': 'Projects',
-        'header-writings': 'Writings',
-        'header-resume': 'Resume',
+// Cache for fetched translation data
+const translationCache = {};
 
-        'footer-text': '&copy; %YEAR% Adam Lawrence | Last updated on <span id="last-updated"></span>',
-
-        'about-header': 'About Me',
-        'about-p1': 'I am a first year PhD student at the University of Illinois Urbana-Champaign, within the department of Civil and Environmental Engineering. My research entails all aspects of computational mechanics and modelling, mainly in free surface hydrodynamics, but also on more unique applications such as photopolymerization. I am under the guidance of Professor <a href="https://yan.cee.illinois.edu/">Jinhui Yan</a>.',
-        'about-p2': 'I hail from the Melbourne, Australia, where I completed my undergraduate and master\'s in environmental engineering, specializing in hydraulic engineering with a minor in computer science. I am an AUKUS fellow, awarded by the Australian-American Association, to strengthen ties between our two great countries.',
-        'about-p3': 'Here on this website, you will find a collection of my ongoing work, not just from my current research, but also personal projects and interests.',
-        'about-p4': 'To aid in my PhD research, I have developed a plethora of currently closed source projects. <a href="projects/Torrentem.html">Torrentem</a>; a general numerical PDE solver, solving multiscale problems from large hydrodynamic flows to minuscule additive manufacturing processes. <a href="projects/Ostium.html">Ostium</a>; a library to process and integrate geospatial data, that can work with Torrentem. <a href="projects/Vadum.html">Vadum</a>; a visualisation library for results from Torrentem.',
-        'about-p5': 'I have a keen interest in Literature, History, Geography, and the Environment. I believe current teaching standards are lacking, and incorporating these elements into my projects through visual storytelling helps to effectively engage people, especially when communicating complex scientific concepts. Examples of my approach can be found on my <a href="writings.html">writings</a> page and my <a href="https://www.youtube.com/@arlawrence">YouTube</a>.',
-        'about-p6': 'For any enquiries or collaboration, including summer internship opportunities, feel free to reach out via email at <a href="mailto:adamrl3@illinois.edu" class="content-link">adamrl3@illinois.edu</a>.' ,
-
-        'projects-header': 'Projects',
-        'writings-header': 'Writings',
-        'publications-header': 'Publications'
-    },
-    chinese: {
-        // Sidebar
-        'sidebar-name': '亚当·劳伦斯',
-        'sidebar-my-current-status': '伊利诺伊大学香槟分校博士生',
-        'sidebar-bio-1': '计算力学',
-        'sidebar-bio-2': '环境建模',
-        'sidebar-bio-3': '历史与地理',
-        'nav-home': '主页',
-        'nav-projects': '项目',
-        'nav-writings': '文章',
-        'nav-publications': '出版物',
-        'nav-resume': '简历',
-
-        // Header navigation
-        'header-home': '主页',
-        'header-projects': '项目',
-        'header-writings': '文章',
-        'header-resume': '简历',
-
-        // Footer
-        'footer-text': '© %YEAR% 亚当·劳伦斯 | 最近更新：<span id="last-updated"></span>',
-
-        // Index page
-        'about-header': '自我介绍',
-        'about-p1': '我是伊利诺伊大学香槟分校土木与环境工程系的一年级博士生。我的研究涵盖计算力学与建模的各个方面，主要集中于自由表面水动力学，也涉及光聚合等独特应用。导师是 <a href="https://yan.cee.illinois.edu/">闫金辉教授</a>。',
-        'about-p2': '我来自澳大利亚墨尔本，在那里完成了环境工程的本科和硕士学位，主修水利工程，辅修计算机科学。我是由澳美协会授予的 AUKUS 奖学金得主，旨在增进两国的合作。',
-        'about-p3': '在这个网站上，你可以看到我正在进行的各项工作，不仅有当前的研究，也有个人的项目和兴趣。',
-        'about-p4': '为了推动我的博士研究，我开发了许多目前尚未开源的项目。<a href="projects/Torrentem.html">Torrentem</a>：通用数值 PDE 求解器，能够解决从大尺度水动力到微尺度增材制造等多尺度问题。<a href="projects/Ostium.html">Ostium</a>：处理并整合地理空间数据的库，可与 Torrentem 协同使用。<a href="projects/Vadum.html">Vadum</a>：用于展示 Torrentem 结果的可视化库。',
-        'about-p5': '我对文学、历史、地理和环境有着浓厚的兴趣。我认为当前的教学标准有所欠缺，通过视觉化叙事将这些元素融入我的项目，可以更有效地吸引人们，尤其在传达复杂科学概念时。相关实例可以在我的 <a href="writings.html">文章</a> 页面和我的 <a href="https://www.youtube.com/@arlawrence">YouTube</a> 上找到。',
-        'about-p6': '如有任何咨询或合作，包括暑期实习机会，欢迎通过邮箱 adamrl3@illinois.edu 与我联系。',
-
-        // Other page headers
-        'projects-header': '项目',
-        'writings-header': '文章',
-        'publications-header': '出版物'
-    }
+// Maps language keys to JSON files
+const translationFiles = {
+    english: '/data/translations_en.json',
+    chinese: '/data/translations_zh.json'
 };
+
+/**
+ * Retrieves translation data for a language, fetching it once and caching the result.
+ * @param {string} language
+ * @returns {Promise<Object|null>}
+ */
+async function getTranslations(language) {
+    if (translationCache[language]) {
+        return translationCache[language];
+    }
+
+    const file = translationFiles[language];
+    if (!file) {
+        return null;
+    }
+
+    try {
+        const response = await fetch(file);
+        if (!response.ok) {
+            throw new Error('Failed to load ' + file);
+        }
+        const data = await response.json();
+        translationCache[language] = data;
+        return data;
+    } catch (error) {
+        console.error('Error loading translations:', error);
+        return null;
+    }
+}
 
 /**
  * Applies translated text to elements based on the selected language.
  * @param {string} language - 'english' or 'chinese'
  */
-function applyTranslations(language) {
-    const dict = translations[language];
+async function applyTranslations(language) {
+    const dict = await getTranslations(language);
     if (!dict) {
         return;
     }
@@ -168,7 +136,7 @@ function toggleTheme() {
 /**
  * Toggles between English and Chinese languages for the website.
  */
-function toggleLanguage() {
+async function toggleLanguage() {
     // Select language toggle icons
     const englishIcon = document.getElementById('language-english');
     const chineseIcon = document.getElementById('language-chinese');
@@ -186,7 +154,7 @@ function toggleLanguage() {
     localStorage.setItem('language', newLanguage);
 
     // Apply the chosen language
-    applyTranslations(newLanguage);
+    await applyTranslations(newLanguage);
     document.body.classList.toggle('chinese', newLanguage === 'chinese');
 
     // Refresh the "Last Updated" date after the footer text is re-rendered
@@ -196,7 +164,7 @@ function toggleLanguage() {
 /**
  * Applies saved user preferences for theme and language upon page load.
  */
-function applyPreferences() {
+async function applyPreferences() {
     // Retrieve language preference from localStorage
     const isChinese = localStorage.getItem('language') === 'chinese';
 
@@ -226,7 +194,7 @@ function applyPreferences() {
     chineseIcon.style.display = isChinese ? 'none' : 'inline';
 
     // Apply translations and font for the stored preference
-    applyTranslations(isChinese ? 'chinese' : 'english');
+    await applyTranslations(isChinese ? 'chinese' : 'english');
     document.body.classList.toggle('chinese', isChinese);
 
     // Update the footer year and last updated date after applying translations
@@ -612,7 +580,7 @@ async function initialize() {
         await Promise.all([loadSidebar(), loadContentHeader()]);
 
         // Apply user preferences for theme and language
-        applyPreferences();
+        await applyPreferences();
 
         // Dynamically build project tiles if on the projects page
         loadProjectsData();

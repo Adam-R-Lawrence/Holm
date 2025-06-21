@@ -573,8 +573,8 @@ function loadWritingsData() {
             writings.forEach(writing => {
                 const item = document.createElement('div');
                 item.className = 'writing-item';
-                if (writing.year) {
-                    item.dataset.year = writing.year;
+                if (writing.themes) {
+                    item.dataset.themes = writing.themes.join(',');
                 }
 
                 const content = document.createElement('div');
@@ -624,19 +624,19 @@ function loadWritingsData() {
             });
 
             if (filterContainer) {
-                const years = [...new Set(writings.map(w => w.year).filter(Boolean))];
+                const themes = [...new Set(writings.flatMap(w => w.themes || []))];
                 const select = document.createElement('select');
-                select.id = 'year-filter';
+                select.id = 'theme-filter';
 
                 const allOption = document.createElement('option');
                 allOption.value = 'all';
-                allOption.textContent = 'All Years';
+                allOption.textContent = 'All Themes';
                 select.appendChild(allOption);
 
-                years.forEach(year => {
+                themes.forEach(theme => {
                     const opt = document.createElement('option');
-                    opt.value = year;
-                    opt.textContent = year;
+                    opt.value = theme;
+                    opt.textContent = theme;
                     select.appendChild(opt);
                 });
 
@@ -645,7 +645,12 @@ function loadWritingsData() {
                 select.addEventListener('change', () => {
                     const val = select.value;
                     items.forEach(item => {
-                        item.style.display = (val === 'all' || item.dataset.year === val) ? 'flex' : 'none';
+                        if (val === 'all') {
+                            item.style.display = 'flex';
+                        } else {
+                            const itemThemes = item.dataset.themes ? item.dataset.themes.split(',') : [];
+                            item.style.display = itemThemes.includes(val) ? 'flex' : 'none';
+                        }
                     });
                 });
             }

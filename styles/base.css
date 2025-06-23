@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
+
+/* ============================ */
+/*         :ROOT VARIABLES     */
+/* ============================ */
+
+:root {
+    /* ========================= */
+    /*          COLORS          */
+    /* ========================= */
+
+    /* --- Border Colors --- */
+    --light-theme-border-color: #2c3e50;
+    --dark-theme-border-color: white;
+    --border-color: var(--light-theme-border-color);
+
+    /* --- Text Colors --- */
+    --light-theme-text-color: #333;
+    --dark-theme-text-color: #f8f8f8;
+    --text-color: var(--light-theme-text-color);
+
+    /* --- Background Colors --- */
+    --light-theme-background-color: #fff;
+    --dark-theme-background-color: #333;
+    --background-color: var(--light-theme-background-color);
+
+    /* --- Sidebar Background Colors --- */
+    --light-theme-sidebar-color: #f7f7f7;
+    --dark-theme-sidebar-color: #2a2a2a;
+    --sidebar-color: var(--light-theme-sidebar-color);
+
+    /* --- Header and Footer Colors --- */
+    --light-theme-header-and-footer-color: #2c3e50;
+    --dark-theme-header-and-footer-color: #333;
+    --header-and-footer-color: var(--light-theme-header-and-footer-color);
+
+    /* --- Hover Colors --- */
+    --light-theme-hover-color: #e7f5ff;
+    --dark-theme-hover-color: #37474F;
+    --hover-color: var(--light-theme-hover-color);
+
+    /* --- Font Families --- */
+    --font-family-base: 'Noto Serif SC', serif;
+    --font-family-handwritten: 'Zhi Mang Xing', cursive;
+
+    /* --- Link Colors --- */
+    --link-color: #1a73e8;          /* Distinct blue for main links */
+    --link-hover-color: #1558b0;    /* Darker blue for hover */
+
+    /* ========================= */
+    /*    Highlight.js Colors    */
+    /* ========================= */
+
+    /* --- Light Theme for Highlight.js --- */
+    --hljs-background: #f8f9fa;
+    --hljs-color: #4d4d4d;
+    --hljs-keyword-color: #d73a49;
+    --hljs-string-color: #0366d6;
+    --hljs-comment-color: #22863a;
+    --hljs-function-color: #005cc5;
+}
+
+/* ============================ */
+/*       DARK THEME STYLING    */
+/* ============================ */
+
+.dark-theme {
+    /* --- Override Colors for Dark Theme --- */
+    --border-color: var(--dark-theme-border-color);
+    --text-color: var(--dark-theme-text-color);
+    --background-color: var(--dark-theme-background-color);
+    --sidebar-color: var(--dark-theme-sidebar-color);
+    --hover-color: var(--dark-theme-hover-color);
+    --header-and-footer-color: var(--dark-theme-header-and-footer-color);
+    --link-hover-color: #9ecbff;
+
+    /* --- Highlight.js Colors for Dark Theme --- */
+    --hljs-background: #1e1e1e;
+    --hljs-color: #c9d1d9;
+    --hljs-keyword-color: #ff6c6b;
+    --hljs-string-color: #79b8ff;
+    --hljs-comment-color: #34d058;
+    --hljs-function-color: #58a6ff;
+}
+
+/* ============================ */
+/*       CHINESE TRANSLATION   */
+/* ============================ */
+
+.chinese {
+    /* Use the standard serif font for both languages */
+    --font-family-base: 'Noto Serif SC', serif;
+}
+
+/* ============================ */
+/*            GLOBAL           */
+/* ============================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family-base);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+}
+
+body, html {
+    background-color: var(--background-color);
+}
+
+/* --- Global Links --- */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    /* Transition removed to disable smooth color changes on theme toggle */
+}
+
+a:hover,
+a:focus {
+    color: var(--link-hover-color);
+}
+
+/*       SCROLLBAR STYLING     */
+/* ============================ */
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--sidebar-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 6px;
+    border: 3px solid var(--background-color);
+}
+
+/* ============================ */
+/*    HIGHLIGHT.JS STYLING     */
+/*    HIGHLIGHT.JS STYLING     */
+/* ============================ */
+
+/* --- Light Theme for Highlight.js --- */
+pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+    background: var(--hljs-background);
+    color: var(--hljs-color);
+    border-radius: 0.5em;
+}
+
+.hljs-keyword {
+    color: var(--hljs-keyword-color);
+    font-weight: bold;
+}
+
+.hljs-string {
+    color: var(--hljs-string-color);
+}
+
+.hljs-comment {
+    color: var(--hljs-comment-color);
+    font-style: italic;
+}
+
+.hljs-function {
+    color: var(--hljs-function-color);
+}
+
+/* --- Dark Theme for Highlight.js --- */
+.dark-theme pre code {
+    background: var(--hljs-background);
+    color: var(--hljs-color);
+}
+
+.dark-theme .hljs-keyword {
+    color: var(--hljs-keyword-color);
+    font-weight: bold;
+}
+
+.dark-theme .hljs-string {
+    color: var(--hljs-string-color);
+}
+
+.dark-theme .hljs-comment {
+    color: var(--hljs-comment-color);
+    font-style: italic;
+}
+
+.dark-theme .hljs-function {
+    color: var(--hljs-function-color);
+}
+
+/* ============================ */
+/*    HIGHLIGHT.JS COPY BTN    */
+/* ============================ */
+.hljs-copy-button {
+    /* Match the copy button colors to the current theme */
+    --hljs-theme-color: var(--hljs-color);
+    --hljs-theme-background: var(--hljs-background);
+}
+
+/* ============================ */

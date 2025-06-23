@@ -28,6 +28,16 @@
     width: 100%;
 }
 
+/* --- Sidebar Toggle Buttons --- */
+#sidebar #theme-toggle.main-page-style,
+#sidebar #language-toggle.main-page-style {
+    position: static;
+    width: auto;
+    height: auto;
+    transform: none;
+    margin-bottom: 0.5em;
+}
+
 /* --- Sidebar Title --- */
 #sidebar h2 {
     margin-bottom: 0;

@@ -1,0 +1,157 @@
+@use 'variables';
+
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
+
+:root {
+  --light-theme-border-color: #{variables.$light-theme-border-color};
+  --dark-theme-border-color: #{variables.$dark-theme-border-color};
+  --border-color: var(--light-theme-border-color);
+
+  --light-theme-text-color: #{variables.$light-theme-text-color};
+  --dark-theme-text-color: #{variables.$dark-theme-text-color};
+  --text-color: var(--light-theme-text-color);
+
+  --light-theme-background-color: #{variables.$light-theme-background-color};
+  --dark-theme-background-color: #{variables.$dark-theme-background-color};
+  --background-color: var(--light-theme-background-color);
+
+  --light-theme-sidebar-color: #{variables.$light-theme-sidebar-color};
+  --dark-theme-sidebar-color: #{variables.$dark-theme-sidebar-color};
+  --sidebar-color: var(--light-theme-sidebar-color);
+
+  --light-theme-header-and-footer-color: #{variables.$light-theme-header-and-footer-color};
+  --dark-theme-header-and-footer-color: #{variables.$dark-theme-header-and-footer-color};
+  --header-and-footer-color: var(--light-theme-header-and-footer-color);
+
+  --light-theme-hover-color: #{variables.$light-theme-hover-color};
+  --dark-theme-hover-color: #{variables.$dark-theme-hover-color};
+  --hover-color: var(--light-theme-hover-color);
+
+  --font-family-base: #{variables.$font-family-base};
+  --font-family-handwritten: #{variables.$font-family-handwritten};
+
+  --link-color: #{variables.$link-color};
+  --link-hover-color: #{variables.$link-hover-color};
+
+  --hljs-background: #{variables.$hljs-background};
+  --hljs-color: #{variables.$hljs-color};
+  --hljs-keyword-color: #{variables.$hljs-keyword-color};
+  --hljs-string-color: #{variables.$hljs-string-color};
+  --hljs-comment-color: #{variables.$hljs-comment-color};
+  --hljs-function-color: #{variables.$hljs-function-color};
+}
+
+.dark-theme {
+  --border-color: var(--dark-theme-border-color);
+  --text-color: var(--dark-theme-text-color);
+  --background-color: var(--dark-theme-background-color);
+  --sidebar-color: var(--dark-theme-sidebar-color);
+  --hover-color: var(--dark-theme-hover-color);
+  --header-and-footer-color: var(--dark-theme-header-and-footer-color);
+  --link-hover-color: #9ecbff;
+
+  --hljs-background: #{variables.$dark-hljs-background};
+  --hljs-color: #{variables.$dark-hljs-color};
+  --hljs-keyword-color: #{variables.$dark-hljs-keyword-color};
+  --hljs-string-color: #{variables.$dark-hljs-string-color};
+  --hljs-comment-color: #{variables.$dark-hljs-comment-color};
+  --hljs-function-color: #{variables.$dark-hljs-function-color};
+}
+
+.chinese {
+  --font-family-base: #{variables.$font-family-base};
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  color: var(--text-color);
+  scroll-behavior: smooth;
+}
+
+body, html {
+  background-color: var(--background-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--link-hover-color);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--sidebar-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 6px;
+  border: 3px solid var(--background-color);
+}
+
+/* Highlight.js */
+pre code {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  background: var(--hljs-background);
+  color: var(--hljs-color);
+  border-radius: 0.5em;
+}
+
+.hljs-keyword {
+  color: var(--hljs-keyword-color);
+  font-weight: bold;
+}
+
+.hljs-string {
+  color: var(--hljs-string-color);
+}
+
+.hljs-comment {
+  color: var(--hljs-comment-color);
+  font-style: italic;
+}
+
+.hljs-function {
+  color: var(--hljs-function-color);
+}
+
+.dark-theme pre code {
+  background: var(--hljs-background);
+  color: var(--hljs-color);
+}
+
+.dark-theme .hljs-keyword {
+  color: var(--hljs-keyword-color);
+  font-weight: bold;
+}
+
+.dark-theme .hljs-string {
+  color: var(--hljs-string-color);
+}
+
+.dark-theme .hljs-comment {
+  color: var(--hljs-comment-color);
+  font-style: italic;
+}
+
+.dark-theme .hljs-function {
+  color: var(--hljs-function-color);
+}
+
+.hljs-copy-button {
+  --hljs-theme-color: var(--hljs-color);
+  --hljs-theme-background: var(--hljs-background);
+}

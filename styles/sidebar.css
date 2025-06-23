@@ -1,0 +1,173 @@
+/*           SIDEBAR           */
+/* ============================ */
+
+/* --- Sidebar General Styles --- */
+#sidebar {
+    flex-shrink: 0;                    /* Prevents the sidebar from shrinking */
+    width: 15em;
+    background-color: var(--sidebar-color);
+    color: var(--text-color);
+    position: sticky;
+    top: 1vh;
+    height: 98vh;
+    max-height: 50em;
+    padding: 1em;
+    text-align: center;
+    border: 0.2em solid var(--border-color);
+    border-radius: 1.5em;
+    margin: 0.5em;
+
+    display: flex;                     /* Make it a flex container */
+    flex-direction: column;            /* Align children vertically */
+    align-items: center;               /* Align children in the center horizontally */
+}
+
+/* --- Sidebar Children Spacing --- */
+#sidebar > * {
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+/* --- Sidebar Title --- */
+#sidebar h2 {
+    margin-bottom: 0;
+    font-size: 1.5em;
+}
+
+
+/* --- Current Status --- */
+#sidebar-my-current-status {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+/* --- Sidebar Links and Subtitles --- */
+#sidebar h3,
+#sidebar a {
+    color: var(--text-color);
+    text-decoration: none;
+    line-height: 2;
+    display: block;
+}
+
+/* --- Sidebar Paragraphs --- */
+#sidebar p {
+    font-size: 0.8em;
+    margin-bottom: 0.6em;
+    margin-top: 0.2em;
+    white-space: nowrap;
+}
+
+/* --- Sidebar Bio --- */
+#sidebar-bio {
+    display: block;
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-style: italic;
+}
+
+/* --- Sidebar Navbar --- */
+#sidebar-navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;   /* Aligns items to the start */
+    flex-grow: 1;                  /* Allows the navbar to grow and fill the available space */
+    margin-bottom: -0.5em;
+}
+
+#sidebar-navbar ul {
+    list-style-type: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;                  /* Set height to 100% of its container */
+    justify-content: space-between;/* Adjust spacing based on available space */
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar-navbar li {
+    border: 0.1em solid var(--border-color);
+    border-radius: 15px;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    margin: 0.3em 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#sidebar-navbar a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.1em;
+    margin: 0;
+    /* Transition removed to disable smooth background and color changes on theme toggle */
+}
+
+#sidebar-navbar li:hover,
+#sidebar-navbar li:focus-within {
+    background-color: var(--hover-color);
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
+}
+
+#sidebar-navbar li.active,
+#sidebar-navbar li.active a {
+    background-color: var(--hover-color);
+    font-weight: bold;
+}
+
+/* --- Sidebar Logos --- */
+#sidebar-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allows logos to wrap if needed */
+}
+
+#sidebar-logos ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#sidebar-logos li {
+    display: inline-block;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+#sidebar-logos li:last-child {
+    margin-right: 0;
+}
+
+#sidebar-logos img.logo {
+    display: block;
+    max-width: 30px;
+    max-height: 30px;
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+}
+
+/* --- Sidebar Logos Hover Effect --- */
+#sidebar-logos li:hover,
+#sidebar i:hover {
+    transform: scale(1.1);
+}
+
+/* ============================ */

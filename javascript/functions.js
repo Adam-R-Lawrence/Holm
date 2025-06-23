@@ -593,6 +593,13 @@ function loadWritingsData() {
                     content.appendChild(summary);
                 }
 
+                if (writing.themes && writing.themes.length > 0) {
+                    const themes = document.createElement('p');
+                    themes.className = 'writing-themes';
+                    themes.textContent = 'Topic: ' + writing.themes.join(', ');
+                    content.appendChild(themes);
+                }
+
                 const meta = document.createElement('div');
                 meta.className = 'writing-meta';
 

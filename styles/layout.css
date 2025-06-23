@@ -196,6 +196,13 @@
     font-style: italic;
 }
 
+#writings-directory .writing-themes {
+    font-size: 0.9em;
+    margin-left: 0.25em;
+    margin-top: 0.25em;
+    color: #555;
+}
+
 #writings-directory .writing-meta {
     flex-shrink: 0;
 }

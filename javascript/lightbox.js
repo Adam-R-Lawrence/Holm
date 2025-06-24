@@ -122,6 +122,30 @@ lightboxModal.addEventListener('click', (e) => {
     }
 });
 
+// Swipe navigation for touch devices
+let touchStartX = 0;
+let touchEndX = 0;
+
+lightboxModal.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+    }
+});
+
+lightboxModal.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length > 0) {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 30) {
+            if (diff > 0) {
+                displayItem((currentIndex - 1 + lightboxTriggers.length) % lightboxTriggers.length);
+            } else {
+                displayItem((currentIndex + 1) % lightboxTriggers.length);
+            }
+        }
+    }
+});
+
 // Optional: Close the modal with the ESC key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {

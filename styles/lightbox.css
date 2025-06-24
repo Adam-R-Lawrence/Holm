@@ -53,6 +53,7 @@ video.lightbox-content {
     text-align: center;
     max-width: 80%;
     word-wrap: break-word;
+    padding: 0 1em;
 }
 
 /* Help text for keyboard controls */
@@ -82,5 +83,7 @@ video.lightbox-content {
     .lightbox-caption {
         font-size: 16px;
         bottom: 20px;
+        max-width: 90%;
+        padding: 0 0.5em;
     }
 }

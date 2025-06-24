@@ -468,7 +468,7 @@ header {
 header ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 2.5em; /* Space for theme and language icons */
     text-align: center;
 }
 
@@ -574,6 +574,10 @@ header a:hover, header a:focus {
         margin: 0 0.8em;
     }
 
+    header ul {
+        margin: 0 2.2em; /* Prevent icon overlap on small screens */
+    }
+
     #theme-toggle.main-page-style, #language-toggle.main-page-style, #theme-toggle.content-page-style, #language-toggle.content-page-style {
         width: 1.2em;
         height: 1.2em;
@@ -613,6 +617,27 @@ header a:hover, header a:focus {
 
 /* --- Mobile Devices & Thin/Short Screens --- */
 @media screen and (max-width: 500px), screen and (max-height: 500px), screen and (pointer: none), screen and (pointer: coarse) {
+    /* --- Header layout --- */
+    header {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:.8em .5em;
+    }
+    header nav {
+        flex:1;
+    }
+    header ul {
+        margin:0;
+    }
+    header li {
+        margin:0 .5em;
+    }
+    #theme-toggle.content-page-style,
+    #language-toggle.content-page-style {
+        position:static;
+        transform:none;
+    }
     /* --- Writings Directory --- */
     #writings-directory {
         width: 100%;

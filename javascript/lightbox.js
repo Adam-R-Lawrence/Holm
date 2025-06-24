@@ -37,7 +37,7 @@ function createLightboxModal() {
     // Create help text for keyboard navigation
     const help = document.createElement('div');
     help.className = 'lightbox-help';
-    help.textContent = 'Use \u2190 and \u2192 to navigate, ESC to close.';
+    help.textContent = 'Swipe or use \u2190 and \u2192 to navigate, ESC to close.';
 
     // Append elements to the modal
     modal.appendChild(closeBtn);
@@ -120,6 +120,27 @@ lightboxModal.addEventListener('click', (e) => {
     if (e.target === lightboxModal) {
         closeLightbox();
     }
+});
+
+let touchStartX = null;
+lightboxModal.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+    }
+});
+
+lightboxModal.addEventListener('touchend', e => {
+    if (touchStartX === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - touchStartX;
+    if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+            displayItem((currentIndex - 1 + lightboxTriggers.length) % lightboxTriggers.length);
+        } else {
+            displayItem((currentIndex + 1) % lightboxTriggers.length);
+        }
+    }
+    touchStartX = null;
 });
 
 // Optional: Close the modal with the ESC key

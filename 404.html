@@ -6,16 +6,31 @@
     <title>Page Not Found</title>
     <meta name="description" content="Error page displaying a 404 message with a link back to Adam Lawrence's homepage.">
     <link rel="stylesheet" href="styles/styles.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="wrapper">
     <div id="container">
+        <div id="sidebar-placeholder"></div>
         <main id="main-content">
             <h1>Page Not Found</h1>
             <p>The page you're looking for doesn't exist.</p>
             <p><a href="index.html">Return to Home</a></p>
         </main>
     </div>
+
+    <footer id="footer-placeholder"></footer>
 </div>
+
+<button id="scroll-to-top-btn" aria-label="Scroll to Top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="javascript/functions.js"></script>
+<script src="javascript/lightbox.js"></script>
+<script src="javascript/scrollToTop.js"></script>
 </body>
 </html>

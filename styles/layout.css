@@ -150,6 +150,27 @@
     margin-left: 1em;
 }
 
+#writing-filter-controls {
+    margin-left: 1em;
+    margin-bottom: 1em;
+}
+
+#writing-filter-controls select {
+    display: block;
+    width: 100%;
+    max-width: 20em;
+    padding: 0.25em 0.5em;
+    font-size: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dark-theme #writing-filter-controls select {
+    background-color: var(--sidebar-color);
+}
+
 [data-page="writings"] h1,
 [data-page="publications"] h1 {
     text-align: left;
@@ -413,6 +434,20 @@ screen and (pointer: coarse) {
     /* --- Writings Directory --- */
     #writings-directory {
         width: 90%;
+    }
+
+    #writings-directory .writing-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #writings-directory .writing-meta {
+        margin-top: 0.5em;
+        text-align: left;
+    }
+
+    #writing-filter-controls select {
+        max-width: 100%;
     }
 
     /* --- Container Adjustments --- */

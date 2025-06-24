@@ -120,9 +120,7 @@ img {
     border: 0.2em solid var(--border-color);
     border-radius: 1.5em;
     margin: 0.5em;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    overflow-y: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex; /* Make it a flex container */
     flex-direction: column; /* Align children vertically */
@@ -228,12 +226,6 @@ img {
     transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
 }
 
-#sidebar-navbar li.active, #sidebar-navbar li.active a {
-    background-color: var(--hover-color);
-    font-weight: bold;
-    border-color: var(--link-hover-color);
-    color: var(--link-hover-color);
-}
 
 /* --- Sidebar Logos --- */
 #sidebar-logos {
@@ -273,9 +265,6 @@ img {
     transform: scale(1.1);
 }
 
-#sidebar::-webkit-scrollbar {
-    display: none;
-}
 
 /* ============================ */ /* MAIN CONTENT */ /* ============================ */
 #main-content {

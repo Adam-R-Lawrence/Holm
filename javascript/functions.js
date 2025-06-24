@@ -222,10 +222,6 @@ function loadSidebar() {
             } else {
                 console.warn('Sidebar placeholder not found.');
             }
-
-            // Highlight the navigation item matching the current page
-            highlightActiveNav();
-
             // Initialize IntersectionObserver for sidebar height adjustment
             initializeSidebarObserver();
         })
@@ -234,33 +230,6 @@ function loadSidebar() {
         });
 }
 
-/**
- * Adds an 'active' class to the sidebar navigation item that
- * corresponds to the current page path.
- */
-function highlightActiveNav() {
-    const path = window.location.pathname.replace(/^\//, '').toLowerCase();
-
-    let navId = '';
-    if (path === '' || path === 'index.html') {
-        navId = 'nav-home';
-    } else if (path.startsWith('projects')) {
-        navId = 'nav-projects';
-    } else if (path.startsWith('writings')) {
-        navId = 'nav-writings';
-    } else if (path.startsWith('publications')) {
-        navId = 'nav-publications';
-    } else if (path.startsWith('resume')) {
-        navId = 'nav-resume';
-    }
-
-    if (navId) {
-        const navLink = document.getElementById(navId);
-        if (navLink && navLink.parentElement) {
-            navLink.parentElement.classList.add('active');
-        }
-    }
-}
 
 /**
  * Initializes the IntersectionObserver to adjust sidebar height based on footer visibility.

@@ -21,7 +21,7 @@
 
     /* --- Background Colors --- */
     --light-theme-background-color: #fff;
-    --dark-theme-background-color: #333;
+    --dark-theme-background-color: #222;
     --background-color: var(--light-theme-background-color);
 
     /* --- Sidebar Background Colors --- */
@@ -31,7 +31,7 @@
 
     /* --- Header and Footer Colors --- */
     --light-theme-header-and-footer-color: #2c3e50;
-    --dark-theme-header-and-footer-color: #333;
+    --dark-theme-header-and-footer-color: #1b1b1b;
     --header-and-footer-color: var(--light-theme-header-and-footer-color);
 
     /* --- Hover Colors --- */

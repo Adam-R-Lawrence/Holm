@@ -76,6 +76,12 @@ a:hover, a:focus {
     color: var(--link-hover-color);
 }
 
+img {
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
 /* ============================ */ /* LAYOUT */ /* ============================ */ /* --- Wrapper --- */
 .wrapper {
     display: flex;
@@ -254,6 +260,7 @@ a:hover, a:focus {
     width: auto;
     height: auto;
     vertical-align: middle;
+    margin: 0;
 }
 
 /* --- Sidebar Logos Hover Effect --- */
@@ -288,7 +295,7 @@ a:hover, a:focus {
     display: block;
     width: 100%;
     border-radius: 1em;
-    margin-bottom: 1.2em;
+    margin: 1.5em 0;
 }
 
 /* --- Paragraphs in Main Content --- */
@@ -358,6 +365,7 @@ a:hover, a:focus {
 .project-item img {
     width: 100%;
     height: auto;
+    margin: 0;
 }
 
 .project-item h2 { /* clamp(MIN, preferred, MAX): - MIN: 1.5em - preferred: 5vw - MAX: 2.5em */
@@ -780,6 +788,7 @@ pre code {
 .collage-row img {
     width: 48%; /* Adjust width to ensure two images fit side by side */
     height: auto;
+    margin: 0;
 }
 
 .gallery.original-image {

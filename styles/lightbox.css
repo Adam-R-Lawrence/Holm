@@ -21,6 +21,7 @@ video.lightbox-content {
     max-width: 90%;
     max-height: 90%;
     box-sizing: border-box;
+    margin: 0;
 }
 
 /* Close Button */

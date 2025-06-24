@@ -85,6 +85,12 @@ a:focus {
   color: var(--link-hover-color);
 }
 
+/* Standard spacing for images */
+img {
+  display: block;
+  margin: 1.5em 0;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;

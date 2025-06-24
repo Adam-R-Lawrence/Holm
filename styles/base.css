@@ -121,6 +121,13 @@ a:focus {
     color: var(--link-hover-color);
 }
 
+/* Standard spacing for images */
+img {
+    display: block;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
 /*       SCROLLBAR STYLING     */
 /* ============================ */
 

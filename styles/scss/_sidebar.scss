@@ -17,6 +17,8 @@
     border-radius: 1.5em;
     margin: 0.5em;
     overflow-y: auto;                  /* Allow scrolling if content overflows */
+    scrollbar-width: none;             /* Hide scrollbar on Firefox */
+    -ms-overflow-style: none;          /* Hide scrollbar on IE and Edge */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle depth */
 
     display: flex;                     /* Make it a flex container */
@@ -141,6 +143,8 @@
 #sidebar-navbar li.active a {
     background-color: var(--hover-color);
     font-weight: bold;
+    border-color: var(--link-hover-color);
+    color: var(--link-hover-color);
 }
 
 /* --- Sidebar Logos --- */
@@ -180,6 +184,11 @@
 #sidebar-logos li:hover,
 #sidebar i:hover {
     transform: scale(1.1);
+}
+
+/* Hide sidebar scrollbars */
+#sidebar::-webkit-scrollbar {
+    display: none;
 }
 
 /* ============================ */

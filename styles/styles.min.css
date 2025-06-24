@@ -114,7 +114,7 @@ img {
     position: sticky;
     top: 1vh;
     height: 98vh;
-    max-height: 50em;
+    overflow-y: auto;
     padding: 1em;
     text-align: center;
     border: 0.2em solid var(--border-color);

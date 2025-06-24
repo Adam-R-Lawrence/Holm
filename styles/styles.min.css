@@ -7,13 +7,13 @@
     --dark-theme-text-color: #f8f8f8;
     --text-color: var(--light-theme-text-color); /* --- Background Colors --- */
     --light-theme-background-color: #fff;
-    --dark-theme-background-color: #333;
+    --dark-theme-background-color: #222;
     --background-color: var(--light-theme-background-color); /* --- Sidebar Background Colors --- */
     --light-theme-sidebar-color: #f7f7f7;
     --dark-theme-sidebar-color: #2a2a2a;
     --sidebar-color: var(--light-theme-sidebar-color); /* --- Header and Footer Colors --- */
     --light-theme-header-and-footer-color: #2c3e50;
-    --dark-theme-header-and-footer-color: #333;
+    --dark-theme-header-and-footer-color: #1b1b1b;
     --header-and-footer-color: var(--light-theme-header-and-footer-color); /* --- Hover Colors --- */
     --light-theme-hover-color: #e7f5ff;
     --dark-theme-hover-color: #37474F;
@@ -455,7 +455,8 @@ header {
     background-color: var(--header-and-footer-color);
     color: white;
     padding: 1em 0; /* Changed from 10px to 1em */
-    position: relative; /* Establishes a positioning context for absolute children */
+    position: relative;
+    border-bottom: 0.2em solid var(--border-color); /* Establishes a positioning context for absolute children */
 }
 
 header ul {

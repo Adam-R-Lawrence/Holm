@@ -238,6 +238,7 @@ header {
     color: white;
     padding: 1em 0; /* Changed from 10px to 1em */
     position: relative; /* Establishes a positioning context for absolute children */
+    border-bottom: 0.2em solid var(--border-color);
 }
 
 header ul {

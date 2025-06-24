@@ -649,12 +649,19 @@ header a:hover, header a:focus {
     }
 
     /* --- Sidebar Navbar --- */
+    #sidebar-navbar {
+        flex-grow: 0;
+    }
+
     #sidebar-navbar ul {
         flex-direction: column;
+        height: auto;
+        justify-content: flex-start;
     }
 
     #sidebar-navbar li {
         padding: 10px 0;
+        flex-grow: 0;
     }
 
     /* --- Headings Alignment --- */

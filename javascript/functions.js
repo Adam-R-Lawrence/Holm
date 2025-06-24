@@ -248,6 +248,17 @@ function initializeSidebarObserver() {
         return;
     }
 
+    // On small or touch devices let the sidebar expand naturally without
+    // dynamic height adjustments. This avoids content being clipped on
+    // mobile where available viewport height is limited.
+    const mobileQuery = window.matchMedia(
+        '(max-width: 500px), (max-height: 500px), (pointer: none), (pointer: coarse)'
+    );
+    if (mobileQuery.matches) {
+        sidebar.style.height = 'auto';
+        return;
+    }
+
     /**
      * Callback function for IntersectionObserver.
      * Adjusts the sidebar height based on whether the footer is visible.

@@ -467,12 +467,19 @@ screen and (pointer: coarse) {
     }
 
     /* --- Sidebar Navbar --- */
+    #sidebar-navbar {
+        flex-grow: 0;        /* Let content define the height */
+    }
+
     #sidebar-navbar ul {
         flex-direction: column;
+        height: auto;        /* Allow list to size naturally */
+        justify-content: flex-start;
     }
 
     #sidebar-navbar li {
         padding: 10px 0;
+        flex-grow: 0;        /* Prevent items from stretching on mobile */
     }
 
     /* --- Headings Alignment --- */

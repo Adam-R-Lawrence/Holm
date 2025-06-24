@@ -281,7 +281,7 @@ header {
 header ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 2.5em; // Provide space for theme and language icons
     text-align: center;
 }
 
@@ -399,6 +399,10 @@ header a:focus {
         margin: 0 0.8em;
     }
 
+    header ul {
+        margin: 0 2.2em; // Slightly narrower spacing on small screens
+    }
+
     #theme-toggle.main-page-style,
     #language-toggle.main-page-style,
     #theme-toggle.content-page-style,
@@ -445,6 +449,32 @@ header a:focus {
 screen and (max-height: 500px),
 screen and (pointer: none),
 screen and (pointer: coarse) {
+
+    /* --- Header layout --- */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8em 0.5em;
+    }
+
+    header nav {
+        flex: 1;
+    }
+
+    header ul {
+        margin: 0;
+    }
+
+    header li {
+        margin: 0 0.5em;
+    }
+
+    #theme-toggle.content-page-style,
+    #language-toggle.content-page-style {
+        position: static;
+        transform: none;
+    }
 
     /* --- Writings Directory --- */
     #writings-directory {

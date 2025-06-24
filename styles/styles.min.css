@@ -120,7 +120,7 @@ img {
     border: 0.2em solid var(--border-color);
     border-radius: 1.5em;
     margin: 0.5em;
-    overflow-y: hidden;
+    overflow-y: auto; /* Allow scrolling when content overflows */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex; /* Make it a flex container */
     flex-direction: column; /* Align children vertically */
@@ -635,7 +635,7 @@ header a:hover, header a:focus {
         font-size: 1.05em;
         padding: 1em 0.5em 0.5em 1em;
         border-radius: 0em; /* Let the sidebar expand as needed: */
-        height: auto;
+        height: 100vh;
         max-height: none;
     }
 

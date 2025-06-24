@@ -437,8 +437,8 @@ screen and (pointer: coarse) {
         gap: 1em;
         border-radius: 0em;
 
-        /* Let the sidebar expand as needed: */
-        height: auto;
+        /* Sidebar should occupy full viewport height on mobile */
+        height: 100vh;
         max-height: none;
     }
 

@@ -16,7 +16,7 @@
     border: 0.2em solid var(--border-color);
     border-radius: 1.5em;
     margin: 0.5em;
-    overflow-y: hidden;
+    overflow-y: auto;                /* Allow scrolling when content overflows */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle depth */
 
     display: flex;                     /* Make it a flex container */

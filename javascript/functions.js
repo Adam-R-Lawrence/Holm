@@ -170,8 +170,11 @@ async function applyPreferences() {
     const isChinese = localStorage.getItem('language') === 'chinese';
 
     // Apply saved theme preference
-    if (localStorage.getItem('theme') === 'dark') {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
         document.body.classList.add('dark-theme');
+    } else if (savedTheme === 'light') {
+        document.body.classList.remove('dark-theme');
     }
     const isDarkMode = document.body.classList.contains('dark-theme');
 

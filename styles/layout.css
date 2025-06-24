@@ -30,7 +30,7 @@
     display: block;
     width: 100%;
     border-radius: 1em;
-    margin-bottom: 1.2em;
+    margin: 1.5em 0;
 }
 
 /* --- Paragraphs in Main Content --- */
@@ -110,6 +110,7 @@
 .project-item img {
     width: 100%;
     height: auto;
+    margin: 0;
 }
 
 .project-item h2 {
@@ -506,6 +507,11 @@ footer p {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+}
+
+/* Gallery collage images should not have extra spacing */
+.collage-row img {
+    margin: 0;
 }
 
 /* ============================ */

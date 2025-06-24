@@ -4,6 +4,13 @@
     "date": "2025-03-18",
     "summary": "Computational modelling approaches developed for the NIST 2025 Benchmark competition",
     "link": "writings/numerical_modelling_of_photopolymerization.html",
-    "themes": ["Dummy Theme"]
+    "themes": ["Finite Element Method", "Additive Manufacturaing"]
+  },
+  {
+    "title": "Close to Nowhere",
+    "date": "2025-04-01",
+    "summary": "Example essay on the intersection of remote sensing and environmental history",
+    "link": "writings/close_to_nowhere.html",
+    "themes": ["Remote Sensing", "Environmental History"]
   }
 ]

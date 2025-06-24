@@ -115,19 +115,22 @@ img {
     top: 1vh;
     height: 98vh;
     max-height: 50em;
-    padding: 1em;
+    padding: 1.5em;
     text-align: center;
     border: 0.2em solid var(--border-color);
     border-radius: 1.5em;
     margin: 0.5em;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex; /* Make it a flex container */
     flex-direction: column; /* Align children vertically */
     align-items: center; /* Align children in the center horizontally */
+    gap: 1em;
 }
 
 /* --- Sidebar Children Spacing --- */
 #sidebar > * {
-    margin-bottom: 1em;
+    margin-bottom: 0;
     width: 100%;
 }
 
@@ -189,6 +192,7 @@ img {
     justify-content: space-between; /* Adjust spacing based on available space */
     margin: 0;
     padding: 0;
+    gap: 0.5em;
 }
 
 #sidebar-navbar li {
@@ -198,11 +202,11 @@ img {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: auto;
-    margin: 0.3em 0;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 0.4em 0;
 }
 
 #sidebar-navbar a {
@@ -241,22 +245,19 @@ img {
     margin: 0;
     align-items: center;
     justify-content: center;
+    gap: 0.5em;
 }
 
 #sidebar-logos li {
     display: inline-block;
-    margin-right: 10px;
     transition: transform 0.3s ease;
 }
 
-#sidebar-logos li:last-child {
-    margin-right: 0;
-}
 
 #sidebar-logos img.logo {
     display: block;
-    max-width: 30px;
-    max-height: 30px;
+    max-width: 35px;
+    max-height: 35px;
     width: auto;
     height: auto;
     vertical-align: middle;

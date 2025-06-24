@@ -198,9 +198,8 @@
     border-radius: 5px;
     background-color: #e8f0fe;              /* Light blue background */
     text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;                    /* Allow titles to wrap on small screens */
+    overflow-wrap: anywhere;                /* Break long words when necessary */
     /* Transition removed to disable smooth color, background, and font-size changes on theme toggle */
 }
 
@@ -433,7 +432,8 @@ screen and (pointer: coarse) {
 
     /* --- Writings Directory --- */
     #writings-directory {
-        width: 90%;
+        width: 100%;
+        margin-left: 0;
     }
 
     #writings-directory .writing-item {
@@ -448,6 +448,10 @@ screen and (pointer: coarse) {
 
     #writing-filter-controls select {
         max-width: 100%;
+    }
+
+    #writing-filter-controls {
+        margin-left: 0;
     }
 
     /* --- Container Adjustments --- */

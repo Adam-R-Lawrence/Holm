@@ -24,9 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "writings/close_to_nowhere/index.html",
         "404.html"
     ];
-    let path = window.location.pathname.replace(/^\//, '').replace(/\/$/, '');
+    let path = window.location.pathname.replace(/^\//, '');
+    if (path.startsWith(GITHUB_REPO + '/')) {
+        path = path.substring(GITHUB_REPO.length + 1);
+    } else if (path === GITHUB_REPO) {
+        path = '';
+    }
+    path = path.replace(/\/$/, '');
     if (!validRoutes.includes(path)) {
-        window.location.replace("/404.html");
+        window.location.replace(`${BASE_PATH}/404.html`);
     }
 });
 
@@ -34,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Constants for GitHub API
 const GITHUB_USERNAME = 'Adam-R-Lawrence'; // Replace with your GitHub username
 const GITHUB_REPO = 'Holm';               // Replace with your repository name
+const BASE_PATH = window.location.pathname.startsWith(`/${GITHUB_REPO}`) ? `/${GITHUB_REPO}` : '';
 // Limit results to the most recent commit to minimize payload size
 const commitsApiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/commits?per_page=1`;
 
@@ -43,8 +50,8 @@ const translationCache = {};
 
 // Maps language keys to JSON files
 const translationFiles = {
-    english: '/data/translations_en.json',
-    chinese: '/data/translations_zh.json'
+    english: `${BASE_PATH}/data/translations_en.json`,
+    chinese: `${BASE_PATH}/data/translations_zh.json`
 };
 
 /**
@@ -220,7 +227,7 @@ async function applyPreferences() {
  * @returns {Promise<void>}
  */
 function loadSidebar() {
-    return fetch('/commonDivsHTML/sidebar.html')
+    return fetch(`${BASE_PATH}/commonDivsHTML/sidebar.html`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load sidebar.html');
@@ -232,6 +239,18 @@ function loadSidebar() {
             const sidebarPlaceholder = document.getElementById('sidebar-placeholder');
             if (sidebarPlaceholder) {
                 sidebarPlaceholder.innerHTML = data;
+                sidebarPlaceholder.querySelectorAll('img').forEach(img => {
+                    const src = img.getAttribute('src');
+                    if (src && !src.startsWith('http') && !src.startsWith('/')) {
+                        img.src = `${BASE_PATH}/${src}`;
+                    }
+                });
+                sidebarPlaceholder.querySelectorAll('a').forEach(a => {
+                    const href = a.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('/') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+                        a.href = `${BASE_PATH}/${href}`;
+                    }
+                });
             } else {
                 console.warn('Sidebar placeholder not found.');
             }
@@ -305,7 +324,7 @@ function initializeSidebarObserver() {
  * @returns {Promise<void>}
  */
 function loadFooter() {
-    return fetch('/commonDivsHTML/footer.html')
+    return fetch(`${BASE_PATH}/commonDivsHTML/footer.html`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load footer.html');
@@ -334,7 +353,7 @@ function loadFooter() {
  * @returns {Promise<void>}
  */
 function loadContentHeader() {
-    return fetch('/commonDivsHTML/contentHeader.html')
+    return fetch(`${BASE_PATH}/commonDivsHTML/contentHeader.html`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load contentHeader.html');
@@ -363,7 +382,7 @@ function loadContentHeader() {
  * @returns {Promise<void>}
  */
 function loadAnalytics() {
-    return fetch('/commonDivsHTML/analytics.html')
+    return fetch(`${BASE_PATH}/commonDivsHTML/analytics.html`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load analytics.html');
@@ -453,7 +472,7 @@ function loadProjectsData() {
         return; // Exit if not on the projects page
     }
 
-    fetch('/data/projects.json')
+    fetch(`${BASE_PATH}/data/projects.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load projects.json');
@@ -467,7 +486,7 @@ function loadProjectsData() {
                 item.className = 'project-item';
 
                 const link = document.createElement('a');
-                link.href = project.link;
+                link.href = `${BASE_PATH}/${project.link}`;
 
                 const title = document.createElement('h2');
                 title.textContent = project.title;
@@ -476,7 +495,7 @@ function loadProjectsData() {
                 desc.textContent = project.description || '';
 
                 const img = document.createElement('img');
-                img.src = project.image;
+                img.src = `${BASE_PATH}/${project.image}`;
                 img.alt = project.title + ' image';
                 img.className = 'content-image';
                 img.loading = 'lazy';
@@ -503,7 +522,7 @@ function loadPublicationsData() {
         return; // Exit if not on the publications page
     }
 
-    fetch('/data/publications.json')
+    fetch(`${BASE_PATH}/data/publications.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load publications.json');
@@ -520,7 +539,7 @@ function loadPublicationsData() {
                 const item = document.createElement('li');
 
                 const link = document.createElement('a');
-                link.href = pub.link;
+                link.href = `${BASE_PATH}/${pub.link}`;
                 link.textContent = pub.title;
 
                 item.appendChild(link);
@@ -552,7 +571,7 @@ function loadWritingsData() {
         return; // Exit if not on the writings page
     }
 
-    fetch('/data/writings.json')
+    fetch(`${BASE_PATH}/data/writings.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load writings.json');
@@ -574,7 +593,7 @@ function loadWritingsData() {
                 content.className = 'writing-content';
 
                 const link = document.createElement('a');
-                link.href = writing.link;
+                link.href = `${BASE_PATH}/${writing.link}`;
                 link.textContent = writing.title;
 
                 content.appendChild(link);

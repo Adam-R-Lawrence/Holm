@@ -365,6 +365,12 @@ function loadContentHeader() {
             const contentHeaderPlaceholder = document.getElementById('contentHeader-placeholder');
             if (contentHeaderPlaceholder) {
                 contentHeaderPlaceholder.innerHTML = data;
+                contentHeaderPlaceholder.querySelectorAll('a').forEach(a => {
+                    const href = a.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('/') && !href.startsWith('#') && !href.startsWith('mailto:')) {
+                        a.href = `${BASE_PATH}/${href}`;
+                    }
+                });
             } else {
                 console.warn('Content header placeholder not found.');
             }

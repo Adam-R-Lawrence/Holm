@@ -183,8 +183,20 @@ async function toggleLanguage() {
  * Applies saved user preferences for theme and language upon page load.
  */
 async function applyPreferences() {
-    // Retrieve language preference from localStorage
-    const isChinese = localStorage.getItem('language') === 'chinese';
+    // Determine the preferred language from storage or browser settings
+    let language = localStorage.getItem('language');
+    if (!language) {
+        let browserLang = '';
+        if (navigator.languages && navigator.languages.length > 0) {
+            browserLang = navigator.languages[0];
+        } else if (navigator.language) {
+            browserLang = navigator.language;
+        }
+        browserLang = browserLang.toLowerCase();
+        language = browserLang.startsWith('zh') ? 'chinese' : 'english';
+        localStorage.setItem('language', language);
+    }
+    const isChinese = language === 'chinese';
 
     // Apply saved theme preference
     const savedTheme = localStorage.getItem('theme');
@@ -214,8 +226,8 @@ async function applyPreferences() {
     englishIcon.style.display = isChinese ? 'inline' : 'none';
     chineseIcon.style.display = isChinese ? 'none' : 'inline';
 
-    // Apply translations and font for the stored preference
-    await applyTranslations(isChinese ? 'chinese' : 'english');
+    // Apply translations and font for the chosen preference
+    await applyTranslations(language);
     document.body.classList.toggle('chinese', isChinese);
 
     // Update the footer year and last updated date after applying translations

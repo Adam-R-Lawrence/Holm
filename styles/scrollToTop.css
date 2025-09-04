@@ -39,5 +39,5 @@
 }
 
 #scroll-to-top-btn:hover i {
-    color: #ffcc00; /* Arrow color on hover */
+    color: var(--accent); /* Arrow color on hover */
 }

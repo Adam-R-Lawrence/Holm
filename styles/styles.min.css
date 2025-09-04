@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap'); /* ============================ */ /* :ROOT VARIABLES */ /* ============================ */
 :root { /* ========================= */ /* COLORS */ /* ========================= */ /* --- Border Colors --- */
     --light-theme-border-color: #2c3e50;
-    --dark-theme-border-color: white;
+    --dark-theme-border-color: #4b5563;
     --border-color: var(--light-theme-border-color); /* --- Text Colors --- */
     --light-theme-text-color: #333;
     --dark-theme-text-color: #f8f8f8;
@@ -18,10 +18,12 @@
     --light-theme-hover-color: #e7f5ff;
     --dark-theme-hover-color: #37474F;
     --hover-color: var(--light-theme-hover-color); /* --- Font Families --- */
-    --font-family-base: 'Noto Serif SC', serif;
-    --font-family-handwritten: 'Zhi Mang Xing', cursive; /* --- Link Colors --- */
-    --link-color: #1a73e8; /* Distinct blue for main links */
-    --link-hover-color: #1558b0; /* Darker blue for hover */ /* ========================= */ /* Highlight.js Colors */ /* ========================= */ /* --- Light Theme for Highlight.js --- */
+    --font-family-base: 'Source Serif 4', 'Noto Serif SC', serif;
+    --font-family-handwritten: 'Zhi Mang Xing', cursive; /* --- Accent + Links --- */
+    --accent: #2563eb; /* primary accent */
+    --accent-600: #1d4ed8; /* hover accent */
+    --link-color: var(--accent); /* Distinct blue for main links */
+    --link-hover-color: var(--accent-600); /* Darker blue for hover */ /* ========================= */ /* Highlight.js Colors */ /* ========================= */ /* --- Light Theme for Highlight.js --- */
     --hljs-background: #f8f9fa;
     --hljs-color: #4d4d4d;
     --hljs-keyword-color: #d73a49;
@@ -94,7 +96,7 @@ img {
     min-height: 100vh; /* Full viewport height */
     margin: 0 auto; /* Center the container horizontally */
     padding: 0;
-    max-width: 75em; /* Adjust the max-width as needed */
+    max-width: 70rem; /* Slightly tighter composition */
     width: 100%; /* Ensures it takes full width up to the max-width */
     background-color: var(--background-color);
 }
@@ -105,7 +107,7 @@ img {
     flex: 1; /* Allows the container to expand and fill available space */
     margin: 0 auto; /* Center the container horizontally */
     padding: 0;
-    max-width: 75em; /* Adjust the max-width as needed */
+    max-width: 70rem; /* Keep in sync with wrapper */
     width: 100%; /* Ensures it takes full width up to the max-width */
     background-color: var(--background-color);
 }
@@ -122,8 +124,8 @@ img {
     max-height: 50em;
     padding: 1.5em;
     text-align: center;
-    border: 0.2em solid var(--border-color);
-    border-radius: 1.5em;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     margin: 0.5em;
     overflow-y: auto; /* Allow scrolling when content overflows */
     overflow-x: hidden;
@@ -209,7 +211,7 @@ img {
 
 #sidebar-navbar li {
     border: 0.1em solid var(--border-color);
-    border-radius: 15px;
+    border-radius: 10px;
     width: 100%;
     flex-grow: 1;
     flex-shrink: 1;
@@ -233,7 +235,7 @@ img {
 }
 
 #sidebar-navbar li:hover, #sidebar-navbar li:focus-within {
-    background-color: var(--hover-color);
+    background-color: color-mix(in srgb, var(--accent), transparent 90%);
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s; /* Kept transitions for hover effects */
 }
@@ -253,7 +255,7 @@ img {
     margin: 0;
     align-items: center;
     justify-content: center;
-    gap: 0.5em;
+    gap: 0.75em;
 }
 
 #sidebar-logos li {
@@ -274,7 +276,7 @@ img {
 
 /* --- Sidebar Logos Hover Effect --- */
 #sidebar-logos li:hover, #sidebar i:hover {
-    transform: scale(1.1);
+    transform: scale(1.06);
 }
 
 
@@ -283,7 +285,7 @@ img {
     flex: 1;
     padding: 2em 2em;
     width: 100%;
-    line-height: 1.6;
+    line-height: 1.7; /* improved readability */
     background-color: var(--background-color); /* Transition removed to disable smooth background and color changes on theme toggle */
 }
 
@@ -296,6 +298,18 @@ img {
     padding-bottom: 0.2em;
 }
 
+/* Complement heading typography */
+h2, h3 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.01em;
+}
+
+/* Limit measure for body paragraphs for readability */
+#main-content > p {
+    max-width: 70ch;
+    margin: 0 0 1em;
+}
+
 #main-content a { /* Inherited styles handle link colors */
     text-decoration: none; /* Transition is already handled globally (removed) */
 }
@@ -304,7 +318,7 @@ img {
 .content-image {
     display: block;
     width: 100%;
-    border-radius: 1em;
+    border-radius: 12px;
     margin: 1.5em 0;
 }
 
@@ -331,9 +345,9 @@ img {
 
 /* ============================ */ /* PROJECT GRID */ /* ============================ */
 #projects-grid {
-    display: grid; /* Responsive columns: uncomment or modify for responsive behavior */ /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.5em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
 }
 
 .project-item {
@@ -345,10 +359,12 @@ img {
     border: 0.2em solid var(--border-color);
     border-radius: 1.3em;
     box-sizing: border-box;
+    background: color-mix(in srgb, var(--background-color), #000 4%);
 }
 
 .project-item:hover {
-    transform: scale(1.03);
+    transform: scale(1.01);
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
 }
 
 .project-item a {
@@ -376,6 +392,8 @@ img {
     width: 100%;
     height: auto;
     margin: 0;
+    aspect-ratio: 16/9;
+    object-fit: cover;
 }
 
 .project-item h2 { /* clamp(MIN, preferred, MAX): - MIN: 1.5em - preferred: 5vw - MAX: 2.5em */
@@ -415,27 +433,29 @@ img {
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 1em;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid color-mix(in srgb, var(--border-color), transparent 70%);
     padding-bottom: 1em;
 }
 
 #writings-directory a {
-    color: var(--link-color); /* Inherit the global link color */
-    font-size: clamp(1em, 2vw, 1.5em); /* Responsive font size */
-    font-weight: bold;
+    color: var(--link-color);
+    font-size: clamp(1em, 2vw, 1.5em);
+    font-weight: 700;
     margin-bottom: 0.5em;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #e8f0fe; /* Light blue background */
-    text-decoration: none;
-    white-space: normal; /* Allow titles to wrap on small screens */
-    overflow-wrap: anywhere; /* Break long words when necessary */ /* Transition removed to disable smooth color, background, and font-size changes on theme toggle */
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.12em;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 #writings-directory a:hover, #writings-directory a:focus {
-    color: var(--link-hover-color);
-    background-color: #c8d1f0;
-    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    text-decoration: underline;
 }
 
 #writings-directory .explanatory-text {
@@ -449,12 +469,13 @@ img {
     flex-shrink: 0;
 }
 
-p #writings-directory .date {
+#writings-directory .date {
     font-size: 0.9em;
-    color: #888;
+    color: #6b7280;
     text-align: right;
     margin-left: 1em;
     margin-right: 0.5em;
+    font-variant-numeric: tabular-nums;
 }
 
 #writings-directory .month-day, #writings-directory .year {
@@ -474,7 +495,8 @@ header {
     color: white;
     padding: 1em 0; /* Changed from 10px to 1em */
     position: relative;
-    border-bottom: 0.2em solid var(--border-color); /* Establishes a positioning context for absolute children */
+    border-bottom: 1px solid color-mix(in srgb, var(--border-color), transparent 60%); /* lighter divider */
+    box-shadow: 0 1px 0 rgba(0,0,0,.06);
 }
 
 header ul {
@@ -497,6 +519,21 @@ header a {
 header a:hover, header a:focus {
     color: var(--link-hover-color);
     cursor: pointer; /* Ensures cursor changes on hover and focus */
+}
+
+/* Emphasize active navigation items in header and sidebar */
+#sidebar-navbar a[aria-current="page"],
+header a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 2px;
+}
+
+/* Sidebar active item accent bar */
+#sidebar-navbar a[aria-current="page"] {
+    border-left: 0.25em solid var(--accent);
+    padding-left: 0.5em;
 }
 
 /* Reset default button styles for toggle controls */
@@ -902,6 +939,13 @@ pre code {
 }
 
 /* ============================ */ /* SCROLL TO TOP BUTTON */ /* ============================ */
+#projects-grid, .gallery {
+    margin-block: 2rem;
+}
+
+.dark-theme .project-item {
+    background: #111;
+}
 #scroll-to-top-btn {
     position: fixed;
     bottom: 40px;
@@ -940,7 +984,7 @@ pre code {
 }
 
 #scroll-to-top-btn:hover i {
-    color: #ffcc00; /* Arrow color on hover */
+    color: var(--accent); /* Arrow color on hover */
 }
 
 #writings-directory .writing-themes {

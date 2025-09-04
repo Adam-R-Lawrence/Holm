@@ -34,6 +34,12 @@ video.lightbox-content {
     font-weight: bold;
     cursor: pointer;
     z-index: 1001;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    line-height: 1;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .lightbox-close:hover,

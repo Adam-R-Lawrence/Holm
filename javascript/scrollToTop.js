@@ -8,18 +8,27 @@ document.addEventListener('DOMContentLoaded', function () {
         const viewportHeight = window.innerHeight;
         if (scrollPosition > 1.5 * viewportHeight) {
             scrollToTopBtn.classList.add('show');
+            scrollToTopBtn.setAttribute('aria-hidden', 'false');
         } else {
             scrollToTopBtn.classList.remove('show');
+            scrollToTopBtn.setAttribute('aria-hidden', 'true');
         }
     }
 
     // Function to smoothly scroll to top
     function scrollToTop() {
+        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: prefersReduced ? 'auto' : 'smooth'
         });
     }
+
+    // Ensure an accessible initial state and correct visibility on load
+    if (scrollToTopBtn && !scrollToTopBtn.hasAttribute('aria-hidden')) {
+        scrollToTopBtn.setAttribute('aria-hidden', 'true');
+    }
+    toggleScrollToTopBtn();
 
     // Event listeners
     window.addEventListener('scroll', toggleScrollToTopBtn);

@@ -11,8 +11,10 @@ function createLightboxModal() {
     modal.className = 'lightbox';
 
     // Create the close button
-    const closeBtn = document.createElement('span');
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
     closeBtn.className = 'lightbox-close';
+    closeBtn.setAttribute('aria-label', 'Close');
     closeBtn.innerHTML = '&times;';
 
     // Create the image element
@@ -46,6 +48,10 @@ function createLightboxModal() {
     modal.appendChild(caption);
     modal.appendChild(help);
 
+    // ARIA roles for accessibility
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+
     // Append the modal to the body
     document.body.appendChild(modal);
 }
@@ -59,6 +65,7 @@ const lightboxImg = document.getElementById('lightbox-img');
 const lightboxVideo = document.getElementById('lightbox-video');
 const lightboxCaption = document.getElementById('lightbox-caption');
 const closeBtn = document.querySelector('.lightbox-close');
+let previousActiveElement = null;
 
 // Get all elements that should trigger the lightbox in the order they appear
 const lightboxTriggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
@@ -97,19 +104,33 @@ function displayItem(index) {
 function openLightbox(el) {
     lightboxModal.style.display = 'flex';
     displayItem(lightboxTriggers.indexOf(el));
+    previousActiveElement = document.activeElement;
+    if (closeBtn) closeBtn.focus();
 }
 
-// Open the modal when a trigger is clicked
+// Open the modal when a trigger is clicked or activated via keyboard
 lightboxTriggers.forEach(trigger => {
+    if (!trigger.hasAttribute('tabindex')) {
+        trigger.setAttribute('tabindex', '0');
+    }
     trigger.addEventListener('click', e => {
         e.preventDefault();
         openLightbox(trigger);
+    });
+    trigger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(trigger);
+        }
     });
 });
 
 function closeLightbox() {
     lightboxModal.style.display = 'none';
     lightboxVideo.pause();
+    if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+        previousActiveElement.focus();
+    }
 }
 
 // Close the modal when clicking the close button
@@ -119,6 +140,15 @@ closeBtn.addEventListener('click', closeLightbox);
 lightboxModal.addEventListener('click', (e) => {
     if (e.target === lightboxModal) {
         closeLightbox();
+    }
+});
+
+// Trap focus within the modal (single focusable close button)
+lightboxModal.addEventListener('keydown', (e) => {
+    if (lightboxModal.style.display !== 'flex') return;
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        if (closeBtn) closeBtn.focus();
     }
 });
 

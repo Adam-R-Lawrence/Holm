@@ -14,8 +14,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"
-          rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"></noscript>
 
     <!-- Favicon and App Icons -->
     <link rel="icon" href="../images/favicon/favicon.ico" sizes="48x48">
@@ -23,15 +23,24 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png">
     <link rel="apple-touch-icon" href="../images/favicon/apple-touch-icon.png">
     <link rel="manifest" href="../images/favicon/site.webmanifest">
-    <link rel="mask-icon" href="../images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light dark">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; frame-ancestors 'self'; form-action 'self';">
 
     <link rel="canonical" href="https://www.arlawrence.com/projects/">
     <meta property="og:title" content="Adam Lawrence - Projects">
     <meta property="og:description" content="A showcase of Adam Lawrence’s projects, including numerical solvers, additive manufacturing experiments, and HPC simulations.">
     <meta property="og:image" content="https://www.arlawrence.com/images/favicon/android-chrome-512x512.png">
     <meta property="og:url" content="https://www.arlawrence.com/projects/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Adam Lawrence - Projects">
+    <meta name="twitter:description" content="A showcase of Adam Lawrence’s projects, including numerical solvers, additive manufacturing experiments, and HPC simulations.">
+    <meta name="twitter:image" content="https://www.arlawrence.com/images/favicon/android-chrome-512x512.png">
+    <meta name="twitter:site" content="@arlawrence__">
+    <meta name="twitter:url" content="https://www.arlawrence.com/projects/">
 </head>
 
 <body>
@@ -41,13 +50,13 @@
         <div id="sidebar-placeholder"></div>
 
         <!-- Main Content -->
-        <div id="main-content" data-page="projects">
+        <main id="main-content" data-page="projects">
             <h1 id="projects-header">Projects</h1>
 
             <div id="projects-grid">
                 <!-- Project tiles will be populated by functions.js -->
             </div>
-        </div>
+        </main>
     </div>
 
     <!-- Placeholder for footer injection -->
@@ -55,11 +64,12 @@
 </div>
 
 <!-- Scroll to Top Button -->
-<button id="scroll-to-top-btn" aria-label="Scroll to Top">
+<button id="scroll-to-top-btn" aria-label="Scroll to Top" aria-hidden="true">
     <i class="fas fa-arrow-up"></i>
 </button>
 
 <!-- JavaScript -->
 <script src="../javascript/functions.js"></script>
+<script src="../javascript/scrollToTop.js"></script>
 </body>
 </html>

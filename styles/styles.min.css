@@ -66,6 +66,11 @@ body, html {
     background-color: var(--background-color);
 }
 
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+
 /* --- Global Links --- */
 a {
     color: var(--link-color);
@@ -121,6 +126,7 @@ img {
     border-radius: 1.5em;
     margin: 0.5em;
     overflow-y: auto; /* Allow scrolling when content overflows */
+    overflow-x: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex; /* Make it a flex container */
     flex-direction: column; /* Align children vertically */
@@ -132,6 +138,12 @@ img {
 #sidebar > * {
     margin-bottom: 0;
     width: 100%;
+}
+/* Ensure absolutely positioned sidebar toggles are not stretched full width */
+#sidebar .theme-toggle.main-page-style,
+#sidebar .language-toggle.main-page-style {
+    width: auto;
+    height: auto;
 }
 
 /* --- Sidebar Title --- */
@@ -375,12 +387,12 @@ img {
 }
 
 /* ============================ */ /* INDIVIDUAL CONTENT */ /* ============================ */
-#individual-content {
+#individual-content, main#main-content:not([data-page]) {
     padding: 0.3em 1em 1em 1em;
     text-align: justify;
 }
 
-#individual-content p, #individual-content li {
+#individual-content p, #individual-content li, main#main-content:not([data-page]) p, main#main-content:not([data-page]) li {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -487,10 +499,20 @@ header a:hover, header a:focus {
     cursor: pointer; /* Ensures cursor changes on hover and focus */
 }
 
+/* Reset default button styles for toggle controls */
+.theme-toggle.main-page-style, .language-toggle.main-page-style, .theme-toggle.content-page-style, .language-toggle.content-page-style {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    line-height: 1;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 /* --- Theme and Language Toggles for Main Pages --- */
-#theme-toggle.main-page-style, #language-toggle.main-page-style {
+.theme-toggle.main-page-style, .language-toggle.main-page-style {
     position: absolute;
-    top: 1.2em;
+    top: 0.5em;
     cursor: pointer;
     width: 1em;
     height: 1em;
@@ -500,19 +522,19 @@ header a:hover, header a:focus {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease; /* Kept transitions for toggle interactivity */
-    transform: translateY(-50%);
+    z-index: 2;
 }
 
-#theme-toggle.main-page-style {
+.theme-toggle.main-page-style {
     left: 0.5em;
 }
 
-#language-toggle.main-page-style {
+.language-toggle.main-page-style {
     right: 0.5em;
 }
 
 /* --- Theme Toggle for Content Pages --- */
-#theme-toggle.content-page-style {
+.theme-toggle.content-page-style {
     cursor: pointer;
     width: 1.5em; /* Adjusted size for better visibility */
     height: 1.5em;
@@ -529,17 +551,48 @@ header a:hover, header a:focus {
     color: white; /* Sets the icon color to white */
 }
 
-#theme-toggle.content-page-style i, #language-toggle.content-page-style i {
+.theme-toggle.content-page-style i, .language-toggle.content-page-style i {
     color: white; /* Sets the icon color to white */
 }
 
-#theme-toggle.content-page-style:hover, #language-toggle.content-page-style:hover, #theme-toggle.content-page-style:focus, #language-toggle.content-page-style:focus {
+.theme-toggle.content-page-style:hover, .language-toggle.content-page-style:hover, .theme-toggle.content-page-style:focus, .language-toggle.content-page-style:focus {
     transform: translateY(-50%) scale(1.1); /* Slightly enlarges on hover/focus */
     outline: none; /* Removes default outline */
 }
 
+/* Visible focus for toggle buttons */
+.theme-toggle.main-page-style:focus-visible, .language-toggle.main-page-style:focus-visible, .theme-toggle.content-page-style:focus-visible, .language-toggle.content-page-style:focus-visible {
+    outline: 2px solid var(--link-hover-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Skip link styles */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 1000;
+}
+.skip-link:focus, .skip-link:focus-visible {
+    left: 0.75em;
+    top: 0.75em;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    background: var(--header-and-footer-color);
+    color: #fff;
+    padding: 0.5em 0.9em;
+    border-radius: 4px;
+    outline: 2px solid var(--border-color);
+    outline-offset: 2px;
+}
+
 /* --- Language Toggle for Content Pages (Optional) --- */
-#language-toggle.content-page-style {
+.language-toggle.content-page-style {
     cursor: pointer;
     width: 1.5em;
     height: 1.5em;
@@ -556,7 +609,7 @@ header a:hover, header a:focus {
 }
 
 /* --- Icon Styles for Language Toggle --- */
-#language-toggle i#language-english, #language-toggle i#language-chinese {
+.language-toggle i.language-english, .language-toggle i.language-chinese {
     font-style: normal; /* Ensures icons/text are properly aligned */
     display: flex;
     align-items: center;
@@ -578,7 +631,7 @@ header a:hover, header a:focus {
         margin: 0 2.2em; /* Prevent icon overlap on small screens */
     }
 
-    #theme-toggle.main-page-style, #language-toggle.main-page-style, #theme-toggle.content-page-style, #language-toggle.content-page-style {
+    .theme-toggle.main-page-style, .language-toggle.main-page-style, .theme-toggle.content-page-style, .language-toggle.content-page-style {
         width: 1.2em;
         height: 1.2em;
         font-size: 1.1em;
@@ -633,8 +686,8 @@ header a:hover, header a:focus {
     header li {
         margin:0 .5em;
     }
-    #theme-toggle.content-page-style,
-    #language-toggle.content-page-style {
+    .theme-toggle.content-page-style,
+    .language-toggle.content-page-style {
         position:static;
         transform:none;
     }

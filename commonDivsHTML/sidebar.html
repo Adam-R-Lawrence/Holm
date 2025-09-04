@@ -2,16 +2,16 @@
 <div id="sidebar">
 
     <!-- Dark/Light theme toggle -->
-    <div id="theme-toggle"  class="main-page-style" onclick="toggleTheme()">
-        <i id="theme-sun" class="fas fa-sun" style="display: none;"></i>
-        <i id="theme-moon" class="fas fa-moon" style="display: inline;"></i>
-    </div>
+    <button class="theme-toggle main-page-style" type="button" onclick="toggleTheme()" aria-label="Toggle theme" aria-pressed="false">
+        <i class="theme-sun fas fa-sun" style="display: none;"></i>
+        <i class="theme-moon fas fa-moon" style="display: inline;"></i>
+    </button>
 
     <!-- Language toggle -->
-    <div id="language-toggle"  class="main-page-style" onclick="toggleLanguage()">
-        <i id="language-english" style="display: none;">EN</i>
-        <i id="language-chinese" style="display: inline;">文</i>
-    </div>
+    <button class="language-toggle main-page-style" type="button" onclick="toggleLanguage()" aria-label="Toggle language" aria-pressed="false">
+        <i class="language-english" style="display: none;">EN</i>
+        <i class="language-chinese" style="display: inline;">文</i>
+    </button>
 
 
     <!-- Name -->
@@ -43,11 +43,11 @@
     <!-- Navigation to other pages -->
     <div id="sidebar-navbar">
         <ul>
-            <li><a id="nav-home" href="/#main-content">Home</a></li>
+            <li><a id="nav-home" href="index.html#main-content">Home</a></li>
             <li><a id="nav-projects" href="projects/#main-content">Projects</a></li>
             <li><a id="nav-writings" href="writings/#main-content">Writings</a></li>
             <li><a id="nav-publications" href="publications/#main-content">Publications</a></li>
-            <li><a id="nav-resume" href="resume/" target="_blank">Resume</a></li>
+            <li><a id="nav-resume" href="resume/" target="_blank" rel="noopener">Resume</a></li>
         </ul>
     </div>
 

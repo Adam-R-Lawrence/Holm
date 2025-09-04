@@ -1,40 +1,4 @@
 'use strict';
-// Redirect to custom 404 page for invalid routes
-document.addEventListener("DOMContentLoaded", () => {
-    const validRoutes = [
-        "",
-        "index.html",
-        "projects",
-        "projects/index.html",
-        "publications",
-        "publications/index.html",
-        "resume",
-        "resume/index.html",
-        "writings",
-        "writings/index.html",
-        "projects/Ostium",
-        "projects/Ostium/index.html",
-        "projects/Torrentem",
-        "projects/Torrentem/index.html",
-        "projects/Vadum",
-        "projects/Vadum/index.html",
-        "writings/numerical_modelling_of_photopolymerization",
-        "writings/numerical_modelling_of_photopolymerization/index.html",
-        "writings/close_to_nowhere",
-        "writings/close_to_nowhere/index.html",
-        "404.html"
-    ];
-    let path = window.location.pathname.replace(/^\//, '');
-    if (path.startsWith(GITHUB_REPO + '/')) {
-        path = path.substring(GITHUB_REPO.length + 1);
-    } else if (path === GITHUB_REPO) {
-        path = '';
-    }
-    path = path.replace(/\/$/, '');
-    if (!validRoutes.includes(path)) {
-        window.location.replace(`${BASE_PATH}/404.html`);
-    }
-});
 
 
 // Constants for GitHub API
@@ -132,22 +96,23 @@ function toggleImagesForDarkMode() {
  * Toggles between dark and light themes for the website.
  */
 function toggleTheme() {
-    // Toggle the 'dark-theme' class on the body element
     document.body.classList.toggle('dark-theme');
     const isDarkMode = document.body.classList.contains('dark-theme');
 
-    // Select theme toggle icons
-    const lightThemeIcon = document.getElementById('theme-moon');
-    const darkThemeIcon = document.getElementById('theme-sun');
+    // Update all theme icons (header + sidebar)
+    document.querySelectorAll('.theme-moon').forEach(el => {
+        el.style.display = isDarkMode ? 'none' : 'inline';
+    });
+    document.querySelectorAll('.theme-sun').forEach(el => {
+        el.style.display = isDarkMode ? 'inline' : 'none';
+    });
 
-    // Update icon visibility based on the current theme
-    lightThemeIcon.style.display = isDarkMode ? 'none' : 'inline';
-    darkThemeIcon.style.display = isDarkMode ? 'inline' : 'none';
+    // Update aria-pressed on all theme toggles
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(isDarkMode));
+    });
 
-    // Toggle sidebar images to match the theme
     toggleImagesForDarkMode();
-
-    // Save the current theme preference to localStorage
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 }
 
@@ -155,27 +120,27 @@ function toggleTheme() {
  * Toggles between English and Chinese languages for the website.
  */
 async function toggleLanguage() {
-    // Select language toggle icons
-    const englishIcon = document.getElementById('language-english');
-    const chineseIcon = document.getElementById('language-chinese');
-
-    // Determine the current language from the body class
     const isChinese = document.body.classList.contains('chinese');
-
-    // Show the icon for the language the user can switch to
-    englishIcon.style.display = isChinese ? 'inline' : 'none';
-    chineseIcon.style.display = isChinese ? 'none' : 'inline';
-
     const newLanguage = isChinese ? 'english' : 'chinese';
 
-    // Save the current language preference to localStorage
-    localStorage.setItem('language', newLanguage);
+    // Update all language toggle icons (header + sidebar)
+    document.querySelectorAll('.language-english').forEach(el => {
+        el.style.display = isChinese ? 'inline' : 'none';
+    });
+    document.querySelectorAll('.language-chinese').forEach(el => {
+        el.style.display = isChinese ? 'none' : 'inline';
+    });
 
-    // Apply the chosen language
+    // Update aria-pressed on all language toggles
+    document.querySelectorAll('.language-toggle').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(newLanguage === 'chinese'));
+    });
+
+    localStorage.setItem('language', newLanguage);
     await applyTranslations(newLanguage);
     document.body.classList.toggle('chinese', newLanguage === 'chinese');
-
-    // Refresh the "Last Updated" date after the footer text is re-rendered
+    // Update document language for accessibility/SEO
+    document.documentElement.setAttribute('lang', newLanguage === 'chinese' ? 'zh' : 'en');
     displayLastUpdated();
 }
 
@@ -207,28 +172,38 @@ async function applyPreferences() {
     }
     const isDarkMode = document.body.classList.contains('dark-theme');
 
-    // Select theme toggle icons
-    const darkThemeIcon = document.getElementById('theme-sun');
-    const lightThemeIcon = document.getElementById('theme-moon');
-
-    // Select language toggle icons
-    const englishIcon = document.getElementById('language-english');
-    const chineseIcon = document.getElementById('language-chinese');
-
-    // Update theme icon visibility based on the current theme
-    lightThemeIcon.style.display = isDarkMode ? 'none' : 'inline';
-    darkThemeIcon.style.display = isDarkMode ? 'inline' : 'none';
+    // Update all theme icons visibility
+    document.querySelectorAll('.theme-moon').forEach(el => {
+        el.style.display = isDarkMode ? 'none' : 'inline';
+    });
+    document.querySelectorAll('.theme-sun').forEach(el => {
+        el.style.display = isDarkMode ? 'inline' : 'none';
+    });
 
     // Toggle sidebar images to match the theme
     toggleImagesForDarkMode();
 
-    // Update language icon visibility so the user sees the alternate option
-    englishIcon.style.display = isChinese ? 'inline' : 'none';
-    chineseIcon.style.display = isChinese ? 'none' : 'inline';
+    // Update all language icons visibility
+    document.querySelectorAll('.language-english').forEach(el => {
+        el.style.display = isChinese ? 'inline' : 'none';
+    });
+    document.querySelectorAll('.language-chinese').forEach(el => {
+        el.style.display = isChinese ? 'none' : 'inline';
+    });
+
+    // Initialize aria-pressed on toggles (buttons handle role/tabindex natively)
+    document.querySelectorAll('.theme-toggle').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(isDarkMode));
+    });
+    document.querySelectorAll('.language-toggle').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(isChinese));
+    });
 
     // Apply translations and font for the chosen preference
     await applyTranslations(language);
     document.body.classList.toggle('chinese', isChinese);
+    // Ensure root lang reflects active language
+    document.documentElement.setAttribute('lang', isChinese ? 'zh' : 'en');
 
     // Update the footer year and last updated date after applying translations
     displayLastUpdated();
@@ -431,7 +406,7 @@ async function displayLastUpdated() {
     const cacheDuration = 60 * 60 * 1000; // 1 hour in milliseconds
 
     const cachedDate = localStorage.getItem(cacheKey);
-    const cachedTime = localStorage.getItem(cacheTimeKey);
+    const cachedTime = parseInt(localStorage.getItem(cacheTimeKey) || '0', 10);
     const now = Date.now();
 
     // Check if cached data is available and still valid
@@ -556,11 +531,13 @@ function loadPublicationsData() {
             publications.forEach(pub => {
                 const item = document.createElement('li');
 
-                const link = document.createElement('a');
-                link.href = `${BASE_PATH}/${pub.link}`;
-                link.textContent = pub.title;
+                const linkEl = document.createElement(pub.link ? 'a' : 'span');
+                if (pub.link) {
+                    linkEl.href = `${BASE_PATH}/${pub.link}`;
+                }
+                linkEl.textContent = pub.title;
 
-                item.appendChild(link);
+                item.appendChild(linkEl);
 
                 const details = [];
                 if (pub.authors) details.push(pub.authors);
@@ -720,6 +697,9 @@ async function initialize() {
         // Load sidebar and content header in parallel
         await Promise.all([loadSidebar(), loadContentHeader()]);
 
+        // Mark the active navigation item
+        setActiveNav();
+
         // Apply user preferences for theme and language
         await applyPreferences();
 
@@ -732,14 +712,22 @@ async function initialize() {
         // Dynamically build writing entries if on the writings page
         loadWritingsData();
 
-        // Add a fade-in effect to the body for smooth visual transition
-        document.body.classList.add('fade-in');
-        // Initialize highlight.js after the content is loaded so that
-        // theme preferences are applied correctly
-        hljs.highlightAll();
-        document.querySelectorAll('pre code').forEach(block => {
-            highlightjsCopy(block);
-        });
+        // No fade-in animation to respect reduced motion preferences
+        // Initialize highlight.js only if loaded
+        if (window.hljs) {
+            try {
+                hljs.highlightAll();
+                if (typeof highlightjsCopy === 'function') {
+                    document.querySelectorAll('pre code').forEach(block => {
+                        highlightjsCopy(block);
+                    });
+                }
+            } catch (e) {
+                console.warn('Highlight.js initialization skipped:', e);
+            }
+        }
+
+        // Buttons already support keyboard activation; no extra handlers needed
 
     } catch (error) {
         console.error('Error during initialization:', error);
@@ -749,5 +737,46 @@ async function initialize() {
 // Initialize the application once the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initialize);
 
-/* Highlight.js plugins and setup */
-hljs.addPlugin(new CopyButtonPlugin());
+/* Highlight.js plugin setup (guarded) */
+if (window.hljs && typeof CopyButtonPlugin !== 'undefined' && typeof hljs.addPlugin === 'function') {
+    try { hljs.addPlugin(new CopyButtonPlugin()); } catch (_) {}
+}
+
+/**
+ * Sets aria-current="page" on the active navigation links (header + sidebar).
+ */
+function setActiveNav() {
+    // Clear existing aria-current attributes
+    document.querySelectorAll('#sidebar-navbar a, .contentHeader-placeholder nav a').forEach(a => {
+        a.removeAttribute('aria-current');
+    });
+
+    // Determine current section
+    const pageEl = document.querySelector('[data-page]');
+    let page = pageEl ? pageEl.getAttribute('data-page') : '';
+
+    // Map data-page to nav ids
+    const map = {
+        'about-me': ['nav-home', 'header-home'],
+        'projects': ['nav-projects', 'header-projects'],
+        'writings': ['nav-writings', 'header-writings'],
+        'publications': ['nav-publications']
+    };
+
+    // Fallback: infer from path if data-page is missing
+    if (!page) {
+        const p = window.location.pathname;
+        if (/\/projects\//.test(p)) page = 'projects';
+        else if (/\/writings\//.test(p)) page = 'writings';
+        else if (/\/publications\//.test(p)) page = 'publications';
+        else page = 'about-me';
+    }
+
+    const ids = map[page] || [];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.tagName.toLowerCase() === 'a') {
+            el.setAttribute('aria-current', 'page');
+        }
+    });
+}

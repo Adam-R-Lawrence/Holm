@@ -69,7 +69,7 @@ async function applyTranslations(language) {
  * Toggles the sidebar logo images based on the current theme (dark or light).
  */
 function toggleImagesForDarkMode() {
-    const isDarkMode = document.body.classList.contains('dark-theme');
+    const isDarkMode = document.documentElement.classList.contains('dark-theme');
 
     // Select all logo images within the sidebar
     const logos = document.querySelectorAll('#sidebar-logos img');
@@ -96,8 +96,8 @@ function toggleImagesForDarkMode() {
  * Toggles between dark and light themes for the website.
  */
 function toggleTheme() {
-    document.body.classList.toggle('dark-theme');
-    const isDarkMode = document.body.classList.contains('dark-theme');
+    document.documentElement.classList.toggle('dark-theme');
+    const isDarkMode = document.documentElement.classList.contains('dark-theme');
 
     // Update all theme icons (header + sidebar)
     document.querySelectorAll('.theme-moon').forEach(el => {
@@ -166,11 +166,11 @@ async function applyPreferences() {
     // Apply saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
+        document.documentElement.classList.add('dark-theme');
     } else if (savedTheme === 'light') {
-        document.body.classList.remove('dark-theme');
+        document.documentElement.classList.remove('dark-theme');
     }
-    const isDarkMode = document.body.classList.contains('dark-theme');
+    const isDarkMode = document.documentElement.classList.contains('dark-theme');
 
     // Update all theme icons visibility
     document.querySelectorAll('.theme-moon').forEach(el => {
@@ -682,9 +682,9 @@ async function initialize() {
         if (!localStorage.getItem('theme')) {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             if (prefersDark) {
-                document.body.classList.add('dark-theme');
+                document.documentElement.classList.add('dark-theme');
             } else {
-                document.body.classList.remove('dark-theme');
+                document.documentElement.classList.remove('dark-theme');
             }
         }
 

@@ -1,0 +1,30 @@
+/* Resume page overrides: make PDF fill the viewport cleanly */
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/* Remove default main padding so the viewer isn't clipped */
+#main-content {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+.resume-frame {
+  display: block;
+  position: fixed;
+  inset: 0; /* top:0 right:0 bottom:0 left:0 */
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+}
+
+/* Provide some spacing for the fallback link when viewer isn't supported */
+.resume-fallback {
+  padding: 1rem;
+}
+

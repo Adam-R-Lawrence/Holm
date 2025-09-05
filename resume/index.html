@@ -6,6 +6,7 @@
     <title>My Resume</title>
     <meta name="description" content="Embedded PDF resume for Adam Lawrence, summarizing education, research experience, and technical skills.">
     <link rel="stylesheet" href="../styles/styles.min.css">
+    <link rel="stylesheet" href="../styles/resume.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
@@ -36,11 +37,26 @@
     <meta name="twitter:site" content="@arlawrence__">
     <meta name="twitter:url" content="https://www.arlawrence.com/resume/">
 </head>
-<body style="margin:0; padding:0; height:100vh;">
+<body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <main id="main-content">
-  <embed src="../documents/Adam_Lawrence_Resume.pdf" type="application/pdf" title="Resume PDF" width="100%" height="100%">
-  <p>If the PDF does not display, <a href="../documents/Adam_Lawrence_Resume.pdf" download>download it here</a>.</p>
+  <iframe class="resume-frame" src="../documents/Adam_Lawrence_Resume.pdf#view=FitH" title="Resume PDF"></iframe>
+  <noscript>
+    <p class="resume-fallback">JavaScript is disabled. You can <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.</p>
+  </noscript>
+  <div class="resume-fallback" aria-live="polite" id="resume-fallback" hidden>
+    If the PDF viewer is not supported on your device, <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.
+  </div>
+  <script>
+    // If the iframe fails to load (e.g., unsupported), reveal a fallback link
+    (function(){
+      var frame = document.querySelector('.resume-frame');
+      var fallback = document.getElementById('resume-fallback');
+      var timer = setTimeout(function(){ if(fallback) fallback.hidden = false; }, 3000);
+      frame.addEventListener('load', function(){ clearTimeout(timer); });
+      frame.addEventListener('error', function(){ if(fallback) fallback.hidden = false; });
+    })();
+  </script>
 </main>
 </body>
 </html>

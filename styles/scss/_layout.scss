@@ -110,7 +110,9 @@
     text-align: justify;
     color: inherit;                /* Ensure they inherit the default text color */
     text-decoration: none;         /* Remove underline */
-    display: block;                /* Makes the entire area clickable */
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
     padding: 0.8em;
     height: 100%;                  /* Ensures link covers the entire item */
     /* Transition removed to disable smooth background and color changes on theme toggle */
@@ -133,6 +135,8 @@
     width: 100%;
     height: auto;
     margin: 0;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
 
 .project-item h2 {
@@ -147,6 +151,16 @@
     text-align: center;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    flex-shrink: 0;
+}
+
+#projects-grid .project-item p {
+    flex-grow: 1;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* ============================ */
@@ -164,12 +178,149 @@
 }
 
 /* ============================ */
+/*    DIRECTORY COMPONENTS     */
+/* ============================ */
+
+.directory-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--surface-border-color);
+    border-radius: 0.75rem;
+    background: var(--toolbar-background);
+    box-shadow: var(--surface-shadow);
+}
+
+.directory-toolbar .toolbar-field {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+}
+
+.directory-toolbar label {
+    font-weight: 600;
+}
+
+.directory-toolbar select,
+.directory-toolbar input[type="search"] {
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--surface-border-color);
+    background: var(--input-background);
+    color: var(--text-color);
+}
+
+.directory-toolbar input[type="search"]::placeholder {
+    color: var(--muted-color);
+    opacity: 0.7;
+}
+
+.directory-group {
+    margin-bottom: 2rem;
+}
+
+.directory-group > h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.directory-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.directory-card {
+    padding: 1.1rem 1.3rem;
+    border-radius: 0.9rem;
+    background: var(--surface-color);
+    border: 1px solid var(--surface-border-color);
+    box-shadow: var(--surface-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.directory-card:hover,
+.directory-card:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.14);
+}
+
+.directory-card-title-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.8rem;
+}
+
+.directory-badge {
+    background: var(--badge-background);
+    color: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.directory-card-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.directory-card-title:hover,
+.directory-card-title:focus {
+    text-decoration: underline;
+}
+
+.directory-muted {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--muted-color);
+}
+
+.directory-empty-state {
+    padding: 1rem 0;
+    font-style: italic;
+    color: var(--muted-color);
+}
+
+@media (max-width: 600px) {
+    .directory-toolbar {
+        gap: 0.75rem;
+        padding: 0.85rem 1rem;
+    }
+
+    .directory-toolbar .toolbar-field {
+        min-width: 140px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .directory-card:hover,
+    .directory-card:focus-within {
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* ============================ */
 /*      WRITINGS DIRECTORY     */
 /* ============================ */
 
 #writings-directory {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-left: 1em;
+    margin-left: 0;
+    display: grid;
+    gap: 1.25rem;
 }
 
 [data-page="writings"] h1,
@@ -181,90 +332,61 @@
 }
 
 #writing-filter-controls {
-    margin-left: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 1.5rem;
 }
-
-#writing-filter-controls select {
-    display: block;
-    width: 100%;
-    max-width: 20em;
-    padding: 0.25em 0.5em;
-    font-size: 1em;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-.dark-theme #writing-filter-controls select {
-    background-color: var(--sidebar-color);
-}
-
 
 #writings-directory .writing-item {
     display: flex;
-    /* Changed from align-items: center to flex-start */
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 1em;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 1em;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
-#writings-directory a {
-    color: var(--link-color);               /* Inherit the global link color */
-    font-size: clamp(1em, 2vw, 1.5em);      /* Responsive font size */
-    font-weight: bold;
-    margin-bottom: 0.5em;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: #e8f0fe;              /* Light blue background */
-    text-decoration: none;
-    white-space: normal;                    /* Allow titles to wrap on small screens */
-    overflow-wrap: anywhere;                /* Break long words when necessary */
-    /* Transition removed to disable smooth color, background, and font-size changes on theme toggle */
+#writings-directory .writing-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
-#writings-directory a:hover,
-#writings-directory a:focus {
-    color: var(--link-hover-color);
-    background-color: #c8d1f0;
+#writings-directory .writing-title {
+    font-size: 1.15em;
+    font-weight: 600;
     text-decoration: none;
+}
+
+#writings-directory .writing-title:hover,
+#writings-directory .writing-title:focus {
+    text-decoration: underline;
 }
 
 #writings-directory .explanatory-text {
-    font-size: 1em;
-    margin-left: 0.25em;
-    margin-top: 0.5em;
+    margin: 0;
+}
+
+#writings-directory .writing-themes {
     font-style: italic;
+    margin: 0;
 }
 
 #writings-directory .writing-meta {
-    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
 }
-p
 
-#writings-directory .date {
+#writings-directory .writing-meta .date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+#writings-directory .writing-meta .month-day {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+#writings-directory .writing-meta .year {
     font-size: 0.9em;
-    color: #888;
-    text-align: right;
-    margin-left: 1em;
-    margin-right: 0.5em;
 }
-
-#writings-directory .month-day,
-#writings-directory .year {
-    display: block;
-}
-
-#writings-directory .writing-image {
-    width: 5em;
-    height: auto;
-    margin-right: 0.5em;
-    order: -1;
-}
-
 
 /* ============================ */
 /*           HEADER            */

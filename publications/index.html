@@ -50,8 +50,22 @@
 
                 <h1 id="publications-header">Publications</h1>
 
+                <section id="publications-toolbar" class="directory-toolbar" aria-label="Filter publications">
+                    <div class="toolbar-field">
+                        <label for="publication-year-filter">Year</label>
+                        <select id="publication-year-filter" aria-controls="publications-directory"></select>
+                    </div>
+                    <div class="toolbar-field">
+                        <label for="publication-type-filter">Type</label>
+                        <select id="publication-type-filter" aria-controls="publications-directory"></select>
+                    </div>
+                    <div class="toolbar-field">
+                        <label for="publication-search">Search</label>
+                        <input id="publication-search" type="search" placeholder="Title, authors, venue" aria-controls="publications-directory">
+                    </div>
+                </section>
 
-                <div id="publications-directory">
+                <div id="publications-directory" aria-live="polite">
 
                 </div>
 

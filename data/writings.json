@@ -1,16 +1,60 @@
 [
   {
-    "title": "Numerical Modelling of Photopolymerization",
+    "id": "numerical-modelling-of-photopolymerization",
+    "title": {
+      "english": "Numerical Modelling of Photopolymerization",
+      "chinese": "光聚合的数值建模"
+    },
     "date": "2025-03-18",
-    "summary": "Computational modelling approaches developed for the NIST 2025 Benchmark competition",
+    "summary": {
+      "english": "Computational modelling approaches developed for the NIST 2025 Benchmark competition",
+      "chinese": "为 2025 年 NIST 基准竞赛开发的光聚合计算建模方法"
+    },
     "link": "writings/numerical_modelling_of_photopolymerization/",
-    "themes": ["Finite Element Method", "Additive Manufacturing"]
+    "themes": [
+      {
+        "id": "finite-element-method",
+        "label": {
+          "english": "Finite Element Method",
+          "chinese": "有限元方法"
+        }
+      },
+      {
+        "id": "additive-manufacturing",
+        "label": {
+          "english": "Additive Manufacturing",
+          "chinese": "增材制造"
+        }
+      }
+    ]
   },
   {
-    "title": "Close to Nowhere",
+    "id": "close-to-nowhere",
+    "title": {
+      "english": "Close to Nowhere",
+      "chinese": "近乎无处"
+    },
     "date": "2025-04-01",
-    "summary": "Example essay on the intersection of remote sensing and environmental history",
+    "summary": {
+      "english": "Example essay on the intersection of remote sensing and environmental history",
+      "chinese": "探讨遥感与环境史交叉的示例随笔"
+    },
     "link": "writings/close_to_nowhere/",
-    "themes": ["Remote Sensing", "Environmental History"]
+    "themes": [
+      {
+        "id": "remote-sensing",
+        "label": {
+          "english": "Remote Sensing",
+          "chinese": "遥感"
+        }
+      },
+      {
+        "id": "environmental-history",
+        "label": {
+          "english": "Environmental History",
+          "chinese": "环境史"
+        }
+      }
+    ]
   }
 ]

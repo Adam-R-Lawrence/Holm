@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications Builder</title>
+    <meta name="description" content="Utility page to normalize BibTeX, ORCID JSON, or raw data into publications.json format.">
+    <link rel="stylesheet" href="../styles/styles.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;700&display=swap"></noscript>
+
+    <style>
+        body {
+            padding: 2rem 1.5rem;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .builder-intro {
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: var(--muted-color, rgba(0, 0, 0, 0.75));
+        }
+
+        .builder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .builder-card {
+            border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            background: var(--card-bg, rgba(255, 255, 255, 0.95));
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 220px;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+            font-family: monospace;
+            font-size: 0.95rem;
+            background: var(--input-bg, rgba(255, 255, 255, 0.95));
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        button {
+            padding: 0.55rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            background: #2a5bd7;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;    
+        }
+
+        button.secondary {
+            background: transparent;
+            border-color: #2a5bd7;
+            color: inherit;
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        button:hover:not(:disabled),
+        button:focus-visible:not(:disabled) {
+            background: #1f46a7;
+        }
+
+        button.secondary:hover:not(:disabled),
+        button.secondary:focus-visible:not(:disabled) {
+            background: rgba(42, 91, 215, 0.12);
+        }
+
+        .output-area {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .output-area pre {
+            max-height: 320px;
+            overflow: auto;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+            background: rgba(0, 0, 0, 0.04);
+            font-size: 0.9rem;
+        }
+
+        .status-line {
+            font-size: 0.9rem;
+            color: var(--muted-color, rgba(0, 0, 0, 0.65));
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+            text-align: left;
+            font-size: 0.92rem;
+        }
+
+        th {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .table-scroll {
+            max-height: 320px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
+            border-radius: 0.75rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: rgba(12, 15, 24, 1);
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .builder-intro {
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .builder-card,
+            textarea {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.16);
+            }
+
+            .output-area pre {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.18);
+            }
+
+            th, td {
+                border-color: rgba(255, 255, 255, 0.16);
+            }
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Publications Builder</h1>
+    <p class="builder-intro">
+        Paste BibTeX, ORCID JSON, or a raw publications array. The tool normalizes fields into the
+        <code>data/publications.json</code> format and lets you merge with the current dataset before copying or
+        downloading the result.
+    </p>
+
+    <section class="builder-grid">
+        <article class="builder-card">
+            <h2>Input Data</h2>
+            <p class="status-line">BibTeX entries, ORCID API responses, or an array of publication objects.</p>
+            <textarea id="publications-source" placeholder="Paste your data here..."></textarea>
+            <div class="button-row">
+                <button id="parse-bibtex" type="button">Parse as BibTeX</button>
+                <button id="parse-orcid" type="button">Parse as ORCID JSON</button>
+                <button id="parse-json" type="button">Parse as JSON Array</button>
+            </div>
+            <p id="parse-status" class="status-line"></p>
+        </article>
+
+        <article class="builder-card">
+            <h2>Existing publications.json</h2>
+            <div class="table-scroll">
+                <table id="existing-publications-table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody id="existing-publications-body"></tbody>
+                </table>
+            </div>
+            <p class="status-line" id="existing-count">Loading current data…</p>
+        </article>
+    </section>
+
+    <section class="builder-card output-area">
+        <div class="button-row">
+            <button id="merge-existing" type="button" class="secondary" disabled>Merge with existing</button>
+            <button id="copy-json" type="button" disabled>Copy JSON</button>
+            <button id="download-json" type="button" disabled>Download JSON</button>
+            <button id="reset-working" type="button" class="secondary" disabled>Reset</button>
+        </div>
+        <p class="status-line" id="working-count">No normalized publications yet.</p>
+        <pre id="publications-output" aria-live="polite">[]</pre>
+        <div id="working-table-wrapper" class="table-scroll hidden">
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Type</th>
+                    <th>Authors</th>
+                </tr>
+                </thead>
+                <tbody id="working-publications-body"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/bibtex-parse-js@2.0.3/dist/bibtexParse.js" crossorigin="anonymous"></script>
+<script src="../javascript/publications-tools.js"></script>
+</body>
+</html>

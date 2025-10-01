@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "title": "Computational Modeling of Photopolymerization in Additive Manufacturing",
+    "authors": "Adam R. Lawrence, Jinhui Yan",
+    "venue": "NIST Photopolymerization Benchmark Workshop",
+    "year": 2025,
+    "type": "conference",
+    "link": "",
+    "draft": true
+  },
+  {
+    "title": "Stabilized Finite Element Methods for Free-Surface Flows",
+    "authors": "Adam R. Lawrence, Coauthor Name",
+    "venue": "Journal of Computational Mechanics",
+    "year": 2024,
+    "type": "journal",
+    "link": "",
+    "draft": true
+  },
+  {
+    "title": "High-Performance Multiphysics Simulation with Torrentem",
+    "authors": "Adam R. Lawrence",
+    "venue": "UIUC Civil and Environmental Engineering Research Day",
+    "year": 2023,
+    "type": "poster",
+    "link": "",
+    "draft": true
+  }
+]

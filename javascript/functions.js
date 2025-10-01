@@ -18,6 +18,132 @@ const translationFiles = {
     chinese: `${BASE_PATH}/data/translations_zh.json`
 };
 
+let activeLanguage = 'english';
+
+const localizedCopy = {
+    english: {
+        publications: {
+            filterYearLabel: 'Year',
+            filterTypeLabel: 'Type',
+            filterSearchLabel: 'Search',
+            searchPlaceholder: 'Title, authors, venue',
+            allYears: 'All Years',
+            allTypes: 'All Types',
+            noMatches: 'No publications match the selected filters.',
+            undatedHeading: 'Undated',
+            typeLabels: {
+                journal: 'Journal',
+                conference: 'Conference',
+                poster: 'Poster',
+                thesis: 'Thesis',
+                book: 'Book',
+                preprint: 'Preprint',
+                other: 'Other'
+            }
+        },
+        writings: {
+            filterLabel: 'Filter by theme',
+            allThemes: 'All Themes',
+            topicPrefix: 'Topic: ',
+            noMatches: 'No writings match the selected filter.'
+        }
+    },
+    chinese: {
+        publications: {
+            filterYearLabel: '年份',
+            filterTypeLabel: '类型',
+            filterSearchLabel: '搜索',
+            searchPlaceholder: '标题、作者或刊物',
+            allYears: '全部年份',
+            allTypes: '全部类型',
+            noMatches: '没有符合筛选条件的出版物。',
+            undatedHeading: '未注明年份',
+            typeLabels: {
+                journal: '期刊',
+                conference: '会议',
+                poster: '海报',
+                thesis: '论文',
+                book: '图书',
+                preprint: '预印本',
+                other: '其他'
+            }
+        },
+        writings: {
+            filterLabel: '按主题筛选',
+            allThemes: '全部主题',
+            topicPrefix: '主题：',
+            noMatches: '暂无符合条件的文章。'
+        }
+    }
+};
+
+const setActiveLanguage = language => {
+    activeLanguage = language === 'chinese' ? 'chinese' : 'english';
+};
+
+const getCopy = (section, key) => {
+    const languageCopy = localizedCopy[activeLanguage] || localizedCopy.english;
+    const fallbackCopy = localizedCopy.english;
+    const sectionCopy = languageCopy?.[section] || {};
+    const fallbackSection = fallbackCopy?.[section] || {};
+    if (key === 'typeLabels') {
+        return sectionCopy.typeLabels || fallbackSection.typeLabels || {};
+    }
+    return sectionCopy[key] || fallbackSection[key] || '';
+};
+
+const publicationTypeLabel = type => {
+    const labels = getCopy('publications', 'typeLabels');
+    const key = (type || 'other').toString().toLowerCase();
+    if (labels[key]) {
+        return labels[key];
+    }
+    return key.replace(/(^|[-_\s])(\w)/g, (_, __, ch) => ch.toUpperCase());
+};
+
+const getLocalizedText = (value, fallback = '') => {
+    if (typeof value === 'string') {
+        return value;
+    }
+    if (value && typeof value === 'object') {
+        return value[activeLanguage] || value.english || value.en || fallback;
+    }
+    return fallback;
+};
+
+const resolvePath = path => {
+    if (!path) return '';
+    if (/^https?:\/\//i.test(path) || path.startsWith('mailto:') || path.startsWith('data:')) {
+        return path;
+    }
+    const sanitized = path.startsWith('/') ? path.slice(1) : path;
+    return `${BASE_PATH}/${sanitized}`;
+};
+
+const resolvePublicationLink = raw => {
+    if (!raw) return '';
+    if (/^https?:\/\//i.test(raw) || raw.startsWith('mailto:')) {
+        return raw;
+    }
+    if (raw.startsWith('doi:')) {
+        return `https://doi.org/${raw.replace(/^doi:/i, '')}`;
+    }
+    if (/^10\.\d{4,9}\//.test(raw)) {
+        return `https://doi.org/${raw}`;
+    }
+    const sanitized = raw.startsWith('/') ? raw.slice(1) : raw;
+    return `${BASE_PATH}/${sanitized}`;
+};
+
+const slugify = text => {
+    if (!text) return '';
+    return text
+        .toString()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+};
+
 /**
  * Retrieves translation data for a language, fetching it once and caching the result.
  * @param {string} language
@@ -120,15 +246,15 @@ function toggleTheme() {
  * Toggles between English and Chinese languages for the website.
  */
 async function toggleLanguage() {
-    const isChinese = document.body.classList.contains('chinese');
-    const newLanguage = isChinese ? 'english' : 'chinese';
+    const isCurrentlyChinese = document.body.classList.contains('chinese');
+    const newLanguage = isCurrentlyChinese ? 'english' : 'chinese';
 
     // Update all language toggle icons (header + sidebar)
     document.querySelectorAll('.language-english').forEach(el => {
-        el.style.display = isChinese ? 'inline' : 'none';
+        el.style.display = newLanguage === 'chinese' ? 'inline' : 'none';
     });
     document.querySelectorAll('.language-chinese').forEach(el => {
-        el.style.display = isChinese ? 'none' : 'inline';
+        el.style.display = newLanguage === 'chinese' ? 'none' : 'inline';
     });
 
     // Update aria-pressed on all language toggles
@@ -137,10 +263,12 @@ async function toggleLanguage() {
     });
 
     localStorage.setItem('language', newLanguage);
+    setActiveLanguage(newLanguage);
     await applyTranslations(newLanguage);
     document.body.classList.toggle('chinese', newLanguage === 'chinese');
     // Update document language for accessibility/SEO
     document.documentElement.setAttribute('lang', newLanguage === 'chinese' ? 'zh' : 'en');
+    refreshDynamicContent();
     displayLastUpdated();
 }
 
@@ -161,6 +289,7 @@ async function applyPreferences() {
         language = browserLang.startsWith('zh') ? 'chinese' : 'english';
         localStorage.setItem('language', language);
     }
+    setActiveLanguage(language);
     const isChinese = language === 'chinese';
 
     // Apply saved theme preference
@@ -207,6 +336,12 @@ async function applyPreferences() {
 
     // Update the footer year and last updated date after applying translations
     displayLastUpdated();
+}
+
+function refreshDynamicContent() {
+    loadProjectsData();
+    loadPublicationsData();
+    loadWritingsData();
 }
 
 /**
@@ -474,30 +609,39 @@ function loadProjectsData() {
         })
         .then(projects => {
             grid.innerHTML = '';
-            projects.forEach(project => {
+            (projects || []).forEach(project => {
                 const item = document.createElement('div');
                 item.className = 'project-item';
 
                 const link = document.createElement('a');
-                link.href = `${BASE_PATH}/${project.link}`;
+                const href = resolvePath(project.link);
+                if (href) {
+                    link.href = href;
+                }
+
+                const titleText = getLocalizedText(project.title, project.title?.english || project.title || '');
+                const descText = getLocalizedText(project.description, project.description || '');
+                const altText = getLocalizedText(project.imageAlt, `${titleText} image`);
 
                 const title = document.createElement('h2');
-                title.textContent = project.title;
-
-                const desc = document.createElement('p');
-                desc.textContent = project.description || '';
-
-                const img = document.createElement('img');
-                img.src = `${BASE_PATH}/${project.image}`;
-                img.alt = project.title + ' image';
-                img.className = 'content-image';
-                img.loading = 'lazy';
-
+                title.textContent = titleText;
                 link.appendChild(title);
-                if (project.description) {
+
+                if (descText) {
+                    const desc = document.createElement('p');
+                    desc.textContent = descText;
                     link.appendChild(desc);
                 }
-                link.appendChild(img);
+
+                if (project.image) {
+                    const img = document.createElement('img');
+                    img.src = resolvePath(project.image);
+                    img.alt = altText;
+                    img.className = 'content-image';
+                    img.loading = 'lazy';
+                    img.decoding = 'async';
+                    link.appendChild(img);
+                }
 
                 item.appendChild(link);
                 grid.appendChild(item);
@@ -511,9 +655,31 @@ function loadProjectsData() {
  */
 function loadPublicationsData() {
     const directory = document.getElementById('publications-directory');
+    const yearFilter = document.getElementById('publication-year-filter');
+    const typeFilter = document.getElementById('publication-type-filter');
+    const searchInput = document.getElementById('publication-search');
     if (!directory) {
         return; // Exit if not on the publications page
     }
+    const yearLabel = document.querySelector('label[for="publication-year-filter"]');
+    const typeLabel = document.querySelector('label[for="publication-type-filter"]');
+    const searchLabel = document.querySelector('label[for="publication-search"]');
+
+    if (yearLabel) yearLabel.textContent = getCopy('publications', 'filterYearLabel');
+    if (typeLabel) typeLabel.textContent = getCopy('publications', 'filterTypeLabel');
+    if (searchLabel) searchLabel.textContent = getCopy('publications', 'filterSearchLabel');
+
+    const previousYear = yearFilter ? yearFilter.value : 'all';
+    const previousType = typeFilter ? typeFilter.value : 'all';
+    const previousSearch = searchInput ? searchInput.value : '';
+
+    if (searchInput) {
+        searchInput.placeholder = getCopy('publications', 'searchPlaceholder');
+        searchInput.setAttribute('aria-label', getCopy('publications', 'filterSearchLabel'));
+        searchInput.value = previousSearch;
+    }
+
+    let allPublications = [];
 
     fetch(`${BASE_PATH}/data/publications.json`)
         .then(response => {
@@ -523,35 +689,188 @@ function loadPublicationsData() {
             return response.json();
         })
         .then(publications => {
-            directory.innerHTML = '';
-
-            const list = document.createElement('ul');
-            list.id = 'publications-list';
-
-            publications.forEach(pub => {
-                const item = document.createElement('li');
-
-                const linkEl = document.createElement(pub.link ? 'a' : 'span');
-                if (pub.link) {
-                    linkEl.href = `${BASE_PATH}/${pub.link}`;
+            const sourcePublications = (publications || []).filter(pub => {
+                if (!pub) {
+                    return false;
                 }
-                linkEl.textContent = pub.title;
-
-                item.appendChild(linkEl);
-
-                const details = [];
-                if (pub.authors) details.push(pub.authors);
-                if (pub.venue) details.push(pub.venue);
-                if (pub.year) details.push(pub.year);
-
-                if (details.length > 0) {
-                    item.appendChild(document.createTextNode(' - ' + details.join(', ')));
+                if (pub.hidden === true) {
+                    return false;
                 }
-
-                list.appendChild(item);
+                if (pub.visible === false) {
+                    return false;
+                }
+                if (pub.draft === true) {
+                    return false;
+                }
+                return true;
             });
 
-            directory.appendChild(list);
+            allPublications = sourcePublications.map(pub => {
+                const yearNum = typeof pub.year === 'string' ? parseInt(pub.year, 10) : pub.year;
+                const type = (pub.type || 'other').toString().toLowerCase();
+                const link = resolvePublicationLink(pub.link || '');
+                const title = pub.title || '';
+                const authors = pub.authors || '';
+                const venue = pub.venue || '';
+                const typeLabel = publicationTypeLabel(type);
+                return {
+                    title,
+                    authors,
+                    venue,
+                    year: Number.isFinite(yearNum) ? yearNum : null,
+                    type,
+                    typeLabel,
+                    link,
+                    searchText: [title, authors, venue, typeLabel].filter(Boolean).join(' ').toLowerCase()
+                };
+            }).sort((a, b) => {
+                if (a.year && b.year && a.year !== b.year) {
+                    return b.year - a.year;
+                }
+                return a.title.localeCompare(b.title);
+            });
+
+            const years = Array.from(new Set(allPublications.filter(pub => pub.year).map(pub => pub.year))).sort((a, b) => b - a);
+            const types = Array.from(new Set(allPublications.map(pub => pub.type))).sort();
+
+            if (yearFilter) {
+                yearFilter.innerHTML = '';
+                const allOption = document.createElement('option');
+                allOption.value = 'all';
+                allOption.textContent = getCopy('publications', 'allYears');
+                yearFilter.appendChild(allOption);
+                years.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = String(year);
+                    option.textContent = String(year);
+                    yearFilter.appendChild(option);
+                });
+                if (previousYear !== 'all' && years.includes(parseInt(previousYear, 10))) {
+                    yearFilter.value = previousYear;
+                } else {
+                    yearFilter.value = 'all';
+                }
+            }
+
+            if (typeFilter) {
+                typeFilter.innerHTML = '';
+                const allOption = document.createElement('option');
+                allOption.value = 'all';
+                allOption.textContent = getCopy('publications', 'allTypes');
+                typeFilter.appendChild(allOption);
+                types.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type;
+                    option.textContent = publicationTypeLabel(type);
+                    typeFilter.appendChild(option);
+                });
+                if (previousType !== 'all' && types.includes(previousType)) {
+                    typeFilter.value = previousType;
+                } else {
+                    typeFilter.value = 'all';
+                }
+            }
+
+            const render = () => {
+                const selectedYear = yearFilter ? yearFilter.value : 'all';
+                const selectedType = typeFilter ? typeFilter.value : 'all';
+                const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+                const filtered = allPublications.filter(pub => {
+                    const yearMatch = selectedYear === 'all' || (pub.year && String(pub.year) === selectedYear);
+                    const typeMatch = selectedType === 'all' || pub.type === selectedType;
+                    const searchMatch = !searchTerm || pub.searchText.includes(searchTerm);
+                    return yearMatch && typeMatch && searchMatch;
+                });
+
+                directory.innerHTML = '';
+
+                if (filtered.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'directory-empty-state';
+                empty.textContent = getCopy('publications', 'noMatches');
+                directory.appendChild(empty);
+                return;
+            }
+
+            const grouped = filtered.reduce((map, pub) => {
+                    const key = pub.year ? String(pub.year) : 'Other';
+                    if (!map.has(key)) {
+                        map.set(key, []);
+                    }
+                    map.get(key).push(pub);
+                    return map;
+                }, new Map());
+
+                const sortedKeys = Array.from(grouped.keys()).sort((a, b) => {
+                    if (a === 'Other') return 1;
+                    if (b === 'Other') return -1;
+                    return parseInt(b, 10) - parseInt(a, 10);
+                });
+
+                sortedKeys.forEach(yearKey => {
+                const section = document.createElement('section');
+                section.className = 'publications-year-group directory-group';
+                section.dataset.year = yearKey;
+
+                const heading = document.createElement('h2');
+                heading.textContent = yearKey === 'Other' ? getCopy('publications', 'undatedHeading') : yearKey;
+                section.appendChild(heading);
+
+                const list = document.createElement('ul');
+                list.className = 'publications-list directory-list';
+
+                grouped.get(yearKey).sort((a, b) => a.title.localeCompare(b.title)).forEach(pub => {
+                    const item = document.createElement('li');
+                    item.className = 'publications-list-item directory-card';
+                    item.dataset.type = pub.type;
+
+                    const titleContainer = document.createElement('div');
+                    titleContainer.className = 'publication-title-line directory-card-title-line';
+
+                    const typeBadge = document.createElement('span');
+                    typeBadge.className = 'publication-type directory-badge';
+                    typeBadge.textContent = publicationTypeLabel(pub.type);
+                    titleContainer.appendChild(typeBadge);
+
+                    const titleEl = document.createElement(pub.link ? 'a' : 'span');
+                    titleEl.className = 'publication-title directory-card-title';
+                    if (pub.link) {
+                        titleEl.href = pub.link;
+                        if (/^https?:\/\//i.test(pub.link)) {
+                            titleEl.rel = 'noopener';
+                            titleEl.target = '_blank';
+                            }
+                        }
+                        titleEl.textContent = pub.title;
+                        titleContainer.appendChild(titleEl);
+
+                        item.appendChild(titleContainer);
+
+                        const meta = [];
+                        if (pub.authors) meta.push(pub.authors);
+                        if (pub.venue) meta.push(pub.venue);
+
+                        if (meta.length > 0) {
+                        const metaEl = document.createElement('p');
+                        metaEl.className = 'publication-meta directory-muted';
+                        metaEl.textContent = meta.join(' · ');
+                        item.appendChild(metaEl);
+                    }
+
+                    list.appendChild(item);
+                    });
+
+                    section.appendChild(list);
+                    directory.appendChild(section);
+                });
+            };
+
+            if (yearFilter) yearFilter.onchange = render;
+            if (typeFilter) typeFilter.onchange = render;
+            if (searchInput) searchInput.oninput = render;
+
+            render();
         })
         .catch(error => console.error('Error loading publications:', error));
 }
@@ -566,6 +885,12 @@ function loadWritingsData() {
         return; // Exit if not on the writings page
     }
 
+    if (filterContainer) {
+        filterContainer.classList.add('directory-toolbar');
+    }
+
+    const previousFilterValue = filterContainer?.querySelector('select')?.value || 'all';
+
     fetch(`${BASE_PATH}/data/writings.json`)
         .then(response => {
             if (!response.ok) {
@@ -577,45 +902,83 @@ function loadWritingsData() {
             directory.innerHTML = '';
 
             const items = [];
-            writings.forEach(writing => {
+            const themeLabels = new Map();
+
+            const normalizeThemes = themeList => {
+                if (!Array.isArray(themeList)) {
+                    return { ids: [], labels: [] };
+                }
+                const ids = [];
+                const labels = [];
+                themeList.forEach(theme => {
+                    if (!theme) {
+                        return;
+                    }
+                    if (typeof theme === 'string') {
+                        const id = slugify(theme);
+                        if (!id) return;
+                        ids.push(id);
+                        labels.push(getLocalizedText({ english: theme }, theme));
+                    } else if (typeof theme === 'object') {
+                        const labelSource = theme.label || theme;
+                        const labelText = getLocalizedText(labelSource, labelSource?.english || '');
+                        const id = theme.id || theme.slug || slugify(labelText);
+                        if (!id) {
+                            return;
+                        }
+                        ids.push(id);
+                        labels.push(labelText);
+                    }
+                });
+                return { ids, labels };
+            };
+
+            (writings || []).forEach(writing => {
                 const item = document.createElement('div');
-                item.className = 'writing-item';
-                if (writing.themes) {
-                    item.dataset.themes = writing.themes.join(',');
+                item.className = 'writing-item directory-card';
+
+                const { ids: themeIds, labels: themeLabelList } = normalizeThemes(writing.themes);
+                if (themeIds.length > 0) {
+                    item.dataset.themes = themeIds.join(',');
                 }
 
                 const content = document.createElement('div');
                 content.className = 'writing-content';
 
                 const link = document.createElement('a');
-                link.href = `${BASE_PATH}/${writing.link}`;
-                link.textContent = writing.title;
-
+                const href = resolvePath(writing.link);
+                if (href) {
+                    link.href = href;
+                }
+                const titleText = getLocalizedText(writing.title, writing.title?.english || '');
+                link.className = 'writing-title directory-card-title';
+                link.textContent = titleText;
                 content.appendChild(link);
 
-                if (writing.summary) {
+                const summaryText = getLocalizedText(writing.summary, '');
+                if (summaryText) {
                     const summary = document.createElement('p');
-                    summary.className = 'explanatory-text';
-                    summary.textContent = writing.summary;
+                    summary.className = 'explanatory-text directory-muted';
+                    summary.textContent = summaryText;
                     content.appendChild(summary);
                 }
 
-                if (writing.themes && writing.themes.length > 0) {
+                if (themeLabelList.length > 0) {
                     const themes = document.createElement('p');
-                    themes.className = 'writing-themes';
-                    themes.textContent = 'Topic: ' + writing.themes.join(', ');
+                    themes.className = 'writing-themes directory-muted';
+                    themes.textContent = getCopy('writings', 'topicPrefix') + themeLabelList.join(', ');
                     content.appendChild(themes);
                 }
 
                 const meta = document.createElement('div');
-                meta.className = 'writing-meta';
+                meta.className = 'writing-meta directory-muted';
 
                 const dateDiv = document.createElement('div');
                 dateDiv.className = 'date';
 
                 const dateObj = new Date(writing.date);
                 if (isNaN(dateObj)) {
-                    dateDiv.textContent = writing.date;
+                    dateDiv.textContent = writing.date || '';
                 } else {
                     const monthDay = document.createElement('span');
                     monthDay.className = 'month-day';
@@ -635,38 +998,86 @@ function loadWritingsData() {
                 item.appendChild(meta);
                 directory.appendChild(item);
                 items.push(item);
+
+                themeIds.forEach((id, index) => {
+                    if (!themeLabels.has(id)) {
+                        themeLabels.set(id, themeLabelList[index]);
+                    }
+                });
             });
 
+            const emptyState = document.createElement('p');
+            emptyState.className = 'directory-empty-state';
+            emptyState.textContent = getCopy('writings', 'noMatches');
+            emptyState.style.display = 'none';
+            directory.appendChild(emptyState);
+
+            const applyThemeFilter = value => {
+                let visibleCount = 0;
+                items.forEach(item => {
+                    if (value === 'all') {
+                        item.style.display = 'flex';
+                        visibleCount += 1;
+                        return;
+                    }
+                    const itemThemes = item.dataset.themes ? item.dataset.themes.split(',') : [];
+                    const match = itemThemes.includes(value);
+                    item.style.display = match ? 'flex' : 'none';
+                    if (match) {
+                        visibleCount += 1;
+                    }
+                });
+                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+            };
+
             if (filterContainer) {
-                const themes = [...new Set(writings.flatMap(w => w.themes || []))];
-                const select = document.createElement('select');
-                select.id = 'theme-filter';
+                filterContainer.innerHTML = '';
+                if (themeLabels.size > 0) {
+                    filterContainer.style.display = '';
+                    const field = document.createElement('div');
+                    field.className = 'toolbar-field';
 
-                const allOption = document.createElement('option');
-                allOption.value = 'all';
-                allOption.textContent = 'All Themes';
-                select.appendChild(allOption);
+                    const label = document.createElement('label');
+                    label.setAttribute('for', 'theme-filter');
+                    label.textContent = getCopy('writings', 'filterLabel');
 
-                themes.forEach(theme => {
-                    const opt = document.createElement('option');
-                    opt.value = theme;
-                    opt.textContent = theme;
-                    select.appendChild(opt);
-                });
+                    const select = document.createElement('select');
+                    select.id = 'theme-filter';
 
-                filterContainer.appendChild(select);
+                    const allOption = document.createElement('option');
+                    allOption.value = 'all';
+                    allOption.textContent = getCopy('writings', 'allThemes');
+                    select.appendChild(allOption);
 
-                select.addEventListener('change', () => {
-                    const val = select.value;
-                    items.forEach(item => {
-                        if (val === 'all') {
-                            item.style.display = 'flex';
-                        } else {
-                            const itemThemes = item.dataset.themes ? item.dataset.themes.split(',') : [];
-                            item.style.display = itemThemes.includes(val) ? 'flex' : 'none';
-                        }
+                    Array.from(themeLabels.entries())
+                        .sort((a, b) => a[1].localeCompare(b[1]))
+                        .forEach(([id, labelText]) => {
+                            const option = document.createElement('option');
+                            option.value = id;
+                            option.textContent = labelText;
+                            select.appendChild(option);
+                        });
+
+                    const desiredValue = previousFilterValue !== 'all' && themeLabels.has(previousFilterValue)
+                        ? previousFilterValue
+                        : 'all';
+                    select.value = desiredValue;
+
+                    field.appendChild(label);
+                    field.appendChild(select);
+                    filterContainer.appendChild(field);
+
+                    select.addEventListener('change', () => {
+                        applyThemeFilter(select.value);
                     });
-                });
+
+                    applyThemeFilter(select.value);
+                } else {
+                    filterContainer.style.display = 'none';
+                    emptyState.style.display = items.length === 0 ? 'block' : 'none';
+                }
+            } else {
+                applyThemeFilter('all');
             }
         })
         .catch(error => console.error('Error loading writings:', error));

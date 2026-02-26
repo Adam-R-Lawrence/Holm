@@ -287,8 +287,8 @@ header a:focus {
 }
 
 /* --- Theme and Language Toggles for Main Pages --- */
-#theme-toggle.main-page-style,
-#language-toggle.main-page-style {
+.theme-toggle.main-page-style,
+.language-toggle.main-page-style {
     position: absolute;
     top: 1.2em;
     cursor: pointer;
@@ -303,16 +303,16 @@ header a:focus {
     transform: translateY(-50%);
 }
 
-#theme-toggle.main-page-style {
+.theme-toggle.main-page-style {
     left: 0.5em;
 }
 
-#language-toggle.main-page-style {
+.language-toggle.main-page-style {
     right: 0.5em;
 }
 
 /* --- Theme Toggle for Content Pages --- */
-#theme-toggle.content-page-style {
+.theme-toggle.content-page-style {
     cursor: pointer;
     width: 1.5em; /* Adjusted size for better visibility */
     height: 1.5em;
@@ -329,21 +329,21 @@ header a:focus {
     color: white; /* Sets the icon color to white */
 }
 
-#theme-toggle.content-page-style i,
-#language-toggle.content-page-style i {
+.theme-toggle.content-page-style i,
+.language-toggle.content-page-style i {
     color: white; /* Sets the icon color to white */
 }
 
-#theme-toggle.content-page-style:hover,
-#language-toggle.content-page-style:hover,
-#theme-toggle.content-page-style:focus,
-#language-toggle.content-page-style:focus {
+.theme-toggle.content-page-style:hover,
+.language-toggle.content-page-style:hover,
+.theme-toggle.content-page-style:focus,
+.language-toggle.content-page-style:focus {
     transform: translateY(-50%) scale(1.1); /* Slightly enlarges on hover/focus */
     outline: none; /* Removes default outline */
 }
 
 /* --- Language Toggle for Content Pages (Optional) --- */
-#language-toggle.content-page-style {
+.language-toggle.content-page-style {
     cursor: pointer;
     width: 1.5em;
     height: 1.5em;
@@ -360,8 +360,8 @@ header a:focus {
 }
 
 /* --- Icon Styles for Language Toggle --- */
-#language-toggle i#language-english,
-#language-toggle i#language-chinese {
+.language-toggle i.language-english,
+.language-toggle i.language-chinese {
     font-style: normal;
     /* Ensures icons/text are properly aligned */
     display: flex;
@@ -387,10 +387,10 @@ header a:focus {
         margin: 0 2.2em; /* Prevent icon overlap on small screens */
     }
 
-    #theme-toggle.main-page-style,
-    #language-toggle.main-page-style,
-    #theme-toggle.content-page-style,
-    #language-toggle.content-page-style {
+    .theme-toggle.main-page-style,
+    .language-toggle.main-page-style,
+    .theme-toggle.content-page-style,
+    .language-toggle.content-page-style {
         width: 1.2em;
         height: 1.2em;
         font-size: 1.1em;
@@ -454,8 +454,8 @@ screen and (pointer: coarse) {
         margin: 0 0.5em;
     }
 
-    #theme-toggle.content-page-style,
-    #language-toggle.content-page-style {
+    .theme-toggle.content-page-style,
+    .language-toggle.content-page-style {
         position: static;
         transform: none;
     }

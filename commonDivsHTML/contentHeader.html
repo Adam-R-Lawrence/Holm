@@ -1,23 +1,29 @@
 <div class="contentHeader-placeholder">
     <header>
         <a class="skip-link" href="#main-content">Skip to main content</a>
-        <button class="theme-toggle content-page-style" type="button" onclick="toggleTheme()" aria-label="Toggle theme" aria-pressed="false">
-            <i class="theme-sun fas fa-sun" style="display: none;"></i>
-            <i class="theme-moon fas fa-moon" style="display: inline;"></i>
+        <button class="theme-toggle content-page-style" type="button" aria-label="Toggle theme" aria-pressed="false">
+            <i class="theme-sun fas fa-sun" aria-hidden="true" hidden></i>
+            <i class="theme-moon fas fa-moon" aria-hidden="true"></i>
         </button>
 
-        <nav>
-            <ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="header-nav-menu">
+            <i class="menu-open fas fa-bars" aria-hidden="true"></i>
+            <i class="menu-close fas fa-times" aria-hidden="true" hidden></i>
+        </button>
+
+        <nav id="header-nav-menu">
+            <ul id="header-nav-list">
                 <li><a id="header-home" href="index.html">Home</a></li>
                 <li><a id="header-projects" href="projects/">Projects</a></li>
                 <li><a id="header-writings" href="writings/">Writings</a></li>
+                <li><a id="header-publications" href="publications/">Publications</a></li>
                 <li><a id="header-resume" href="resume/" target="_blank" rel="noopener">Resume</a></li>
             </ul>
         </nav>
 
-        <button class="language-toggle content-page-style" type="button" onclick="toggleLanguage()" aria-label="Toggle language" aria-pressed="false">
-            <i class="language-english" style="display: none;">EN</i> <!-- Initially hidden -->
-            <i class="language-chinese" style="display: inline;">文</i> <!-- Initially visible -->
+        <button class="language-toggle content-page-style" type="button" aria-label="Toggle language" aria-pressed="false">
+            <i class="language-english" aria-hidden="true" hidden>EN</i>
+            <i class="language-chinese" aria-hidden="true">文</i>
         </button>
     </header>
 </div>

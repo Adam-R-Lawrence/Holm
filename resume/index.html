@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Resume</title>
-    <meta name="description" content="Embedded PDF resume for Adam Lawrence, summarizing education, research experience, and technical skills.">
+    <title>Resume | Adam Lawrence</title>
+    <meta name="description" content="Resume of Adam Lawrence: education, research focus, computational mechanics projects, and technical skills.">
     <link rel="stylesheet" href="../styles/styles.min.css">
     <link rel="stylesheet" href="../styles/resume.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap">
 
     <link rel="icon" href="../images/favicon/favicon.ico" sizes="48x48">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png">
@@ -23,40 +22,44 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; frame-ancestors 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; frame-ancestors 'self'; form-action 'self';">
 
     <link rel="canonical" href="https://www.arlawrence.com/resume/">
-    <meta property="og:title" content="My Resume">
-    <meta property="og:description" content="Embedded PDF resume for Adam Lawrence, summarizing education, research experience, and technical skills.">
+    <meta property="og:title" content="Resume | Adam Lawrence">
+    <meta property="og:description" content="Resume of Adam Lawrence: education, research focus, computational mechanics projects, and technical skills.">
     <meta property="og:image" content="https://www.arlawrence.com/images/favicon/android-chrome-512x512.png">
     <meta property="og:url" content="https://www.arlawrence.com/resume/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="My Resume">
-    <meta name="twitter:description" content="Embedded PDF resume for Adam Lawrence, summarizing education, research experience, and technical skills.">
+    <meta name="twitter:title" content="Resume | Adam Lawrence">
+    <meta name="twitter:description" content="Resume of Adam Lawrence: education, research focus, computational mechanics projects, and technical skills.">
     <meta name="twitter:image" content="https://www.arlawrence.com/images/favicon/android-chrome-512x512.png">
     <meta name="twitter:site" content="@arlawrence__">
     <meta name="twitter:url" content="https://www.arlawrence.com/resume/">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
-<main id="main-content">
-  <iframe class="resume-frame" src="../documents/Adam_Lawrence_Resume.pdf#view=FitH" title="Resume PDF"></iframe>
-  <noscript>
-    <p class="resume-fallback">JavaScript is disabled. You can <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.</p>
-  </noscript>
-  <div class="resume-fallback" aria-live="polite" id="resume-fallback" hidden>
-    If the PDF viewer is not supported on your device, <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.
-  </div>
-  <script>
-    // If the iframe fails to load (e.g., unsupported), reveal a fallback link
-    (function(){
-      var frame = document.querySelector('.resume-frame');
-      var fallback = document.getElementById('resume-fallback');
-      var timer = setTimeout(function(){ if(fallback) fallback.hidden = false; }, 3000);
-      frame.addEventListener('load', function(){ clearTimeout(timer); });
-      frame.addEventListener('error', function(){ if(fallback) fallback.hidden = false; });
-    })();
-  </script>
-</main>
+<div class="wrapper">
+    <div id="contentHeader-placeholder"></div>
+
+    <main id="main-content" data-page="resume">
+      <iframe class="resume-frame" src="../documents/Adam_Lawrence_Resume.pdf#view=FitH" title="Resume PDF"></iframe>
+      <noscript>
+        <p class="resume-fallback">JavaScript is disabled. You can <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.</p>
+      </noscript>
+      <div class="resume-fallback" aria-live="polite" id="resume-fallback" hidden>
+        If the PDF viewer is not supported on your device, <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.
+      </div>
+    </main>
+
+    <footer id="footer-placeholder"></footer>
+</div>
+
+<button id="scroll-to-top-btn" aria-label="Scroll to Top" aria-hidden="true">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="../javascript/functions.js"></script>
+<script src="../javascript/resume-fallback.js"></script>
+<script src="../javascript/scrollToTop.js"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@
     "header-home": "Home",
     "header-projects": "Projects",
     "header-writings": "Writings",
+    "header-publications": "Publications",
     "header-resume": "Resume",
     "footer-text": "&copy; %YEAR% Adam Lawrence | Last updated on <span id=\"last-updated\"></span>",
     "about-header": "About Me",

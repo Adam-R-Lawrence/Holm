@@ -44,6 +44,8 @@ out/
 # Test coverage results
 coverage/
 .nyc_output/
+playwright-report/
+test-results/
 
 # Debug tool logs
 *.sublime-workspace

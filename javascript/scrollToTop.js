@@ -1,36 +1,54 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // Get the button
-    const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
+(() => {
+    'use strict';
 
-    // Function to check scroll position and toggle button visibility
-    function toggleScrollToTopBtn() {
-        const scrollPosition = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        if (scrollPosition > 1.5 * viewportHeight) {
-            scrollToTopBtn.classList.add('show');
-            scrollToTopBtn.setAttribute('aria-hidden', 'false');
-        } else {
-            scrollToTopBtn.classList.remove('show');
-            scrollToTopBtn.setAttribute('aria-hidden', 'true');
+    function initializeScrollToTop() {
+        const scrollToTopButton = document.getElementById('scroll-to-top-btn');
+        if (!scrollToTopButton) {
+            return;
         }
+
+        const updateVisibility = () => {
+            const scrollPosition = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const shouldShow = scrollPosition > 1.5 * viewportHeight;
+            scrollToTopButton.classList.toggle('show', shouldShow);
+            scrollToTopButton.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+        };
+
+        const scrollToTop = () => {
+            const prefersReducedMotion = window.matchMedia
+                && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            window.scrollTo({
+                top: 0,
+                behavior: prefersReducedMotion ? 'auto' : 'smooth'
+            });
+        };
+
+        let queued = false;
+        const handleScroll = () => {
+            if (queued) {
+                return;
+            }
+            queued = true;
+            window.requestAnimationFrame(() => {
+                updateVisibility();
+                queued = false;
+            });
+        };
+
+        if (!scrollToTopButton.hasAttribute('aria-hidden')) {
+            scrollToTopButton.setAttribute('aria-hidden', 'true');
+        }
+
+        updateVisibility();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        scrollToTopButton.addEventListener('click', scrollToTop);
     }
 
-    // Function to smoothly scroll to top
-    function scrollToTop() {
-        const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({
-            top: 0,
-            behavior: prefersReduced ? 'auto' : 'smooth'
-        });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeScrollToTop, { once: true });
+    } else {
+        initializeScrollToTop();
     }
-
-    // Ensure an accessible initial state and correct visibility on load
-    if (scrollToTopBtn && !scrollToTopBtn.hasAttribute('aria-hidden')) {
-        scrollToTopBtn.setAttribute('aria-hidden', 'true');
-    }
-    toggleScrollToTopBtn();
-
-    // Event listeners
-    window.addEventListener('scroll', toggleScrollToTopBtn);
-    scrollToTopBtn.addEventListener('click', scrollToTop);
-});
+})();

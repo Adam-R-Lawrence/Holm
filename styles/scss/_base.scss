@@ -75,6 +75,10 @@ body, html {
   background-color: var(--background-color);
 }
 
+[hidden] {
+  display: none !important;
+}
+
 a {
   color: var(--link-color);
   text-decoration: none;

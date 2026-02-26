@@ -15,6 +15,10 @@
     align-items: center;    /* Center vertically */
 }
 
+.lightbox.is-open {
+    display: flex;
+}
+
 /* Enlarge the clicked media in the modal */
 img.lightbox-content,
 video.lightbox-content {

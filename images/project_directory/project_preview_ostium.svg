@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Ostium geospatial processing preview</title>
+  <desc id="desc">Satellite tiles, river centerlines, terrain contours, and mesh output for geospatial model preparation.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#18342d"/>
+      <stop offset="0.62" stop-color="#2e6658"/>
+      <stop offset="1" stop-color="#d8b365"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect width="1200" height="720" fill="url(#grid)"/>
+  <g transform="translate(96 90)">
+    <rect x="0" y="0" width="492" height="520" rx="24" fill="#f8fbf7" opacity="0.95"/>
+    <rect x="34" y="34" width="424" height="330" rx="16" fill="#e5eddc"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M50 284 C116 230 140 244 190 194 S274 178 319 121 S390 85 443 72" stroke="#48764f" stroke-width="11" opacity="0.34"/>
+      <path d="M50 284 C116 230 140 244 190 194 S274 178 319 121 S390 85 443 72" stroke="#285f75" stroke-width="5"/>
+      <path d="M72 88 C146 115 176 80 250 108 S360 142 438 120" stroke="#9f7a47" stroke-width="3" opacity="0.72"/>
+      <path d="M78 158 C170 190 248 142 356 194 S422 232 450 213" stroke="#9f7a47" stroke-width="3" opacity="0.72"/>
+      <path d="M58 334 C132 305 213 318 270 279 S364 279 440 310" stroke="#9f7a47" stroke-width="3" opacity="0.72"/>
+    </g>
+    <g fill="#18342d" font-family="Arial, sans-serif">
+      <text x="34" y="420" font-size="30" font-weight="700">Ostium</text>
+      <text x="34" y="455" font-size="20">GIS data into simulation-ready meshes</text>
+    </g>
+  </g>
+  <g transform="translate(670 108)" font-family="Arial, sans-serif">
+    <g>
+      <rect x="0" y="0" width="352" height="92" rx="18" fill="#f8fbf7" opacity="0.94"/>
+      <text x="28" y="38" fill="#18342d" font-size="22" font-weight="700">Remote sensing</text>
+      <text x="28" y="65" fill="#51675e" font-size="17">SRTM, Sentinel, hydrography</text>
+    </g>
+    <path d="M176 96 V142" stroke="#f8fbf7" stroke-width="4" stroke-linecap="round"/>
+    <g transform="translate(0 146)">
+      <rect x="0" y="0" width="352" height="92" rx="18" fill="#f8fbf7" opacity="0.94"/>
+      <text x="28" y="38" fill="#18342d" font-size="22" font-weight="700">Geometry extraction</text>
+      <text x="28" y="65" fill="#51675e" font-size="17">width, slope, roughness, depth</text>
+    </g>
+    <path d="M176 242 V288" stroke="#f8fbf7" stroke-width="4" stroke-linecap="round"/>
+    <g transform="translate(0 292)">
+      <rect x="0" y="0" width="352" height="92" rx="18" fill="#f8fbf7" opacity="0.94"/>
+      <text x="28" y="38" fill="#18342d" font-size="22" font-weight="700">Torrentem input</text>
+      <text x="28" y="65" fill="#51675e" font-size="17">domain, boundaries, mesh fields</text>
+    </g>
+  </g>
+  <g transform="translate(770 540)" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.62">
+    <path d="M0 0 L72 -34 L156 -8 L236 -62 L324 -22"/>
+    <path d="M72 -34 L80 40"/>
+    <path d="M156 -8 L176 58"/>
+    <path d="M236 -62 L246 30"/>
+  </g>
+</svg>

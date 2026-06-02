@@ -201,6 +201,29 @@ test('writings theme filter works', async ({ page }) => {
     await expect.poll(async () => visibleCount(writingCards)).toBe(3);
 });
 
+test('portfolio polish surfaces render without placeholder gaps', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.home-hero')).toBeVisible();
+    await expect(page.locator('h1')).toHaveText('Adam Lawrence');
+    await expect(page.locator('.home-visual')).toBeVisible();
+
+    await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.project-item')).toHaveCount(4);
+    await expect(page.locator('.project-card-tags li').first()).toBeVisible();
+    await expect.poll(async () => page.locator('.project-item img').evaluateAll(images => (
+        images.every(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
+    ))).toBe(true);
+
+    await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.publications-status')).toContainText('Publications are being prepared');
+
+    await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.resume-summary-grid')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Download PDF' })).toBeVisible();
+});
+
 test('lightbox opens and closes on project detail pages', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 

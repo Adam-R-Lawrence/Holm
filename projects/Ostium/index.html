@@ -37,11 +37,50 @@
 <body>
 <div class="wrapper">
     <div id="contentHeader-placeholder"></div>
-    <main id="main-content">
-        <h1>Ostium</h1>
-        <p>
-            Ostium is a lightweight library for processing and integrating geospatial data. It provides a simple API for converting common GIS formats and generating meshes that can be consumed by Torrentem.
-        </p>
+    <main id="main-content" class="project-detail-page">
+        <section class="project-hero" aria-labelledby="project-title">
+            <div class="project-hero-copy">
+                <p class="project-kicker">Geospatial modelling / remote sensing / mesh preparation</p>
+                <h1 id="project-title">Ostium</h1>
+                <p class="project-lede">
+                    Ostium is a geospatial processing library for converting terrain, satellite, and hydrographic data into simulation-ready inputs for Torrentem.
+                </p>
+                <dl class="project-facts">
+                    <div>
+                        <dt>Status</dt>
+                        <dd>Research tooling</dd>
+                    </div>
+                    <div>
+                        <dt>Inputs</dt>
+                        <dd>SRTM, Sentinel, GIS layers, river networks</dd>
+                    </div>
+                    <div>
+                        <dt>Outputs</dt>
+                        <dd>Domains, boundaries, mesh fields, hydraulic parameters</dd>
+                    </div>
+                </dl>
+            </div>
+            <figure class="project-figure">
+                <img src="../../images/project_directory/project_preview_ostium.svg" alt="Ostium data integration pipeline diagram" class="content-image lightbox-trigger" loading="eager" decoding="async" width="1200" height="720">
+                <figcaption>Ostium bridges geospatial observation and numerical model setup.</figcaption>
+            </figure>
+        </section>
+
+        <section class="project-section-grid" aria-label="Ostium capabilities">
+            <article>
+                <h2>Extract Parameters</h2>
+                <p>Remote sensing data is reduced into model parameters such as channel geometry, roughness indicators, terrain slope, and boundary extents.</p>
+            </article>
+            <article>
+                <h2>Prepare Domains</h2>
+                <p>GIS layers are normalized into a consistent representation that can be converted into Torrentem-compatible computational domains.</p>
+            </article>
+            <article>
+                <h2>Connect Workflows</h2>
+                <p>The library keeps data preparation close to the solver pipeline so numerical experiments can be reproduced and adjusted quickly.</p>
+            </article>
+        </section>
+
         <section class="content-crosslinks">
             <h2>Explore Next</h2>
             <p>Return to all <a href="../">projects</a>, read related <a href="../../writings/">writings</a>, or browse <a href="../../publications/">publications</a>.</p>

@@ -57,53 +57,102 @@
     <div id="container">
 
         <!-- Main Content -->
-        <main data-page="about-me" id="main-content">
-            <h1 id="about-header">About Me</h1>
-            <p id="about-p1">
-                I am a first year PhD student at the University of Illinois Urbana-Champaign, within the department of
-                Civil and Environmental Engineering. My research entails all aspects of computational mechanics and
-                modelling, mainly in free surface hydrodynamics, but also on more unique applications such as
-                photopolymerization. I am under the guidance of Professor <a
-                    href="https://yan.cee.illinois.edu/">Jinhui Yan</a>.
-            </p>
-            <p id="about-p2">I hail from the Melbourne, Australia, where I completed my undergraduate and master's in environmental
-                engineering, specializing in hydraulic engineering with a minor in computer science. I am an
-                AUKUS fellow, awarded by the Australian-American Association, to strengthen ties between our two great
-                countries. </p>
+        <main data-page="about-me" id="main-content" class="home-page">
+            <section class="home-hero" aria-labelledby="about-header">
+                <div class="home-hero-copy">
+                    <p class="home-kicker">Computational mechanics / research software / environmental modelling</p>
+                    <h1 id="about-header">Adam Lawrence</h1>
+                    <p id="about-p1" class="home-lede">
+                        I am a PhD student in Civil and Environmental Engineering at the University of Illinois Urbana-Champaign, working with Professor <a href="https://yan.cee.illinois.edu/">Jinhui Yan</a> on computational mechanics, free-surface hydrodynamics, and photopolymerization modelling.
+                    </p>
+                    <div class="home-actions" aria-label="Primary site links">
+                        <a class="button-link primary" href="projects/">Explore Projects</a>
+                        <a class="button-link" href="writings/">Read Writings</a>
+                        <a class="button-link" href="resume/">View Resume</a>
+                    </div>
+                </div>
 
-            <p id="about-p3">Here on this website, you will find a collection of my ongoing work, not just from my current research,
-                but also personal
-                projects and interests.</p>
+                <div class="home-visual" aria-label="Research areas represented as a computational workflow">
+                    <div class="home-visual-header">
+                        <span>Torrentem workflow</span>
+                        <span>CPU/GPU</span>
+                    </div>
+                    <div class="home-visual-mesh" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="home-visual-stats" aria-hidden="true">
+                        <span>FEM</span>
+                        <span>Level set</span>
+                        <span>MPI</span>
+                    </div>
+                </div>
+            </section>
 
-            <p id="about-p4">
-                To aid in my PhD research, I have developed a plethora of currently closed source projects. <a
-                    href="projects/Torrentem/">Torrentem</a>; a general
-                numerical PDE solver, solving multiscale problems from large hydrodynamic flows to minuscule additive
-                manufacturing processes. <a href="projects/Ostium/">Ostium</a>; a library to process and integrate
-                geospatial data, that can work with Torrentem.
-                <a href="projects/Vadum/">Vadum</a>; a visualisation library for results from Torrentem.
-            </p>
+            <section class="home-focus-grid" aria-label="Research focus">
+                <article>
+                    <p class="section-label">Research</p>
+                    <h2>Numerical methods for environmental flows</h2>
+                    <p id="about-p2">
+                        My research entails computational mechanics and modelling, mainly in free-surface hydrodynamics, with additional applications in photopolymerization and additive manufacturing.
+                    </p>
+                </article>
+                <article>
+                    <p class="section-label">Background</p>
+                    <h2>Hydraulic engineering with computing depth</h2>
+                    <p id="about-p3">
+                        I am from Melbourne, Australia, where I completed undergraduate and master's study in environmental engineering, specializing in hydraulic engineering with a minor in computer science. I am also an AUKUS fellow through the Australian-American Association.
+                    </p>
+                </article>
+            </section>
 
+            <section class="home-projects" aria-labelledby="home-projects-heading">
+                <div class="section-heading">
+                    <p class="section-label">Software Portfolio</p>
+                    <h2 id="home-projects-heading">Research tools under active development</h2>
+                </div>
+                <div class="home-project-grid">
+                    <a href="projects/Torrentem/" class="home-project-card">
+                        <span>Torrentem</span>
+                        <p>Parallel CPU/GPU multiphysics solver for PDEs, free-surface hydrodynamics, stabilized FEM, and manufacturing simulations.</p>
+                    </a>
+                    <a href="projects/Ostium/" class="home-project-card">
+                        <span>Ostium</span>
+                        <p>Geospatial data processing and integration tooling designed to prepare domains for Torrentem.</p>
+                    </a>
+                    <a href="projects/Vadum/" class="home-project-card">
+                        <span>Vadum</span>
+                        <p>Visualization tooling for reading, inspecting, and communicating results produced by Torrentem.</p>
+                    </a>
+                    <a href="projects/Stratum/" class="home-project-card">
+                        <span>Stratum</span>
+                        <p>G-code generation and build preparation for DLP and SLA photopolymerization workflows.</p>
+                    </a>
+                </div>
+            </section>
 
-            <p id="about-p5">
-                I have a keen interest in Literature, History, Geography, and the Environment. I believe current
-                teaching standards are lacking, and incorporating these elements into my projects through visual
-                storytelling helps to effectively engage people, especially when communicating complex scientific
-                concepts. Examples of my approach can be found on my <a href="writings/">writings</a> page and my <a
-                    href="https://www.youtube.com/@arlawrence">YouTube</a>.
-            </p>
+            <section class="home-writing-note" aria-label="Writing and communication">
+                <div>
+                    <p class="section-label">Communication</p>
+                    <h2>Visual storytelling for technical ideas</h2>
+                    <p id="about-p4">
+                        I have a keen interest in literature, history, geography, and the environment. I use visual storytelling to make complex scientific concepts easier to understand, with examples on my <a href="writings/">writings</a> page and <a href="https://www.youtube.com/@arlawrence">YouTube</a>.
+                    </p>
+                    <p id="about-p5">
+                        This site collects my research software, writings, publications, and personal technical interests in one place.
+                    </p>
+                </div>
+                <figure class="home-image">
+                    <img alt="A trip to Antelope Island, Utah (2024)" class="content-image lightbox-trigger"
+                         src="images/about_me/utah.webp" loading="lazy" decoding="async" width="2339" height="1559">
+                    <figcaption>Field notes and visual context remain part of how I think about environmental modelling.</figcaption>
+                </figure>
+            </section>
 
-
-            <div class="gallery">
-                <img alt="A trip to Antelope Island, Utah (2024)" class="content-image lightbox-trigger"
-                     src="images/about_me/utah.webp" loading="eager" fetchpriority="high" decoding="async" width="2339" height="1559">
-            </div>
-
-
-            <p id="about-p6">For any enquiries or collaboration, including summer internship opportunities, feel free to reach out via
-                email at <a
-                        href="mailto:adamrl3@illinois.edu" class="content-link">adamrl3@illinois.edu</a>.</p>
-
+            <section class="home-contact">
+                <p id="about-p6">For enquiries, collaboration, or summer internship opportunities, reach me at <a href="mailto:adamrl3@illinois.edu" class="content-link">adamrl3@illinois.edu</a>.</p>
+            </section>
         </main>
     </div>
 

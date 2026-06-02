@@ -60,184 +60,79 @@
     <div id="contentHeader-placeholder"></div>
 
 
-    <main id="main-content">
+    <main id="main-content" class="project-detail-page">
 
-        <h1>Finite Element Method (FEM) in C++</h1>
-
-
-
-        <section id="abstract">
-            <h2>Abstract</h2>
-            <p>
-                The Finite Element Method (FEM) is a powerful numerical technique for solving complex engineering and mathematical problems. This document explores the implementation of FEM in C++, focusing on quadrature integration and Newton's method for solving nonlinear systems. The presented examples demonstrate the application of these methods in practical scenarios.
-            </p>
-        </section>
-
-        <section id="introduction">
-            <h2>Introduction</h2>
-            <p>
-                FEM is extensively used in structural analysis, heat transfer, fluid dynamics, and other fields requiring the solution of partial differential equations. By discretizing a continuous domain into smaller, manageable elements, FEM allows for approximate solutions with high accuracy. This document provides a detailed overview of implementing FEM in C++, highlighting key algorithms and code examples.
-            </p>
-        </section>
-
-        <section id="methods">
-            <h2>Methods</h2>
-
-            <h3>Quadrature Integration</h3>
-            <p>
-                Quadrature integration is essential in FEM for accurately computing integrals over elements. Gaussian quadrature is a popular choice due to its efficiency and precision. Below is an example of implementing Gaussian quadrature in C++:
-            </p>
-
-            <!-- Original Image -->
-            <div class="gallery original-image">
-                <img src="../../images/project_directory/project_directory_torrentem.webp" alt="Research" class="content-image lightbox-trigger" loading="lazy" decoding="async" width="2339" height="1559">
+        <section class="project-hero" aria-labelledby="project-title">
+            <div class="project-hero-copy">
+                <p class="project-kicker">Research software / C++ / CPU/GPU / FEM</p>
+                <h1 id="project-title">Torrentem</h1>
+                <p class="project-lede">
+                    Torrentem is a parallel multiphysics solver library developed to support my PhD research, spanning free-surface hydrodynamics, stabilized finite element methods, level-set tracking, and photopolymerization simulations.
+                </p>
+                <dl class="project-facts">
+                    <div>
+                        <dt>Status</dt>
+                        <dd>Closed source research code</dd>
+                    </div>
+                    <div>
+                        <dt>Core methods</dt>
+                        <dd>RBVMS, stabilized FEM, level set, nonlinear solvers</dd>
+                    </div>
+                    <div>
+                        <dt>Compute model</dt>
+                        <dd>CPU/GPU kernels, MPI partitioning, custom linear solvers</dd>
+                    </div>
+                </dl>
             </div>
+            <figure class="project-figure">
+                <img src="../../images/project_directory/project_preview_torrentem.svg" alt="Diagram of Torrentem's mesh, flow, and parallel compute pipeline" class="content-image lightbox-trigger" loading="eager" decoding="async" width="1200" height="720">
+                <figcaption>Torrentem connects simulation setup, stabilized finite element kernels, and distributed compute workflows.</figcaption>
+            </figure>
+        </section>
 
-            <pre><code class="language-cpp">#include &lt;iostream>
-#include &lt;vector>
-#include &lt;cmath>
+        <section class="project-section-grid" aria-label="Torrentem capabilities">
+            <article>
+                <h2>Numerical Foundation</h2>
+                <p>Finite element formulations are designed for difficult transport and fluid-flow problems where stability, conservation, and boundary treatment matter.</p>
+            </article>
+            <article>
+                <h2>Parallel Execution</h2>
+                <p>The library is structured around mesh partitioning, MPI communication, and GPU-oriented kernels so large research cases can move beyond single-machine experiments.</p>
+            </article>
+            <article>
+                <h2>Research Applications</h2>
+                <p>Current applications range from hydrodynamic free-surface flows to small-scale additive-manufacturing processes where coupled physics are important.</p>
+            </article>
+        </section>
 
-struct QuadraturePoint {
-    double weight;
-    double position;
-};
+        <section>
+            <h2>Workflow</h2>
+            <ol class="process-list">
+                <li><span>Prepare</span> Build geometry, boundary conditions, material data, and mesh partitions.</li>
+                <li><span>Solve</span> Assemble stabilized element operators and iterate nonlinear systems across CPU/GPU resources.</li>
+                <li><span>Inspect</span> Export fields for Vadum visualization and downstream tooling such as Stratum.</li>
+            </ol>
+        </section>
 
-std::vector&lt;QuadraturePoint> getGaussianQuadrature(int order) {
-    // Example for 2-point Gaussian quadrature
-    if(order == 2) {
-        return { {1.0, -1.0 / std::sqrt(3)}, {1.0, std::sqrt(3)} };
-    }
-    // Add more orders as needed
-    return {};
-}
-
-double integrate(const std::vector&lt;QuadraturePoint>& points, double (*f)(double)) {
-    double result = 0.0;
-    for(const auto& qp : points) {
-        result += qp.weight * f(qp.position);
-    }
-    return result;
-}
-
-double exampleFunction(double x) {
-    return std::pow(x, 2);
-}
-
-int main() {
-    auto quadraturePoints = getGaussianQuadrature(2);
-    double integral = integrate(quadraturePoints, exampleFunction);
-    std::cout &lt;&lt; "Integral: " &lt;&lt; integral &lt;&lt; std::endl;
-    return 0;
-}</code></pre>
-
-            <h3>Newton's Method</h3>
+        <section>
+            <h2>Implementation Note</h2>
             <p>
-                Newton's method is employed to solve nonlinear systems arising in FEM. The iterative approach refines solutions by linearizing the nonlinear equations. Below is an example implementation:
+                The public site cannot expose the closed-source implementation, but the architecture is organized around explicit solver stages rather than a monolithic simulation script.
             </p>
-
-            <pre><code class="language-cpp">#include &lt;iostream>
-#include &lt;vector>
-#include &lt;cmath>
-
-// Function and its derivative
-double f(double x) {
-    return x * x - 2; // Example: f(x) = x² - 2
+            <pre><code class="language-cpp">for (auto&amp; partition : mesh.partitions()) {
+    partition.exchange_ghost_state();
+    element_kernel.assemble(partition.elements(), state, residual);
 }
 
-double f_prime(double x) {
-    return 2 * x;
-}
-
-double newtonsMethod(double initial_guess, double tolerance, int max_iterations) {
-    double x = initial_guess;
-    for(int i = 0; i &lt; max_iterations; ++i) {
-        double fx = f(x);
-        double fpx = f_prime(x);
-        if(std::abs(fpx) &lt; 1e-12) {
-            std::cerr &lt;&lt; "Derivative too small." &lt;&lt; std::endl;
-            break;
-        }
-        double x_new = x - fx / fpx;
-        if(std::abs(x_new - x) &lt; tolerance) {
-            return x_new;
-        }
-        x = x_new;
-    }
-    std::cerr &lt;&lt; "Maximum iterations reached." &lt;&lt; std::endl;
-    return x;
-}
-
-int main() {
-    double root = newtonsMethod(1.0, 1e-6, 100);
-    std::cout &lt;&lt; "Root: " &lt;&lt; root &lt;&lt; std::endl;
-    return 0;
-}</code></pre>
+linear_solver.solve(jacobian, correction);
+state.update(correction);
+level_set.reinitialize_if_needed(state);</code></pre>
         </section>
-
-        <section id="results">
-            <h2>Results</h2>
-            <p>
-                The implementation of Gaussian quadrature and Newton's method in C++ has demonstrated reliable convergence and accuracy in solving FEM-related problems. The quadrature integration effectively approximates integrals over elements, while Newton's method efficiently solves nonlinear systems with a high rate of convergence.
-            </p>
-            <p>
-                For instance, the Gaussian quadrature example accurately computes the integral of \( f(x) = x^2 \) over the specified domain, and Newton's method successfully finds the root of the nonlinear equation \( x^2 - 2 = 0 \) with the desired precision.
-            </p>
-        </section>
-
-        <section id="discussion">
-            <h2>Discussion</h2>
-            <p>
-                The modular design of the C++ implementations allows for easy extension and integration into larger FEM frameworks. Future work may include extending the quadrature to higher orders, implementing more sophisticated solvers for nonlinear systems, and optimizing performance for large-scale problems.
-            </p>
-        </section>
-
-        <section id="conclusion">
-            <h2>Conclusion</h2>
-            <p>
-                This document outlined the fundamental components of implementing the Finite Element Method in C++. By leveraging Gaussian quadrature for integration and Newton's method for solving nonlinear equations, effective and efficient FEM simulations can be achieved. Continued development and optimization of these methods will further enhance their applicability in complex engineering and scientific problems.
-            </p>
-        </section>
-
-        <section id="references">
-            <h2>References</h2>
-            <ul>
-                <li>Cook, R. D., Malkus, D. S., &amp; Plesha, M. E. (2002). <em>Concepts and Applications of Finite Element Analysis</em>. Wiley.</li>
-                <li>Burden, R. L., &amp; Faires, J. D. (2011). <em>Numerical Analysis</em>. Brooks/Cole.</li>
-                <li>Strang, G., &amp; Fix, G. J. (1973). <em>An Analysis of the Finite Element Method</em>. Prentice-Hall.</li>
-            </ul>
-        </section>
-
-        <!-- 2x2 Collage Gallery -->
-        <section id="gallery-collage">
-                <h2>Illustrations</h2>
-                <div class="gallery collage">
-                    <div class="collage-row">
-                    <img src="../../images/project_directory/project_directory_torrentem.webp" alt="Finite Element Method Diagram" class="content-image lightbox-trigger" loading="lazy" decoding="async" width="2339" height="1559">
-                    <img src="../../images/project_directory/project_directory_torrentem.webp" alt="Quadrature Scheme" class="content-image lightbox-trigger" loading="lazy" decoding="async" width="2339" height="1559">
-                </div>
-                <div class="collage-row">
-                    <img src="../../images/project_directory/project_directory_torrentem.webp" alt="Newton's Method Illustration" class="content-image lightbox-trigger" loading="lazy" decoding="async" width="2339" height="1559">
-                    <img src="../../images/project_directory/project_directory_torrentem.webp" alt="Newton's Method Step" class="content-image lightbox-trigger" loading="lazy" decoding="async" width="2339" height="1559">
-                </div>
-            </div>
-        </section>
-
-        <h2>Appendix</h2>
-        <p>
-            Additional resources and code snippets can be found in the accompanying GitHub repository. Please refer to the <a href="https://github.com/adamlawrence/fem-cpp" class="content-link" target="_blank" rel="noopener">FEM C++ Repository</a> for detailed implementations and documentation.
-        </p>
-
-        <h2>Contact</h2>
-        <p>
-            For further inquiries or collaboration opportunities, feel free to reach out via email at <a href="mailto:adam.lawrence@example.com" class="content-link">adam.lawrence@example.com</a> or connect with me on <a href="https://www.linkedin.com/in/adamlawrence" class="content-link" target="_blank" rel="noopener">LinkedIn</a> and <a href="https://github.com/adamlawrence" class="content-link" target="_blank" rel="noopener">GitHub</a>.
-        </p>
 
         <section class="content-crosslinks">
             <h2>Explore Next</h2>
             <p>Return to all <a href="../">projects</a>, read related <a href="../../writings/">writings</a>, or browse <a href="../../publications/">publications</a>.</p>
         </section>
-
-        <div class="scrollable-space"></div>
     </main>
 
     <div id="footer-placeholder"></div>

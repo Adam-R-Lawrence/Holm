@@ -41,14 +41,53 @@
 <div class="wrapper">
     <div id="contentHeader-placeholder"></div>
 
-    <main id="main-content" data-page="resume">
-      <iframe class="resume-frame" src="../documents/Adam_Lawrence_Resume.pdf#view=FitH" title="Resume PDF"></iframe>
-      <noscript>
-        <p class="resume-fallback">JavaScript is disabled. You can <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.</p>
-      </noscript>
-      <div class="resume-fallback" aria-live="polite" id="resume-fallback" hidden>
-        If the PDF viewer is not supported on your device, <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.
-      </div>
+    <main id="main-content" data-page="resume" class="resume-page">
+      <section class="resume-hero" aria-labelledby="resume-title">
+        <p class="section-label">Resume</p>
+        <h1 id="resume-title">Adam Lawrence</h1>
+        <p>
+          Civil and environmental engineering PhD student focused on computational mechanics, CFD, remote sensing, parallel numerical methods, and research software.
+        </p>
+        <div class="home-actions">
+          <a class="button-link primary" href="../documents/Adam_Lawrence_Resume.pdf" download>Download PDF</a>
+          <a class="button-link" href="mailto:adamrl3@illinois.edu">Contact</a>
+        </div>
+      </section>
+
+      <section class="resume-summary-grid" aria-label="Resume summary">
+        <article>
+          <h2>Education</h2>
+          <p>University of Illinois Urbana-Champaign academic exchange and PhD research context; Master of Engineering, Environmental, First Class Honours, University of Melbourne.</p>
+        </article>
+        <article>
+          <h2>Research Experience</h2>
+          <p>Graduate research assistant work across OpenFOAM, C++, submerged propeller modelling, turbulent environmental flows, autonomous shipping data, and MPI parallelization.</p>
+        </article>
+        <article>
+          <h2>Selected Projects</h2>
+          <p>Remote sensing for hydraulic modelling, environmental flows in OpenFOAM, and a parallel streamline upwind Petrov-Galerkin solver in C++, CUDA, and Python.</p>
+        </article>
+        <article>
+          <h2>Technical Skills</h2>
+          <p>C/C++, Python, Fortran, Bash, OpenFOAM, ANSYS, ParaView, HEC-RAS, PETSc, CUDA, MPI, OpenMP, Slurm, GDAL, Xarray, QGIS, HDF, NetCDF, and VTK.</p>
+        </article>
+      </section>
+
+      <section class="resume-viewer" aria-labelledby="resume-pdf-title">
+        <div class="section-heading">
+          <p class="section-label">PDF</p>
+          <h2 id="resume-pdf-title">Full Resume</h2>
+        </div>
+        <a class="resume-preview-link" href="../documents/Adam_Lawrence_Resume.pdf" download>
+          <img class="resume-preview" src="../images/resume_preview.jpg" alt="Preview of Adam Lawrence's resume PDF" width="1224" height="1584" loading="lazy" decoding="async">
+        </a>
+        <noscript>
+          <p class="resume-fallback">JavaScript is disabled. You can <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.</p>
+        </noscript>
+        <div class="resume-fallback" aria-live="polite" id="resume-fallback" hidden>
+          If the PDF viewer is not supported on your device, <a href="../documents/Adam_Lawrence_Resume.pdf" download>download the resume here</a>.
+        </div>
+      </section>
     </main>
 
     <footer id="footer-placeholder"></footer>

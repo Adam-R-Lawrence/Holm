@@ -37,14 +37,50 @@
 <body>
 <div class="wrapper">
     <div id="contentHeader-placeholder"></div>
-    <main id="main-content">
-        <h1>Stratum</h1>
-        <p>
-            Stratum is a build-preparation and G-code generation toolkit designed for digital light processing (DLP) and stereolithography (SLA) photopolymerization printers. It consumes volumetric exposure plans exported from Torrentem simulations, slices them into exposure layers, and optimises lift trajectories for high-viscosity resins.
-        </p>
-        <p>
-            The toolchain includes a resin-aware slicing kernel, projection map calibration utilities, and an interactive preview that renders per-layer irradiance fields. Output profiles support machine-specific constraints such as peel timing, adaptive lift speeds, and oxygen inhibition zones.
-        </p>
+    <main id="main-content" class="project-detail-page">
+        <section class="project-hero" aria-labelledby="project-title">
+            <div class="project-hero-copy">
+                <p class="project-kicker">Photopolymerization / build preparation / G-code</p>
+                <h1 id="project-title">Stratum</h1>
+                <p class="project-lede">
+                    Stratum is a build-preparation and G-code generation toolkit for DLP and SLA photopolymerization printers, tuned to consume volumetric exposure plans exported from Torrentem simulations.
+                </p>
+                <dl class="project-facts">
+                    <div>
+                        <dt>Status</dt>
+                        <dd>Prototype toolchain</dd>
+                    </div>
+                    <div>
+                        <dt>Core tasks</dt>
+                        <dd>Slicing, exposure planning, lift trajectory optimization</dd>
+                    </div>
+                    <div>
+                        <dt>Machines</dt>
+                        <dd>DLP and SLA resin printers</dd>
+                    </div>
+                </dl>
+            </div>
+            <figure class="project-figure">
+                <img src="../../images/project_directory/project_preview_stratum.svg" alt="Stratum layer planning and G-code workflow diagram" class="content-image lightbox-trigger" loading="eager" decoding="async" width="1200" height="720">
+                <figcaption>Stratum converts simulated exposure behaviour into machine-aware printing instructions.</figcaption>
+            </figure>
+        </section>
+
+        <section class="project-section-grid" aria-label="Stratum capabilities">
+            <article>
+                <h2>Slice Exposure Plans</h2>
+                <p>Volumetric simulation output is converted into layer-wise exposure maps that can be calibrated for a resin printer.</p>
+            </article>
+            <article>
+                <h2>Respect Resin Physics</h2>
+                <p>Build profiles account for practical constraints such as peel timing, adaptive lift speeds, and oxygen inhibition zones.</p>
+            </article>
+            <article>
+                <h2>Preview Build States</h2>
+                <p>An interactive preview renders per-layer irradiance fields so print preparation can be inspected before machine output.</p>
+            </article>
+        </section>
+
         <section class="content-crosslinks">
             <h2>Explore Next</h2>
             <p>Return to all <a href="../">projects</a>, read related <a href="../../writings/">writings</a>, or browse <a href="../../publications/">publications</a>.</p>

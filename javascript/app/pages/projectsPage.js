@@ -38,17 +38,8 @@ export async function loadProjectsPage() {
             const descriptionText = getLocalizedText(project.description, project.description || '');
             const altText = getLocalizedText(project.imageAlt, `${titleText} image`);
 
-            const title = createElement('h2');
-            title.textContent = titleText;
-            link.appendChild(title);
-
-            if (descriptionText) {
-                const description = createElement('p');
-                description.textContent = descriptionText;
-                link.appendChild(description);
-            }
-
             if (project.image) {
+                const media = createElement('div', 'project-card-media');
                 const image = createElement('img', 'content-image');
                 image.src = resolvePath(project.image);
                 image.alt = altText;
@@ -58,9 +49,41 @@ export async function loadProjectsPage() {
                     image.width = project.imageWidth;
                     image.height = project.imageHeight;
                 }
-                link.appendChild(image);
+                media.appendChild(image);
+                link.appendChild(media);
             }
 
+            const body = createElement('div', 'project-card-body');
+            const statusText = getLocalizedText(project.status, '');
+            if (statusText) {
+                const status = createElement('p', 'project-card-status');
+                status.textContent = statusText;
+                body.appendChild(status);
+            }
+
+            const title = createElement('h2');
+            title.textContent = titleText;
+            body.appendChild(title);
+
+            const summaryText = getLocalizedText(project.summary, descriptionText);
+            if (summaryText) {
+                const description = createElement('p', 'project-card-summary');
+                description.textContent = summaryText;
+                body.appendChild(description);
+            }
+
+            const tags = Array.isArray(project.tags) ? project.tags.filter(Boolean) : [];
+            if (tags.length) {
+                const tagList = createElement('ul', 'project-card-tags');
+                tags.forEach(tagText => {
+                    const tag = createElement('li');
+                    tag.textContent = tagText;
+                    tagList.appendChild(tag);
+                });
+                body.appendChild(tagList);
+            }
+
+            link.appendChild(body);
             item.appendChild(link);
             grid.appendChild(item);
         });

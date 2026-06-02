@@ -13,6 +13,8 @@ const localizedCopy = {
             allYears: 'All Years',
             allTypes: 'All Types',
             noMatches: 'No publications match the selected filters.',
+            noPublicItemsTitle: 'Publications are being prepared for public listing.',
+            noPublicItemsBody: 'Current public research context is available through the projects and writings pages while formal outputs are added here.',
             undatedHeading: 'Undated',
             typeLabels: {
                 journal: 'Journal',
@@ -40,6 +42,8 @@ const localizedCopy = {
             allYears: '全部年份',
             allTypes: '全部类型',
             noMatches: '没有符合筛选条件的出版物。',
+            noPublicItemsTitle: '公开出版物列表正在准备中。',
+            noPublicItemsBody: '在正式成果加入此页之前，可以先通过项目和文章页面了解当前公开研究内容。',
             undatedHeading: '未注明年份',
             typeLabels: {
                 journal: '期刊',

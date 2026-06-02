@@ -169,7 +169,7 @@ function renderPublicationsList(directory, publications) {
             const metadata = [publication.authors, publication.venue].filter(Boolean);
             if (metadata.length) {
                 const metaElement = createElement('p', 'publication-meta directory-muted');
-                metaElement.textContent = metadata.join(' · ');
+                metaElement.textContent = metadata.join(' | ');
                 item.appendChild(metaElement);
             }
 
@@ -181,12 +181,41 @@ function renderPublicationsList(directory, publications) {
     });
 }
 
+function renderNoPublicPublications(directory) {
+    directory.innerHTML = '';
+
+    const status = createElement('section', 'publications-status directory-empty-state');
+    const title = createElement('h2');
+    title.textContent = getCopy('publications', 'noPublicItemsTitle');
+
+    const body = createElement('p');
+    body.textContent = getCopy('publications', 'noPublicItemsBody');
+
+    const links = createElement('p', 'publication-status-links');
+    const projects = createElement('a');
+    projects.href = '../projects/';
+    projects.textContent = 'Projects';
+    const writings = createElement('a');
+    writings.href = '../writings/';
+    writings.textContent = 'Writings';
+
+    links.appendChild(projects);
+    links.append(' ');
+    links.appendChild(writings);
+
+    status.appendChild(title);
+    status.appendChild(body);
+    status.appendChild(links);
+    directory.appendChild(status);
+}
+
 export async function loadPublicationsPage() {
     const directory = byId('publications-directory');
     if (!directory) {
         return;
     }
 
+    const toolbar = byId('publications-toolbar');
     const yearFilter = byId('publication-year-filter');
     const typeFilter = byId('publication-type-filter');
     const searchInput = byId('publication-search');
@@ -209,6 +238,18 @@ export async function loadPublicationsPage() {
             .map(normalizePublication)
             .filter(Boolean)
             .sort(comparePublications);
+
+        if (!allPublications.length) {
+            if (toolbar) {
+                toolbar.hidden = true;
+            }
+            renderNoPublicPublications(directory);
+            return;
+        }
+
+        if (toolbar) {
+            toolbar.hidden = false;
+        }
 
         const years = Array.from(new Set(
             allPublications

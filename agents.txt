@@ -1,0 +1,1 @@
+Remember though this is for github pages, so only allow .html .css javascript

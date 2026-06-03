@@ -23,13 +23,6 @@
       "MPI",
       "FEM"
     ],
-    "image": "images/project_directory/project_preview_torrentem.svg",
-    "imageWidth": 1200,
-    "imageHeight": 720,
-    "imageAlt": {
-      "english": "Diagram of Torrentem's mesh, flow, and parallel compute pipeline",
-      "chinese": "Torrentem 网格、流场和并行计算流程图"
-    },
     "link": "projects/Torrentem/"
   },
   {
@@ -55,13 +48,6 @@
       "Remote sensing",
       "Meshing"
     ],
-    "image": "images/project_directory/project_preview_ostium.svg",
-    "imageWidth": 1200,
-    "imageHeight": 720,
-    "imageAlt": {
-      "english": "Ostium data integration pipeline diagram",
-      "chinese": "Ostium 数据整合流程示意图"
-    },
     "link": "projects/Ostium/"
   },
   {
@@ -87,13 +73,6 @@
       "VTK",
       "Dashboards"
     ],
-    "image": "images/project_directory/project_preview_vadum.svg",
-    "imageWidth": 1200,
-    "imageHeight": 720,
-    "imageAlt": {
-      "english": "Visual analytics dashboard created with Vadum",
-      "chinese": "使用 Vadum 创建的可视化分析界面"
-    },
     "link": "projects/Vadum/"
   },
   {
@@ -119,13 +98,6 @@
       "SLA/DLP",
       "Photopolymerization"
     ],
-    "image": "images/project_directory/project_preview_stratum.svg",
-    "imageWidth": 1200,
-    "imageHeight": 720,
-    "imageAlt": {
-      "english": "Screenshot of Stratum's layer planning interface",
-      "chinese": "Stratum 分层规划界面的截图"
-    },
     "link": "projects/Stratum/"
   }
 ]

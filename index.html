@@ -5,12 +5,11 @@
 
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Adam Lawrence | Computational Mechanics Portfolio</title>
+    <title>Adam Lawrence | Personal Site</title>
     <meta name="description" content="Personal site of Adam Lawrence, a UIUC PhD candidate in civil and environmental engineering. Explore computational mechanics projects, writings, publications, and contact information.">
 
     <!-- Stylesheets -->
     <link href="styles/styles.min.css" rel="stylesheet">
-    <link href="styles/lightbox.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,15 +30,15 @@
     <meta content="#ffffff" name="theme-color">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; frame-ancestors 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; form-action 'self';">
 
     <link rel="canonical" href="https://www.arlawrence.com/">
-    <meta property="og:title" content="Adam Lawrence | Computational Mechanics Portfolio">
+    <meta property="og:title" content="Adam Lawrence | Personal Site">
     <meta property="og:description" content="Personal site of Adam Lawrence, a UIUC PhD candidate in civil and environmental engineering. Explore computational mechanics projects, writings, publications, and contact information.">
     <meta property="og:image" content="https://www.arlawrence.com/images/favicon/android-chrome-512x512.png">
     <meta property="og:url" content="https://www.arlawrence.com/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Adam Lawrence | Computational Mechanics Portfolio">
+    <meta name="twitter:title" content="Adam Lawrence | Personal Site">
     <meta name="twitter:description" content="Personal site of Adam Lawrence, a UIUC PhD candidate in civil and environmental engineering. Explore computational mechanics projects, writings, publications, and contact information.">
     <meta name="twitter:image" content="https://www.arlawrence.com/images/favicon/android-chrome-512x512.png">
     <meta name="twitter:site" content="@arlawrence__">
@@ -58,48 +57,28 @@
 
         <!-- Main Content -->
         <main data-page="about-me" id="main-content" class="home-page">
-            <section class="home-hero" aria-labelledby="about-header">
-                <div class="home-hero-copy">
-                    <p class="home-kicker">Computational mechanics / research software / environmental modelling</p>
-                    <h1 id="about-header">Adam Lawrence</h1>
-                    <p id="about-p1" class="home-lede">
-                        I am a PhD student in Civil and Environmental Engineering at the University of Illinois Urbana-Champaign, working with Professor <a href="https://yan.cee.illinois.edu/">Jinhui Yan</a> on computational mechanics, free-surface hydrodynamics, and photopolymerization modelling.
-                    </p>
-                    <div class="home-actions" aria-label="Primary site links">
-                        <a class="button-link primary" href="projects/">Explore Projects</a>
-                        <a class="button-link" href="writings/">Read Writings</a>
-                        <a class="button-link" href="resume/">View Resume</a>
-                    </div>
-                </div>
-
-                <div class="home-visual" aria-label="Research areas represented as a computational workflow">
-                    <div class="home-visual-header">
-                        <span>Torrentem workflow</span>
-                        <span>CPU/GPU</span>
-                    </div>
-                    <div class="home-visual-mesh" aria-hidden="true">
-                        <span></span><span></span><span></span><span></span><span></span>
-                        <span></span><span></span><span></span><span></span><span></span>
-                        <span></span><span></span><span></span><span></span><span></span>
-                    </div>
-                    <div class="home-visual-stats" aria-hidden="true">
-                        <span>FEM</span>
-                        <span>Level set</span>
-                        <span>MPI</span>
-                    </div>
-                </div>
+            <section class="home-intro" aria-labelledby="about-header">
+                <p class="home-kicker">Computational mechanics / research software / environmental modelling</p>
+                <h1 id="about-header">Adam Lawrence</h1>
+                <p id="about-p1" class="home-lede">
+                    I am a PhD student in Civil and Environmental Engineering at the University of Illinois Urbana-Champaign, working with Professor <a href="https://yan.cee.illinois.edu/">Jinhui Yan</a> on computational mechanics, free-surface hydrodynamics, and photopolymerization modelling.
+                </p>
+                <nav class="home-links" aria-label="Primary site links">
+                    <a href="projects/">Projects</a>
+                    <a href="writings/">Writings</a>
+                    <a href="publications/">Publications</a>
+                    <a href="resume/">Resume</a>
+                </nav>
             </section>
 
-            <section class="home-focus-grid" aria-label="Research focus">
+            <section class="home-notes" aria-label="Research focus">
                 <article>
-                    <p class="section-label">Research</p>
                     <h2>Numerical methods for environmental flows</h2>
                     <p id="about-p2">
                         My research entails computational mechanics and modelling, mainly in free-surface hydrodynamics, with additional applications in photopolymerization and additive manufacturing.
                     </p>
                 </article>
                 <article>
-                    <p class="section-label">Background</p>
                     <h2>Hydraulic engineering with computing depth</h2>
                     <p id="about-p3">
                         I am from Melbourne, Australia, where I completed undergraduate and master's study in environmental engineering, specializing in hydraulic engineering with a minor in computer science. I am also an AUKUS fellow through the Australian-American Association.
@@ -109,45 +88,26 @@
 
             <section class="home-projects" aria-labelledby="home-projects-heading">
                 <div class="section-heading">
-                    <p class="section-label">Software Portfolio</p>
-                    <h2 id="home-projects-heading">Research tools under active development</h2>
+                    <h2 id="home-projects-heading">Research software</h2>
                 </div>
-                <div class="home-project-grid">
-                    <a href="projects/Torrentem/" class="home-project-card">
-                        <span>Torrentem</span>
-                        <p>Parallel CPU/GPU multiphysics solver for PDEs, free-surface hydrodynamics, stabilized FEM, and manufacturing simulations.</p>
-                    </a>
-                    <a href="projects/Ostium/" class="home-project-card">
-                        <span>Ostium</span>
-                        <p>Geospatial data processing and integration tooling designed to prepare domains for Torrentem.</p>
-                    </a>
-                    <a href="projects/Vadum/" class="home-project-card">
-                        <span>Vadum</span>
-                        <p>Visualization tooling for reading, inspecting, and communicating results produced by Torrentem.</p>
-                    </a>
-                    <a href="projects/Stratum/" class="home-project-card">
-                        <span>Stratum</span>
-                        <p>G-code generation and build preparation for DLP and SLA photopolymerization workflows.</p>
-                    </a>
-                </div>
+                <ul class="home-project-list">
+                    <li><a href="projects/Torrentem/">Torrentem</a> <span>Parallel CPU/GPU multiphysics solver for free-surface hydrodynamics and related PDE problems.</span></li>
+                    <li><a href="projects/Ostium/">Ostium</a> <span>Geospatial data preparation for simulation domains and boundary data.</span></li>
+                    <li><a href="projects/Vadum/">Vadum</a> <span>Visualization tooling for reading and inspecting Torrentem results.</span></li>
+                    <li><a href="projects/Stratum/">Stratum</a> <span>Build preparation and G-code generation for photopolymerization workflows.</span></li>
+                </ul>
             </section>
 
             <section class="home-writing-note" aria-label="Writing and communication">
                 <div>
-                    <p class="section-label">Communication</p>
-                    <h2>Visual storytelling for technical ideas</h2>
+                    <h2>Notes and writing</h2>
                     <p id="about-p4">
-                        I have a keen interest in literature, history, geography, and the environment. I use visual storytelling to make complex scientific concepts easier to understand, with examples on my <a href="writings/">writings</a> page and <a href="https://www.youtube.com/@arlawrence">YouTube</a>.
+                        I keep notes on literature, history, geography, and environmental systems alongside technical writing. Some of those pieces are collected on the <a href="writings/">writings</a> page and on <a href="https://www.youtube.com/@arlawrence">YouTube</a>.
                     </p>
                     <p id="about-p5">
-                        This site collects my research software, writings, publications, and personal technical interests in one place.
+                        This site is a public index for my research software, writings, publications, and current technical interests.
                     </p>
                 </div>
-                <figure class="home-image">
-                    <img alt="A trip to Antelope Island, Utah (2024)" class="content-image lightbox-trigger"
-                         src="images/about_me/utah.webp" loading="lazy" decoding="async" width="2339" height="1559">
-                    <figcaption>Field notes and visual context remain part of how I think about environmental modelling.</figcaption>
-                </figure>
             </section>
 
             <section class="home-contact">
@@ -170,7 +130,6 @@
 
 <!-- JavaScript References -->
 <script src="javascript/functions.js"></script>
-<script src="javascript/lightbox.js"></script>
 <script src="javascript/scrollToTop.js"></script>
 
 

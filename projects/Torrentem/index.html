@@ -7,7 +7,6 @@
     <title>Torrentem Project | Adam Lawrence</title>
     <meta name="description" content="Torrentem is a parallel CPU/GPU multiphysics solver in C++, with FEM workflows, quadrature, nonlinear solvers, and HPC-oriented tooling.">
     <link rel="stylesheet" href="../../styles/styles.min.css">
-    <link rel="stylesheet" href="../../styles/lightbox.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,21 +25,7 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; frame-ancestors 'self'; form-action 'self';">
-
-    <!-- Removed the default highlight.js stylesheet -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css"> -->
-
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/cpp.min.js"></script>
-
-
-    <script defer src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
-    <link
-            rel="stylesheet"
-            href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
-    />
-
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; form-action 'self';">
 
     <link rel="canonical" href="https://www.arlawrence.com/projects/Torrentem/">
     <meta property="og:title" content="Torrentem Project | Adam Lawrence">
@@ -62,71 +47,49 @@
 
     <main id="main-content" class="project-detail-page">
 
-        <section class="project-hero" aria-labelledby="project-title">
-            <div class="project-hero-copy">
-                <p class="project-kicker">Research software / C++ / CPU/GPU / FEM</p>
-                <h1 id="project-title">Torrentem</h1>
-                <p class="project-lede">
-                    Torrentem is a parallel multiphysics solver library developed to support my PhD research, spanning free-surface hydrodynamics, stabilized finite element methods, level-set tracking, and photopolymerization simulations.
-                </p>
-                <dl class="project-facts">
-                    <div>
-                        <dt>Status</dt>
-                        <dd>Closed source research code</dd>
-                    </div>
-                    <div>
-                        <dt>Core methods</dt>
-                        <dd>RBVMS, stabilized FEM, level set, nonlinear solvers</dd>
-                    </div>
-                    <div>
-                        <dt>Compute model</dt>
-                        <dd>CPU/GPU kernels, MPI partitioning, custom linear solvers</dd>
-                    </div>
-                </dl>
-            </div>
-            <figure class="project-figure">
-                <img src="../../images/project_directory/project_preview_torrentem.svg" alt="Diagram of Torrentem's mesh, flow, and parallel compute pipeline" class="content-image lightbox-trigger" loading="eager" decoding="async" width="1200" height="720">
-                <figcaption>Torrentem connects simulation setup, stabilized finite element kernels, and distributed compute workflows.</figcaption>
-            </figure>
-        </section>
-
-        <section class="project-section-grid" aria-label="Torrentem capabilities">
-            <article>
-                <h2>Numerical Foundation</h2>
-                <p>Finite element formulations are designed for difficult transport and fluid-flow problems where stability, conservation, and boundary treatment matter.</p>
-            </article>
-            <article>
-                <h2>Parallel Execution</h2>
-                <p>The library is structured around mesh partitioning, MPI communication, and GPU-oriented kernels so large research cases can move beyond single-machine experiments.</p>
-            </article>
-            <article>
-                <h2>Research Applications</h2>
-                <p>Current applications range from hydrodynamic free-surface flows to small-scale additive-manufacturing processes where coupled physics are important.</p>
-            </article>
-        </section>
-
-        <section>
-            <h2>Workflow</h2>
-            <ol class="process-list">
-                <li><span>Prepare</span> Build geometry, boundary conditions, material data, and mesh partitions.</li>
-                <li><span>Solve</span> Assemble stabilized element operators and iterate nonlinear systems across CPU/GPU resources.</li>
-                <li><span>Inspect</span> Export fields for Vadum visualization and downstream tooling such as Stratum.</li>
-            </ol>
-        </section>
-
-        <section>
-            <h2>Implementation Note</h2>
-            <p>
-                The public site cannot expose the closed-source implementation, but the architecture is organized around explicit solver stages rather than a monolithic simulation script.
+        <section class="project-note-header" aria-labelledby="project-title">
+            <p class="project-kicker">Research software / C++ / CPU/GPU / FEM</p>
+            <h1 id="project-title">Torrentem</h1>
+            <p class="project-lede">
+                Torrentem is a parallel multiphysics solver library developed to support my PhD research in free-surface hydrodynamics, stabilized finite element methods, level-set tracking, and photopolymerization simulations.
             </p>
-            <pre><code class="language-cpp">for (auto&amp; partition : mesh.partitions()) {
-    partition.exchange_ghost_state();
-    element_kernel.assemble(partition.elements(), state, residual);
-}
+            <dl class="project-facts">
+                <div>
+                    <dt>Status</dt>
+                    <dd>Closed source research code</dd>
+                </div>
+                <div>
+                    <dt>Core methods</dt>
+                    <dd>RBVMS, stabilized FEM, level set, nonlinear solvers</dd>
+                </div>
+                <div>
+                    <dt>Compute model</dt>
+                    <dd>CPU/GPU kernels, MPI partitioning, custom linear solvers</dd>
+                </div>
+            </dl>
+        </section>
 
-linear_solver.solve(jacobian, correction);
-state.update(correction);
-level_set.reinitialize_if_needed(state);</code></pre>
+        <section class="project-note-grid" aria-label="Torrentem engineering notes">
+            <article>
+                <h2>Purpose</h2>
+                <p>Provide a research solver that can test numerical formulations, boundary treatments, and coupled physics without depending on a commercial CFD package.</p>
+            </article>
+            <article>
+                <h2>Methods and Tools</h2>
+                <ul class="compact-list">
+                    <li>C++ solver core with CUDA kernels for selected linear algebra and element operations.</li>
+                    <li>MPI mesh partitioning and ghost-state exchange for multi-node experiments.</li>
+                    <li>Finite element formulations for difficult transport and fluid-flow cases.</li>
+                </ul>
+            </article>
+            <article>
+                <h2>Current Limitations</h2>
+                <p>The implementation is research code and remains closed source while methods, interfaces, and validation cases are still changing.</p>
+            </article>
+            <article>
+                <h2>Related Tools</h2>
+                <p>Ostium prepares geospatial inputs, Vadum is intended for result inspection, and Stratum connects photopolymerization simulations to printer-oriented build preparation.</p>
+            </article>
         </section>
 
         <section class="content-crosslinks">
@@ -146,7 +109,6 @@ level_set.reinitialize_if_needed(state);</code></pre>
 
 <!-- JavaScript References -->
 <script src="../../javascript/functions.js"></script>
-<script src="../../javascript/lightbox.js"></script>
 <script src="../../javascript/scrollToTop.js"></script>
 
 </body>

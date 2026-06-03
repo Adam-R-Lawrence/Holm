@@ -201,38 +201,36 @@ test('writings theme filter works', async ({ page }) => {
     await expect.poll(async () => visibleCount(writingCards)).toBe(3);
 });
 
-test('portfolio polish surfaces render without placeholder gaps', async ({ page }) => {
+test('plain personal site surfaces render without generated previews', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.home-hero')).toBeVisible();
+    await expect(page.locator('.home-intro')).toBeVisible();
     await expect(page.locator('h1')).toHaveText('Adam Lawrence');
-    await expect(page.locator('.home-visual')).toBeVisible();
+    await expect(page.locator('.home-visual')).toHaveCount(0);
+    await expect(page.locator('.home-image')).toHaveCount(0);
+    await expect(page.getByRole('navigation', { name: 'Primary site links' }).getByRole('link', { name: 'Publications' })).toBeVisible();
 
     await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.project-item')).toHaveCount(4);
     await expect(page.locator('.project-card-tags li').first()).toBeVisible();
-    await expect.poll(async () => page.locator('.project-item img').evaluateAll(images => (
-        images.every(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
-    ))).toBe(true);
+    await expect(page.locator('.project-card-media')).toHaveCount(0);
+    await expect(page.locator('.project-item img')).toHaveCount(0);
 
     await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.publications-status')).toContainText('Publications are being prepared');
 
-    await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.resume-summary-grid')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Download PDF' })).toBeVisible();
-});
-
-test('lightbox opens and closes on project detail pages', async ({ page }) => {
-    await stubSharedThirdPartyRequests(page);
-
     await page.goto('/projects/Torrentem/', { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector('.lightbox-trigger');
+    await expect(page.locator('.project-note-header')).toBeVisible();
+    await expect(page.locator('.project-figure')).toHaveCount(0);
+    await expect(page.locator('.project-detail-page img')).toHaveCount(0);
 
-    await page.locator('.lightbox-trigger').first().click();
-    await expect(page.locator('#lightbox-modal')).toBeVisible();
-
-    await page.keyboard.press('Escape');
-    await expect(page.locator('#lightbox-modal')).toBeHidden();
+    await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.resume-sheet')).toBeVisible();
+    await expect(page.locator('.resume-sheet')).toHaveAttribute('src', /resume_preview\.jpg/);
+    await expect(page.locator('.resume-frame')).toHaveCount(0);
+    await expect(page.locator('iframe, object, embed')).toHaveCount(0);
+    await expect(page.locator('.resume-summary-grid')).toHaveCount(0);
+    await expect(page.locator('.resume-preview')).toHaveCount(0);
+    await expect(page.getByRole('link', { name: 'Download PDF' })).toBeVisible();
 });

@@ -3056,3 +3056,331 @@ footer p {
 [hidden] {
     display: none !important;
 }
+
+/* Actual final cascade: keep after all generated portfolio rules. */
+:root {
+    --page-bg-top: #ffffff;
+    --page-bg-bottom: #ffffff;
+    --surface-1: #ffffff;
+    --surface-2: #f5f5f5;
+    --surface-3: #fafafa;
+    --surface-soft: #f5f5f5;
+    --text-color: #1f1f1f;
+    --muted-text: #525252;
+    --border-color: #d6d6d6;
+    --border-strong: #8a8a8a;
+    --accent: #2f5d50;
+    --accent-strong: #214238;
+    --accent-soft: #eef5f2;
+    --link-color: #1f5f85;
+    --link-hover-color: #12415d;
+    --link-visited-color: #5b517c;
+    --link-focus-ring: rgba(31, 95, 133, 0.34);
+}
+
+.dark-theme {
+    --page-bg-top: #161616;
+    --page-bg-bottom: #161616;
+    --surface-1: #161616;
+    --surface-2: #202020;
+    --surface-3: #1b1b1b;
+    --surface-soft: #202020;
+    --text-color: #f2f2f2;
+    --muted-text: #c4c4c4;
+    --border-color: #4a4a4a;
+    --border-strong: #888888;
+    --accent: #8ab3a5;
+    --accent-strong: #c2ddd5;
+    --accent-soft: #1f2a27;
+    --link-color: #9bc8e2;
+    --link-hover-color: #cde8f7;
+    --link-visited-color: #cabde5;
+    --link-focus-ring: rgba(155, 200, 226, 0.42);
+}
+
+html,
+body {
+    background: var(--background-color) !important;
+}
+
+.wrapper,
+#container {
+    max-width: 76rem !important;
+}
+
+.wrapper {
+    padding: 0.7rem 1rem 0 !important;
+}
+
+.contentHeader-placeholder header,
+#footer-placeholder footer,
+footer {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+.contentHeader-placeholder header {
+    background: var(--surface-1) !important;
+    border-width: 0 0 1px !important;
+}
+
+header a:hover,
+header a:focus-visible,
+header a[aria-current="page"] {
+    background: transparent !important;
+    border-color: transparent !important;
+    text-decoration: underline;
+    text-underline-offset: 0.18rem;
+}
+
+.wrapper #main-content {
+    max-width: 76rem !important;
+    padding: 2rem 0 2.4rem !important;
+}
+
+.wrapper #main-content h1 {
+    font-size: clamp(2rem, 4vw, 2.55rem) !important;
+    margin-bottom: 0.75rem;
+}
+
+.wrapper #main-content h2 {
+    font-size: 1.25rem !important;
+}
+
+.wrapper #main-content h1,
+.wrapper #main-content h2,
+.home-kicker {
+    text-align: left !important;
+}
+
+.home-page {
+    display: block !important;
+}
+
+.home-intro {
+    max-width: 68ch;
+    padding: 0.6rem 0 1.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.home-visual {
+    display: none !important;
+}
+
+.home-notes,
+.home-projects,
+.home-writing-note,
+.home-contact {
+    max-width: 68ch;
+    margin-top: 1.6rem;
+}
+
+.home-notes {
+    display: grid;
+    gap: 1.1rem;
+}
+
+.home-notes article,
+.home-project-card,
+.project-note-grid article {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.home-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+    margin-top: 0.8rem;
+}
+
+.home-links a,
+.home-project-list a {
+    font-weight: 700;
+}
+
+.home-project-list {
+    display: grid;
+    gap: 0.55rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.home-project-list li {
+    display: grid;
+    grid-template-columns: minmax(7rem, 10rem) minmax(0, 1fr);
+    gap: 0.85rem;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.home-writing-note {
+    display: block !important;
+}
+
+.home-image {
+    display: block !important;
+}
+
+.home-image img {
+    border-radius: 0 !important;
+    border: 1px solid var(--border-color);
+    box-shadow: none !important;
+}
+
+.home-contact {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+main#main-content[data-page="projects"] #projects-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 0;
+    max-width: 68rem;
+    border-top: 1px solid var(--border-color);
+}
+
+main#main-content[data-page="projects"] .project-item {
+    border: 0 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    overflow: visible;
+    transition: none;
+    box-shadow: none !important;
+}
+
+main#main-content[data-page="projects"] .project-item:hover,
+main#main-content[data-page="projects"] .project-item:focus-within {
+    border-color: var(--border-color) !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+main#main-content[data-page="projects"] .project-item a {
+    display: block !important;
+    padding: 1rem 0 !important;
+}
+
+.project-card-media,
+main#main-content[data-page="projects"] .project-item img {
+    display: none !important;
+}
+
+.project-card-body {
+    display: grid;
+    gap: 0.4rem;
+    padding: 0 !important;
+}
+
+.project-card-body h2 {
+    font-size: 1.25rem !important;
+}
+
+.project-card-summary {
+    max-width: 76ch !important;
+}
+
+.project-card-tags li {
+    border-radius: 4px !important;
+    background: transparent !important;
+}
+
+.project-note-header,
+.project-note-grid,
+.project-detail-page > section,
+.content-crosslinks {
+    max-width: 72ch !important;
+    margin-inline: 0 !important;
+}
+
+.project-note-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-note-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.project-note-grid article {
+    padding-top: 0.85rem !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+.project-facts {
+    grid-template-columns: 1fr !important;
+    max-width: 64ch;
+}
+
+.project-facts div {
+    border-left: 2px solid var(--border-color);
+}
+
+.compact-list {
+    padding-left: 1.2rem;
+}
+
+.resume-page {
+    padding-top: 0.8rem !important;
+}
+
+.resume-pdf-only {
+    display: grid;
+    gap: 0.55rem;
+    width: 100%;
+}
+
+.resume-sheet-link {
+    display: block;
+    width: min(100%, 52rem);
+    margin-inline: auto;
+}
+
+.resume-sheet {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: #ffffff;
+}
+
+.resume-download,
+.resume-fallback {
+    margin: 0 !important;
+    font-size: 0.92rem;
+    text-align: center !important;
+}
+
+@media (max-width: 58rem) {
+    .wrapper {
+        padding: 0.45rem 0.75rem 0 !important;
+    }
+
+    .wrapper #main-content {
+        padding: 1.25rem 0 1.8rem !important;
+    }
+
+    .home-writing-note,
+    .home-project-list li {
+        grid-template-columns: 1fr !important;
+    }
+
+    .home-image img {
+        max-height: 18rem;
+    }
+
+    .resume-sheet-link {
+        width: 100%;
+    }
+}

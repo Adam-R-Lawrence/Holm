@@ -74,13 +74,9 @@ export async function loadProjectsPage() {
 
             const tags = Array.isArray(project.tags) ? project.tags.filter(Boolean) : [];
             if (tags.length) {
-                const tagList = createElement('ul', 'project-card-tags');
-                tags.forEach(tagText => {
-                    const tag = createElement('li');
-                    tag.textContent = tagText;
-                    tagList.appendChild(tag);
-                });
-                body.appendChild(tagList);
+                const metadata = createElement('p', 'project-card-metadata');
+                metadata.textContent = tags.join(', ');
+                body.appendChild(metadata);
             }
 
             link.appendChild(body);

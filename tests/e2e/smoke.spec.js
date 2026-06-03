@@ -32,6 +32,19 @@ function visibleCount(locator) {
     return locator.evaluateAll(nodes => nodes.filter(node => node.offsetParent !== null).length);
 }
 
+async function expectNoHorizontalOverflow(page, route) {
+    const overflow = await page.evaluate(() => ({
+        documentWidth: document.documentElement.scrollWidth,
+        viewportWidth: document.documentElement.clientWidth,
+        bodyWidth: document.body.scrollWidth
+    }));
+
+    expect(
+        Math.max(overflow.documentWidth, overflow.bodyWidth),
+        `Horizontal overflow on ${route}: ${JSON.stringify(overflow)}`
+    ).toBeLessThanOrEqual(overflow.viewportWidth + 1);
+}
+
 test('browser regression sweep across core routes', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -62,6 +75,7 @@ test('browser regression sweep across core routes', async ({ page }) => {
 
         await expect(page.locator('body')).toBeVisible();
         await page.waitForTimeout(200);
+        await expectNoHorizontalOverflow(page, route);
     }
 
     expect(pageErrors, `Unexpected page errors:\n${pageErrors.join('\n')}`).toEqual([]);
@@ -206,6 +220,11 @@ test('plain personal site surfaces render without generated previews', async ({ 
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.home-intro')).toBeVisible();
+    await expect(page.locator('.home-current')).toBeVisible();
+    await expect(page.locator('.home-current dt')).toHaveText(['Focus', 'Main code', 'Contact']);
+    await expect(page.locator('.home-current')).toContainText('free-surface hydrodynamics, stabilized FEM, level-set methods, and photopolymerization modelling.');
+    await expect(page.locator('.home-current')).toContainText('Torrentem');
+    await expect(page.locator('.home-current')).toContainText('adamrl3@illinois.edu');
     await expect(page.locator('h1')).toHaveText('Adam Lawrence');
     await expect(page.locator('.home-visual')).toHaveCount(0);
     await expect(page.locator('.home-image')).toHaveCount(0);
@@ -213,7 +232,8 @@ test('plain personal site surfaces render without generated previews', async ({ 
 
     await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.project-item')).toHaveCount(4);
-    await expect(page.locator('.project-card-tags li').first()).toBeVisible();
+    await expect(page.locator('.project-card-metadata').first()).toHaveText('C++, CUDA, MPI, FEM');
+    await expect(page.locator('.project-card-tags li')).toHaveCount(0);
     await expect(page.locator('.project-card-media')).toHaveCount(0);
     await expect(page.locator('.project-item img')).toHaveCount(0);
 
@@ -226,11 +246,35 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('.project-detail-page img')).toHaveCount(0);
 
     await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('link', { name: 'Download PDF' })).toBeVisible();
     await expect(page.locator('.resume-sheet')).toBeVisible();
     await expect(page.locator('.resume-sheet')).toHaveAttribute('src', /resume_preview\.jpg/);
     await expect(page.locator('.resume-frame')).toHaveCount(0);
     await expect(page.locator('iframe, object, embed')).toHaveCount(0);
     await expect(page.locator('.resume-summary-grid')).toHaveCount(0);
     await expect(page.locator('.resume-preview')).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'Download PDF' })).toBeVisible();
+});
+
+test('core routes avoid mobile horizontal overflow', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+    const page = await context.newPage();
+    await stubSharedThirdPartyRequests(page);
+
+    const pageErrors = [];
+    page.on('pageerror', error => {
+        pageErrors.push(error.message);
+    });
+
+    const routes = ['/', '/projects/', '/projects/Torrentem/', '/writings/', '/publications/', '/resume/'];
+
+    for (const route of routes) {
+        const response = await page.goto(route, { waitUntil: 'domcontentloaded' });
+        expect(response, `Missing response for ${route}`).not.toBeNull();
+        expect(response.status(), `Unexpected status for ${route}`).toBeLessThan(400);
+        await page.waitForTimeout(200);
+        await expectNoHorizontalOverflow(page, route);
+    }
+
+    expect(pageErrors, `Unexpected mobile page errors:\n${pageErrors.join('\n')}`).toEqual([]);
+    await context.close();
 });

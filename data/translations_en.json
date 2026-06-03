@@ -22,6 +22,13 @@
     "about-p4": "I keep notes on literature, history, geography, and environmental systems alongside technical writing. Some of those pieces are collected on the <a href=\"writings/\">writings</a> page and on <a href=\"https://www.youtube.com/@arlawrence\">YouTube</a>.",
     "about-p5": "This site is a public index for my research software, writings, publications, and current technical interests.",
     "about-p6": "For enquiries, collaboration, or summer internship opportunities, reach me at <a href=\"mailto:adamrl3@illinois.edu\" class=\"content-link\">adamrl3@illinois.edu</a>.",
+    "current-heading": "Current Work",
+    "current-focus-label": "Focus",
+    "current-focus-value": "free-surface hydrodynamics, stabilized FEM, level-set methods, and photopolymerization modelling.",
+    "current-main-code-label": "Main code",
+    "current-main-code-value": "<a href=\"projects/Torrentem/\">Torrentem</a>, with <a href=\"projects/Ostium/\">Ostium</a>, <a href=\"projects/Vadum/\">Vadum</a>, and <a href=\"projects/Stratum/\">Stratum</a> as supporting tools.",
+    "current-contact-label": "Contact",
+    "current-contact-value": "collaboration and internship enquiries via <a href=\"mailto:adamrl3@illinois.edu\" class=\"content-link\">adamrl3@illinois.edu</a>.",
     "projects-header": "Projects",
     "writings-header": "Writings",
     "publications-header": "Publications"

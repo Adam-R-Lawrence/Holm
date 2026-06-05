@@ -1,0 +1,222 @@
+.writing-page {
+    --article-bg: #eef3ee;
+    --article-paper: #fbfbf6;
+    --article-text: #1f2a25;
+    --article-muted: #5e6a62;
+    --article-line: rgba(61, 84, 72, 0.18);
+    --article-accent: #0b6f83;
+    --article-accent-2: #a35b34;
+    --article-header: #17372f;
+    --background-color: var(--article-bg);
+    --text-color: var(--article-text);
+    --muted-text: var(--article-text);
+    --header-and-footer-color: var(--article-header);
+    --border-color: var(--article-line);
+    --link-color: #0b6f83;
+    --link-hover-color: #a35b34;
+    background: var(--article-bg);
+}
+
+.dark-theme body.writing-page {
+    --article-bg: #121816;
+    --article-paper: #1b2420;
+    --article-text: #edf4ee;
+    --article-muted: #b5c2b8;
+    --article-line: rgba(136, 175, 154, 0.24);
+    --article-header: #0f1714;
+}
+
+.writing-page .wrapper {
+    width: 100%;
+    max-width: none !important;
+    background: var(--article-bg);
+}
+
+.writing-page .contentHeader-placeholder header {
+    background: var(--article-header) !important;
+    border-color: color-mix(in srgb, var(--article-accent) 34%, transparent) !important;
+}
+
+.writing-page .contentHeader-placeholder header a,
+.writing-page .contentHeader-placeholder header a[aria-current="page"],
+.writing-page .contentHeader-placeholder .theme-toggle.content-page-style i,
+.writing-page .contentHeader-placeholder .language-toggle.content-page-style i,
+.writing-page .contentHeader-placeholder .nav-toggle i {
+    color: #ffffff !important;
+}
+
+.writing-page .contentHeader-placeholder header a:hover,
+.writing-page .contentHeader-placeholder header a:focus-visible,
+.writing-page .contentHeader-placeholder header a[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 0.28rem;
+}
+
+.writing-page main#main-content {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0;
+    overflow: hidden;
+    background: var(--article-bg);
+    line-height: 1.72;
+}
+
+.writing-page #main-content p,
+.writing-page #main-content li {
+    text-align: left;
+}
+
+.article {
+    background: var(--article-bg);
+}
+
+.article-hero {
+    width: min(100%, 76rem);
+    margin: 0 auto;
+    padding: clamp(1rem, 2vw, 1.65rem) clamp(1.1rem, 4vw, 4rem) clamp(0.85rem, 1.6vw, 1.15rem);
+    border-bottom: 1px solid var(--article-line);
+    background: transparent !important;
+    box-shadow: none;
+    color: var(--article-text);
+}
+
+.article-hero-content {
+    max-width: 48rem;
+}
+
+.article-backlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+    color: var(--article-accent);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.article-backlink:hover,
+.article-backlink:focus {
+    color: var(--article-accent-2);
+    text-decoration: underline;
+}
+
+.writing-page #main-content .article-kicker {
+    max-width: 42rem;
+    margin: 0 0 0.5rem;
+    color: var(--article-accent) !important;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.writing-page #main-content .article-hero h1 {
+    max-width: 22ch;
+    margin: 0 0 0.65rem;
+    padding: 0;
+    border: 0;
+    color: var(--article-text);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(2rem, 3.4vw, 3.1rem) !important;
+    line-height: 1.04;
+    overflow-wrap: break-word;
+}
+
+.writing-page #main-content .article-dek {
+    max-width: 46rem;
+    margin: 0 0 1rem;
+    color: var(--article-muted) !important;
+    font-size: clamp(1rem, 1.7vw, 1.2rem);
+    line-height: 1.45;
+}
+
+.article-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    max-width: 48rem;
+}
+
+.article-meta-row span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.28rem 0.72rem;
+    border: 1px solid var(--article-line);
+    border-radius: 999px;
+    color: var(--article-muted);
+    background: color-mix(in srgb, var(--article-paper) 82%, transparent);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.article-body {
+    width: min(100%, 76rem);
+    margin: 0 auto;
+    padding: clamp(1.5rem, 3vw, 2.4rem) clamp(1.1rem, 4vw, 4rem) clamp(2rem, 5vw, 4.2rem);
+}
+
+.article-prose {
+    max-width: 50rem;
+}
+
+.writing-page #main-content .article-prose .lead {
+    font-size: clamp(1.24rem, 2.2vw, 1.55rem);
+    line-height: 1.58;
+    color: var(--article-text) !important;
+}
+
+.writing-page #main-content .article-prose p {
+    margin: 0 0 1.25rem;
+    color: var(--article-text) !important;
+    font-size: 1.03rem;
+}
+
+.article-prose h2 {
+    margin: 2.1rem 0 0.85rem;
+    color: var(--article-text) !important;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.7rem, 3vw, 2.45rem) !important;
+    line-height: 1.05;
+}
+
+.article-prose code {
+    padding: 0.06rem 0.28rem;
+    border-radius: 0.28rem;
+    color: var(--article-text) !important;
+    background: color-mix(in srgb, var(--article-accent) 10%, transparent);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.92em;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+@media (max-width: 560px) {
+    .article-hero {
+        padding-top: 1.35rem;
+    }
+
+    .writing-page #main-content .article-hero h1 {
+        max-width: 100%;
+        font-size: clamp(1.95rem, 9vw, 2.35rem) !important;
+        line-height: 1.06;
+    }
+
+    .article-dek {
+        font-size: 1.05rem;
+    }
+
+    .article-meta-row span {
+        width: 100%;
+        justify-content: center;
+        border-radius: 0.5rem;
+    }
+
+    .article-body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

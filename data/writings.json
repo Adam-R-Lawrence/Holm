@@ -1,5 +1,92 @@
 [
   {
+    "id": "vms-nse",
+    "title": {
+      "english": "VMS-NSE",
+      "chinese": "VMS-NSE"
+    },
+    "date": "2026-06-05",
+    "summary": {
+      "english": "A concise essay on variational multiscale stabilization for incompressible Navier-Stokes modelling in Torrentem.",
+      "chinese": "一篇关于 Torrentem 中不可压 Navier-Stokes 建模的变分多尺度稳定化的简短文章。"
+    },
+    "link": "writings/vms_nse/",
+    "themes": [
+      {
+        "id": "fluid-dynamics",
+        "label": {
+          "english": "Fluid Dynamics",
+          "chinese": "流体力学"
+        }
+      },
+      {
+        "id": "finite-element-method",
+        "label": {
+          "english": "Finite Element Method",
+          "chinese": "有限元方法"
+        }
+      }
+    ]
+  },
+  {
+    "id": "photopolymerization",
+    "title": {
+      "english": "Photopolymerization",
+      "chinese": "光聚合"
+    },
+    "date": "2026-06-05",
+    "summary": {
+      "english": "A concise essay on DLP/SLA exposure, Beer-Lambert attenuation, spectra, and bounded cure kinetics.",
+      "chinese": "一篇关于 DLP/SLA 曝光、Beer-Lambert 衰减、光谱和有界固化动力学的简短文章。"
+    },
+    "link": "writings/photopolymerization/",
+    "themes": [
+      {
+        "id": "additive-manufacturing",
+        "label": {
+          "english": "Additive Manufacturing",
+          "chinese": "增材制造"
+        }
+      },
+      {
+        "id": "photopolymerization",
+        "label": {
+          "english": "Photopolymerization",
+          "chinese": "光聚合"
+        }
+      }
+    ]
+  },
+  {
+    "id": "river-morphodynamics",
+    "title": {
+      "english": "River Morphodynamics",
+      "chinese": "河流形态动力学"
+    },
+    "date": "2026-06-05",
+    "summary": {
+      "english": "A concise essay on DEM-driven surface hydrodynamics, river-mouth forcing, and sediment coupling.",
+      "chinese": "一篇关于 DEM 驱动的表面水动力、河口边界强迫和泥沙耦合的简短文章。"
+    },
+    "link": "writings/river_morphodynamics/",
+    "themes": [
+      {
+        "id": "surface-hydrodynamics",
+        "label": {
+          "english": "Surface Hydrodynamics",
+          "chinese": "表面水动力学"
+        }
+      },
+      {
+        "id": "environmental-modelling",
+        "label": {
+          "english": "Environmental Modelling",
+          "chinese": "环境建模"
+        }
+      }
+    ]
+  },
+  {
     "id": "numerical-modelling-of-photopolymerization",
     "title": {
       "english": "Numerical Modelling of Photopolymerization",

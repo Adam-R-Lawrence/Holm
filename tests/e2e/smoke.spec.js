@@ -62,6 +62,9 @@ test('browser regression sweep across core routes', async ({ page }) => {
         '/projects/Ostium/',
         '/projects/Vadum/',
         '/projects/Stratum/',
+        '/writings/vms_nse/',
+        '/writings/photopolymerization/',
+        '/writings/river_morphodynamics/',
         '/writings/numerical_modelling_of_photopolymerization/',
         '/writings/close_to_nowhere/',
         '/resume/',
@@ -265,7 +268,17 @@ test('core routes avoid mobile horizontal overflow', async ({ browser }) => {
         pageErrors.push(error.message);
     });
 
-    const routes = ['/', '/projects/', '/projects/Torrentem/', '/writings/', '/publications/', '/resume/'];
+    const routes = [
+        '/',
+        '/projects/',
+        '/projects/Torrentem/',
+        '/writings/',
+        '/writings/vms_nse/',
+        '/writings/photopolymerization/',
+        '/writings/river_morphodynamics/',
+        '/publications/',
+        '/resume/'
+    ];
 
     for (const route of routes) {
         const response = await page.goto(route, { waitUntil: 'domcontentloaded' });

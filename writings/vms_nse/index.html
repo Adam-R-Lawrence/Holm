@@ -6,7 +6,6 @@
     <title>VMS-NSE | Adam Lawrence</title>
     <meta name="description" content="A technical writing on VMS-stabilized incompressible Navier-Stokes modelling in Torrentem.">
     <link rel="stylesheet" href="../../styles/styles.min.css">
-    <link rel="stylesheet" href="../../styles/writing-showcase.css">
     <link rel="stylesheet" href="../../styles/lightbox.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +17,7 @@
     <link rel="apple-touch-icon" href="../../images/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="../../images/favicon/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#eef3ee">
+    <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; form-action 'self';">
@@ -34,84 +33,72 @@
     <meta name="twitter:site" content="@arlawrence__">
     <meta name="twitter:url" content="https://www.arlawrence.com/writings/vms_nse/">
 </head>
-<body class="writing-page">
+<body>
 <div class="wrapper">
     <div id="contentHeader-placeholder"></div>
     <main id="main-content">
-        <article class="article">
-            <header class="article-hero">
-                <div class="article-hero-content">
-                    <a class="article-backlink" href="../../#writings">Writings</a>
-                    <p class="article-kicker">Stabilized finite-element flow</p>
-                    <h1>VMS-NSE</h1>
-                    <p class="article-dek">
-                        Torrentem's incompressible Navier-Stokes work treats turbulence, pressure stability,
-                        and GPU execution as one numerical design problem rather than three separate afterthoughts.
-                    </p>
-                    <div class="article-meta-row" aria-label="Article metadata">
-                        <span>June 5, 2026</span>
-                        <span>Variational multiscale FEM</span>
-                        <span>Torrentem notes</span>
-                    </div>
-                </div>
-            </header>
-
-            <div class="article-body">
-                <div class="article-prose">
-                    <p class="lead">
-                        VMS-NSE is shorthand for a variational multiscale formulation of the incompressible
-                        Navier-Stokes equations. In Torrentem, that name points to a solver stack where the
-                        resolved velocity and pressure fields are only part of the story.
-                    </p>
-                    <p>
-                        The practical difficulty is familiar: useful meshes are too coarse to resolve every
-                        advective feature, pressure and velocity must remain compatible, and open boundaries
-                        need to be stable without being made artificially quiet. A plain Galerkin discretization
-                        can be elegant on paper and fragile in a production flow case. Torrentem's assembly
-                        instead keeps the Galerkin core, then surrounds it with GLS, SUPG, PSPG, grad-div, and
-                        residual-based VMS terms.
-                    </p>
-                    <p><code>u' ~= -tau_M r_M; coarse momentum receives u_h grad u', u' grad u_h, and u' grad u'</code></p>
-                    <p>
-                        That small modeled subscale is the point. The unresolved velocity is not promoted to
-                        a full second field; it is estimated from the local momentum residual and stabilization
-                        timescale. The coarse equation then sees how that missing motion would push back on
-                        the resolved field. The resulting terms are not decorative. They encode the difference
-                        between a formal discretization and a solver that can keep moving through mixed
-                        Reynolds numbers, distorted cells, and evolving interfaces.
-                    </p>
-                    <h2>Why The Multiscale Terms Matter</h2>
-                    <p>
-                        The comments in Torrentem's NSE matrix assembly describe the baseline as Galerkin plus
-                        GLS, SUPG, PSPG, and grad-div, with residual-based VMS extras and discontinuity capturing.
-                        Read as a design statement, it says the solver is meant to let mesh geometry, velocity,
-                        viscosity, and timestep all participate in the stabilization. The mesh metric matters.
-                        The residual matters. The artificial viscosity only appears when the local field says
-                        the discretization needs help.
-                    </p>
-                    <p>
-                        This is also why the method fits the rest of Torrentem. The framework has single-phase,
-                        two-phase, and ALE policies; CPU and GPU paths; GMRES layouts that understand the mixed
-                        velocity-pressure unknown ordering; and dedicated output routes for large simulations.
-                        VMS-NSE sits at the intersection of those concerns. It is numerical analysis written with
-                        the memory layout and run workflow already in view.
-                    </p>
-                    <h2>What It Enables</h2>
-                    <p>
-                        Once the flow solve can remain stable without flattening the physics, other models have
-                        room to attach. Interface fields, ALE mesh motion, force histories, and sediment fields
-                        can all depend on a velocity field that is less brittle at the boundaries and less
-                        surprised by coarse local structure. That is the engineering value: a solver that can
-                        act as a base layer for environmental and manufacturing simulations, not just a benchmark.
-                    </p>
-                    <p>
-                        In that sense, VMS-NSE is a style of restraint. It does not pretend the mesh saw
-                        everything. It builds a careful account of what the mesh missed, then feeds that account
-                        back into the finite-element system.
-                    </p>
-                </div>
-            </div>
-        </article>
+        <h1>VMS-NSE</h1>
+        <p>
+            VMS-NSE is shorthand for a variational multiscale formulation of the incompressible
+            Navier-Stokes equations. In Torrentem, that name points to a solver stack where the
+            resolved velocity and pressure fields are only part of the story.
+        </p>
+        <figure class="writing-dummy-figure">
+            <button class="writing-dummy-media lightbox-trigger" type="button" data-src="../../images/about_me/utah.webp" data-caption="Antelope Island placeholder image">
+                <img class="content-image writing-dummy-image" src="../../images/about_me/utah.webp" alt="Antelope Island placeholder landscape" width="2339" height="1559" loading="lazy" decoding="async">
+            </button>
+            <figcaption>Antelope Island placeholder image for article layout testing.</figcaption>
+        </figure>
+        <p>
+            The practical difficulty is familiar: useful meshes are too coarse to resolve every
+            advective feature, pressure and velocity must remain compatible, and open boundaries
+            need to be stable without being made artificially quiet. A plain Galerkin discretization
+            can be elegant on paper and fragile in a production flow case. Torrentem's assembly
+            instead keeps the Galerkin core, then surrounds it with GLS, SUPG, PSPG, grad-div, and
+            residual-based VMS terms.
+        </p>
+        <p><code>u' ~= -tau_M r_M; coarse momentum receives u_h grad u', u' grad u_h, and u' grad u'</code></p>
+        <p>
+            That small modeled subscale is the point. The unresolved velocity is not promoted to
+            a full second field; it is estimated from the local momentum residual and stabilization
+            timescale. The coarse equation then sees how that missing motion would push back on
+            the resolved field. The resulting terms are not decorative. They encode the difference
+            between a formal discretization and a solver that can keep moving through mixed
+            Reynolds numbers, distorted cells, and evolving interfaces.
+        </p>
+        <h2>Why The Multiscale Terms Matter</h2>
+        <p>
+            The comments in Torrentem's NSE matrix assembly describe the baseline as Galerkin plus
+            GLS, SUPG, PSPG, and grad-div, with residual-based VMS extras and discontinuity capturing.
+            Read as a design statement, it says the solver is meant to let mesh geometry, velocity,
+            viscosity, and timestep all participate in the stabilization. The mesh metric matters.
+            The residual matters. The artificial viscosity only appears when the local field says
+            the discretization needs help.
+        </p>
+        <p>
+            This is also why the method fits the rest of Torrentem. The framework has single-phase,
+            two-phase, and ALE policies; CPU and GPU paths; GMRES layouts that understand the mixed
+            velocity-pressure unknown ordering; and dedicated output routes for large simulations.
+            VMS-NSE sits at the intersection of those concerns. It is numerical analysis written with
+            the memory layout and run workflow already in view.
+        </p>
+        <h2>What It Enables</h2>
+        <p>
+            Once the flow solve can remain stable without flattening the physics, other models have
+            room to attach. Interface fields, ALE mesh motion, force histories, and sediment fields
+            can all depend on a velocity field that is less brittle at the boundaries and less
+            surprised by coarse local structure. That is the engineering value: a solver that can
+            act as a base layer for environmental and manufacturing simulations, not just a benchmark.
+        </p>
+        <p>
+            In that sense, VMS-NSE is a style of restraint. It does not pretend the mesh saw
+            everything. It builds a careful account of what the mesh missed, then feeds that account
+            back into the finite-element system.
+        </p>
+        <section class="content-crosslinks">
+            <h2>Explore Next</h2>
+            <p>Read more in <a href="../../#writings">writings</a>, return <a href="../../">home</a>, or browse <a href="../../publications/">publications</a>.</p>
+        </section>
     </main>
     <div id="footer-placeholder"></div>
 </div>

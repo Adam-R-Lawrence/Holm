@@ -6,7 +6,6 @@
     <title>Photopolymerization | Adam Lawrence</title>
     <meta name="description" content="A technical writing on photopolymerization modelling, DLP exposure, spectra, and cure kinetics in Torrentem.">
     <link rel="stylesheet" href="../../styles/styles.min.css">
-    <link rel="stylesheet" href="../../styles/writing-showcase.css">
     <link rel="stylesheet" href="../../styles/lightbox.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +17,7 @@
     <link rel="apple-touch-icon" href="../../images/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="../../images/favicon/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#eef3ee">
+    <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; form-action 'self';">
@@ -34,81 +33,69 @@
     <meta name="twitter:site" content="@arlawrence__">
     <meta name="twitter:url" content="https://www.arlawrence.com/writings/photopolymerization/">
 </head>
-<body class="writing-page">
+<body>
 <div class="wrapper">
     <div id="contentHeader-placeholder"></div>
     <main id="main-content">
-        <article class="article">
-            <header class="article-hero">
-                <div class="article-hero-content">
-                    <a class="article-backlink" href="../../#writings">Writings</a>
-                    <p class="article-kicker">Light, resin, and cure kinetics</p>
-                    <h1>Photopolymerization</h1>
-                    <p class="article-dek">
-                        In Torrentem, photopolymerization is modelled as an exposure problem, a spectral problem,
-                        and a nonlinear chemistry problem all at once.
-                    </p>
-                    <div class="article-meta-row" aria-label="Article metadata">
-                        <span>June 5, 2026</span>
-                        <span>DLP and SLA modelling</span>
-                        <span>Resin kinetics</span>
-                    </div>
-                </div>
-            </header>
-
-            <div class="article-body">
-                <div class="article-prose">
-                    <p class="lead">
-                        A resin print is easy to describe in everyday language: light hits liquid, liquid becomes
-                        solid. The numerical version is less forgiving. Light has direction, wavelength, intensity,
-                        pixel geometry, and path length. Resin has initiators, absorbers, monomers, thermal
-                        coupling, and a cure state that must stay inside a physical interval.
-                    </p>
-                    <p>
-                        Torrentem's photopolymerization code treats that process as a coupled model rather than
-                        a single exposure constant. DLP projectors carry rows, columns, pixel pitch, masks, and
-                        pattern intensity. SLA-style irradiators can move through a scan path. Beam profiles can
-                        be Gaussian, truncated Gaussian, or Lambertian. Beneath that surface model, Beer-Lambert
-                        attenuation converts depth and wavelength into the light that actually reaches a material
-                        point.
-                    </p>
-                    <h2>The Light Is Not Just A Switch</h2>
-                    <p>
-                        The most useful detail in the optical model is that spectrum and chemistry meet before
-                        the cure update. For broadband sources, Torrentem can reduce a spectrum to an effective
-                        kinetics wavelength weighted by photoinitiator absorption. That is a small but important
-                        distinction: a lamp's brightest wavelength is not necessarily the wavelength that drives
-                        the polymerization most strongly.
-                    </p>
-                    <p>
-                        The DLP schedule path is similarly concrete. Exposure frames are built from commands,
-                        images can be preloaded, and masks become binary gates over the projected plane. The
-                        simulation therefore has a vocabulary for real manufacturing controls: pixel pitch,
-                        exposure duration, pattern intensity, and whether a point lies inside the current image.
-                    </p>
-                    <h2>The Cure Update</h2>
-                    <p>
-                        The cure variable is advanced with an implicit Euler update for a Kamal-Sourour style
-                        kinetic law. The implementation uses damped Newton steps with Armijo backtracking and a
-                        bisection fallback on the interval from zero to one. That defensive structure matters
-                        because cure state is not an arbitrary scalar. Once it escapes the physical interval, the
-                        rest of the material model becomes unreliable.
-                    </p>
-                    <p>
-                        Torrentem also leaves room for temperature-sensitive rates. Activation energies,
-                        reference temperatures, gas constants, and resin-specific overrides can all affect the
-                        reaction constants. The result is a model that can start as isothermal optics and grow
-                        toward a coupled heat-and-cure simulation without changing the vocabulary of the page.
-                    </p>
-                    <p>
-                        What makes the module interesting is not only the number of resin types or LED traits. It
-                        is the decision to keep optical geometry, spectral absorption, and nonlinear kinetics in
-                        the same modelling frame. That is what turns a pretty cure-depth plot into a simulation of
-                        a manufacturing process.
-                    </p>
-                </div>
-            </div>
-        </article>
+        <h1>Photopolymerization</h1>
+        <p>
+            A resin print is easy to describe in everyday language: light hits liquid, liquid becomes
+            solid. The numerical version is less forgiving. Light has direction, wavelength, intensity,
+            pixel geometry, and path length. Resin has initiators, absorbers, monomers, thermal
+            coupling, and a cure state that must stay inside a physical interval.
+        </p>
+        <figure class="writing-dummy-figure">
+            <button class="writing-dummy-media lightbox-trigger" type="button" data-src="../../images/about_me/utah.webp" data-caption="Antelope Island placeholder image">
+                <img class="content-image writing-dummy-image" src="../../images/about_me/utah.webp" alt="Antelope Island placeholder landscape" width="2339" height="1559" loading="lazy" decoding="async">
+            </button>
+            <figcaption>Antelope Island placeholder image for article layout testing.</figcaption>
+        </figure>
+        <p>
+            Torrentem's photopolymerization code treats that process as a coupled model rather than
+            a single exposure constant. DLP projectors carry rows, columns, pixel pitch, masks, and
+            pattern intensity. SLA-style irradiators can move through a scan path. Beam profiles can
+            be Gaussian, truncated Gaussian, or Lambertian. Beneath that surface model, Beer-Lambert
+            attenuation converts depth and wavelength into the light that actually reaches a material
+            point.
+        </p>
+        <h2>The Light Is Not Just A Switch</h2>
+        <p>
+            The most useful detail in the optical model is that spectrum and chemistry meet before
+            the cure update. For broadband sources, Torrentem can reduce a spectrum to an effective
+            kinetics wavelength weighted by photoinitiator absorption. That is a small but important
+            distinction: a lamp's brightest wavelength is not necessarily the wavelength that drives
+            the polymerization most strongly.
+        </p>
+        <p>
+            The DLP schedule path is similarly concrete. Exposure frames are built from commands,
+            images can be preloaded, and masks become binary gates over the projected plane. The
+            simulation therefore has a vocabulary for real manufacturing controls: pixel pitch,
+            exposure duration, pattern intensity, and whether a point lies inside the current image.
+        </p>
+        <h2>The Cure Update</h2>
+        <p>
+            The cure variable is advanced with an implicit Euler update for a Kamal-Sourour style
+            kinetic law. The implementation uses damped Newton steps with Armijo backtracking and a
+            bisection fallback on the interval from zero to one. That defensive structure matters
+            because cure state is not an arbitrary scalar. Once it escapes the physical interval, the
+            rest of the material model becomes unreliable.
+        </p>
+        <p>
+            Torrentem also leaves room for temperature-sensitive rates. Activation energies,
+            reference temperatures, gas constants, and resin-specific overrides can all affect the
+            reaction constants. The result is a model that can start as isothermal optics and grow
+            toward a coupled heat-and-cure simulation without changing the vocabulary of the page.
+        </p>
+        <p>
+            What makes the module interesting is not only the number of resin types or LED traits. It
+            is the decision to keep optical geometry, spectral absorption, and nonlinear kinetics in
+            the same modelling frame. That is what turns a pretty cure-depth plot into a simulation of
+            a manufacturing process.
+        </p>
+        <section class="content-crosslinks">
+            <h2>Explore Next</h2>
+            <p>Read more in <a href="../../#writings">writings</a>, return <a href="../../">home</a>, or browse <a href="../../publications/">publications</a>.</p>
+        </section>
     </main>
     <div id="footer-placeholder"></div>
 </div>

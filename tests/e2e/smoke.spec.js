@@ -47,6 +47,19 @@ async function expectNoHorizontalOverflow(page, route) {
     ).toBeLessThanOrEqual(overflow.viewportWidth + 1);
 }
 
+async function expectResumePdfSurface(page) {
+    const openLink = page.getByRole('link', { name: 'Open PDF', exact: true });
+    const downloadLink = page.getByRole('link', { name: 'Download PDF', exact: true });
+
+    await expect(openLink).toBeVisible();
+    await expect(openLink).toHaveAttribute('href', /documents\/Adam_Lawrence_Resume\.pdf$/);
+    await expect(downloadLink).toBeVisible();
+    await expect(downloadLink).toHaveAttribute('href', /documents\/Adam_Lawrence_Resume\.pdf$/);
+    await expect(downloadLink).toHaveAttribute('download', '');
+    await expect(page.locator('.resume-sheet')).toBeVisible();
+    await expect(page.locator('.resume-sheet')).toHaveAttribute('src', /resume_preview\.jpg/);
+}
+
 test('browser regression sweep across core routes', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -188,6 +201,41 @@ test('homepage renders writing directory without removed research software secti
     expect(projectDataRequests).toEqual([]);
 });
 
+test('writing article pages use the plain template with placeholder images', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+
+    for (const route of writingArticleRoutes) {
+        await page.goto(route, { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('.writing-page')).toHaveCount(0);
+        await expect(page.locator('link[href$="writing-showcase.css"]')).toHaveCount(0);
+        await expect(page.locator('.article-hero')).toHaveCount(0);
+        await expect(page.locator('.article-backlink')).toHaveCount(0);
+        await expect(page.locator('.writing-dummy-figure')).toHaveCount(1);
+        await expect(page.locator('.writing-dummy-image')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+        await expect(page.locator('.writing-dummy-image')).toHaveAttribute('alt', 'Antelope Island placeholder landscape');
+    }
+});
+
+test('writing article mobile nav opens with primary links visible', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+    const page = await context.newPage();
+    await stubSharedThirdPartyRequests(page);
+
+    for (const route of writingArticleRoutes) {
+        await page.goto(route, { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('.nav-toggle')).toBeVisible();
+        await page.locator('.nav-toggle').click();
+
+        const navLinks = page.locator('#header-nav-list a');
+        await expect(navLinks).toHaveText(['Home', 'Publications', 'Resume']);
+        await expect(navLinks.nth(0)).toBeVisible();
+        await expect(navLinks.nth(1)).toBeVisible();
+        await expect(navLinks.nth(2)).toBeVisible();
+    }
+
+    await context.close();
+});
+
 test('plain personal site surfaces render without generated previews', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -212,13 +260,23 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('.project-detail-page img')).toHaveCount(0);
 
     await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('link', { name: 'Download PDF' })).toBeVisible();
-    await expect(page.locator('.resume-sheet')).toBeVisible();
-    await expect(page.locator('.resume-sheet')).toHaveAttribute('src', /resume_preview\.jpg/);
+    await expectResumePdfSurface(page);
     await expect(page.locator('.resume-frame')).toHaveCount(0);
     await expect(page.locator('iframe, object, embed')).toHaveCount(0);
     await expect(page.locator('.resume-summary-grid')).toHaveCount(0);
     await expect(page.locator('.resume-preview')).toHaveCount(0);
+});
+
+test('resume page exposes PDF links and preview on mobile', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+    const page = await context.newPage();
+    await stubSharedThirdPartyRequests(page);
+
+    await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+    await expectResumePdfSurface(page);
+    await expectNoHorizontalOverflow(page, '/resume/');
+
+    await context.close();
 });
 
 test('core routes avoid mobile horizontal overflow', async ({ browser }) => {

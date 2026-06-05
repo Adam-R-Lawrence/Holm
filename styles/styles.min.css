@@ -1767,6 +1767,31 @@ main#main-content:not([data-page]) .content-image {
     height: auto;
 }
 
+.writing-dummy-figure {
+    margin-top: 1.35rem;
+    margin-bottom: 1.55rem;
+}
+
+.writing-dummy-media {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.writing-dummy-image {
+    aspect-ratio: 2339 / 1559;
+    object-fit: cover;
+    margin: 0;
+}
+
+.writing-dummy-figure figcaption {
+    margin-top: 0.45rem;
+    color: var(--muted-text) !important;
+    font-size: 0.9rem;
+}
+
 main#main-content[data-page="projects"] #projects-grid {
     max-width: 66rem;
     margin-left: auto;
@@ -3391,6 +3416,50 @@ main#main-content.resume-page {
     text-align: left !important;
 }
 
+.resume-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.resume-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding: 0.55rem 0.95rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.35rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none !important;
+}
+
+.resume-action-primary {
+    border-color: var(--accent-strong);
+    background: var(--accent-strong);
+    color: #ffffff !important;
+}
+
+.resume-action-primary:hover,
+.resume-action-primary:focus-visible {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff !important;
+}
+
+.resume-action-secondary {
+    background: var(--surface-1);
+    color: var(--link-color) !important;
+}
+
+.resume-action-secondary:hover,
+.resume-action-secondary:focus-visible {
+    border-color: var(--border-strong);
+    background: var(--accent-soft);
+    color: var(--link-hover-color) !important;
+}
+
 #footer-placeholder footer,
 footer {
     max-width: min(100%, 44rem);
@@ -3482,6 +3551,17 @@ footer p {
     }
 
     .resume-sheet-link {
+        width: 100%;
+    }
+
+    .resume-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+        width: 100%;
+    }
+
+    .resume-action {
         width: 100%;
     }
 }

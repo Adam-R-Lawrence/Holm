@@ -192,15 +192,10 @@ function renderNoPublicPublications(directory) {
     body.textContent = getCopy('publications', 'noPublicItemsBody');
 
     const links = createElement('p', 'publication-status-links');
-    const projects = createElement('a');
-    projects.href = '../projects/';
-    projects.textContent = 'Projects';
     const writings = createElement('a');
-    writings.href = '../writings/';
-    writings.textContent = 'Writings';
+    writings.href = '../#writings';
+    writings.textContent = getCopy('publications', 'writingsLink');
 
-    links.appendChild(projects);
-    links.append(' ');
     links.appendChild(writings);
 
     status.appendChild(title);

@@ -17,10 +17,7 @@
     "footer-text": "© %YEAR% 亚当·劳伦斯 | 最近更新：<span id=\"last-updated\"></span>",
     "about-header": "Adam Lawrence",
     "about-p1": "我是伊利诺伊大学香槟分校土木与环境工程系博士生，在 <a href=\"https://yan.cee.illinois.edu/\">闫金辉教授</a> 指导下研究计算力学、自由表面水动力学和光聚合建模。",
-    "about-p2": "我的研究涵盖计算力学与建模，主要集中于自由表面水动力学，也涉及光聚合和增材制造等应用。",
-    "about-p3": "我来自澳大利亚墨尔本，在那里完成了环境工程的本科和硕士阶段学习，主修水利工程并辅修计算机科学。我也是澳美协会 AUKUS 奖学金获得者。",
-    "about-p4": "我在技术写作之外，也记录文学、历史、地理和环境系统方面的笔记。部分内容收录在 <a href=\"writings/\">文章</a> 页面和 <a href=\"https://www.youtube.com/@arlawrence\">YouTube</a> 上。",
-    "about-p5": "这个网站是我的研究软件、文章、出版物和当前技术兴趣的公开索引。",
+    "about-p4": "我在技术写作之外，也记录文学、历史、地理和环境系统方面的笔记。部分内容收录在这里和 <a href=\"https://www.youtube.com/@arlawrence\">YouTube</a> 上。",
     "about-p6": "如有咨询、合作或暑期实习机会，欢迎通过 <a href=\"mailto:adamrl3@illinois.edu\" class=\"content-link\">adamrl3@illinois.edu</a> 联系我。",
     "current-heading": "当前工作",
     "current-focus-label": "方向",
@@ -30,6 +27,7 @@
     "current-contact-label": "联系",
     "current-contact-value": "合作与实习咨询请通过 <a href=\"mailto:adamrl3@illinois.edu\" class=\"content-link\">adamrl3@illinois.edu</a> 联系。",
     "projects-header": "项目",
+    "home-writings-heading": "文章",
     "writings-header": "文章",
     "publications-header": "出版物"
 }

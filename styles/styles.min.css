@@ -2372,7 +2372,6 @@ header a[aria-current="page"] {
 
 .section-label,
 .project-kicker,
-.home-kicker,
 .project-card-status {
     color: var(--accent-strong) !important;
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -2514,7 +2513,6 @@ header a[aria-current="page"] {
 }
 
 .home-focus-grid article,
-.home-project-card,
 .project-section-grid article,
 .directory-card,
 .project-item,
@@ -2530,46 +2528,6 @@ header a[aria-current="page"] {
 .project-section-grid article,
 .resume-summary-grid article {
     padding: 1rem;
-}
-
-.home-projects {
-    display: grid;
-    gap: 0.7rem;
-}
-
-.home-project-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.75rem;
-}
-
-.home-project-card {
-    display: grid;
-    align-content: start;
-    gap: 0.45rem;
-    min-height: 11rem;
-    padding: 1rem;
-    color: var(--text-color) !important;
-    text-decoration: none !important;
-}
-
-.home-project-card span {
-    color: var(--text-color);
-    font-family: "Playfair Display", serif;
-    font-size: 1.34rem;
-    font-weight: 700;
-}
-
-.home-project-card p {
-    margin: 0 !important;
-    font-size: 0.95rem;
-}
-
-.home-project-card:hover,
-.home-project-card:focus-visible {
-    border-color: var(--border-strong);
-    background: var(--surface-2);
-    transform: translateY(-2px);
 }
 
 .home-writing-note {
@@ -2930,12 +2888,6 @@ footer p {
     color: var(--muted-text);
 }
 
-@media (max-width: 72rem) {
-    .home-project-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
 @media (max-width: 58rem) {
     .wrapper {
         padding: 0.55rem 0.55rem 0;
@@ -3002,14 +2954,6 @@ footer p {
     .resume-summary-grid,
     main#main-content[data-page="projects"] #projects-grid {
         grid-template-columns: 1fr !important;
-    }
-
-    .home-project-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .home-project-card {
-        min-height: 0;
     }
 
     .directory-toolbar {
@@ -3161,8 +3105,7 @@ header a[aria-current="page"] {
     line-height: 1.38;
 }
 
-.wrapper #main-content :is(h1, h2, h3, h4, h5, h6),
-.home-kicker {
+.wrapper #main-content :is(h1, h2, h3, h4, h5, h6) {
     text-align: left !important;
 }
 
@@ -3217,21 +3160,12 @@ main#main-content:not([data-page]) li {
     margin: 0;
 }
 
-.home-notes,
-.home-projects,
 .home-writing-note,
 .home-contact {
     max-width: min(100%, 44rem);
     margin: 1.6rem auto 0;
 }
 
-.home-notes {
-    display: grid;
-    gap: 1.1rem;
-}
-
-.home-notes article,
-.home-project-card,
 .project-note-grid article {
     border: 0 !important;
     border-radius: 0 !important;
@@ -3240,32 +3174,62 @@ main#main-content:not([data-page]) li {
     box-shadow: none !important;
 }
 
-.home-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem 1rem;
-    margin-top: 0.8rem;
-}
-
-.home-links a,
-.home-project-list a {
+.home-directory-title {
     font-weight: 700;
 }
 
-.home-project-list {
+.home-directory {
     display: grid;
-    gap: 0.55rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    gap: 0;
+    border-top: 1px solid var(--border-color);
 }
 
-.home-project-list li {
+.home-directory-row {
     display: grid;
     grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
     gap: 1.1rem;
-    padding: 0.55rem 0;
-    border-top: 1px solid var(--border-color);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.home-writing-row {
+    grid-template-columns: minmax(5.8rem, 8rem) minmax(0, 1fr);
+}
+
+.home-directory-body {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.home-directory-title {
+    align-self: start;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.home-directory-summary,
+.home-directory-meta {
+    margin: 0 !important;
+    max-width: none !important;
+}
+
+.home-directory-meta,
+.home-directory-date,
+.home-directory-date .date {
+    color: var(--muted-text) !important;
+    font-size: 0.9rem;
+}
+
+.home-directory-date .date {
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+.home-directory-date .month-day,
+.home-directory-date .year {
+    display: block;
 }
 
 .home-writing-note {
@@ -3524,7 +3488,7 @@ footer p {
 
 @media (max-width: 40rem) {
     .home-current div,
-    .home-project-list li {
+    .home-directory-row {
         grid-template-columns: 1fr !important;
         gap: 0.35rem;
     }

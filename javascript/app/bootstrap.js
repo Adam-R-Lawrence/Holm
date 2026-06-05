@@ -44,8 +44,8 @@ function setActiveNav() {
 
     const navMap = {
         'about-me': ['header-home'],
-        projects: ['header-projects'],
-        writings: ['header-writings'],
+        projects: ['header-home'],
+        writings: ['header-home'],
         publications: ['header-publications'],
         resume: ['header-resume']
     };

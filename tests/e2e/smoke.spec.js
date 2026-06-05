@@ -1,4 +1,10 @@
 const { test, expect } = require('@playwright/test');
+const projects = require('../../data/projects.json');
+const writings = require('../../data/writings.json');
+
+const routeFromDataLink = link => `/${String(link).replace(/^\/+/, '')}`;
+const projectDetailRoutes = projects.map(project => routeFromDataLink(project.link));
+const writingArticleRoutes = writings.map(writing => routeFromDataLink(writing.link));
 
 const commitFixture = [
     {
@@ -28,10 +34,6 @@ async function stubSharedThirdPartyRequests(page) {
     });
 }
 
-function visibleCount(locator) {
-    return locator.evaluateAll(nodes => nodes.filter(node => node.offsetParent !== null).length);
-}
-
 async function expectNoHorizontalOverflow(page, route) {
     const overflow = await page.evaluate(() => ({
         documentWidth: document.documentElement.scrollWidth,
@@ -55,18 +57,9 @@ test('browser regression sweep across core routes', async ({ page }) => {
 
     const routes = [
         '/',
-        '/projects/',
-        '/writings/',
         '/publications/',
-        '/projects/Torrentem/',
-        '/projects/Ostium/',
-        '/projects/Vadum/',
-        '/projects/Stratum/',
-        '/writings/vms_nse/',
-        '/writings/photopolymerization/',
-        '/writings/river_morphodynamics/',
-        '/writings/numerical_modelling_of_photopolymerization/',
-        '/writings/close_to_nowhere/',
+        ...projectDetailRoutes,
+        ...writingArticleRoutes,
         '/resume/',
         '/404.html'
     ];
@@ -166,56 +159,33 @@ test('publications filters and search work', async ({ page }) => {
     await expect(cards.first()).toContainText('Beta Journal Paper');
 });
 
-test('writings theme filter works', async ({ page }) => {
+test('homepage renders writing directory without removed research software sections', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
-
-    await page.route('**/data/writings.json', route => {
-        route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-            body: JSON.stringify([
-                {
-                    id: 'w1',
-                    title: { english: 'Flow Notes', chinese: '流动笔记' },
-                    summary: { english: 'Summary 1', chinese: '摘要 1' },
-                    date: '2025-01-01',
-                    link: 'writings/close_to_nowhere/',
-                    themes: [{ id: 'fluid-dynamics', label: { english: 'Fluid Dynamics', chinese: '流体力学' } }]
-                },
-                {
-                    id: 'w2',
-                    title: { english: 'History Sketches', chinese: '历史札记' },
-                    summary: { english: 'Summary 2', chinese: '摘要 2' },
-                    date: '2025-01-02',
-                    link: 'writings/close_to_nowhere/',
-                    themes: [{ id: 'environmental-history', label: { english: 'Environmental History', chinese: '环境史' } }]
-                },
-                {
-                    id: 'w3',
-                    title: { english: 'Solver Thoughts', chinese: '求解器想法' },
-                    summary: { english: 'Summary 3', chinese: '摘要 3' },
-                    date: '2025-01-03',
-                    link: 'writings/close_to_nowhere/',
-                    themes: [{ id: 'fluid-dynamics', label: { english: 'Fluid Dynamics', chinese: '流体力学' } }]
-                }
-            ])
-        });
+    const projectDataRequests = [];
+    page.on('request', request => {
+        if (new URL(request.url()).pathname.endsWith('/data/projects.json')) {
+            projectDataRequests.push(request.url());
+        }
     });
 
-    await page.goto('/writings/', { waitUntil: 'domcontentloaded' });
-    await page.waitForSelector('#theme-filter');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-    const writingCards = page.locator('.writing-item');
-    await expect(writingCards).toHaveCount(3);
+    await expect(page.locator('.home-notes')).toHaveCount(0);
+    await expect(page.locator('#research-software')).toHaveCount(0);
+    await expect(page.locator('#home-projects-directory')).toHaveCount(0);
+    await expect(page.locator('.home-links')).toHaveCount(0);
 
-    await page.selectOption('#theme-filter', 'fluid-dynamics');
-    await expect.poll(async () => visibleCount(writingCards)).toBe(2);
+    await expect(page.locator('#home-writings-directory .home-writing-row')).toHaveCount(writings.length);
+    for (const writing of writings) {
+        await expect(page.locator(`#home-writings-directory a[href$="${writing.link}"]`))
+            .toHaveText(writing.title.english);
+        await expect(page.locator('#home-writings-directory')).toContainText(writing.summary.english);
 
-    await page.selectOption('#theme-filter', 'environmental-history');
-    await expect.poll(async () => visibleCount(writingCards)).toBe(1);
-
-    await page.selectOption('#theme-filter', 'all');
-    await expect.poll(async () => visibleCount(writingCards)).toBe(3);
+        for (const theme of writing.themes || []) {
+            await expect(page.locator('#home-writings-directory')).toContainText(theme.label.english);
+        }
+    }
+    expect(projectDataRequests).toEqual([]);
 });
 
 test('plain personal site surfaces render without generated previews', async ({ page }) => {
@@ -231,14 +201,7 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('h1')).toHaveText('Adam Lawrence');
     await expect(page.locator('.home-visual')).toHaveCount(0);
     await expect(page.locator('.home-image')).toHaveCount(0);
-    await expect(page.getByRole('navigation', { name: 'Primary site links' }).getByRole('link', { name: 'Publications' })).toBeVisible();
-
-    await page.goto('/projects/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.project-item')).toHaveCount(4);
-    await expect(page.locator('.project-card-metadata').first()).toHaveText('C++, CUDA, MPI, FEM');
-    await expect(page.locator('.project-card-tags li')).toHaveCount(0);
-    await expect(page.locator('.project-card-media')).toHaveCount(0);
-    await expect(page.locator('.project-item img')).toHaveCount(0);
+    await expect(page.locator('#header-nav-list a')).toHaveText(['Home', 'Publications', 'Resume']);
 
     await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.publications-status')).toContainText('Publications are being prepared');
@@ -270,12 +233,8 @@ test('core routes avoid mobile horizontal overflow', async ({ browser }) => {
 
     const routes = [
         '/',
-        '/projects/',
-        '/projects/Torrentem/',
-        '/writings/',
-        '/writings/vms_nse/',
-        '/writings/photopolymerization/',
-        '/writings/river_morphodynamics/',
+        ...projectDetailRoutes,
+        ...writingArticleRoutes,
         '/publications/',
         '/resume/'
     ];

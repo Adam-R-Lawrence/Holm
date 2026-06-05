@@ -73,13 +73,62 @@ function renderWritingsEmptyState(directory, message) {
     directory.appendChild(empty);
 }
 
+function createHomeWritingRow(writing) {
+    const item = createElement('article', 'home-directory-row home-writing-row');
+    const content = createElement('div', 'home-directory-body');
+
+    const titleLink = createElement('a', 'home-directory-title');
+    const href = resolvePath(writing.link);
+    if (href) {
+        titleLink.href = href;
+    }
+    titleLink.textContent = getLocalizedText(writing.title, writing.title?.english || '');
+    content.appendChild(titleLink);
+
+    const summaryText = getLocalizedText(writing.summary, '');
+    if (summaryText) {
+        const summary = createElement('p', 'home-directory-summary directory-muted');
+        summary.textContent = summaryText;
+        content.appendChild(summary);
+    }
+
+    const { labels: themeLabelList } = normalizeThemes(writing.themes);
+    if (themeLabelList.length) {
+        const themeText = createElement('p', 'home-directory-meta home-writing-themes directory-muted');
+        themeText.textContent = getCopy('writings', 'topicPrefix') + themeLabelList.join(', ');
+        content.appendChild(themeText);
+    }
+
+    const metadata = createElement('div', 'home-directory-date directory-muted');
+    metadata.appendChild(buildDateNode(writing.date));
+
+    item.appendChild(metadata);
+    item.appendChild(content);
+    return item;
+}
+
+function renderHomeWritingsDirectory(directory, writings) {
+    directory.innerHTML = '';
+
+    (writings || []).forEach(writing => {
+        if (writing) {
+            directory.appendChild(createHomeWritingRow(writing));
+        }
+    });
+
+    if (!directory.children.length) {
+        renderWritingsEmptyState(directory, 'No writings available yet.');
+    }
+}
+
 export async function loadWritingsPage() {
     const directory = byId('writings-directory');
-    if (!directory) {
+    const homeDirectory = byId('home-writings-directory');
+    if (!directory && !homeDirectory) {
         return;
     }
 
-    const filterContainer = byId('writing-filter-controls');
+    const filterContainer = directory ? byId('writing-filter-controls') : null;
     if (filterContainer) {
         filterContainer.classList.add('directory-toolbar');
     }
@@ -88,6 +137,15 @@ export async function loadWritingsPage() {
 
     try {
         const writings = await fetchJsonCached(DATA_FILES.writings, { cacheKey: 'data:writings' });
+
+        if (homeDirectory) {
+            renderHomeWritingsDirectory(homeDirectory, writings);
+        }
+
+        if (!directory) {
+            return;
+        }
+
         directory.innerHTML = '';
 
         const items = [];
@@ -219,6 +277,11 @@ export async function loadWritingsPage() {
         }
     } catch (error) {
         console.error('Error loading writings:', error);
-        renderWritingsEmptyState(directory, 'Unable to load writings right now.');
+        if (directory) {
+            renderWritingsEmptyState(directory, 'Unable to load writings right now.');
+        }
+        if (homeDirectory) {
+            renderWritingsEmptyState(homeDirectory, 'Unable to load writings right now.');
+        }
     }
 }

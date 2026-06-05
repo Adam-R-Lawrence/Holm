@@ -17,10 +17,7 @@
     "footer-text": "&copy; %YEAR% Adam Lawrence | Last updated on <span id=\"last-updated\"></span>",
     "about-header": "Adam Lawrence",
     "about-p1": "I am a PhD student in Civil and Environmental Engineering at the University of Illinois Urbana-Champaign, working with Professor <a href=\"https://yan.cee.illinois.edu/\">Jinhui Yan</a> on computational mechanics, free-surface hydrodynamics, and photopolymerization modelling.",
-    "about-p2": "My research entails computational mechanics and modelling, mainly in free-surface hydrodynamics, with additional applications in photopolymerization and additive manufacturing.",
-    "about-p3": "I am from Melbourne, Australia, where I completed undergraduate and master's study in environmental engineering, specializing in hydraulic engineering with a minor in computer science. I am also an AUKUS fellow through the Australian-American Association.",
-    "about-p4": "I keep notes on literature, history, geography, and environmental systems alongside technical writing. Some of those pieces are collected on the <a href=\"writings/\">writings</a> page and on <a href=\"https://www.youtube.com/@arlawrence\">YouTube</a>.",
-    "about-p5": "This site is a public index for my research software, writings, publications, and current technical interests.",
+    "about-p4": "I keep notes on literature, history, geography, and environmental systems alongside technical writing. Some of those pieces are collected here and on <a href=\"https://www.youtube.com/@arlawrence\">YouTube</a>.",
     "about-p6": "For enquiries, collaboration, or summer internship opportunities, reach me at <a href=\"mailto:adamrl3@illinois.edu\" class=\"content-link\">adamrl3@illinois.edu</a>.",
     "current-heading": "Current Work",
     "current-focus-label": "Focus",
@@ -30,6 +27,7 @@
     "current-contact-label": "Contact",
     "current-contact-value": "collaboration and internship enquiries via <a href=\"mailto:adamrl3@illinois.edu\" class=\"content-link\">adamrl3@illinois.edu</a>.",
     "projects-header": "Projects",
+    "home-writings-heading": "Writings",
     "writings-header": "Writings",
     "publications-header": "Publications"
 }

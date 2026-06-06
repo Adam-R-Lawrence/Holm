@@ -1,11 +1,7 @@
 (() => {
     'use strict';
 
-    const triggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
-    if (!triggers.length) {
-        return;
-    }
-
+    let triggers = [];
     let modal = null;
     let image = null;
     let video = null;
@@ -24,6 +20,7 @@
 
         return element.dataset.video
             || element.dataset.src
+            || element.currentSrc
             || element.getAttribute('src')
             || element.getAttribute('href')
             || '';
@@ -34,7 +31,53 @@
             return '';
         }
 
-        return element.getAttribute('alt') || element.dataset.caption || '';
+        const nestedImage = element.querySelector ? element.querySelector('img') : null;
+        return element.dataset.caption
+            || element.getAttribute('alt')
+            || nestedImage?.getAttribute('alt')
+            || '';
+    };
+
+    const isExplicitTrigger = element => element.classList.contains('lightbox-trigger');
+
+    const isAutoLightboxCandidate = imageElement => {
+        if (!imageElement || isExplicitTrigger(imageElement)) {
+            return false;
+        }
+
+        if (!imageElement.closest('main')) {
+            return false;
+        }
+
+        if (imageElement.closest('a, button, .lightbox-trigger')) {
+            return false;
+        }
+
+        if (imageElement.classList.contains('logo') || imageElement.classList.contains('resume-sheet')) {
+            return false;
+        }
+
+        return Boolean(imageElement.currentSrc || imageElement.getAttribute('src'));
+    };
+
+    const prepareAutoTrigger = imageElement => {
+        imageElement.classList.add('lightbox-trigger');
+        imageElement.dataset.src = imageElement.currentSrc || imageElement.getAttribute('src');
+
+        if (!imageElement.dataset.caption && imageElement.alt) {
+            imageElement.dataset.caption = imageElement.alt;
+        }
+
+        if (!imageElement.hasAttribute('role')) {
+            imageElement.setAttribute('role', 'button');
+        }
+
+        if (!imageElement.hasAttribute('aria-label')) {
+            const captionText = getTriggerCaption(imageElement);
+            imageElement.setAttribute('aria-label', captionText ? `Open image: ${captionText}` : 'Open image');
+        }
+
+        return imageElement;
     };
 
     const modalIsOpen = () => Boolean(modal && modal.classList.contains('is-open'));
@@ -174,6 +217,7 @@
             video.hidden = true;
             image.hidden = false;
             image.src = source;
+            image.alt = text || 'Enlarged image';
         }
 
         currentIndex = index;
@@ -191,23 +235,39 @@
         closeButton.focus();
     }
 
-    triggers.forEach((trigger, index) => {
+    function bindTrigger(trigger) {
+        if (trigger.dataset.holmLightboxBound === 'true') {
+            return;
+        }
+
         if (!trigger.hasAttribute('tabindex')) {
             trigger.setAttribute('tabindex', '0');
         }
 
         trigger.addEventListener('click', event => {
             event.preventDefault();
-            openLightbox(index);
+            openLightbox(triggers.indexOf(trigger));
         });
 
         trigger.addEventListener('keydown', event => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
-                openLightbox(index);
+                openLightbox(triggers.indexOf(trigger));
             }
         });
-    });
+
+        trigger.dataset.holmLightboxBound = 'true';
+    }
+
+    function refreshLightboxTriggers() {
+        const explicitTriggers = Array.from(document.querySelectorAll('.lightbox-trigger'));
+        const autoTriggers = Array.from(document.querySelectorAll('main img'))
+            .filter(isAutoLightboxCandidate)
+            .map(prepareAutoTrigger);
+
+        triggers = Array.from(new Set([...explicitTriggers, ...autoTriggers]));
+        triggers.forEach(bindTrigger);
+    }
 
     document.addEventListener('keydown', event => {
         if (!modalIsOpen()) {
@@ -226,5 +286,17 @@
             event.preventDefault();
             navigate(1);
         }
+    });
+
+    window.refreshLightboxTriggers = refreshLightboxTriggers;
+    refreshLightboxTriggers();
+
+    const observer = new MutationObserver(() => {
+        refreshLightboxTriggers();
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
     });
 })();

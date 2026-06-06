@@ -15,13 +15,24 @@ The runtime JavaScript now uses a modular app entrypoint:
 
 This split keeps behavior unchanged for existing HTML while making future refactors and testing easier.
 
-## Quality Checks
+## Local Development
 
-Install dev tooling and run checks locally:
+Install dev tooling, start the local server, and open the site at `http://127.0.0.1:4173/`:
 
 ```bash
 npm install
+npm run dev
+```
+
+Press `Ctrl+C` in the terminal running Vite to stop the server.
+
+## Quality Checks
+
+Run checks locally before publishing:
+
+```bash
 npm run lint
+npm run check:css
 npm run test:e2e
 ```
 

@@ -32,6 +32,14 @@ async function stubSharedThirdPartyRequests(page) {
             body: ''
         });
     });
+
+    await page.route('https://www.youtube-nocookie.com/embed/**', route => {
+        route.fulfill({
+            status: 200,
+            contentType: 'text/html',
+            body: '<!doctype html><title>Stubbed YouTube embed</title>'
+        });
+    });
 }
 
 async function expectNoHorizontalOverflow(page, route) {
@@ -201,6 +209,47 @@ test('homepage renders writing directory without removed research software secti
     expect(projectDataRequests).toEqual([]);
 });
 
+test('homepage image and mobile writing rows stay readable', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
+    const page = await context.newPage();
+    await stubSharedThirdPartyRequests(page);
+
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    const image = page.locator('.home-image img');
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+    await expect(image).toHaveAttribute('alt', 'Sunlit shoreline and mountains at Antelope Island in Utah');
+    await expect(image).toHaveClass(/lightbox-trigger/);
+    await image.click();
+    await expect(page.locator('#lightbox-modal')).toBeVisible();
+    await expect(page.locator('#lightbox-img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+    await expect(page.locator('#lightbox-caption')).toContainText('Sunlit shoreline and mountains at Antelope Island in Utah');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#lightbox-modal')).not.toBeVisible();
+    await expect(page.locator('#home-writings-directory .home-writing-row')).toHaveCount(writings.length);
+
+    const alignments = await page.locator('.home-writing-row').first().evaluate(row => {
+        const selectors = [
+            '.home-directory-title',
+            '.home-directory-summary',
+            '.home-directory-meta',
+            '.home-directory-date .date'
+        ];
+
+        return selectors.map(selector => {
+            const element = row.querySelector(selector);
+            return element ? window.getComputedStyle(element).textAlign : null;
+        }).filter(Boolean);
+    });
+
+    expect(alignments.length).toBeGreaterThan(0);
+    expect(alignments.every(alignment => ['left', 'start'].includes(alignment))).toBe(true);
+    await expectNoHorizontalOverflow(page, '/');
+
+    await context.close();
+});
+
 test('writing article pages use the plain template with placeholder images', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -213,6 +262,9 @@ test('writing article pages use the plain template with placeholder images', asy
         await expect(page.locator('.writing-dummy-figure')).toHaveCount(1);
         await expect(page.locator('.writing-dummy-image')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
         await expect(page.locator('.writing-dummy-image')).toHaveAttribute('alt', 'Antelope Island placeholder landscape');
+        await expect(page.locator('.writing-video-figure')).toHaveCount(1);
+        await expect(page.locator('.writing-video-frame iframe')).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/GHjopp47vvQ');
+        await expect(page.locator('.writing-video-frame iframe')).toHaveAttribute('title', 'Placeholder FEM video: Understanding the Finite Element Method');
     }
 });
 
@@ -241,14 +293,11 @@ test('plain personal site surfaces render without generated previews', async ({ 
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.home-intro')).toBeVisible();
-    await expect(page.locator('.home-current')).toBeVisible();
-    await expect(page.locator('.home-current dt')).toHaveText(['Focus', 'Main code', 'Contact']);
-    await expect(page.locator('.home-current')).toContainText('free-surface hydrodynamics, stabilized FEM, level-set methods, and photopolymerization modelling.');
-    await expect(page.locator('.home-current')).toContainText('Torrentem');
-    await expect(page.locator('.home-current')).toContainText('adamrl3@illinois.edu');
+    await expect(page.locator('.home-current')).toHaveCount(0);
     await expect(page.locator('h1')).toHaveText('Adam Lawrence');
     await expect(page.locator('.home-visual')).toHaveCount(0);
-    await expect(page.locator('.home-image')).toHaveCount(0);
+    await expect(page.locator('.home-image')).toBeVisible();
+    await expect(page.locator('.home-image img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
     await expect(page.locator('#header-nav-list a')).toHaveText(['Home', 'Publications', 'Resume']);
 
     await page.goto('/publications/', { waitUntil: 'domcontentloaded' });

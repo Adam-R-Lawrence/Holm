@@ -4,6 +4,10 @@ import { byId, createElement } from '../utils/dom.js';
 import { fetchJsonCached } from '../utils/fetch.js';
 import { resolvePath, slugify } from '../utils/paths.js';
 
+const DEFAULT_WRITING_PREVIEW_IMAGE = 'images/about_me/utah.webp';
+const DEFAULT_WRITING_PREVIEW_IMAGE_WIDTH = 2339;
+const DEFAULT_WRITING_PREVIEW_IMAGE_HEIGHT = 1559;
+
 function normalizeThemes(themeList) {
     if (!Array.isArray(themeList)) {
         return { ids: [], labels: [] };
@@ -82,7 +86,8 @@ function createHomeWritingRow(writing) {
     if (href) {
         titleLink.href = href;
     }
-    titleLink.textContent = getLocalizedText(writing.title, writing.title?.english || '');
+    const titleText = getLocalizedText(writing.title, writing.title?.english || '');
+    titleLink.textContent = titleText;
     content.appendChild(titleLink);
 
     const summaryText = getLocalizedText(writing.summary, '');
@@ -102,8 +107,31 @@ function createHomeWritingRow(writing) {
     const metadata = createElement('div', 'home-directory-date directory-muted');
     metadata.appendChild(buildDateNode(writing.date));
 
+    const previewLink = createElement('a', 'home-writing-preview');
+    if (href) {
+        previewLink.href = href;
+    }
+    previewLink.setAttribute('aria-label', titleText ? `Read ${titleText}` : 'Read writing');
+
+    const previewImage = createElement('img');
+    previewImage.src = resolvePath(writing.previewImage || writing.image || DEFAULT_WRITING_PREVIEW_IMAGE);
+    previewImage.alt = getLocalizedText(
+        writing.previewImageAlt || writing.imageAlt,
+        titleText ? `Preview image for ${titleText}` : 'Writing preview image'
+    );
+    previewImage.width = Number.isFinite(writing.previewImageWidth)
+        ? writing.previewImageWidth
+        : DEFAULT_WRITING_PREVIEW_IMAGE_WIDTH;
+    previewImage.height = Number.isFinite(writing.previewImageHeight)
+        ? writing.previewImageHeight
+        : DEFAULT_WRITING_PREVIEW_IMAGE_HEIGHT;
+    previewImage.loading = 'lazy';
+    previewImage.decoding = 'async';
+    previewLink.appendChild(previewImage);
+
     item.appendChild(metadata);
     item.appendChild(content);
+    item.appendChild(previewLink);
     return item;
 }
 

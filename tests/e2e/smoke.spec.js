@@ -198,7 +198,7 @@ test('homepage renders writing directory without removed research software secti
 
     await expect(page.locator('#home-writings-directory .home-writing-row')).toHaveCount(writings.length);
     for (const writing of writings) {
-        await expect(page.locator(`#home-writings-directory a[href$="${writing.link}"]`))
+        await expect(page.locator(`#home-writings-directory .home-directory-title[href$="${writing.link}"]`))
             .toHaveText(writing.title.english);
         await expect(page.locator('#home-writings-directory')).toContainText(writing.summary.english);
 
@@ -209,25 +209,22 @@ test('homepage renders writing directory without removed research software secti
     expect(projectDataRequests).toEqual([]);
 });
 
-test('homepage image and mobile writing rows stay readable', async ({ browser }) => {
+test('homepage writing previews and mobile rows stay readable', async ({ browser }) => {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
     const page = await context.newPage();
     await stubSharedThirdPartyRequests(page);
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-    const image = page.locator('.home-image img');
-    await expect(image).toBeVisible();
-    await expect(image).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
-    await expect(image).toHaveAttribute('alt', 'Sunlit shoreline and mountains at Antelope Island in Utah');
-    await expect(image).toHaveClass(/lightbox-trigger/);
-    await image.click();
-    await expect(page.locator('#lightbox-modal')).toBeVisible();
-    await expect(page.locator('#lightbox-img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
-    await expect(page.locator('#lightbox-caption')).toContainText('Sunlit shoreline and mountains at Antelope Island in Utah');
-    await page.keyboard.press('Escape');
-    await expect(page.locator('#lightbox-modal')).not.toBeVisible();
+    await expect(page.locator('.home-image')).toHaveCount(0);
     await expect(page.locator('#home-writings-directory .home-writing-row')).toHaveCount(writings.length);
+    await expect(page.locator('#home-writings-directory .home-writing-preview')).toHaveCount(writings.length);
+
+    const firstPreview = page.locator('#home-writings-directory .home-writing-preview').first();
+    await expect(firstPreview).toHaveAttribute('href', new RegExp(`${writings[0].link}$`));
+    await expect(firstPreview.locator('img')).toBeVisible();
+    await expect(firstPreview.locator('img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+    await expect(firstPreview.locator('img')).toHaveAttribute('alt', `Preview image for ${writings[0].title.english}`);
 
     const alignments = await page.locator('.home-writing-row').first().evaluate(row => {
         const selectors = [
@@ -296,8 +293,9 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('.home-current')).toHaveCount(0);
     await expect(page.locator('h1')).toHaveText('Adam Lawrence');
     await expect(page.locator('.home-visual')).toHaveCount(0);
-    await expect(page.locator('.home-image')).toBeVisible();
-    await expect(page.locator('.home-image img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+    await expect(page.locator('.home-image')).toHaveCount(0);
+    await expect(page.locator('#home-writings-directory .home-writing-preview img')).toHaveCount(writings.length);
+    await expect(page.locator('#home-writings-directory .home-writing-preview img').first()).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
     await expect(page.locator('#header-nav-list a')).toHaveText(['Home', 'Publications', 'Resume']);
 
     await page.goto('/publications/', { waitUntil: 'domcontentloaded' });

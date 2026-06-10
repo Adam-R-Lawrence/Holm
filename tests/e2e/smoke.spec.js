@@ -5,6 +5,7 @@ const writings = require('../../data/writings.json');
 const routeFromDataLink = link => `/${String(link).replace(/^\/+/, '')}`;
 const projectDetailRoutes = projects.map(project => routeFromDataLink(project.link));
 const writingArticleRoutes = writings.map(writing => routeFromDataLink(writing.link));
+const wideDesktopViewport = { width: 1440, height: 1000 };
 
 const commitFixture = [
     {
@@ -88,6 +89,42 @@ async function expectSharedFooterContact(page, route) {
     ).toBe(true);
 }
 
+async function layoutBox(page, selector) {
+    const locator = page.locator(selector).first();
+    await expect(locator, `Expected ${selector} to be visible`).toBeVisible();
+
+    return locator.evaluate(element => {
+        const rect = element.getBoundingClientRect();
+
+        return {
+            left: rect.left,
+            right: rect.right,
+            width: rect.width,
+            center: rect.left + rect.width / 2
+        };
+    });
+}
+
+async function expectCenteredInViewport(page, selector, label, tolerance = 2) {
+    const box = await layoutBox(page, selector);
+    const viewportWidth = await page.evaluate(() => document.documentElement.clientWidth);
+    const leftGutter = box.left;
+    const rightGutter = viewportWidth - box.right;
+
+    expect(
+        Math.abs(leftGutter - rightGutter),
+        `${label} should have balanced viewport gutters`
+    ).toBeLessThanOrEqual(tolerance);
+
+    return box;
+}
+
+function expectSharedAxis(reference, candidate, label, tolerance = 2) {
+    expect(Math.abs(candidate.left - reference.left), `${label} left edge`).toBeLessThanOrEqual(tolerance);
+    expect(Math.abs(candidate.right - reference.right), `${label} right edge`).toBeLessThanOrEqual(tolerance);
+    expect(Math.abs(candidate.center - reference.center), `${label} center`).toBeLessThanOrEqual(tolerance);
+}
+
 test('browser regression sweep across core routes', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -117,6 +154,84 @@ test('browser regression sweep across core routes', async ({ page }) => {
     }
 
     expect(pageErrors, `Unexpected page errors:\n${pageErrors.join('\n')}`).toEqual([]);
+});
+
+test('wide desktop layouts keep content measures centered and proportional', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: wideDesktopViewport });
+    const page = await context.newPage();
+    await stubSharedThirdPartyRequests(page);
+
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#home-writings-directory .home-writing-row')).toHaveCount(writings.length);
+
+    const homeMainBox = await expectCenteredInViewport(page, '.home-page', 'Homepage main content');
+    const homeIntroBox = await layoutBox(page, '.home-intro');
+    const homeHeadingBox = await layoutBox(page, '#about-header');
+    const homeLedeBox = await layoutBox(page, '.home-lede');
+    const homeWritingBox = await layoutBox(page, '.home-writing-note');
+    const homeDirectoryBox = await layoutBox(page, '#home-writings-directory');
+
+    expectSharedAxis(homeMainBox, homeIntroBox, 'Homepage intro section');
+    expectSharedAxis(homeMainBox, homeWritingBox, 'Homepage writings section');
+    expect(Math.abs(homeHeadingBox.center - homeMainBox.center), 'Homepage heading center')
+        .toBeLessThanOrEqual(2);
+    expect(Math.abs(homeLedeBox.center - homeMainBox.center), 'Homepage lede center')
+        .toBeLessThanOrEqual(2);
+    expect(homeHeadingBox.width, 'Homepage intro should use the primary reading measure')
+        .toBeLessThan(homeWritingBox.width * 0.8);
+    expect(homeDirectoryBox.width, 'Homepage writings directory should remain wider than the intro')
+        .toBeGreaterThan(homeHeadingBox.width * 1.25);
+
+    await page.route('**/data/publications.json', route => {
+        route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify([])
+        });
+    });
+
+    await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.publications-status')).toBeVisible();
+
+    const publicationsMainBox = await expectCenteredInViewport(
+        page,
+        'main#main-content[data-page="publications"]',
+        'Publications main content'
+    );
+    const publicationsHeadingBox = await layoutBox(page, '#publications-header');
+    const publicationsIntroBox = await layoutBox(page, 'main#main-content[data-page="publications"] .section-intro');
+    const publicationsStatusBox = await layoutBox(page, '.publications-status');
+
+    expectSharedAxis(publicationsMainBox, publicationsHeadingBox, 'Publications heading');
+    expectSharedAxis(publicationsMainBox, publicationsIntroBox, 'Publications intro');
+    expectSharedAxis(publicationsMainBox, publicationsStatusBox, 'Publications status');
+
+    await page.goto('/projects/Torrentem/', { waitUntil: 'domcontentloaded' });
+
+    const projectHeaderBox = await expectCenteredInViewport(page, '.project-note-header', 'Project detail header');
+    const projectFactsBox = await layoutBox(page, '.project-facts');
+    const projectGridBox = await layoutBox(page, '.project-note-grid');
+    const projectCrosslinksBox = await layoutBox(page, '.content-crosslinks');
+
+    expectSharedAxis(projectHeaderBox, projectFactsBox, 'Project facts');
+    expectSharedAxis(projectHeaderBox, projectGridBox, 'Project section grid');
+    expectSharedAxis(projectHeaderBox, projectCrosslinksBox, 'Project crosslinks');
+
+    await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+    await expectResumePdfSurface(page);
+
+    const resumeIntroBox = await expectCenteredInViewport(page, '.resume-intro', 'Resume intro');
+    const resumeActionsBox = await layoutBox(page, '.resume-actions');
+    const resumePdfBox = await layoutBox(page, '.resume-pdf-only');
+    const resumeSheetLinkBox = await layoutBox(page, '.resume-sheet-link');
+    const resumeSheetBox = await layoutBox(page, '.resume-sheet');
+
+    expectSharedAxis(resumeIntroBox, resumeActionsBox, 'Resume actions');
+    expectSharedAxis(resumeIntroBox, resumePdfBox, 'Resume PDF section');
+    expectSharedAxis(resumeIntroBox, resumeSheetLinkBox, 'Resume PDF link');
+    expectSharedAxis(resumeIntroBox, resumeSheetBox, 'Resume PDF preview');
+
+    await context.close();
 });
 
 test('theme and language toggles work on homepage', async ({ page }) => {

@@ -3865,3 +3865,76 @@ footer p {
         text-align: right !important;
     }
 }
+
+/* Conservative wide-desktop rebalance. */
+@media (min-width: 72rem) {
+    :root {
+        --layout-primary-measure: 48rem;
+        --layout-wide-measure: 66rem;
+        --layout-resume-measure: 52rem;
+    }
+
+    .wrapper #main-content {
+        max-width: min(100%, var(--layout-primary-measure)) !important;
+    }
+
+    .wrapper #main-content.home-page {
+        max-width: min(100%, var(--layout-wide-measure)) !important;
+    }
+
+    .home-intro,
+    .home-writing-note {
+        max-width: min(100%, var(--layout-wide-measure));
+        margin-inline: auto;
+    }
+
+    .home-intro > :is(h1, p) {
+        width: min(100%, var(--layout-primary-measure));
+        max-width: min(100%, var(--layout-primary-measure)) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    main#main-content[data-page="writings"],
+    main#main-content[data-page="publications"],
+    main#main-content[data-page="projects"],
+    main#main-content.project-detail-page {
+        max-width: min(100%, var(--layout-primary-measure)) !important;
+    }
+
+    main#main-content[data-page="writings"] > :is(h1, .section-intro, #writing-filter-controls, #writings-directory),
+    main#main-content[data-page="publications"] > :is(h1, .section-intro, .directory-toolbar, #publications-directory),
+    .project-note-header,
+    .project-note-grid,
+    .content-crosslinks {
+        width: min(100%, var(--layout-primary-measure));
+        max-width: min(100%, var(--layout-primary-measure)) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    main#main-content[data-page="writings"] .directory-empty-state,
+    main#main-content[data-page="publications"] .directory-empty-state,
+    main#main-content[data-page="publications"] .publications-status,
+    .project-facts {
+        width: 100%;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    main#main-content.resume-page {
+        max-width: min(100%, var(--layout-resume-measure)) !important;
+    }
+
+    .resume-intro,
+    .resume-pdf-only,
+    .resume-actions,
+    .resume-fallback,
+    .resume-sheet-link {
+        width: min(100%, var(--layout-resume-measure));
+        max-width: min(100%, var(--layout-resume-measure)) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}

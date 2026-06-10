@@ -2155,10 +2155,12 @@ main#main-content:not([data-page]) h3 {
 
     .contentHeader-placeholder .theme-toggle.content-page-style {
         grid-column: 1;
+        grid-row: 1;
     }
 
     .contentHeader-placeholder .nav-toggle {
         grid-column: 2;
+        grid-row: 1;
         display: grid;
         place-items: center;
         width: 1.72rem;
@@ -2185,15 +2187,16 @@ main#main-content:not([data-page]) h3 {
 
     .contentHeader-placeholder .language-toggle.content-page-style {
         grid-column: 4;
+        grid-row: 1;
     }
 
     .contentHeader-placeholder header nav {
-        position: absolute;
-        top: calc(100% + 0.34rem);
-        left: 0;
-        right: 0;
-        z-index: 130;
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 2;
         display: none;
+        width: 100%;
+        margin-top: 0.36rem;
         background: var(--surface-1);
         border: 1px solid var(--border-color);
         border-radius: 12px;
@@ -2705,13 +2708,22 @@ header a[aria-current="page"] {
     padding-top: 0.4rem;
 }
 
-.home-contact {
-    max-width: 62ch;
-    padding-top: 0.4rem;
+.site-contact {
+    width: min(100%, 44rem);
+    margin: 1rem auto 0;
+    padding: 0;
 }
 
-.home-contact p {
-    font-size: 1.05rem;
+.site-contact p {
+    margin: 0 !important;
+    color: var(--muted-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center !important;
+}
+
+.site-contact a:visited {
+    color: var(--link-visited-color);
 }
 
 main#main-content[data-page="projects"] #projects-grid {
@@ -3285,8 +3297,7 @@ main#main-content:not([data-page]) li {
     display: none !important;
 }
 
-.home-writing-note,
-.home-contact {
+.home-writing-note {
     max-width: min(100%, 66rem);
     margin: 1.6rem auto 0;
 }
@@ -3413,16 +3424,6 @@ main#main-content:not([data-page]) li {
     color: inherit;
 }
 
-.home-contact {
-    margin-top: 0.65rem;
-    padding-top: 0;
-}
-
-.home-contact p {
-    margin-bottom: 0 !important;
-    color: var(--muted-text);
-}
-
 main#main-content[data-page="projects"] #projects-grid {
     display: grid;
     grid-template-columns: 1fr !important;
@@ -3530,10 +3531,32 @@ main#main-content.resume-page {
     padding-top: 0.8rem !important;
 }
 
+.resume-intro,
+.resume-pdf-only {
+    width: min(100%, 52rem);
+    margin-inline: auto;
+}
+
+.resume-intro {
+    margin-bottom: 0.85rem;
+}
+
+.resume-intro h1 {
+    margin: 0 0 0.35rem !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.resume-intro p {
+    margin: 0 !important;
+    max-width: 58ch !important;
+    color: var(--muted-text);
+    text-align: left !important;
+}
+
 .resume-pdf-only {
     display: grid;
     gap: 0.55rem;
-    width: 100%;
 }
 
 .resume-sheet-link {
@@ -3617,6 +3640,11 @@ footer {
     padding: 0.55rem 0 0;
 }
 
+.site-contact + footer,
+#footer-placeholder .site-contact + footer {
+    margin-top: 0.35rem !important;
+}
+
 main#main-content[data-page="writings"],
 main#main-content[data-page="publications"] {
     max-width: min(100%, 46rem) !important;
@@ -3698,13 +3726,15 @@ footer p {
         gap: 0.75rem;
     }
 
+    .resume-intro,
+    .resume-pdf-only,
     .resume-sheet-link {
         width: 100%;
     }
 
     .resume-actions {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0.45rem;
         width: 100%;
     }
@@ -3712,17 +3742,93 @@ footer p {
     .resume-action {
         width: 100%;
     }
+
+    .resume-sheet-link {
+        height: min(68vh, 34rem);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .resume-sheet {
+        width: 112%;
+        max-width: none;
+        margin-left: -6%;
+    }
 }
 
 @media (max-width: 40rem) {
     .home-writing-row {
-        grid-template-columns: minmax(3.8rem, 4.4rem) minmax(0, 1fr) minmax(6.5rem, 30vw) !important;
-        gap: 0.6rem;
+        grid-template-columns: minmax(0, 1fr) max-content !important;
+        grid-template-areas:
+            "title date"
+            "summary summary"
+            "meta meta"
+            "preview preview";
+        gap: 0.34rem 0.75rem;
+        padding: 0.95rem 0;
+    }
+
+    .home-writing-row .home-directory-body {
+        display: contents;
+    }
+
+    .home-writing-row .home-directory-title {
+        grid-area: title;
+        font-size: 1.06rem;
+        line-height: 1.3;
+        align-self: start;
+        min-width: 0;
+    }
+
+    .home-writing-row .home-directory-date {
+        grid-area: date;
+        justify-self: end;
+        align-self: start;
+        min-width: max-content;
+    }
+
+    .home-writing-row .home-directory-date .date {
+        font-size: 0.82rem;
+        line-height: 1.25;
+        text-align: right !important;
     }
 
     .home-directory-summary,
     .home-directory-meta {
-        grid-column: 1 / -1;
+        margin-top: 0 !important;
+    }
+
+    .home-directory-summary {
+        grid-area: summary;
+    }
+
+    .home-directory-meta {
+        grid-area: meta;
+    }
+
+    .home-writing-preview {
+        grid-area: preview;
+        width: 100%;
+        aspect-ratio: 16 / 6;
+        margin-top: 0.35rem;
+    }
+
+    .resume-sheet-link {
+        height: min(64vh, 31rem);
+    }
+
+    .resume-sheet {
+        width: 112%;
+        margin-left: -6%;
+    }
+}
+
+@media (max-width: 24rem) {
+    .resume-actions {
+        grid-template-columns: 1fr;
     }
 
     .home-directory-title {
@@ -3750,5 +3856,12 @@ footer p {
 @media (max-width: 58rem) {
     .home-writing-preview img {
         transform: none;
+    }
+}
+
+@media (max-width: 40rem) {
+    .home-writing-row .home-directory-date,
+    .home-writing-row .home-directory-date .date {
+        text-align: right !important;
     }
 }

@@ -52,7 +52,13 @@ export async function loadFooter() {
         if (placeholder.tagName.toLowerCase() === 'footer') {
             const template = document.createElement('template');
             template.innerHTML = footerHtml.trim();
+            const contactNode = template.content.querySelector('.site-contact');
             const footerNode = template.content.querySelector('footer');
+
+            if (contactNode && !placeholder.previousElementSibling?.classList.contains('site-contact')) {
+                placeholder.insertAdjacentElement('beforebegin', contactNode.cloneNode(true));
+            }
+
             placeholder.innerHTML = footerNode ? footerNode.innerHTML : footerHtml;
         } else {
             placeholder.innerHTML = footerHtml;

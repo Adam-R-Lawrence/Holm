@@ -68,6 +68,26 @@ async function expectResumePdfSurface(page) {
     await expect(page.locator('.resume-sheet')).toHaveAttribute('src', /resume_preview\.jpg/);
 }
 
+async function expectSharedFooterContact(page, route) {
+    const contact = page.locator('.site-contact');
+    await expect(contact, `Shared contact block count on ${route}`).toHaveCount(1);
+    await expect(contact, `Shared contact block text on ${route}`).toContainText(
+        'For enquiries or collaboration'
+    );
+    await expect(contact.locator('a'), `Shared contact mail link on ${route}`)
+        .toHaveAttribute('href', 'mailto:adamrl3@illinois.edu');
+
+    const contactImmediatelyPrecedesFooter = await page.evaluate(() => {
+        const contactElement = document.querySelector('.site-contact');
+        return contactElement?.nextElementSibling?.tagName === 'FOOTER';
+    });
+
+    expect(
+        contactImmediatelyPrecedesFooter,
+        `Shared contact block should be immediately before the footer on ${route}`
+    ).toBe(true);
+}
+
 test('browser regression sweep across core routes', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -92,6 +112,7 @@ test('browser regression sweep across core routes', async ({ page }) => {
 
         await expect(page.locator('body')).toBeVisible();
         await page.waitForTimeout(200);
+        await expectSharedFooterContact(page, route);
         await expectNoHorizontalOverflow(page, route);
     }
 
@@ -226,12 +247,35 @@ test('homepage writing previews and mobile rows stay readable', async ({ browser
     await expect(firstPreview.locator('img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
     await expect(firstPreview.locator('img')).toHaveAttribute('alt', `Preview image for ${writings[0].title.english}`);
 
+    const rowLayout = await page.locator('.home-writing-row').first().evaluate(row => {
+        const rowRect = row.getBoundingClientRect();
+        const titleRect = row.querySelector('.home-directory-title').getBoundingClientRect();
+        const previewRect = row.querySelector('.home-writing-preview').getBoundingClientRect();
+        const summaryRect = row.querySelector('.home-directory-summary').getBoundingClientRect();
+
+        return {
+            rowWidth: rowRect.width,
+            titleWidth: titleRect.width,
+            previewWidth: previewRect.width,
+            summaryWidth: summaryRect.width,
+            titleBottom: titleRect.bottom,
+            summaryTop: summaryRect.top,
+            summaryBottom: summaryRect.bottom,
+            previewTop: previewRect.top
+        };
+    });
+
+    expect(rowLayout.titleWidth).toBeGreaterThan(rowLayout.rowWidth * 0.6);
+    expect(rowLayout.summaryWidth).toBeGreaterThan(rowLayout.rowWidth * 0.95);
+    expect(rowLayout.previewWidth).toBeGreaterThan(rowLayout.rowWidth * 0.95);
+    expect(rowLayout.summaryTop).toBeGreaterThanOrEqual(rowLayout.titleBottom);
+    expect(rowLayout.previewTop).toBeGreaterThan(rowLayout.summaryBottom);
+
     const alignments = await page.locator('.home-writing-row').first().evaluate(row => {
         const selectors = [
             '.home-directory-title',
             '.home-directory-summary',
-            '.home-directory-meta',
-            '.home-directory-date .date'
+            '.home-directory-meta'
         ];
 
         return selectors.map(selector => {
@@ -243,6 +287,24 @@ test('homepage writing previews and mobile rows stay readable', async ({ browser
     expect(alignments.length).toBeGreaterThan(0);
     expect(alignments.every(alignment => ['left', 'start'].includes(alignment))).toBe(true);
     await expectNoHorizontalOverflow(page, '/');
+
+    await page.locator('.nav-toggle').click();
+    const menuLayout = await page.evaluate(() => {
+        const navRect = document.querySelector('.contentHeader-placeholder header nav')?.getBoundingClientRect();
+        const mainRect = document.querySelector('#main-content')?.getBoundingClientRect();
+        const languageRect = document.querySelector('.language-toggle')?.getBoundingClientRect();
+        const toggleRect = document.querySelector('.nav-toggle')?.getBoundingClientRect();
+
+        return {
+            navBottom: navRect?.bottom || 0,
+            mainTop: mainRect?.top || 0,
+            languageTop: languageRect?.top || 0,
+            toggleTop: toggleRect?.top || 0
+        };
+    });
+
+    expect(menuLayout.navBottom).toBeLessThanOrEqual(menuLayout.mainTop + 1);
+    expect(Math.abs(menuLayout.languageTop - menuLayout.toggleTop)).toBeLessThanOrEqual(1);
 
     await context.close();
 });
@@ -280,6 +342,8 @@ test('writing article mobile nav opens with primary links visible', async ({ bro
         await expect(navLinks.nth(0)).toBeVisible();
         await expect(navLinks.nth(1)).toBeVisible();
         await expect(navLinks.nth(2)).toBeVisible();
+        await expect(page.locator('#header-resume')).toHaveAttribute('target', '_blank');
+        await expect(page.locator('#header-resume')).toHaveAttribute('rel', 'noopener');
     }
 
     await context.close();
@@ -297,6 +361,7 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('#home-writings-directory .home-writing-preview img')).toHaveCount(writings.length);
     await expect(page.locator('#home-writings-directory .home-writing-preview img').first()).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
     await expect(page.locator('#header-nav-list a')).toHaveText(['Home', 'Publications', 'Resume']);
+    await expect(page.locator('#header-resume')).not.toHaveAttribute('target', '_blank');
 
     await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.publications-status')).toContainText('Publications are being prepared');
@@ -321,6 +386,11 @@ test('resume page exposes PDF links and preview on mobile', async ({ browser }) 
 
     await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
     await expectResumePdfSurface(page);
+    await expect(page.locator('#resume-heading')).toHaveText('Resume');
+    await expect(page.locator('.resume-intro')).toContainText('Current PDF resume');
+    const sheetBox = await page.locator('.resume-sheet-link').boundingBox();
+    expect(sheetBox.width).toBeGreaterThan(350);
+    expect(sheetBox.height).toBeGreaterThan(450);
     await expectNoHorizontalOverflow(page, '/resume/');
 
     await context.close();

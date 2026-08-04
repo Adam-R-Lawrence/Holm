@@ -1,4 +1,4 @@
-import { loadAnalytics, loadContentHeader, loadFooter } from './features/fragments.js';
+import { loadContentHeader, loadFooter } from './features/fragments.js';
 import { displayLastUpdated } from './features/lastUpdated.js';
 import { applyInitialThemePreference, toggleTheme } from './features/theme.js';
 import {
@@ -243,7 +243,6 @@ export function handleThemeToggle() {
 
 export async function initializeSiteApp() {
     try {
-        await loadAnalytics();
         await loadFooter();
         await loadContentHeader();
         bindShellControls();

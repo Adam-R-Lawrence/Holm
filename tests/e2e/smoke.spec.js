@@ -26,14 +26,6 @@ async function stubSharedThirdPartyRequests(page) {
         });
     });
 
-    await page.route('https://www.googletagmanager.com/gtag/js?**', route => {
-        route.fulfill({
-            status: 200,
-            contentType: 'application/javascript',
-            body: ''
-        });
-    });
-
     await page.route('https://www.youtube-nocookie.com/embed/**', route => {
         route.fulfill({
             status: 200,
@@ -129,8 +121,15 @@ test('browser regression sweep across core routes', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
     const pageErrors = [];
+    const trackingRequests = [];
     page.on('pageerror', error => {
         pageErrors.push(error.message);
+    });
+    page.on('request', request => {
+        const hostname = new URL(request.url()).hostname;
+        if (hostname === 'www.googletagmanager.com' || hostname === 'www.google-analytics.com') {
+            trackingRequests.push(request.url());
+        }
     });
 
     const routes = [
@@ -149,11 +148,20 @@ test('browser regression sweep across core routes', async ({ page }) => {
 
         await expect(page.locator('body')).toBeVisible();
         await page.waitForTimeout(200);
+        const trackingGlobals = await page.evaluate(() => ({
+            hasDataLayer: Object.prototype.hasOwnProperty.call(window, 'dataLayer'),
+            hasGtag: Object.prototype.hasOwnProperty.call(window, 'gtag')
+        }));
+        expect(trackingGlobals, `Tracking globals created on ${route}`).toEqual({
+            hasDataLayer: false,
+            hasGtag: false
+        });
         await expectSharedFooterContact(page, route);
         await expectNoHorizontalOverflow(page, route);
     }
 
     expect(pageErrors, `Unexpected page errors:\n${pageErrors.join('\n')}`).toEqual([]);
+    expect(trackingRequests, 'Requests to Google tracking domains').toEqual([]);
 });
 
 test('wide desktop layouts keep content measures centered and proportional', async ({ browser }) => {

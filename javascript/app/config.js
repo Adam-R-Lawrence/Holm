@@ -35,7 +35,6 @@ export const STORAGE_KEYS = Object.freeze({
 export const LAST_UPDATED_CACHE_MS = 60 * 60 * 1000;
 
 export const FRAGMENT_FILES = Object.freeze({
-    analytics: `${BASE_PATH}/commonDivsHTML/analytics.html`,
     footer: `${BASE_PATH}/commonDivsHTML/footer.html`,
     contentHeader: `${BASE_PATH}/commonDivsHTML/contentHeader.html`
 });

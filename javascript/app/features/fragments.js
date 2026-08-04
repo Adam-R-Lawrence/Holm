@@ -20,26 +20,6 @@ async function loadIntoPlaceholder(placeholderId, fragmentPath, options = {}) {
     return placeholder;
 }
 
-export async function loadAnalytics() {
-    if (document.head.dataset.holmAnalyticsLoaded === 'true') {
-        return;
-    }
-
-    try {
-        const analyticsHtml = await fetchTextCached(FRAGMENT_FILES.analytics, { cacheKey: 'fragment:analytics' });
-        document.head.insertAdjacentHTML('afterbegin', analyticsHtml);
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = window.gtag || function gtag() {
-            window.dataLayer.push(arguments);
-        };
-        window.gtag('js', new Date());
-        window.gtag('config', 'G-4PHH3RMS01');
-        document.head.dataset.holmAnalyticsLoaded = 'true';
-    } catch (error) {
-        console.error('Error loading analytics:', error);
-    }
-}
-
 export async function loadFooter() {
     const placeholder = byId('footer-placeholder');
     if (!placeholder) {

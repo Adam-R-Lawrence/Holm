@@ -7,6 +7,33 @@ import { resolvePath, slugify } from '../utils/paths.js';
 const DEFAULT_WRITING_PREVIEW_IMAGE = 'images/about_me/utah.webp';
 const DEFAULT_WRITING_PREVIEW_IMAGE_WIDTH = 2339;
 const DEFAULT_WRITING_PREVIEW_IMAGE_HEIGHT = 1559;
+const WRITING_PREVIEW_IMAGE_FITS = new Set(['contain', 'cover', 'fill', 'none', 'scale-down']);
+const OTHER_WRITING_GROUP_ID = 'other';
+let activeHomeWritingGroup = 'all';
+
+function normalizeGroup(group) {
+    if (!group) {
+        return {
+            id: OTHER_WRITING_GROUP_ID,
+            label: getCopy('writings', 'otherGroup')
+        };
+    }
+
+    if (typeof group === 'string') {
+        const id = slugify(group);
+        return id
+            ? { id, label: group }
+            : { id: OTHER_WRITING_GROUP_ID, label: getCopy('writings', 'otherGroup') };
+    }
+
+    const labelSource = group.label || group;
+    const label = getLocalizedText(labelSource, labelSource?.english || '');
+    const id = group.id || group.slug || slugify(label);
+
+    return id
+        ? { id, label: label || id }
+        : { id: OTHER_WRITING_GROUP_ID, label: getCopy('writings', 'otherGroup') };
+}
 
 function normalizeThemes(themeList) {
     if (!Array.isArray(themeList)) {
@@ -49,7 +76,14 @@ function normalizeThemes(themeList) {
 function buildDateNode(rawDate) {
     const dateContainer = createElement('div', 'date');
     const dateValue = rawDate || '';
-    const parsedDate = new Date(dateValue);
+    const dateOnlyMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateValue);
+    const parsedDate = dateOnlyMatch
+        ? new Date(
+            Number(dateOnlyMatch[1]),
+            Number(dateOnlyMatch[2]) - 1,
+            Number(dateOnlyMatch[3])
+        )
+        : new Date(dateValue);
     if (Number.isNaN(parsedDate.getTime())) {
         dateContainer.textContent = dateValue;
         return dateContainer;
@@ -77,8 +111,9 @@ function renderWritingsEmptyState(directory, message) {
     directory.appendChild(empty);
 }
 
-function createHomeWritingRow(writing) {
+function createHomeWritingRow(writing, group) {
     const item = createElement('article', 'home-directory-row home-writing-row');
+    item.dataset.group = group.id;
     const content = createElement('div', 'home-directory-body');
 
     const titleLink = createElement('a', 'home-directory-title');
@@ -97,15 +132,13 @@ function createHomeWritingRow(writing) {
         content.appendChild(summary);
     }
 
-    const { labels: themeLabelList } = normalizeThemes(writing.themes);
-    if (themeLabelList.length) {
-        const themeText = createElement('p', 'home-directory-meta home-writing-themes directory-muted');
-        themeText.textContent = getCopy('writings', 'topicPrefix') + themeLabelList.join(', ');
-        content.appendChild(themeText);
-    }
+    const topicText = createElement('p', 'home-directory-meta home-writing-themes directory-muted');
+    topicText.textContent = getCopy('writings', 'topicPrefix') + group.label;
+    content.appendChild(topicText);
 
     const metadata = createElement('div', 'home-directory-date directory-muted');
     metadata.appendChild(buildDateNode(writing.date));
+    content.insertBefore(metadata, titleLink);
 
     const previewLink = createElement('a', 'home-writing-preview');
     if (href) {
@@ -119,39 +152,117 @@ function createHomeWritingRow(writing) {
         writing.previewImageAlt || writing.imageAlt,
         titleText ? `Preview image for ${titleText}` : 'Writing preview image'
     );
-    previewImage.width = Number.isFinite(writing.previewImageWidth)
+    const previewWidth = Number.isFinite(writing.previewImageWidth)
         ? writing.previewImageWidth
         : DEFAULT_WRITING_PREVIEW_IMAGE_WIDTH;
-    previewImage.height = Number.isFinite(writing.previewImageHeight)
+    const previewHeight = Number.isFinite(writing.previewImageHeight)
         ? writing.previewImageHeight
         : DEFAULT_WRITING_PREVIEW_IMAGE_HEIGHT;
+    previewImage.width = previewWidth;
+    previewImage.height = previewHeight;
+    const previewImageFit = WRITING_PREVIEW_IMAGE_FITS.has(writing.previewImageFit)
+        ? writing.previewImageFit
+        : '';
+    if (previewImageFit) {
+        previewImage.dataset.fit = previewImageFit;
+        previewImage.style.objectFit = previewImageFit;
+        previewLink.dataset.imageFit = previewImageFit;
+        if (previewImageFit === 'contain') {
+            previewLink.style.aspectRatio = `${previewWidth} / ${previewHeight}`;
+        }
+    }
     previewImage.loading = 'lazy';
     previewImage.decoding = 'async';
     previewLink.appendChild(previewImage);
 
-    item.appendChild(metadata);
     item.appendChild(content);
     item.appendChild(previewLink);
     return item;
 }
 
-function renderHomeWritingsDirectory(directory, writings) {
+function applyHomeGroupFilter(rows, filterContainer) {
+    rows.forEach(row => {
+        row.hidden = activeHomeWritingGroup !== 'all'
+            && row.dataset.group !== activeHomeWritingGroup;
+    });
+
+    filterContainer.querySelectorAll('button[data-group]').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.group === activeHomeWritingGroup));
+    });
+}
+
+function renderHomeGroupFilters(filterContainer, rows, groupLabels) {
+    filterContainer.innerHTML = '';
+
+    if (!rows.length) {
+        filterContainer.hidden = true;
+        return;
+    }
+
+    if (activeHomeWritingGroup !== 'all' && !groupLabels.has(activeHomeWritingGroup)) {
+        activeHomeWritingGroup = 'all';
+    }
+
+    filterContainer.hidden = false;
+    filterContainer.setAttribute('role', 'group');
+    filterContainer.setAttribute('aria-labelledby', 'home-writing-group-filter-label');
+
+    const label = createElement('span', 'home-writing-group-filter-label');
+    label.id = 'home-writing-group-filter-label';
+    label.textContent = getCopy('writings', 'groupFilterLabel');
+    filterContainer.appendChild(label);
+
+    const addButton = (groupId, labelText) => {
+        const button = createElement('button', 'home-writing-group-filter');
+        button.type = 'button';
+        button.dataset.group = groupId;
+        button.textContent = labelText;
+        button.setAttribute('aria-pressed', String(groupId === activeHomeWritingGroup));
+        button.addEventListener('click', () => {
+            activeHomeWritingGroup = groupId;
+            applyHomeGroupFilter(rows, filterContainer);
+        });
+        filterContainer.appendChild(button);
+    };
+
+    addButton('all', getCopy('writings', 'allGroups'));
+    groupLabels.forEach((labelText, groupId) => {
+        addButton(groupId, labelText);
+    });
+
+    applyHomeGroupFilter(rows, filterContainer);
+}
+
+function renderHomeWritingsDirectory(directory, filterContainer, writings) {
     directory.innerHTML = '';
+    const rows = [];
+    const groupLabels = new Map();
 
     (writings || []).forEach(writing => {
         if (writing) {
-            directory.appendChild(createHomeWritingRow(writing));
+            const group = normalizeGroup(writing.group);
+            if (!groupLabels.has(group.id)) {
+                groupLabels.set(group.id, group.label);
+            }
+            const row = createHomeWritingRow(writing, group);
+            directory.appendChild(row);
+            rows.push(row);
         }
     });
 
-    if (!directory.children.length) {
+    if (!rows.length) {
         renderWritingsEmptyState(directory, 'No writings available yet.');
+    }
+
+    if (filterContainer) {
+        renderHomeGroupFilters(filterContainer, rows, groupLabels);
     }
 }
 
 export async function loadWritingsPage() {
     const directory = byId('writings-directory');
     const homeDirectory = byId('home-writings-directory');
+    const homeFilterContainer = byId('home-writing-group-filters');
     if (!directory && !homeDirectory) {
         return;
     }
@@ -167,7 +278,7 @@ export async function loadWritingsPage() {
         const writings = await fetchJsonCached(DATA_FILES.writings, { cacheKey: 'data:writings' });
 
         if (homeDirectory) {
-            renderHomeWritingsDirectory(homeDirectory, writings);
+            renderHomeWritingsDirectory(homeDirectory, homeFilterContainer, writings);
         }
 
         if (!directory) {
@@ -310,6 +421,9 @@ export async function loadWritingsPage() {
         }
         if (homeDirectory) {
             renderWritingsEmptyState(homeDirectory, 'Unable to load writings right now.');
+        }
+        if (homeFilterContainer) {
+            homeFilterContainer.hidden = true;
         }
     }
 }

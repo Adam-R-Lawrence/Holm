@@ -1,147 +1,31 @@
 [
   {
-    "id": "vms-nse",
-    "title": {
-      "english": "VMS-NSE",
-      "chinese": "VMS-NSE"
-    },
-    "date": "2026-06-05",
-    "summary": {
-      "english": "A concise essay on variational multiscale stabilization for incompressible Navier-Stokes modelling in Torrentem.",
-      "chinese": "一篇关于 Torrentem 中不可压 Navier-Stokes 建模的变分多尺度稳定化的简短文章。"
-    },
-    "link": "writings/vms_nse/",
-    "themes": [
-      {
-        "id": "fluid-dynamics",
-        "label": {
-          "english": "Fluid Dynamics",
-          "chinese": "流体力学"
-        }
-      },
-      {
-        "id": "finite-element-method",
-        "label": {
-          "english": "Finite Element Method",
-          "chinese": "有限元方法"
-        }
-      }
-    ]
-  },
-  {
-    "id": "photopolymerization",
-    "title": {
-      "english": "Photopolymerization",
-      "chinese": "光聚合"
-    },
-    "date": "2026-06-05",
-    "summary": {
-      "english": "A concise essay on DLP/SLA exposure, Beer-Lambert attenuation, spectra, and bounded cure kinetics.",
-      "chinese": "一篇关于 DLP/SLA 曝光、Beer-Lambert 衰减、光谱和有界固化动力学的简短文章。"
-    },
-    "link": "writings/photopolymerization/",
-    "themes": [
-      {
-        "id": "additive-manufacturing",
-        "label": {
-          "english": "Additive Manufacturing",
-          "chinese": "增材制造"
-        }
-      },
-      {
-        "id": "photopolymerization",
-        "label": {
-          "english": "Photopolymerization",
-          "chinese": "光聚合"
-        }
-      }
-    ]
-  },
-  {
-    "id": "river-morphodynamics",
-    "title": {
-      "english": "River Morphodynamics",
-      "chinese": "河流形态动力学"
-    },
-    "date": "2026-06-05",
-    "summary": {
-      "english": "A concise essay on DEM-driven surface hydrodynamics, river-mouth forcing, and sediment coupling.",
-      "chinese": "一篇关于 DEM 驱动的表面水动力、河口边界强迫和泥沙耦合的简短文章。"
-    },
-    "link": "writings/river_morphodynamics/",
-    "themes": [
-      {
-        "id": "surface-hydrodynamics",
-        "label": {
-          "english": "Surface Hydrodynamics",
-          "chinese": "表面水动力学"
-        }
-      },
-      {
-        "id": "environmental-modelling",
-        "label": {
-          "english": "Environmental Modelling",
-          "chinese": "环境建模"
-        }
-      }
-    ]
-  },
-  {
     "id": "numerical-modelling-of-photopolymerization",
     "title": {
-      "english": "Numerical Modelling of Photopolymerization",
-      "chinese": "光聚合的数值建模"
+      "english": "Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge",
+      "chinese": "槽式光聚合的计算建模——AM Bench 2025 挑战赛"
     },
-    "date": "2025-03-18",
+    "date": "2026-08-04",
     "summary": {
-      "english": "Computational modelling approaches developed for the NIST 2025 Benchmark competition",
-      "chinese": "为 2025 年 NIST 基准竞赛开发的光聚合计算建模方法"
+      "english": "A first-place computational modelling submission for the AM Bench 2025 vat photopolymerization cure-depth challenge.",
+      "chinese": "AM Bench 2025 槽式光聚合固化深度挑战赛中荣获第一名的计算建模方案。"
     },
     "link": "writings/numerical_modelling_of_photopolymerization/",
-    "themes": [
-      {
-        "id": "finite-element-method",
-        "label": {
-          "english": "Finite Element Method",
-          "chinese": "有限元方法"
-        }
-      },
-      {
-        "id": "additive-manufacturing",
-        "label": {
-          "english": "Additive Manufacturing",
-          "chinese": "增材制造"
-        }
+    "group": {
+      "id": "computational-mechanics",
+      "label": {
+        "english": "Computational Mechanics",
+        "chinese": "计算力学"
       }
-    ]
-  },
-  {
-    "id": "close-to-nowhere",
-    "title": {
-      "english": "Close to Nowhere",
-      "chinese": "近乎无处"
     },
-    "date": "2025-04-01",
-    "summary": {
-      "english": "Example essay on the intersection of remote sensing and environmental history",
-      "chinese": "探讨遥感与环境史交叉的示例随笔"
+    "previewImage": "images/writings/am-bench-2025/4.3.3_benchy_signed_deviation_rotations.png",
+    "previewImageAlt": {
+      "english": "Four views of signed deviation between the simulated cured surface and reference STL surface for 3DBenchy",
+      "chinese": "3DBenchy 模拟固化表面与参考 STL 表面之间有符号偏差的四视图"
     },
-    "link": "writings/close_to_nowhere/",
-    "themes": [
-      {
-        "id": "remote-sensing",
-        "label": {
-          "english": "Remote Sensing",
-          "chinese": "遥感"
-        }
-      },
-      {
-        "id": "environmental-history",
-        "label": {
-          "english": "Environmental History",
-          "chinese": "环境史"
-        }
-      }
-    ]
+    "previewImageWidth": 2020,
+    "previewImageHeight": 1972,
+    "previewImageFit": "contain",
+    "themes": []
   }
 ]

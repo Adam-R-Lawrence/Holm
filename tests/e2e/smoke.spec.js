@@ -5,6 +5,14 @@ const writings = require('../../data/writings.json');
 const routeFromDataLink = link => `/${String(link).replace(/^\/+/, '')}`;
 const projectDetailRoutes = projects.map(project => routeFromDataLink(project.link));
 const writingArticleRoutes = writings.map(writing => routeFromDataLink(writing.link));
+const featuredWritingRoute = '/writings/numerical_modelling_of_photopolymerization/';
+const unlistedWritingRoutes = [
+    '/writings/vms_nse/',
+    '/writings/photopolymerization/',
+    '/writings/river_morphodynamics/',
+    '/writings/close_to_nowhere/'
+];
+const allWritingArticleRoutes = [...writingArticleRoutes, ...unlistedWritingRoutes];
 const wideDesktopViewport = { width: 1440, height: 1000 };
 
 const commitFixture = [
@@ -117,6 +125,44 @@ function expectSharedAxis(reference, candidate, label, tolerance = 2) {
     expect(Math.abs(candidate.center - reference.center), `${label} center`).toBeLessThanOrEqual(tolerance);
 }
 
+function rgbChannels(cssColor) {
+    const hexMatch = cssColor.trim().match(/^#([\da-f]{6})$/i);
+    if (hexMatch) {
+        return [0, 2, 4].map(offset => Number.parseInt(hexMatch[1].slice(offset, offset + 2), 16));
+    }
+
+    const rgbMatch = cssColor.trim().match(/^rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/i);
+    if (rgbMatch) {
+        return rgbMatch.slice(1, 4).map(Number);
+    }
+
+    throw new Error(`Unsupported CSS color: ${cssColor}`);
+}
+
+function relativeLuminance(cssColor) {
+    const [red, green, blue] = rgbChannels(cssColor).map(channel => {
+        const normalized = channel / 255;
+        return normalized <= 0.04045
+            ? normalized / 12.92
+            : ((normalized + 0.055) / 1.055) ** 2.4;
+    });
+
+    return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+}
+
+function contrastRatio(foreground, background) {
+    const lighter = Math.max(relativeLuminance(foreground), relativeLuminance(background));
+    const darker = Math.min(relativeLuminance(foreground), relativeLuminance(background));
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+function expectMinimumContrast(foreground, background, minimum, label) {
+    expect(
+        contrastRatio(foreground, background),
+        `${label}: ${foreground} against ${background}`
+    ).toBeGreaterThanOrEqual(minimum);
+}
+
 test('browser regression sweep across core routes', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -136,7 +182,7 @@ test('browser regression sweep across core routes', async ({ page }) => {
         '/',
         '/publications/',
         ...projectDetailRoutes,
-        ...writingArticleRoutes,
+        ...allWritingArticleRoutes,
         '/resume/',
         '/404.html'
     ];
@@ -190,6 +236,29 @@ test('wide desktop layouts keep content measures centered and proportional', asy
     expect(homeDirectoryBox.width, 'Homepage writings directory should remain wider than the intro')
         .toBeGreaterThan(homeHeadingBox.width * 1.25);
 
+    const writingRowBalance = await page.locator('.home-writing-row').first().evaluate(row => {
+        const rowRect = row.getBoundingClientRect();
+        const copyRect = row.querySelector('.home-directory-body').getBoundingClientRect();
+        const previewRect = row.querySelector('.home-writing-preview').getBoundingClientRect();
+
+        return {
+            rowWidth: rowRect.width,
+            copyCenter: copyRect.top + copyRect.height / 2,
+            previewCenter: previewRect.top + previewRect.height / 2,
+            previewWidth: previewRect.width,
+            previewRightGap: rowRect.right - previewRect.right
+        };
+    });
+
+    expect(writingRowBalance.previewWidth, 'Homepage preview should stay thumbnail-sized')
+        .toBeLessThanOrEqual(225);
+    expect(writingRowBalance.previewWidth, 'Homepage preview should not dominate the row')
+        .toBeLessThan(writingRowBalance.rowWidth * 0.25);
+    expect(Math.abs(writingRowBalance.copyCenter - writingRowBalance.previewCenter), 'Homepage copy and preview centers')
+        .toBeLessThanOrEqual(2);
+    expect(Math.abs(writingRowBalance.previewRightGap), 'Homepage preview should align to the row edge')
+        .toBeLessThanOrEqual(1);
+
     await page.route('**/data/publications.json', route => {
         route.fulfill({
             status: 200,
@@ -242,22 +311,144 @@ test('wide desktop layouts keep content measures centered and proportional', asy
     await context.close();
 });
 
-test('theme and language toggles work on homepage', async ({ page }) => {
+test('dark theme activates, exposes its palette, and persists after reload', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
+    await page.emulateMedia({ colorScheme: 'light' });
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('.theme-toggle');
+    await page.evaluate(() => localStorage.setItem('theme', 'light'));
+    await page.reload({ waitUntil: 'domcontentloaded' });
 
-    const initialDarkMode = await page.evaluate(() => document.documentElement.classList.contains('dark-theme'));
+    await expect(page.locator('html')).not.toHaveClass(/dark-theme/);
+    await expect(page.locator('.theme-toggle').first()).toHaveAttribute('aria-pressed', 'false');
     await page.locator('.theme-toggle').first().click();
     await expect.poll(async () => page.evaluate(() => document.documentElement.classList.contains('dark-theme')))
-        .toBe(!initialDarkMode);
+        .toBe(true);
+    await expect(page.locator('.theme-toggle').first()).toHaveAttribute('aria-pressed', 'true');
+
+    const darkTheme = await page.evaluate(() => {
+        const rootStyle = getComputedStyle(document.documentElement);
+        const properties = [
+            '--page-bg-top',
+            '--page-bg-bottom',
+            '--surface-1',
+            '--surface-2',
+            '--text-color',
+            '--muted-text',
+            '--border-color',
+            '--border-strong',
+            '--link-color',
+            '--link-hover-color',
+            '--link-visited-color',
+            '--accent-soft'
+        ];
+
+        return {
+            storedTheme: localStorage.getItem('theme'),
+            colorScheme: rootStyle.colorScheme,
+            backgroundImage: getComputedStyle(document.body).backgroundImage,
+            variables: Object.fromEntries(properties.map(property => [
+                property,
+                rootStyle.getPropertyValue(property).trim()
+            ]))
+        };
+    });
+
+    expect(darkTheme.storedTheme).toBe('dark');
+    expect(darkTheme.colorScheme).toBe('dark');
+    expect(darkTheme.backgroundImage).toContain('rgb(21, 21, 21)');
+    expect(darkTheme.backgroundImage).toContain('rgb(27, 27, 26)');
+    expect(darkTheme.variables).toEqual({
+        '--page-bg-top': '#151515',
+        '--page-bg-bottom': '#1b1b1a',
+        '--surface-1': '#1d1d1c',
+        '--surface-2': '#252524',
+        '--text-color': '#eeeae1',
+        '--muted-text': '#bbb7ae',
+        '--border-color': '#3e3d3a',
+        '--border-strong': '#696660',
+        '--link-color': '#c2ad85',
+        '--link-hover-color': '#e3d4b8',
+        '--link-visited-color': '#c7b7cd',
+        '--accent-soft': '#302b24'
+    });
+
+    expectMinimumContrast('#eeeae1', '#151515', 4.5, 'Primary text');
+    expectMinimumContrast('#bbb7ae', '#151515', 4.5, 'Muted text');
+    expectMinimumContrast('#c2ad85', '#151515', 4.5, 'Links');
+    expectMinimumContrast('#c2ad85', '#302b24', 3, 'Selected control border');
+    expectMinimumContrast('#d6bd8e', '#1d1d1c', 3, 'Focus indicator');
+
+    const selectedFilter = page.locator('.home-writing-group-filter[aria-pressed="true"]').first();
+    await expect(selectedFilter).toHaveCSS('background-color', 'rgb(48, 43, 36)');
+    await expect(selectedFilter).toHaveCSS('border-color', 'rgb(194, 173, 133)');
+
+    const themeToggle = page.locator('.theme-toggle').first();
+    await page.mouse.move(0, 500);
+    await expect(themeToggle).toHaveCSS('background-color', 'rgb(37, 37, 36)');
+    await page.evaluate(() => document.activeElement?.blur());
+    await page.keyboard.press('Tab');
+    await themeToggle.focus();
+    await expect(themeToggle).toBeFocused();
+    await expect(themeToggle).toHaveCSS('outline-color', 'rgb(214, 189, 142)');
+
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(page.locator('html')).toHaveClass(/dark-theme/);
+    await expect(page.locator('.theme-toggle').first()).toHaveAttribute('aria-pressed', 'true');
+    expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
 
     const initialChinese = await page.evaluate(() => document.body.classList.contains('chinese'));
     await page.locator('.language-toggle').first().click();
     await expect.poll(async () => page.evaluate(() => document.body.classList.contains('chinese')))
         .toBe(!initialChinese);
     await expect(page.locator('html')).toHaveAttribute('lang', !initialChinese ? 'zh' : 'en');
+});
+
+test('dark theme covers representative pages at desktop and mobile widths', async ({ browser }) => {
+    const routes = [
+        '/',
+        '/publications/',
+        '/resume/',
+        projectDetailRoutes[0],
+        '/writings/vms_nse/',
+        featuredWritingRoute
+    ];
+    const viewports = [wideDesktopViewport, { width: 390, height: 844 }];
+
+    for (const viewport of viewports) {
+        const context = await browser.newContext({ viewport });
+        await context.addInitScript(() => localStorage.setItem('theme', 'dark'));
+        const page = await context.newPage();
+        await stubSharedThirdPartyRequests(page);
+
+        for (const route of routes) {
+            await page.goto(route, { waitUntil: 'domcontentloaded' });
+            await expect(page.locator('html'), `Dark theme class on ${route}`).toHaveClass(/dark-theme/);
+            await expect(page.locator('html'), `Native color scheme on ${route}`).toHaveCSS('color-scheme', 'dark');
+            await expect(page.locator('body'), `Text color on ${route}`).toHaveCSS('color', 'rgb(238, 234, 225)');
+            await expect(page.locator('.contentHeader-placeholder header'), `Header on ${route}`)
+                .toHaveCSS('background-color', 'rgb(29, 29, 28)');
+            await expect(page.locator('footer#footer-placeholder, #footer-placeholder footer').first(), `Footer on ${route}`)
+                .toHaveCSS('background-color', 'rgb(29, 29, 28)');
+            await expectNoHorizontalOverflow(page, route);
+        }
+
+        await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('.resume-sheet-link')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+        await expect(page.locator('.resume-sheet')).toHaveCSS('filter', 'none');
+
+        await page.goto('/writings/vms_nse/', { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('main code').first())
+            .toHaveCSS('background-color', 'rgb(37, 37, 36)');
+
+        await page.goto(featuredWritingRoute, { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('.writing-figure .content-image'))
+            .toHaveCSS('background-color', 'rgb(255, 255, 255)');
+        await expect(page.locator('.writing-figure .content-image')).toHaveCSS('filter', 'none');
+
+        await context.close();
+    }
 });
 
 test('publications filters and search work', async ({ page }) => {
@@ -339,18 +530,130 @@ test('homepage renders writing directory without removed research software secti
     await expect(page.locator('#research-software')).toHaveCount(0);
     await expect(page.locator('#home-projects-directory')).toHaveCount(0);
     await expect(page.locator('.home-links')).toHaveCount(0);
+    await expect(page.locator('#about-p1')).toContainText('My PhD advisor is Jinhui Yan.');
+    await expect(page.locator('#about-p1 a')).toHaveAttribute(
+        'href',
+        'https://yan.cee.illinois.edu/'
+    );
 
-    await expect(page.locator('#home-writings-directory .home-writing-row')).toHaveCount(writings.length);
-    for (const writing of writings) {
-        await expect(page.locator(`#home-writings-directory .home-directory-title[href$="${writing.link}"]`))
-            .toHaveText(writing.title.english);
-        await expect(page.locator('#home-writings-directory')).toContainText(writing.summary.english);
-
-        for (const theme of writing.themes || []) {
-            await expect(page.locator('#home-writings-directory')).toContainText(theme.label.english);
-        }
-    }
+    const writingRow = page.locator('#home-writings-directory .home-writing-row');
+    await expect(writingRow).toHaveCount(1);
+    await expect(writingRow.locator('.home-directory-title')).toHaveText(
+        'Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge'
+    );
+    await expect(writingRow.locator('.home-directory-title')).toHaveAttribute(
+        'href',
+        featuredWritingRoute
+    );
+    await expect(writingRow.locator('.home-directory-summary')).toHaveText(
+        'A first-place computational modelling submission for the AM Bench 2025 vat photopolymerization cure-depth challenge.'
+    );
+    await expect(writingRow.locator('.home-writing-themes')).toHaveText(
+        'Topic: Computational Mechanics'
+    );
+    await expect(page.locator('.home-writing-group-filter-label')).toHaveText('Filter by topic');
+    await expect(page.locator('.home-writing-group-filter')).toHaveText([
+        'All',
+        'Computational Mechanics'
+    ]);
+    await expect(page.locator('.home-writing-group-filter').nth(0)).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.home-writing-group-filter').nth(1)).toHaveAttribute('aria-pressed', 'false');
+    await expect(writingRow.locator('.date .month-day')).toHaveText('Aug 4,');
+    await expect(writingRow.locator('.date .year')).toHaveText('2026');
+    await expect(writingRow.locator('.home-writing-preview')).toHaveAttribute('href', featuredWritingRoute);
+    await expect(writingRow.locator('.home-writing-preview img')).toHaveAttribute(
+        'src',
+        /images\/writings\/am-bench-2025\/4\.3\.3_benchy_signed_deviation_rotations\.png$/
+    );
+    await expect(writingRow.locator('.home-writing-preview img')).toHaveAttribute(
+        'alt',
+        'Four views of signed deviation between the simulated cured surface and reference STL surface for 3DBenchy'
+    );
+    await expect(writingRow.locator('.home-writing-preview img')).toHaveAttribute('width', '2020');
+    await expect(writingRow.locator('.home-writing-preview img')).toHaveAttribute('height', '1972');
+    await expect(writingRow.locator('.home-writing-preview img')).toHaveCSS('object-fit', 'contain');
     expect(projectDataRequests).toEqual([]);
+});
+
+test('homepage writing groups filter in feed order and survive language changes', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    const multiGroupWritings = [
+        writings[0],
+        {
+            id: 'river-note',
+            title: { english: 'River Note', chinese: '河流笔记' },
+            date: '2026-07-01',
+            summary: { english: 'Environmental group fixture.', chinese: '环境分组测试。' },
+            link: 'writings/river_morphodynamics/',
+            group: {
+                id: 'environmental-modelling',
+                label: { english: 'Environmental Modelling', chinese: '环境建模' }
+            },
+            themes: []
+        },
+        {
+            id: 'ungrouped-note',
+            title: { english: 'Ungrouped Note', chinese: '未分组笔记' },
+            date: '2026-06-01',
+            summary: { english: 'Missing-group fixture.', chinese: '缺少分组的测试。' },
+            link: 'writings/close_to_nowhere/',
+            themes: []
+        }
+    ];
+
+    await page.route('**/data/writings.json', route => {
+        route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify(multiGroupWritings)
+        });
+    });
+
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    const filters = page.locator('.home-writing-group-filter');
+    await expect(filters).toHaveText([
+        'All',
+        'Computational Mechanics',
+        'Environmental Modelling',
+        'Other'
+    ]);
+    await expect(page.locator('.home-writing-row:visible')).toHaveCount(3);
+    await expect(page.getByRole('article').filter({ hasText: 'Ungrouped Note' }).locator('img'))
+        .toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+
+    await page.getByRole('button', { name: 'Environmental Modelling', exact: true }).click();
+    await expect(page.locator('.home-writing-row:visible')).toHaveCount(1);
+    await expect(page.locator('.home-writing-row:visible .home-directory-title')).toHaveText('River Note');
+    await expect(page.getByRole('button', { name: 'Environmental Modelling', exact: true }))
+        .toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('button', { name: 'All', exact: true }))
+        .toHaveAttribute('aria-pressed', 'false');
+
+    await page.locator('.language-toggle').click();
+    await expect(page.locator('#about-p1')).toContainText('我的博士导师是 Jinhui Yan。');
+    await expect(page.locator('#about-p1 a')).toHaveAttribute(
+        'href',
+        'https://yan.cee.illinois.edu/'
+    );
+    await expect(page.locator('.home-writing-group-filter')).toHaveText([
+        '全部',
+        '计算力学',
+        '环境建模',
+        '其他'
+    ]);
+    await expect(page.locator('.home-writing-group-filter-label')).toHaveText('按主题筛选');
+    await expect(page.getByRole('button', { name: '环境建模', exact: true }))
+        .toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.home-writing-row:visible .home-directory-title')).toHaveText('河流笔记');
+    await expect(page.locator('.home-writing-row:visible .home-writing-themes')).toHaveText('主题：环境建模');
+    await expect(page.locator('.home-writing-row').first().locator('img'))
+        .toHaveAttribute('alt', writings[0].previewImageAlt.chinese);
+
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('button', { name: '全部', exact: true }))
+        .toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.home-writing-row:visible')).toHaveCount(3);
 });
 
 test('homepage writing previews and mobile rows stay readable', async ({ browser }) => {
@@ -367,8 +670,12 @@ test('homepage writing previews and mobile rows stay readable', async ({ browser
     const firstPreview = page.locator('#home-writings-directory .home-writing-preview').first();
     await expect(firstPreview).toHaveAttribute('href', new RegExp(`${writings[0].link}$`));
     await expect(firstPreview.locator('img')).toBeVisible();
-    await expect(firstPreview.locator('img')).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
-    await expect(firstPreview.locator('img')).toHaveAttribute('alt', `Preview image for ${writings[0].title.english}`);
+    await expect(firstPreview.locator('img')).toHaveAttribute(
+        'src',
+        /images\/writings\/am-bench-2025\/4\.3\.3_benchy_signed_deviation_rotations\.png$/
+    );
+    await expect(firstPreview.locator('img')).toHaveAttribute('alt', writings[0].previewImageAlt.english);
+    await expect(firstPreview.locator('img')).toHaveCSS('object-fit', 'contain');
 
     const rowLayout = await page.locator('.home-writing-row').first().evaluate(row => {
         const rowRect = row.getBoundingClientRect();
@@ -432,11 +739,68 @@ test('homepage writing previews and mobile rows stay readable', async ({ browser
     await context.close();
 });
 
-test('writing article pages use the plain template with placeholder images', async ({ page }) => {
+test('featured AM Bench writing has accurate metadata and a figure-only article body', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
-    for (const route of writingArticleRoutes) {
-        await page.goto(route, { waitUntil: 'domcontentloaded' });
+    await page.goto(featuredWritingRoute, { waitUntil: 'domcontentloaded' });
+
+    const title = 'Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge';
+    const pageTitle = `${title} | Adam Lawrence`;
+    const description = 'A first-place computational modelling submission for the AM Bench 2025 vat photopolymerization cure-depth challenge.';
+    await expect(page).toHaveTitle(pageTitle);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', description);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+        'href',
+        `https://vorticem.com${featuredWritingRoute}`
+    );
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', pageTitle);
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', description);
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+        'content',
+        `https://vorticem.com${featuredWritingRoute}`
+    );
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', pageTitle);
+    await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute('content', description);
+    await expect(page.locator('meta[name="twitter:url"]')).toHaveAttribute(
+        'content',
+        `https://vorticem.com${featuredWritingRoute}`
+    );
+    await expect(page.locator('h1')).toHaveText(title);
+    await expect(page.locator('main > section')).toHaveCount(1);
+    await expect(page.locator('main > section > *')).toHaveCount(1);
+    await expect(page.locator('main :is(h2, h3, p, code)')).toHaveCount(0);
+    const articleFigures = page.locator('.writing-figure');
+    await expect(articleFigures).toHaveCount(1);
+    await expect(articleFigures.locator('img')).toHaveCount(1);
+    for (const image of await articleFigures.locator('img').all()) {
+        await expect(image).toHaveAttribute('loading', 'lazy');
+    }
+    await expect(articleFigures.nth(0).locator('img')).toHaveAttribute(
+        'src',
+        /images\/writings\/am-bench-2025\/04_L439_3\.2_gpu_framework\.png$/
+    );
+    await expect(articleFigures.locator('figcaption')).toHaveCount(1);
+    await expect(page.locator('.writing-dummy-figure, .writing-video-figure, iframe')).toHaveCount(0);
+    await expect(page.locator('link[href$="lightbox.css"], script[src$="lightbox.js"]')).toHaveCount(0);
+    await expect(page.locator('meta[http-equiv="Content-Security-Policy"]')).not.toHaveAttribute(
+        'content',
+        /frame-src/
+    );
+});
+
+test('unlisted writings remain available but discourage indexing', async ({ page, request }) => {
+    await stubSharedThirdPartyRequests(page);
+
+    const sitemapResponse = await request.get('/sitemap.xml');
+    expect(sitemapResponse.ok()).toBe(true);
+    const sitemap = await sitemapResponse.text();
+
+    for (const route of unlistedWritingRoutes) {
+        const response = await page.goto(route, { waitUntil: 'domcontentloaded' });
+        expect(response, `Missing response for ${route}`).not.toBeNull();
+        expect(response.status(), `Unexpected status for ${route}`).toBeLessThan(400);
+        await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+        expect(sitemap, `${route} should be absent from sitemap.xml`).not.toContain(route);
         await expect(page.locator('.writing-page')).toHaveCount(0);
         await expect(page.locator('link[href$="writing-showcase.css"]')).toHaveCount(0);
         await expect(page.locator('.article-hero')).toHaveCount(0);
@@ -455,7 +819,7 @@ test('writing article mobile nav opens with primary links visible', async ({ bro
     const page = await context.newPage();
     await stubSharedThirdPartyRequests(page);
 
-    for (const route of writingArticleRoutes) {
+    for (const route of allWritingArticleRoutes) {
         await page.goto(route, { waitUntil: 'domcontentloaded' });
         await expect(page.locator('.nav-toggle')).toBeVisible();
         await page.locator('.nav-toggle').click();
@@ -482,7 +846,10 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('.home-visual')).toHaveCount(0);
     await expect(page.locator('.home-image')).toHaveCount(0);
     await expect(page.locator('#home-writings-directory .home-writing-preview img')).toHaveCount(writings.length);
-    await expect(page.locator('#home-writings-directory .home-writing-preview img').first()).toHaveAttribute('src', /images\/about_me\/utah\.webp$/);
+    await expect(page.locator('#home-writings-directory .home-writing-preview img').first()).toHaveAttribute(
+        'src',
+        /images\/writings\/am-bench-2025\/4\.3\.3_benchy_signed_deviation_rotations\.png$/
+    );
     await expect(page.locator('#header-nav-list a')).toHaveText(['Home', 'Publications', 'Resume']);
     await expect(page.locator('#header-resume')).not.toHaveAttribute('target', '_blank');
 
@@ -532,7 +899,7 @@ test('core routes avoid mobile horizontal overflow', async ({ browser }) => {
     const routes = [
         '/',
         ...projectDetailRoutes,
-        ...writingArticleRoutes,
+        ...allWritingArticleRoutes,
         '/publications/',
         '/resume/'
     ];

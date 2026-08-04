@@ -30,6 +30,9 @@ const localizedCopy = {
         writings: {
             filterLabel: 'Filter by theme',
             allThemes: 'All Themes',
+            groupFilterLabel: 'Filter by topic',
+            allGroups: 'All',
+            otherGroup: 'Other',
             topicPrefix: 'Topic: ',
             noMatches: 'No writings match the selected filter.'
         }
@@ -60,6 +63,9 @@ const localizedCopy = {
         writings: {
             filterLabel: '按主题筛选',
             allThemes: '全部主题',
+            groupFilterLabel: '按主题筛选',
+            allGroups: '全部',
+            otherGroup: '其他',
             topicPrefix: '主题：',
             noMatches: '暂无符合条件的文章。'
         }

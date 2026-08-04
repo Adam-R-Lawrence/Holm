@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numerical Modelling of Photopolymerization | Adam Lawrence</title>
-    <meta name="description" content="Technical note on numerical modelling strategies for photopolymerization benchmarks, with links to related simulation tooling.">
+    <title>Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge | Adam Lawrence</title>
+    <meta name="description" content="A first-place computational modelling submission for the AM Bench 2025 vat photopolymerization cure-depth challenge.">
     <link rel="stylesheet" href="../../styles/styles.min.css">
-    <link rel="stylesheet" href="../../styles/lightbox.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
@@ -21,17 +20,17 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="color-scheme" content="light dark">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com; object-src 'self'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; connect-src 'self' https://api.github.com https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self' https: data:; object-src 'self'; base-uri 'self'; form-action 'self';">
     <link rel="canonical" href="https://vorticem.com/writings/numerical_modelling_of_photopolymerization/">
-    <meta property="og:title" content="Numerical Modelling of Photopolymerization | Adam Lawrence">
-    <meta property="og:description" content="Technical note on numerical modelling strategies for photopolymerization benchmarks, with links to related simulation tooling.">
+    <meta property="og:title" content="Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge | Adam Lawrence">
+    <meta property="og:description" content="A first-place computational modelling submission for the AM Bench 2025 vat photopolymerization cure-depth challenge.">
     <meta property="og:image" content="https://vorticem.com/images/social-preview.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://vorticem.com/writings/numerical_modelling_of_photopolymerization/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Numerical Modelling of Photopolymerization | Adam Lawrence">
-    <meta name="twitter:description" content="Technical note on numerical modelling strategies for photopolymerization benchmarks, with links to related simulation tooling.">
+    <meta name="twitter:title" content="Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge | Adam Lawrence">
+    <meta name="twitter:description" content="A first-place computational modelling submission for the AM Bench 2025 vat photopolymerization cure-depth challenge.">
     <meta name="twitter:image" content="https://vorticem.com/images/social-preview.jpg">
     <meta name="twitter:site" content="@arlawrence__">
     <meta name="twitter:url" content="https://vorticem.com/writings/numerical_modelling_of_photopolymerization/">
@@ -39,27 +38,13 @@
 <body>
 <div class="wrapper">
     <div id="contentHeader-placeholder"></div>
-    <main id="main-content">
-        <h1>Numerical Modelling of Photopolymerization</h1>
-        <p>
-            This note outlines numerical approaches for photopolymerization benchmarks and links simulation choices
-            to practical manufacturing constraints.
-        </p>
-        <figure class="writing-dummy-figure">
-            <button class="writing-dummy-media lightbox-trigger" type="button" data-src="../../images/about_me/utah.webp" data-caption="Antelope Island placeholder image">
-                <img class="content-image writing-dummy-image" src="../../images/about_me/utah.webp" alt="Antelope Island placeholder landscape" width="2339" height="1559" loading="lazy" decoding="async">
-            </button>
-            <figcaption>Antelope Island placeholder image for article layout testing.</figcaption>
-        </figure>
-        <figure class="writing-video-figure">
-            <div class="writing-video-frame">
-                <iframe src="https://www.youtube-nocookie.com/embed/GHjopp47vvQ" title="Placeholder FEM video: Understanding the Finite Element Method" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <figcaption>Placeholder FEM video embed for writeup layout testing.</figcaption>
-        </figure>
-        <section class="content-crosslinks">
-            <h2>Explore Next</h2>
-            <p>Read more in <a href="../../#writings">writings</a>, return <a href="../../">home</a>, or browse <a href="../../publications/">publications</a>.</p>
+    <main id="main-content" class="writing-article">
+        <h1>Computational Modelling of Vat Photopolymerization — AM Bench 2025 Challenge</h1>
+        <section>
+            <figure class="writing-figure">
+                <img class="content-image" src="../../images/writings/am-bench-2025/04_L439_3.2_gpu_framework.png" alt="GPU workflow diagram for the vat photopolymerization finite-element framework, spanning host setup, distributed GPU execution, coupled light, cure, and heat models, and halo communication" width="2052" height="2116" loading="lazy" decoding="async">
+                <figcaption>GPU workflow for the vat photopolymerization finite-element framework. The dominant loop keeps field state resident on the device and limits synchronization to required exchange and solver points.</figcaption>
+            </figure>
         </section>
     </main>
     <div id="footer-placeholder"></div>
@@ -68,7 +53,6 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 <script src="../../javascript/functions.js"></script>
-<script src="../../javascript/lightbox.js"></script>
 <script src="../../javascript/scrollToTop.js"></script>
 </body>
 </html>

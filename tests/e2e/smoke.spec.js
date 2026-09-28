@@ -477,6 +477,30 @@ test('dark theme covers representative pages at desktop and mobile widths', asyn
     }
 });
 
+test('published research and Scholar link are visible', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
+
+    const publication = page.locator('.publications-list-item');
+    await expect(publication).toHaveCount(1);
+    await expect(publication).toContainText(
+        'A multi-GPU-centric finite element multiphysics modeling framework for vat photopolymerization'
+    );
+    await expect(publication.locator('.publication-title')).toHaveAttribute(
+        'href',
+        'https://doi.org/10.1016/j.addma.2026.105361'
+    );
+    await expect(page.locator('#publications-toolbar')).toBeHidden();
+    await expect(page.locator('#publications-scholar-link')).toHaveAttribute(
+        'href',
+        /scholar\.google\.com\/citations\?user=xpMzezsAAAAJ/
+    );
+
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#home-feature-heading')).toContainText('multi-GPU-centric');
+    await expect(page.locator('#home-publications-link')).toHaveAttribute('href', '/publications/');
+});
+
 test('publications filters and search work', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
 
@@ -556,7 +580,7 @@ test('homepage renders writing directory without removed research software secti
     await expect(page.locator('#research-software')).toHaveCount(0);
     await expect(page.locator('#home-projects-directory')).toHaveCount(0);
     await expect(page.locator('.home-links')).toHaveCount(0);
-    await expect(page.locator('#about-p1')).toContainText('My PhD advisor is Jinhui Yan.');
+    await expect(page.locator('#about-p1')).toContainText('with my advisor Jinhui Yan.');
     await expect(page.locator('#about-p1 a')).toHaveAttribute(
         'href',
         'https://yan.cee.illinois.edu/'
@@ -657,7 +681,7 @@ test('homepage writing groups filter in feed order and survive language changes'
         .toHaveAttribute('aria-pressed', 'false');
 
     await page.locator('.language-toggle').click();
-    await expect(page.locator('#about-p1')).toContainText('我的博士导师是 Jinhui Yan。');
+    await expect(page.locator('#about-p1')).toContainText('导师 Jinhui Yan 一起研究');
     await expect(page.locator('#about-p1 a')).toHaveAttribute(
         'href',
         'https://yan.cee.illinois.edu/'
@@ -880,7 +904,7 @@ test('plain personal site surfaces render without generated previews', async ({ 
     await expect(page.locator('#header-resume')).not.toHaveAttribute('target', '_blank');
 
     await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('.publications-status')).toContainText('Publications are being prepared');
+    await expect(page.locator('.publications-list-item')).toContainText('A multi-GPU-centric finite element multiphysics modeling framework');
 
     await page.goto('/projects/Torrentem/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.project-note-header')).toBeVisible();

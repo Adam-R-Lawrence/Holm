@@ -243,7 +243,7 @@ export async function loadPublicationsPage() {
         }
 
         if (toolbar) {
-            toolbar.hidden = false;
+            toolbar.hidden = allPublications.length < 2;
         }
 
         const years = Array.from(new Set(

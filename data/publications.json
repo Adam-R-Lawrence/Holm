@@ -1,29 +1,10 @@
 [
   {
-    "title": "Computational Modeling of Photopolymerization in Additive Manufacturing",
-    "authors": "Adam R. Lawrence, Jinhui Yan",
-    "venue": "NIST Photopolymerization Benchmark Workshop",
-    "year": 2025,
-    "type": "conference",
-    "link": "",
-    "draft": true
-  },
-  {
-    "title": "Stabilized Finite Element Methods for Free-Surface Flows",
-    "authors": "Adam R. Lawrence, Coauthor Name",
-    "venue": "Journal of Computational Mechanics",
-    "year": 2024,
+    "title": "A multi-GPU-centric finite element multiphysics modeling framework for vat photopolymerization",
+    "authors": "Adam Lawrence, Shih-Teng Huang, Dian-Ru Li, Jinhui Yan",
+    "venue": "Additive Manufacturing, article 105361",
+    "year": 2026,
     "type": "journal",
-    "link": "",
-    "draft": true
-  },
-  {
-    "title": "High-Performance Multiphysics Simulation with Torrentem",
-    "authors": "Adam R. Lawrence",
-    "venue": "UIUC Civil and Environmental Engineering Research Day",
-    "year": 2023,
-    "type": "poster",
-    "link": "",
-    "draft": true
+    "link": "https://doi.org/10.1016/j.addma.2026.105361"
   }
 ]

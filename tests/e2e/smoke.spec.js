@@ -406,9 +406,9 @@ test('dark theme activates, exposes its palette, and persists after reload', asy
     expectMinimumContrast('#c2ad85', '#302b24', 3, 'Selected control border');
     expectMinimumContrast('#d6bd8e', '#1d1d1c', 3, 'Focus indicator');
 
-    const selectedFilter = page.locator('.home-writing-group-filter[aria-pressed="true"]').first();
-    await expect(selectedFilter).toHaveCSS('background-color', 'rgb(48, 43, 36)');
-    await expect(selectedFilter).toHaveCSS('border-color', 'rgb(194, 173, 133)');
+    await expect(page.locator('.home-profile-links a').first())
+        .toHaveCSS('color', 'rgb(194, 173, 133)');
+    await expect(page.locator('.home-recent')).toHaveCSS('border-bottom-color', 'rgb(62, 61, 58)');
 
     const themeToggle = page.locator('.theme-toggle').first();
     await page.mouse.move(0, 500);
@@ -497,8 +497,17 @@ test('published research and Scholar link are visible', async ({ page }) => {
     );
 
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('#home-feature-heading')).toContainText('multi-GPU-centric');
-    await expect(page.locator('#home-publications-link')).toHaveAttribute('href', '/publications/');
+    await expect(page.locator('.home-feature')).toHaveCount(0);
+    await expect(page.locator('#home-recent-heading')).toHaveText('Recent publication');
+    await expect(page.locator('#home-paper-link')).toHaveAttribute(
+        'href',
+        'https://doi.org/10.1016/j.addma.2026.105361'
+    );
+    await expect(page.locator('#home-scholar-link')).toHaveAttribute(
+        'href',
+        /scholar\.google\.com\/citations\?user=xpMzezsAAAAJ/
+    );
+    await expect(page.locator('#home-resume-link')).toHaveAttribute('href', '/resume/');
 });
 
 test('publications filters and search work', async ({ page }) => {
@@ -580,7 +589,7 @@ test('homepage renders writing directory without removed research software secti
     await expect(page.locator('#research-software')).toHaveCount(0);
     await expect(page.locator('#home-projects-directory')).toHaveCount(0);
     await expect(page.locator('.home-links')).toHaveCount(0);
-    await expect(page.locator('#about-p1')).toContainText('with my advisor Jinhui Yan.');
+    await expect(page.locator('#about-p1')).toContainText('I work with Jinhui Yan.');
     await expect(page.locator('#about-p1 a')).toHaveAttribute(
         'href',
         'https://yan.cee.illinois.edu/'
@@ -601,13 +610,8 @@ test('homepage renders writing directory without removed research software secti
     await expect(writingRow.locator('.home-writing-themes')).toHaveText(
         'Topic: Computational Mechanics'
     );
-    await expect(page.locator('.home-writing-group-filter-label')).toHaveText('Filter by topic');
-    await expect(page.locator('.home-writing-group-filter')).toHaveText([
-        'All',
-        'Computational Mechanics'
-    ]);
-    await expect(page.locator('.home-writing-group-filter').nth(0)).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('.home-writing-group-filter').nth(1)).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('#home-writing-group-filters')).toBeHidden();
+    await expect(page.locator('.home-writing-group-filter')).toHaveCount(0);
     await expect(writingRow.locator('.date .month-day')).toHaveText('Aug 4,');
     await expect(writingRow.locator('.date .year')).toHaveText('2026');
     await expect(writingRow.locator('.home-writing-preview')).toHaveAttribute('href', featuredWritingRoute);
@@ -681,7 +685,7 @@ test('homepage writing groups filter in feed order and survive language changes'
         .toHaveAttribute('aria-pressed', 'false');
 
     await page.locator('.language-toggle').click();
-    await expect(page.locator('#about-p1')).toContainText('导师 Jinhui Yan 一起研究');
+    await expect(page.locator('#about-p1')).toContainText('我与 Jinhui Yan 合作');
     await expect(page.locator('#about-p1 a')).toHaveAttribute(
         'href',
         'https://yan.cee.illinois.edu/'

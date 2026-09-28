@@ -194,7 +194,9 @@ function applyHomeGroupFilter(rows, filterContainer) {
 function renderHomeGroupFilters(filterContainer, rows, groupLabels) {
     filterContainer.innerHTML = '';
 
-    if (!rows.length) {
+    if (groupLabels.size < 2) {
+        activeHomeWritingGroup = 'all';
+        rows.forEach(row => { row.hidden = false; });
         filterContainer.hidden = true;
         return;
     }

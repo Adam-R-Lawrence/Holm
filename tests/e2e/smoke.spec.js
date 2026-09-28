@@ -751,19 +751,19 @@ test('featured AM Bench writing has accurate metadata and a figure-only article 
     await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', description);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         'href',
-        `https://vorticem.com${featuredWritingRoute}`
+        `https://adamrlawrence.com${featuredWritingRoute}`
     );
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', pageTitle);
     await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', description);
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
         'content',
-        `https://vorticem.com${featuredWritingRoute}`
+        `https://adamrlawrence.com${featuredWritingRoute}`
     );
     await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', pageTitle);
     await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute('content', description);
     await expect(page.locator('meta[name="twitter:url"]')).toHaveAttribute(
         'content',
-        `https://vorticem.com${featuredWritingRoute}`
+        `https://adamrlawrence.com${featuredWritingRoute}`
     );
     await expect(page.locator('h1')).toHaveText(title);
     await expect(page.locator('main > section')).toHaveCount(1);

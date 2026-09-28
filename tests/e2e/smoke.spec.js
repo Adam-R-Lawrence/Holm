@@ -34,7 +34,7 @@ async function stubSharedThirdPartyRequests(page) {
         });
     });
 
-    await page.route('https://www.youtube-nocookie.com/embed/**', route => {
+    await page.route(/^https:\/\/www\.youtube-nocookie\.com\/embed(?:\/|\?)/, route => {
         route.fulfill({
             status: 200,
             contentType: 'text/html',
@@ -208,6 +208,32 @@ test('browser regression sweep across core routes', async ({ page }) => {
 
     expect(pageErrors, `Unexpected page errors:\n${pageErrors.join('\n')}`).toEqual([]);
     expect(trackingRequests, 'Requests to Google tracking domains').toEqual([]);
+});
+
+test('homepage embeds the newest video from the channel uploads playlist', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    const video = page.locator('.home-video-frame iframe');
+    await expect(video).toHaveAttribute(
+        'src',
+        'https://www.youtube-nocookie.com/embed?listType=playlist&list=UUuOtXNfo_nRq0GfsTRHxe8w'
+    );
+    await expect(video).toHaveAttribute('loading', 'lazy');
+    await expect(video).toHaveAttribute('title', 'Latest video from Adam Lawrence on YouTube');
+    await expect(page.locator('#home-video-channel-link'))
+        .toHaveAttribute('href', 'https://www.youtube.com/@arlawrence');
+    await expect(page.locator('meta[http-equiv="Content-Security-Policy"]'))
+        .toHaveAttribute('content', /frame-src 'self' https:\/\/www\.youtube-nocookie\.com/);
+
+    await page.setViewportSize({ width: 375, height: 812 });
+    await expectNoHorizontalOverflow(page, '/');
+    const frameBox = await video.boundingBox();
+    expect(frameBox.height).toBeGreaterThanOrEqual(200);
+
+    await page.locator('.language-toggle').click();
+    await expect(page.locator('#home-video-heading')).toHaveText('最新视频');
+    await expect(page.locator('#home-video-channel-link')).toHaveText('在 YouTube 查看更多');
 });
 
 test('wide desktop layouts keep content measures centered and proportional', async ({ browser }) => {

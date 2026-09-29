@@ -383,41 +383,42 @@ test('dark theme activates, exposes its palette, and persists after reload', asy
 
     expect(darkTheme.storedTheme).toBe('dark');
     expect(darkTheme.colorScheme).toBe('dark');
-    expect(darkTheme.backgroundImage).toContain('rgb(21, 21, 21)');
-    expect(darkTheme.backgroundImage).toContain('rgb(27, 27, 26)');
+    expect(darkTheme.backgroundImage).toBe('none');
     expect(darkTheme.variables).toEqual({
-        '--page-bg-top': '#151515',
-        '--page-bg-bottom': '#1b1b1a',
-        '--surface-1': '#1d1d1c',
-        '--surface-2': '#252524',
-        '--text-color': '#eeeae1',
-        '--muted-text': '#bbb7ae',
-        '--border-color': '#3e3d3a',
-        '--border-strong': '#696660',
-        '--link-color': '#c2ad85',
-        '--link-hover-color': '#e3d4b8',
-        '--link-visited-color': '#c7b7cd',
-        '--accent-soft': '#302b24'
+        '--page-bg-top': '#1b1b1b',
+        '--page-bg-bottom': '#1b1b1b',
+        '--surface-1': '#1b1b1b',
+        '--surface-2': '#252525',
+        '--text-color': '#f2f2f2',
+        '--muted-text': '#b3b3b3',
+        '--border-color': '#414141',
+        '--border-strong': '#666666',
+        '--link-color': '#e5e5e5',
+        '--link-hover-color': '#ffffff',
+        '--link-visited-color': '#cdcdcd',
+        '--accent-soft': '#2a2a2a'
     });
 
-    expectMinimumContrast('#eeeae1', '#151515', 4.5, 'Primary text');
-    expectMinimumContrast('#bbb7ae', '#151515', 4.5, 'Muted text');
-    expectMinimumContrast('#c2ad85', '#151515', 4.5, 'Links');
-    expectMinimumContrast('#c2ad85', '#302b24', 3, 'Selected control border');
-    expectMinimumContrast('#d6bd8e', '#1d1d1c', 3, 'Focus indicator');
+    expectMinimumContrast('#f2f2f2', '#1b1b1b', 4.5, 'Primary text');
+    expectMinimumContrast('#b3b3b3', '#1b1b1b', 4.5, 'Muted text');
+    expectMinimumContrast('#e5e5e5', '#1b1b1b', 4.5, 'Links');
+    expectMinimumContrast('#d7d7d7', '#2a2a2a', 3, 'Selected control border');
+    expectMinimumContrast('#e5e5e5', '#1b1b1b', 3, 'Focus indicator');
 
     await expect(page.locator('.home-profile-links a').first())
-        .toHaveCSS('color', 'rgb(194, 173, 133)');
+        .toHaveCSS('color', 'rgb(229, 229, 229)');
+    await expect(page.locator('header a[aria-current="page"]'))
+        .toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
     await expect(page.locator('.home-recent')).toHaveCSS('border-bottom-width', '0px');
 
     const themeToggle = page.locator('.theme-toggle').first();
     await page.mouse.move(0, 500);
-    await expect(themeToggle).toHaveCSS('background-color', 'rgb(37, 37, 36)');
+    await expect(themeToggle).toHaveCSS('background-color', 'rgb(37, 37, 37)');
     await page.evaluate(() => document.activeElement?.blur());
     await page.keyboard.press('Tab');
     await themeToggle.focus();
     await expect(themeToggle).toBeFocused();
-    await expect(themeToggle).toHaveCSS('outline-color', 'rgb(214, 189, 142)');
+    await expect(themeToggle).toHaveCSS('outline-color', 'rgb(229, 229, 229)');
 
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(page.locator('html')).toHaveClass(/dark-theme/);
@@ -452,11 +453,11 @@ test('dark theme covers representative pages at desktop and mobile widths', asyn
             await page.goto(route, { waitUntil: 'domcontentloaded' });
             await expect(page.locator('html'), `Dark theme class on ${route}`).toHaveClass(/dark-theme/);
             await expect(page.locator('html'), `Native color scheme on ${route}`).toHaveCSS('color-scheme', 'dark');
-            await expect(page.locator('body'), `Text color on ${route}`).toHaveCSS('color', 'rgb(238, 234, 225)');
+            await expect(page.locator('body'), `Text color on ${route}`).toHaveCSS('color', 'rgb(242, 242, 242)');
             await expect(page.locator('.contentHeader-placeholder header'), `Header on ${route}`)
-                .toHaveCSS('background-color', 'rgb(29, 29, 28)');
+                .toHaveCSS('background-color', 'rgb(27, 27, 27)');
             await expect(page.locator('footer#footer-placeholder, #footer-placeholder footer').first(), `Footer on ${route}`)
-                .toHaveCSS('background-color', 'rgb(29, 29, 28)');
+                .toHaveCSS('background-color', 'rgb(27, 27, 27)');
             await expectNoHorizontalOverflow(page, route);
         }
 
@@ -466,7 +467,7 @@ test('dark theme covers representative pages at desktop and mobile widths', asyn
 
         await page.goto('/writings/vms_nse/', { waitUntil: 'domcontentloaded' });
         await expect(page.locator('main code').first())
-            .toHaveCSS('background-color', 'rgb(37, 37, 36)');
+            .toHaveCSS('background-color', 'rgb(37, 37, 37)');
 
         await page.goto(featuredWritingRoute, { waitUntil: 'domcontentloaded' });
         await expect(page.locator('.writing-figure .content-image'))

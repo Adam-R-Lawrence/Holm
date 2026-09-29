@@ -8,6 +8,8 @@ test('publications builder imports BibTeX with correct author order', async ({ p
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
     await expect(page.locator('#existing-count')).toContainText('item(s) loaded');
 
+    await expect(page.getByRole('textbox', { name: 'Citation data' })).toBeVisible();
+    await expect(page.getByRole('status')).toHaveCount(1);
     await page.locator('#publications-source').fill(`@article{example2026,
       title = {Example Research},
       author = {Doe, Jane and Adam R. Lawrence},

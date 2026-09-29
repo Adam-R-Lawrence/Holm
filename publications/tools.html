@@ -183,13 +183,14 @@
         <article class="builder-card">
             <h2>Input Data</h2>
             <p class="status-line">BibTeX entries, ORCID API responses, or an array of publication objects.</p>
+            <label for="publications-source">Citation data</label>
             <textarea id="publications-source" placeholder="Paste your data here..."></textarea>
             <div class="button-row">
                 <button id="parse-bibtex" type="button">Parse as BibTeX</button>
                 <button id="parse-orcid" type="button">Parse as ORCID JSON</button>
                 <button id="parse-json" type="button">Parse as JSON Array</button>
             </div>
-            <p id="parse-status" class="status-line"></p>
+            <p id="parse-status" class="status-line" role="status"></p>
         </article>
 
         <article class="builder-card">

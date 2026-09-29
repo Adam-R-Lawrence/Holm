@@ -106,7 +106,7 @@ function createHomeWritingRow(writing, group) {
     if (href) {
         previewLink.href = href;
     }
-    previewLink.setAttribute('aria-label', titleText ? `Read ${titleText}` : 'Read writing');
+    previewLink.setAttribute('aria-label', titleText ? `${getCopy('writings', 'readPrefix')}${titleText}` : getCopy('writings', 'readWriting'));
 
     const previewImage = createElement('img');
     previewImage.src = resolvePath(writing.previewImage || writing.image || DEFAULT_WRITING_PREVIEW_IMAGE);

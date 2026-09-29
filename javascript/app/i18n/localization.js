@@ -5,6 +5,13 @@ import { fetchJsonCached } from '../utils/fetch.js';
 
 const localizedCopy = {
     english: {
+        controls: {
+            skipToMain: 'Skip to main content',
+            toggleTheme: 'Toggle theme',
+            toggleLanguage: 'Toggle language',
+            toggleNavigation: 'Toggle navigation menu',
+            scrollToTop: 'Scroll to Top'
+        },
         publications: {
             filterYearLabel: 'Year',
             filterTypeLabel: 'Type',
@@ -31,10 +38,19 @@ const localizedCopy = {
             groupFilterLabel: 'Filter by topic',
             allGroups: 'All',
             otherGroup: 'Other',
-            topicPrefix: 'Topic: '
+            topicPrefix: 'Topic: ',
+            readPrefix: 'Read ',
+            readWriting: 'Read writing'
         }
     },
     chinese: {
+        controls: {
+            skipToMain: '跳转到主要内容',
+            toggleTheme: '切换主题',
+            toggleLanguage: '切换语言',
+            toggleNavigation: '切换导航菜单',
+            scrollToTop: '返回顶部'
+        },
         publications: {
             filterYearLabel: '年份',
             filterTypeLabel: '类型',
@@ -61,7 +77,9 @@ const localizedCopy = {
             groupFilterLabel: '按主题筛选',
             allGroups: '全部',
             otherGroup: '其他',
-            topicPrefix: '主题：'
+            topicPrefix: '主题：',
+            readPrefix: '阅读：',
+            readWriting: '阅读文章'
         }
     }
 };
@@ -194,6 +212,19 @@ export function applyLanguageDomState(language = getActiveLanguage()) {
         document.body.classList.toggle('chinese', isChinese);
     }
     document.documentElement.setAttribute('lang', isChinese ? 'zh' : 'en');
+
+    const controlLabels = {
+        '.skip-link': 'skipToMain',
+        '.theme-toggle': 'toggleTheme',
+        '.language-toggle': 'toggleLanguage',
+        '.nav-toggle': 'toggleNavigation',
+        '#scroll-to-top-btn': 'scrollToTop'
+    };
+    Object.entries(controlLabels).forEach(([selector, key]) => {
+        all(selector).forEach(element => {
+            element.setAttribute('aria-label', getCopy('controls', key));
+        });
+    });
 
     return isChinese;
 }

@@ -245,6 +245,30 @@ test('footer update date follows the selected language, including after reload',
     await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
 });
 
+test('Chinese mode gives controls localized names and identifies English article content', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.home-writing-preview')).toHaveCount(writings.length);
+
+    await page.locator('.language-toggle').click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh');
+    await expect(page.locator('.skip-link')).toHaveAttribute('aria-label', '跳转到主要内容');
+    await expect(page.locator('.theme-toggle')).toHaveAttribute('aria-label', '切换主题');
+    await expect(page.locator('.language-toggle')).toHaveAttribute('aria-label', '切换语言');
+    await expect(page.locator('.nav-toggle')).toHaveAttribute('aria-label', '切换导航菜单');
+    await expect(page.locator('#scroll-to-top-btn')).toHaveAttribute('aria-label', '返回顶部');
+    await expect(page.locator('.home-writing-preview').first())
+        .toHaveAttribute('aria-label', `阅读：${writings[0].title.chinese}`);
+
+    await page.goto('/resume/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh');
+    await expect(page.locator('main')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('.contentHeader-placeholder nav')).toContainText('简历');
+
+    await page.goto(featuredWritingRoute, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('main')).toHaveAttribute('lang', 'en');
+});
+
 test('homepage embeds the newest video from the channel uploads playlist', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
     await page.goto('/', { waitUntil: 'domcontentloaded' });

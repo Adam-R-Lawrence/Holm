@@ -408,7 +408,7 @@ test('dark theme activates, exposes its palette, and persists after reload', asy
 
     await expect(page.locator('.home-profile-links a').first())
         .toHaveCSS('color', 'rgb(194, 173, 133)');
-    await expect(page.locator('.home-recent')).toHaveCSS('border-bottom-color', 'rgb(62, 61, 58)');
+    await expect(page.locator('.home-recent')).toHaveCSS('border-bottom-width', '0px');
 
     const themeToggle = page.locator('.theme-toggle').first();
     await page.mouse.move(0, 500);

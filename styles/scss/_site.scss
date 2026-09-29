@@ -3470,20 +3470,21 @@ footer p {
     --page-bg-top: #ffffff;
     --page-bg-bottom: #ffffff;
     --surface-1: #ffffff;
-    --surface-2: #f6f8f7;
-    --surface-3: #fbfcfb;
-    --surface-soft: #f1f6f4;
-    --text-color: #1f2421;
-    --muted-text: #56615b;
-    --border-color: #d6ddd8;
-    --border-strong: #8b9b92;
-    --accent: #2f5d50;
-    --accent-strong: #21463c;
-    --accent-soft: #edf5f1;
-    --link-color: #2f5d50;
-    --link-hover-color: #21463c;
-    --link-visited-color: #4d665e;
-    --link-focus-ring: rgba(47, 93, 80, 0.34);
+    --surface-2: #f7f7f7;
+    --surface-3: #fbfbfb;
+    --surface-soft: #f5f5f5;
+    --text-color: #222222;
+    --muted-text: #626262;
+    --border-color: #dedede;
+    --border-strong: #999999;
+    --accent: #333333;
+    --accent-strong: #222222;
+    --accent-soft: #f2f2f2;
+    --accent-green: #333333;
+    --link-color: #303030;
+    --link-hover-color: #111111;
+    --link-visited-color: #4a4a4a;
+    --link-focus-ring: rgba(48, 48, 48, 0.3);
 }
 
 .dark-theme {
@@ -3563,7 +3564,7 @@ footer {
 
 .contentHeader-placeholder header {
     background: var(--surface-1) !important;
-    border-width: 0 0 1px !important;
+    border: 0 !important;
 }
 
 header a:hover,
@@ -3624,7 +3625,7 @@ main#main-content:not([data-page]) li {
     max-width: min(100%, 66rem);
     margin-inline: auto;
     padding: 0.6rem 0 1.6rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 0;
 }
 
 .home-visual {
@@ -3635,7 +3636,7 @@ main#main-content:not([data-page]) li {
     max-width: min(100%, 48rem);
     margin: 1.6rem auto 0;
     padding-bottom: 1.6rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 0;
 }
 
 .home-video-header {
@@ -3689,7 +3690,7 @@ main#main-content:not([data-page]) li {
 .home-directory {
     display: grid;
     gap: 0;
-    border-top: 1px solid var(--border-color);
+    border-top: 0;
 }
 
 .home-directory-row {
@@ -3697,7 +3698,7 @@ main#main-content:not([data-page]) li {
     grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
     gap: 1.1rem;
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 0;
 }
 
 .home-writing-row {
@@ -4005,7 +4006,7 @@ main#main-content.resume-page {
 #footer-placeholder footer,
 footer {
     max-width: min(100%, 44rem);
-    border-width: 1px 0 0 !important;
+    border: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     margin: 0.8rem auto 0;
@@ -4033,7 +4034,7 @@ main#main-content[data-page="publications"] .section-intro,
 
 #writings-directory .writing-item {
     border: 0 !important;
-    border-top: 1px solid var(--border-color) !important;
+    border-top: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
@@ -4045,7 +4046,7 @@ main#main-content[data-page="publications"] .section-intro,
 }
 
 #writings-directory .writing-item:last-child {
-    border-bottom: 1px solid var(--border-color) !important;
+    border-bottom: 0 !important;
 }
 
 #writings-directory a,
@@ -4633,7 +4634,7 @@ main#main-content[data-page="publications"] .publications-scholar-action a {
     max-width: min(100%, 66rem);
     margin: 1.1rem auto 0;
     padding: 0.15rem 0 1.4rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 0;
 }
 
 .home-recent > :is(h2, p) {
@@ -4693,7 +4694,7 @@ main#main-content[data-page="publications"] .publications-list {
 main#main-content[data-page="publications"] .publications-list-item {
     padding: 1rem 0 !important;
     border: 0 !important;
-    border-top: 1px solid var(--border-color) !important;
+    border-top: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     box-shadow: none !important;

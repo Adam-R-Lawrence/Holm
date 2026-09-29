@@ -64,7 +64,7 @@
         }
         return value
             .split(/\b[aA][nN][dD]\b|;/)
-            .map(segment => segment.replace(/[,]+/g, ' ').trim())
+            .map(segment => segment.trim())
             .map(normalizeSingleAuthor)
             .filter(Boolean)
             .join(', ');
@@ -225,7 +225,9 @@
             throw new Error('No BibTeX entries detected.');
         }
         return entries.map(entry => {
-            const tags = entry.entryTags || {};
+            const tags = Object.fromEntries(
+                Object.entries(entry.entryTags || {}).map(([key, value]) => [key.toUpperCase(), value])
+            );
             const type = guessType(entry.entryType, TYPE_MAP_BIBTEX);
             const year = toNumberOrNull(tags.YEAR);
             const doi = sanitizeText(tags.DOI);

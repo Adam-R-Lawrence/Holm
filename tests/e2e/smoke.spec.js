@@ -203,6 +203,7 @@ test('browser regression sweep across core routes', async ({ page }) => {
             hasGtag: false
         });
         await expectSharedFooterContact(page, route);
+        await expect(page.locator('.skip-link'), `Skip link count on ${route}`).toHaveCount(1);
         await expectNoHorizontalOverflow(page, route);
     }
 
@@ -226,6 +227,22 @@ test('nested 404 keeps its styles, navigation, and home link working', async ({ 
         .toHaveAttribute('href', '/styles/styles.min.css');
     await expect(page.locator('.contentHeader-placeholder nav')).toBeVisible();
     await expectSharedFooterContact(page, '/not-found/nested/page');
+});
+
+test('footer update date follows the selected language, including after reload', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
+
+    await page.locator('.language-toggle').click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'zh');
+    await expect(page.locator('#last-updated')).toHaveText('2026年2月20日');
+
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#last-updated')).toHaveText('2026年2月20日');
+
+    await page.locator('.language-toggle').click();
+    await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
 });
 
 test('homepage embeds the newest video from the channel uploads playlist', async ({ page }) => {
@@ -887,6 +904,21 @@ test('unlisted writings remain available but discourage indexing', async ({ page
     }
 });
 
+test('writing image viewer has a name and returns keyboard focus', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    await page.goto('/writings/photopolymerization/', { waitUntil: 'domcontentloaded' });
+
+    const trigger = page.locator('.writing-dummy-media');
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'Antelope Island placeholder image' });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: 'Close' })).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+});
+
 test('writing article mobile nav opens with primary links visible', async ({ browser }) => {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true });
     const page = await context.newPage();
@@ -986,5 +1018,17 @@ test('core routes avoid mobile horizontal overflow', async ({ browser }) => {
     }
 
     expect(pageErrors, `Unexpected mobile page errors:\n${pageErrors.join('\n')}`).toEqual([]);
+    await context.close();
+});
+
+test('long writing title fits a narrow phone viewport', async ({ browser }) => {
+    const context = await browser.newContext({ viewport: { width: 320, height: 700 }, isMobile: true });
+    const page = await context.newPage();
+    await stubSharedThirdPartyRequests(page);
+
+    await page.goto('/writings/photopolymerization/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1')).toHaveText('Photopolymerization');
+    await expectNoHorizontalOverflow(page, '/writings/photopolymerization/ at 320px');
+
     await context.close();
 });

@@ -1,6 +1,6 @@
 # Adam Lawrence Personal Website
 
-This repository contains the source code for the personal website of **Adam Lawrence**, a civil engineering PhD student at UIUC. The site is composed of static HTML, CSS, and JavaScript files that showcase research interests, projects, publications, and an embedded resume. It is intended for deployment via GitHub Pages.
+This repository contains the source code for the personal website of **Adam Lawrence**, a civil engineering PhD candidate at UIUC. The site is composed of static HTML, CSS, and JavaScript files that showcase research interests, project details, publications, and a resume preview with PDF links. It is intended for deployment via GitHub Pages.
 
 ## Frontend Architecture
 
@@ -10,7 +10,7 @@ The runtime JavaScript now uses a modular app entrypoint:
 - `javascript/app/bootstrap.js`: startup orchestration and page-level wiring.
 - `javascript/app/features/*`: shared concerns (theme, footer "last updated", fragment loading).
 - `javascript/app/i18n/localization.js`: language state, translation loading, and localized copy helpers.
-- `javascript/app/pages/*`: page renderers for projects, publications, and writings.
+- `javascript/app/pages/*`: renderers for the publications page and homepage writings.
 - `javascript/app/utils/*`: DOM helpers, path resolution, and cached fetch utilities.
 
 This split keeps behavior unchanged for existing HTML while making future refactors and testing easier.
@@ -36,7 +36,7 @@ npm run check:css
 npm run test:e2e
 ```
 
-CI runs the same lint and Playwright smoke tests via `.github/workflows/ci.yml`.
+CI runs all three checks via `.github/workflows/ci.yml`.
 
 ## License
 

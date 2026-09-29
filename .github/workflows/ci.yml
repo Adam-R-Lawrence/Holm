@@ -24,6 +24,9 @@ jobs:
       - name: Run lint
         run: npm run lint
 
+      - name: Check generated CSS
+        run: npm run check:css
+
   e2e:
     runs-on: ubuntu-latest
     needs: lint

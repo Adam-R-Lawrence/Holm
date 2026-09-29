@@ -1,4 +1,5 @@
 import { COMMITS_API_URL, LAST_UPDATED_CACHE_MS, STORAGE_KEYS } from '../config.js';
+import { getActiveLanguage } from '../i18n/localization.js';
 import { byId } from '../utils/dom.js';
 
 function replaceFooterYearPlaceholder() {
@@ -21,15 +22,26 @@ function setLastUpdatedText(value) {
     }
 }
 
+function formatLastUpdatedDate(isoDate) {
+    const locale = getActiveLanguage() === 'chinese' ? 'zh-CN' : 'en-US';
+    return new Date(isoDate).toLocaleDateString(locale, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
 function getCachedLastUpdatedDate() {
     const cachedDate = localStorage.getItem(STORAGE_KEYS.lastUpdatedDate);
     const cachedTime = Number.parseInt(localStorage.getItem(STORAGE_KEYS.lastUpdatedTime) || '0', 10);
-    const isFresh = cachedDate && cachedTime && (Date.now() - cachedTime) < LAST_UPDATED_CACHE_MS;
-    return isFresh ? cachedDate : null;
+    const cacheAge = Date.now() - cachedTime;
+    const isIsoDate = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(cachedDate || '');
+    return isIsoDate && Number.isFinite(Date.parse(cachedDate))
+        && cacheAge >= 0 && cacheAge < LAST_UPDATED_CACHE_MS ? cachedDate : null;
 }
 
-function cacheLastUpdatedDate(formattedDate) {
-    localStorage.setItem(STORAGE_KEYS.lastUpdatedDate, formattedDate);
+function cacheLastUpdatedDate(isoDate) {
+    localStorage.setItem(STORAGE_KEYS.lastUpdatedDate, isoDate);
     localStorage.setItem(STORAGE_KEYS.lastUpdatedTime, String(Date.now()));
 }
 
@@ -41,15 +53,10 @@ async function fetchLatestCommitDate() {
 
     const commits = await response.json();
     if (!Array.isArray(commits) || commits.length === 0) {
-        return 'No commits found.';
+        throw new Error('No commits found.');
     }
 
-    const latestCommitDate = new Date(commits[0].commit.committer.date);
-    return latestCommitDate.toLocaleDateString(undefined, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
+    return new Date(commits[0]?.commit?.committer?.date).toISOString();
 }
 
 export async function displayLastUpdated() {
@@ -57,15 +64,17 @@ export async function displayLastUpdated() {
 
     const cachedDate = getCachedLastUpdatedDate();
     if (cachedDate) {
-        setLastUpdatedText(cachedDate);
-        return cachedDate;
+        const formattedDate = formatLastUpdatedDate(cachedDate);
+        setLastUpdatedText(formattedDate);
+        return formattedDate;
     }
 
     try {
-        const latestDate = await fetchLatestCommitDate();
-        setLastUpdatedText(latestDate);
-        cacheLastUpdatedDate(latestDate);
-        return latestDate;
+        const isoDate = await fetchLatestCommitDate();
+        const formattedDate = formatLastUpdatedDate(isoDate);
+        setLastUpdatedText(formattedDate);
+        cacheLastUpdatedDate(isoDate);
+        return formattedDate;
     } catch (error) {
         console.error('Error fetching the latest commit:', error);
         setLastUpdatedText('Unavailable');

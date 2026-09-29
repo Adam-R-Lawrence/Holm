@@ -162,6 +162,7 @@ img {
 #main-content h1 {
     font-family: 'Playfair Display', serif; /* Enhanced font for headings */
     font-size: 3em; /* Large font size for emphasis */
+    overflow-wrap: anywhere;
     margin-bottom: 0.5em;
     color: var(--text-color);
     border-bottom: 0.2em solid var(--border-color);

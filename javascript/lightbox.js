@@ -115,6 +115,7 @@
         modal.className = 'lightbox';
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'lightbox-caption');
 
         closeButton = document.createElement('button');
         closeButton.type = 'button';

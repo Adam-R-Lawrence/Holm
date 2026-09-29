@@ -210,6 +210,24 @@ test('browser regression sweep across core routes', async ({ page }) => {
     expect(trackingRequests, 'Requests to Google tracking domains').toEqual([]);
 });
 
+test('nested 404 keeps its styles, navigation, and home link working', async ({ page }) => {
+    await stubSharedThirdPartyRequests(page);
+    await page.route('**/not-found/nested/page', route => route.fulfill({
+        status: 404,
+        contentType: 'text/html',
+        path: __dirname + '/../../404.html'
+    }));
+
+    const response = await page.goto('/not-found/nested/page', { waitUntil: 'domcontentloaded' });
+    expect(response.status()).toBe(404);
+    await expect(page.getByRole('heading', { name: 'Page Not Found' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Return to Home' })).toHaveAttribute('href', '/');
+    await expect(page.locator('link[rel="stylesheet"]').first())
+        .toHaveAttribute('href', '/styles/styles.min.css');
+    await expect(page.locator('.contentHeader-placeholder nav')).toBeVisible();
+    await expectSharedFooterContact(page, '/not-found/nested/page');
+});
+
 test('homepage embeds the newest video from the channel uploads playlist', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
     await page.goto('/', { waitUntil: 'domcontentloaded' });

@@ -7,26 +7,6 @@ export function isDarkThemeEnabled() {
     return document.documentElement.classList.contains(DARK_THEME_CLASS);
 }
 
-function toggleSidebarLogoVariants(isDarkMode) {
-    all('#sidebar-logos img').forEach(image => {
-        const src = image.getAttribute('src');
-        if (!src) {
-            return;
-        }
-
-        let nextSrc = src;
-        if (isDarkMode) {
-            nextSrc = src.replace(/_black/i, '_white');
-        } else {
-            nextSrc = src.replace(/_white/i, '_black');
-        }
-
-        if (nextSrc !== src) {
-            image.setAttribute('src', nextSrc);
-        }
-    });
-}
-
 export function updateThemeToggleVisuals() {
     const isDarkMode = isDarkThemeEnabled();
 
@@ -42,7 +22,6 @@ export function updateThemeToggleVisuals() {
         button.setAttribute('aria-pressed', String(isDarkMode));
     });
 
-    toggleSidebarLogoVariants(isDarkMode);
     return isDarkMode;
 }
 

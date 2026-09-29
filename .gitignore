@@ -46,6 +46,7 @@ coverage/
 .nyc_output/
 playwright-report/
 test-results/
+tmp-mobile-shots/
 
 # Debug tool logs
 *.sublime-workspace

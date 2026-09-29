@@ -10,7 +10,6 @@ import {
     setActiveLanguage,
     updateLanguageToggleVisuals
 } from './i18n/localization.js';
-import { loadProjectsPage } from './pages/projectsPage.js';
 import { loadPublicationsPage } from './pages/publicationsPage.js';
 import { loadWritingsPage } from './pages/writingsPage.js';
 import { all } from './utils/dom.js';
@@ -209,7 +208,6 @@ function bindMobileNavToggle() {
 
 export async function refreshDynamicContent() {
     await Promise.all([
-        loadProjectsPage(),
         loadPublicationsPage(),
         loadWritingsPage()
     ]);

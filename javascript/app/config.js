@@ -40,7 +40,6 @@ export const FRAGMENT_FILES = Object.freeze({
 });
 
 export const DATA_FILES = Object.freeze({
-    projects: `${BASE_PATH}/data/projects.json`,
     publications: `${BASE_PATH}/data/publications.json`,
     writings: `${BASE_PATH}/data/writings.json`
 });

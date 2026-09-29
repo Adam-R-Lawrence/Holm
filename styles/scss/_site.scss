@@ -124,191 +124,30 @@ img {
 }
 
 /* ============================ */ /* SIDEBAR */ /* ============================ */ /* --- Sidebar General Styles --- */
-#sidebar {
-    flex-shrink: 0; /* Prevents the sidebar from shrinking */
-    width: 15em;
-    background-color: var(--sidebar-color);
-    color: var(--text-color);
-    position: sticky;
-    top: 1vh;
-    height: 98vh;
-    max-height: 50em;
-    padding: 1.5em;
-    text-align: center;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0.5em;
-    overflow-y: auto; /* Allow scrolling when content overflows */
-    overflow-x: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex; /* Make it a flex container */
-    flex-direction: column; /* Align children vertically */
-    align-items: center; /* Align children in the center horizontally */
-    gap: 1em;
-}
-
-#sidebar.sidebar-auto-height {
-    height: auto !important;
-}
-
-#sidebar.sidebar-near-footer {
-    height: 94vh;
-}
 
 /* Hide vertical scrollbar on the sidebar while preserving scrollability */
-#sidebar {
-    -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: none;    /* Firefox */
-}
-#sidebar::-webkit-scrollbar { /* Chrome/Safari */
-    display: none;
-}
 
 /* --- Sidebar Children Spacing --- */
-#sidebar > * {
-    margin-bottom: 0;
-    width: 100%;
-}
 /* Ensure absolutely positioned sidebar toggles are not stretched full width */
-#sidebar .theme-toggle.main-page-style,
-#sidebar .language-toggle.main-page-style {
-    width: auto;
-    height: auto;
-}
 
 /* --- Sidebar Title --- */
-#sidebar h2 {
-    margin-bottom: 0;
-    font-size: 1.5em;
-}
 
 /* --- Current Status --- */
-#sidebar-my-current-status {
-    font-size: 0.9em;
-    color: var(--text-color);
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-weight: bold;
-}
 
 /* --- Sidebar Links and Subtitles --- */
-#sidebar h3, #sidebar a {
-    color: var(--text-color);
-    text-decoration: none;
-    line-height: 2;
-    display: block;
-}
 
 /* --- Sidebar Paragraphs --- */
-#sidebar p {
-    font-size: 0.8em;
-    margin-bottom: 0.6em;
-    margin-top: 0.2em;
-    white-space: nowrap;
-}
 
 /* --- Sidebar Bio --- */
-#sidebar-bio {
-    display: block;
-    font-size: 1em;
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-style: italic;
-}
 
 /* --- Sidebar Navbar --- */
-#sidebar-navbar {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Aligns items to the start */
-    flex-grow: 1; /* Allows the navbar to grow and fill the available space */
-    margin-bottom: -0.5em;
-}
-
-#sidebar-navbar ul {
-    list-style-type: none;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Set height to 100% of its container */
-    justify-content: space-between; /* Adjust spacing based on available space */
-    margin: 0;
-    padding: 0;
-    gap: 0.5em;
-}
-
-#sidebar-navbar li {
-    border: 0.1em solid var(--border-color);
-    border-radius: 10px;
-    width: 100%;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: auto;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4em 0;
-}
-
-#sidebar-navbar a {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    font-size: 1.1em;
-    margin: 0; /* Transition removed to disable smooth background and color changes on theme toggle */
-}
 
 /* Ghost-style nav items: lighter borders and subtle hover fill */
-#sidebar-navbar li { 
-    background: transparent; 
-    border-color: color-mix(in srgb, var(--border-color), transparent 70%);
-}
-#sidebar-navbar li:hover, #sidebar-navbar li:focus-within {
-    background-color: color-mix(in srgb, var(--accent), transparent 92%);
-    cursor: pointer;
-    transition: background-color 0.18s ease, color 0.18s ease;
-}
 
 
 /* --- Sidebar Logos --- */
-#sidebar-logos {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap; /* Allows logos to wrap if needed */
-}
-
-#sidebar-logos ul {
-    display: flex;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75em;
-}
-
-#sidebar-logos li {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-
-#sidebar-logos img.logo {
-    display: block;
-    max-width: 35px;
-    max-height: 35px;
-    width: auto;
-    height: auto;
-    vertical-align: middle;
-    margin: 0;
-}
 
 /* --- Sidebar Logos Hover Effect --- */
-#sidebar-logos li:hover, #sidebar i:hover { transform: scale(1.03); }
 
 
 /* ============================ */ /* MAIN CONTENT */ /* ============================ */
@@ -362,10 +201,6 @@ h2, h3 {
 }
 
 /* --- Paragraphs in Projects Grid --- */
-#main-content #projects-grid p {
-    margin-bottom: 1.2em;
-    text-align: justify;
-}
 
 /* ============================ */ /* PUBLICATIONS LIST */ /* ============================ */
 #publications-list {
@@ -377,65 +212,6 @@ h2, h3 {
 }
 
 /* ============================ */ /* PROJECT GRID */ /* ============================ */
-#projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
-}
-
-.project-item {
-    text-align: justify;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s; /* Kept transitions for hover effects */
-    border: 0.2em solid var(--border-color);
-    border-radius: 1.3em;
-    box-sizing: border-box;
-    background: color-mix(in srgb, var(--background-color), #000 4%);
-}
-
-.project-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,.10);
-}
-
-.project-item a {
-    text-align: justify;
-    color: inherit; /* Ensure they inherit the default text color */
-    text-decoration: none; /* Remove underline */
-    display: block; /* Makes the entire area clickable */
-    padding: 0.8em;
-    height: 100%; /* Ensures link covers the entire item */ /* Transition removed to disable smooth background and color changes on theme toggle */
-}
-
-.project-item a:hover, .project-item a:focus {
-    background-color: var(--hover-color); /* More visually appealing hover state color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-}
-
-.project-item .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-}
-
-.project-item img {
-    width: 100%;
-    height: auto;
-    margin: 0;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-}
-
-.project-item h2 { /* clamp(MIN, preferred, MAX): - MIN: 1.5em - preferred: 5vw - MAX: 2.5em */
-    font-size: clamp(1.5em, 5vw, 2.5em);
-    margin: 0.1em 0;
-    text-align: center;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
 
 /* ============================ */ /* INDIVIDUAL CONTENT */ /* ============================ */
 #individual-content, main#main-content:not([data-page]) {
@@ -448,78 +224,12 @@ h2, h3 {
 }
 
 /* ============================ */ /* WRITINGS DIRECTORY */ /* ============================ */
-#writings-directory {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-left: 1em;
-}
 
-[data-page="writings"] h1, [data-page="publications"] h1 {
+[data-page="publications"] h1 {
     text-align: left;
     font-size: 2.5em;
     margin-bottom: 0.5em;
     margin-left: 0.3em;
-}
-#writing-filter-controls{margin-left:1em;margin-bottom:1em;}#writing-filter-controls select{display:block;width:100%;max-width:20em;padding:0.25em 0.5em;font-size:1em;border:1px solid var(--border-color);border-radius:4px;background-color:var(--background-color);color:var(--text-color);} .dark-theme #writing-filter-controls select{background-color:var(--sidebar-color);}
-
-#writings-directory .writing-item {
-    display: flex; /* Changed from align-items: center to flex-start */
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 1em;
-    border-bottom: 1px solid color-mix(in srgb, var(--border-color), transparent 70%);
-    padding-bottom: 1em;
-}
-
-#writings-directory a {
-    color: var(--link-color);
-    font-size: clamp(1em, 2vw, 1.5em);
-    font-weight: 700;
-    margin-bottom: 0.5em;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    text-decoration: underline;
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 0.12em;
-    white-space: normal;
-    overflow-wrap: anywhere;
-}
-
-#writings-directory a:hover, #writings-directory a:focus {
-    color: var(--accent);
-    background: transparent;
-    text-decoration: underline;
-}
-
-#writings-directory .explanatory-text {
-    font-size: 1em;
-    margin-left: 0.25em;
-    margin-top: 0.5em;
-    font-style: italic;
-}
-
-#writings-directory .writing-meta {
-    flex-shrink: 0;
-}
-
-#writings-directory .date {
-    font-size: 0.9em;
-    color: #6b7280;
-    text-align: right;
-    margin-left: 1em;
-    margin-right: 0.5em;
-    font-variant-numeric: tabular-nums;
-}
-
-#writings-directory .month-day, #writings-directory .year {
-    display: block;
-}
-
-#writings-directory .writing-image {
-    width: 5em;
-    height: auto;
-    margin-right: 0.5em;
-    order: -1;
 }
 
 /* ============================ */ /* HEADER */ /* ============================ */
@@ -555,7 +265,6 @@ header a:hover, header a:focus {
 }
 
 /* Emphasize active navigation items in header and sidebar */
-#sidebar-navbar a[aria-current="page"],
 header a[aria-current="page"] {
     font-weight: 700;
     text-decoration: underline;
@@ -564,10 +273,6 @@ header a[aria-current="page"] {
 }
 
 /* Sidebar active item accent bar */
-#sidebar-navbar a[aria-current="page"] {
-    border-left: 0.25em solid var(--accent);
-    padding-left: 0.5em;
-}
 
 /* Reset default button styles for toggle controls */
 .theme-toggle.main-page-style, .language-toggle.main-page-style, .theme-toggle.content-page-style, .language-toggle.content-page-style {
@@ -722,40 +427,16 @@ header a[aria-current="page"] {
 /* Improve mobile readability: left-align body text */
 @media (max-width: 600px) {
     #main-content,
-    #main-content p,
-    #main-content #projects-grid p {
+#main-content p {
         text-align: left;
     }
 }
 
 /* --- Specific Height and Width Adjustments --- */
 @media screen and (min-height: 501px) and (max-height: 770px) and (min-width: 501px) {
-    #sidebar {
-        height: 90vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    #sidebar h2 {
-        margin-top: 0.2em;
-        font-size: 2em;
-    }
-
-    #sidebar-navbar li {
-        margin: 0.1em 0;
-    }
-
-    #sidebar-logos {
-        margin-bottom: 1.5em;
-        margin-top: 0em;
-    }
 }
 
 @media screen and (min-height: 501px) and (max-height: 630px) and (min-width: 501px) {
-    #sidebar-bio {
-        display: none;
-    }
 }
 
 /* --- Mobile Devices & Thin/Short Screens --- */
@@ -782,28 +463,6 @@ header a[aria-current="page"] {
         transform:none;
     }
     /* --- Writings Directory --- */
-    #writings-directory {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    #writings-directory .writing-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #writings-directory .writing-meta {
-        margin-top: .5em;
-        text-align: left;
-    }
-
-    #writing-filter-controls select {
-        max-width:100%;
-    }
-
-    #writing-filter-controls {
-        margin-left: 0;
-    }
 
     /* --- Container Adjustments --- */
     #container {
@@ -811,24 +470,6 @@ header a[aria-current="page"] {
     }
 
     /* --- Sidebar Adjustments --- */
-    #sidebar {
-        display: block;
-        background-color: var(--sidebar-color);
-        color: var(--text-color);
-        width: 100%; /* Make the sidebar flow naturally with the page: */
-        position: static;
-        border: none;
-        margin: 0 0 1em 0; /* Bottom margin to separate sidebar from main content */
-        font-size: 1.05em;
-        padding: 1em 0.5em 0.5em 1em;
-        border-radius: 0em; /* Let the sidebar expand as needed: */
-        height: 100vh;
-        max-height: none;
-    }
-
-    #sidebar-logos {
-        margin-bottom: 1.5em;
-    }
 
     /* --- Main Content Text Alignment --- */
     #main-content {
@@ -836,20 +477,6 @@ header a[aria-current="page"] {
     }
 
     /* --- Sidebar Navbar --- */
-    #sidebar-navbar {
-        flex-grow: 0;
-    }
-
-    #sidebar-navbar ul {
-        flex-direction: column;
-        height: auto;
-        justify-content: flex-start;
-    }
-
-    #sidebar-navbar li {
-        padding: 10px 0;
-        flex-grow: 0;
-    }
 
     /* --- Headings Alignment --- */
     h1, h2, h3, h4, h5, h6 {
@@ -857,9 +484,6 @@ header a[aria-current="page"] {
     }
 
     /* --- Projects Grid --- */
-    #projects-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* ============================ */ /* FOOTER */ /* ============================ */
@@ -890,10 +514,6 @@ footer p {
 
 /* ============================ */ /* MEDIA QUERIES */ /* ============================ */ /* --- Smaller Screens: Adjust grid & layout --- */
 @media (max-width: 60em) {
-    #projects-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
 }
 
 /* ============================ */ /* SCROLLBAR STYLING */ /* ============================ */
@@ -992,12 +612,8 @@ pre code {
 }
 
 /* ============================ */ /* SCROLL TO TOP BUTTON */ /* ============================ */
-#projects-grid, .gallery {
+.gallery {
     margin-block: 2rem;
-}
-
-.dark-theme .project-item {
-    background: var(--surface-1);
 }
 #scroll-to-top-btn {
     position: fixed;
@@ -1038,13 +654,6 @@ pre code {
 
 #scroll-to-top-btn:hover i {
     color: var(--accent); /* Arrow color on hover */
-}
-
-#writings-directory .writing-themes {
-    font-size: .9em;
-    margin-left: .25em;
-    margin-top: .25em;
-    color: #555;
 }
 
 /* ============================ */
@@ -1131,7 +740,6 @@ body {
     grid-template-columns: minmax(15.8rem, 17.8rem) minmax(0, 1fr);
 }
 
-#sidebar,
 .wrapper #main-content,
 .contentHeader-placeholder header,
 #footer-placeholder footer,
@@ -1139,101 +747,6 @@ footer {
     border-radius: 14px !important;
     border: 1px solid var(--border-color) !important;
     background: var(--surface-1) !important;
-}
-
-#sidebar {
-    padding: 1.02rem 0.92rem 0.92rem;
-    gap: 0.6rem;
-}
-
-#sidebar h2 {
-    margin-top: 1.68rem;
-    font-weight: 600;
-    font-size: clamp(1.32rem, 2vw, 1.76rem);
-    line-height: 1.14;
-}
-
-#sidebar-my-current-status {
-    font-size: 0.84rem;
-    letter-spacing: 0.08em;
-}
-
-#sidebar-bio {
-    border: 1px solid color-mix(in srgb, var(--border-color), #ffffff 12%);
-    border-radius: 10px;
-    background: color-mix(in srgb, var(--surface-2), #ffffff 34%);
-    padding: 0.4rem 0.62rem;
-}
-
-#sidebar p {
-    font-size: 0.78rem;
-    line-height: 1.52;
-}
-
-#sidebar-logos ul {
-    gap: 0.42rem;
-}
-
-#sidebar-logos li a {
-    width: 1.84rem;
-    height: 1.84rem;
-    border-radius: 999px;
-    border: 1px solid var(--border-color);
-    background: var(--surface-2);
-    display: grid;
-    place-items: center;
-    padding: 0;
-}
-
-#sidebar-logos li:hover a,
-#sidebar-logos li:focus-within a {
-    border-color: var(--border-strong);
-    background: color-mix(in srgb, var(--surface-2), #ffffff 40%);
-}
-
-#sidebar-logos img.logo {
-    max-width: 0.84rem;
-    max-height: 0.84rem;
-    margin: 0;
-}
-
-#sidebar-navbar {
-    margin-top: 0.36rem;
-}
-
-#sidebar-navbar ul {
-    gap: 0.2rem;
-}
-
-#sidebar-navbar li {
-    border: 0;
-    background: transparent;
-    padding: 0;
-    min-height: 0;
-}
-
-#sidebar-navbar a {
-    display: block;
-    border: 1px solid transparent;
-    border-radius: 999px;
-    padding: 0.42rem 0.58rem;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    font-weight: 600;
-    color: var(--muted-text);
-}
-
-#sidebar-navbar a:hover,
-#sidebar-navbar a:focus {
-    background: var(--accent-soft);
-    border-color: var(--border-color);
-    color: var(--text-color);
-}
-
-#sidebar-navbar a[aria-current="page"] {
-    background: var(--accent-soft);
-    border-color: var(--border-color);
-    color: var(--text-color);
 }
 
 .theme-toggle.main-page-style,
@@ -1318,39 +831,9 @@ header a[aria-current="page"] {
     margin-bottom: 1.02rem;
 }
 
-.content-image,
-.project-item img {
+.content-image {
     border-radius: 10px;
     border: 1px solid color-mix(in srgb, var(--border-color), #ffffff 12%);
-}
-
-#projects-grid {
-    gap: 0.86rem;
-}
-
-.project-item {
-    border-radius: 14px;
-    border: 1px solid var(--border-color);
-    background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
-}
-
-.project-item:hover {
-    border-color: var(--border-strong);
-    background: color-mix(in srgb, var(--surface-2), #ffffff 34%);
-}
-
-.project-item a {
-    padding: 0.88rem;
-    gap: 0.56rem;
-}
-
-.project-item h2 {
-    font-size: clamp(1.26rem, 2.1vw, 1.62rem);
-    line-height: 1.16;
-}
-
-.project-item p {
-    line-height: 1.58;
 }
 
 .directory-toolbar {
@@ -1365,8 +848,7 @@ header a[aria-current="page"] {
 }
 
 .toolbar-field select,
-.toolbar-field input[type="search"],
-#writing-filter-controls select {
+.toolbar-field input[type="search"] {
     border-radius: 8px;
     border: 1px solid var(--border-color);
     background: var(--surface-2);
@@ -1407,13 +889,7 @@ header a[aria-current="page"] {
     color: var(--muted-text);
 }
 
-#writings-directory .writing-item {
-    gap: 0.72rem;
-}
-
-#writings-directory .writing-themes,
-.publication-meta,
-#writings-directory .explanatory-text {
+.publication-meta {
     line-height: 1.52;
 }
 
@@ -1498,25 +974,6 @@ footer p {
         grid-template-columns: 1fr;
     }
 
-    #sidebar {
-        padding: 0.9rem 0.8rem 0.82rem;
-        border-radius: 12px !important;
-    }
-
-    #sidebar h2 {
-        margin-top: 1.48rem;
-        font-size: clamp(1.46rem, 7vw, 1.82rem);
-    }
-
-    #sidebar p {
-        font-size: 0.8rem;
-    }
-
-    #sidebar-navbar a {
-        font-size: 1rem;
-        padding: 0.42rem 0.56rem;
-    }
-
     .contentHeader-placeholder {
         top: 0.32rem;
         margin-bottom: 0.58rem;
@@ -1559,11 +1016,6 @@ footer p {
     display: block !important;
     grid-template-columns: 1fr !important;
     max-width: 80rem;
-}
-
-#sidebar-placeholder,
-#sidebar {
-    display: none !important;
 }
 
 /* ============================ */
@@ -1640,14 +1092,8 @@ pre code,
 /* ============================ */
 /* PROJECT GRID LIMIT          */
 /* ============================ */
-main#main-content[data-page="projects"] #projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-}
 
 @media (max-width: 58rem) {
-    main#main-content[data-page="projects"] #projects-grid {
-        grid-template-columns: 1fr !important;
-    }
 }
 
 /* ============================ */
@@ -1857,40 +1303,11 @@ main#main-content:not([data-page]) .content-image {
     font-size: 0.9rem;
 }
 
-main#main-content[data-page="projects"] #projects-grid {
-    max-width: 66rem;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: start;
-}
-
-main#main-content[data-page="projects"] .project-item a {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 0.66rem;
-    height: 100%;
-}
-
-main#main-content[data-page="projects"] .project-item p {
-    max-width: none !important;
-    margin: 0;
-}
-
-main#main-content[data-page="projects"] .project-item img {
-    width: 100%;
-    height: clamp(10.5rem, 18vw, 13rem);
-    object-fit: cover;
-}
-
 @media (max-width: 58rem) {
     main#main-content[data-page="about-me"],
     main#main-content:not([data-page]) {
         --copy-measure: 100%;
         --media-measure: 100%;
-    }
-
-    main#main-content[data-page="projects"] #projects-grid {
-        max-width: 100%;
     }
 }
 
@@ -2051,24 +1468,10 @@ main#main-content:not([data-page]) h3 {
         margin-right: 0;
     }
 
-    #projects-grid {
-        gap: 0.62rem;
-    }
-
-    main#main-content[data-page="projects"] .project-item,
     .directory-group,
-    .directory-card,
-    .directory-empty-state {
+.directory-card,
+.directory-empty-state {
         border-radius: 10px;
-    }
-
-    main#main-content[data-page="projects"] .project-item a {
-        padding: 0.76rem;
-        gap: 0.52rem;
-    }
-
-    main#main-content[data-page="projects"] .project-item img {
-        height: clamp(8.9rem, 46vw, 10.8rem);
     }
 
     .directory-toolbar {
@@ -2078,18 +1481,8 @@ main#main-content:not([data-page]) h3 {
     }
 
     .toolbar-field select,
-    .toolbar-field input[type="search"],
-    #writing-filter-controls select {
+.toolbar-field input[type="search"] {
         min-height: 2.25rem;
-    }
-
-    #writings-directory .writing-item {
-        grid-template-columns: 1fr !important;
-        gap: 0.48rem;
-    }
-
-    #writings-directory .date {
-        text-align: left;
     }
 
     pre code,
@@ -2141,10 +1534,6 @@ main#main-content:not([data-page]) h3 {
 
     .wrapper #main-content {
         padding: 0.9rem 0.74rem 0.98rem;
-    }
-
-    main#main-content[data-page="projects"] .project-item img {
-        height: clamp(8.2rem, 50vw, 9.8rem);
     }
 
     main#main-content[data-page="about-me"] h1,
@@ -2989,7 +2378,6 @@ header a[aria-current="page"] {
 .home-focus-grid article,
 .project-section-grid article,
 .directory-card,
-.project-item,
 .resume-summary-grid article,
 .publications-status {
     border: 1px solid var(--border-color);
@@ -3027,49 +2415,9 @@ header a[aria-current="page"] {
     color: var(--link-visited-color);
 }
 
-main#main-content[data-page="projects"] #projects-grid {
-    max-width: 76rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 1rem;
-}
-
-main#main-content[data-page="projects"] .project-item {
-    overflow: hidden;
-    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-}
-
-main#main-content[data-page="projects"] .project-item:hover,
-main#main-content[data-page="projects"] .project-item:focus-within {
-    border-color: var(--border-strong);
-    box-shadow: 0 18px 42px rgba(31, 41, 51, 0.12);
-    transform: translateY(-3px);
-}
-
-main#main-content[data-page="projects"] .project-item a {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    gap: 0;
-    padding: 0;
-    height: 100%;
-    background: transparent !important;
-    box-shadow: none !important;
-    text-decoration: none !important;
-}
-
 .project-card-media {
     background: var(--surface-2);
     border-bottom: 1px solid var(--border-color);
-}
-
-main#main-content[data-page="projects"] .project-item img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 5 / 3;
-    object-fit: cover;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
 }
 
 .project-card-body {
@@ -3135,8 +2483,7 @@ main#main-content[data-page="projects"] .project-item img {
 }
 
 .toolbar-field select,
-.toolbar-field input[type="search"],
-#writing-filter-controls select {
+.toolbar-field input[type="search"] {
     width: 100%;
     min-height: 2.45rem;
     border-radius: 8px;
@@ -3169,30 +2516,6 @@ main#main-content[data-page="projects"] .project-item img {
     transform: none;
     border-color: var(--border-strong);
     box-shadow: 0 16px 36px rgba(31, 41, 51, 0.1);
-}
-
-#writings-directory {
-    margin-left: 0;
-}
-
-#writings-directory .writing-item {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1rem;
-    border-bottom: 0;
-}
-
-#writings-directory a {
-    font-size: 1.35rem;
-    color: var(--link-color);
-}
-
-#writings-directory .explanatory-text {
-    font-style: normal;
-}
-
-#writings-directory .date {
-    color: var(--muted-text);
 }
 
 .publications-status {
@@ -3414,23 +2737,13 @@ footer p {
     }
 
     .home-focus-grid,
-    .project-section-grid,
-    .resume-summary-grid,
-    main#main-content[data-page="projects"] #projects-grid {
+.project-section-grid,
+.resume-summary-grid {
         grid-template-columns: 1fr !important;
     }
 
     .directory-toolbar {
         grid-template-columns: 1fr;
-    }
-
-    #writings-directory .writing-item {
-        grid-template-columns: 1fr;
-    }
-
-    #writings-directory .date {
-        text-align: left;
-        margin-left: 0;
     }
 
     .project-section-grid {
@@ -3796,39 +3109,7 @@ main#main-content:not([data-page]) li {
     color: inherit;
 }
 
-main#main-content[data-page="projects"] #projects-grid {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 0;
-    max-width: min(100%, 48rem);
-    margin-inline: auto;
-    border-top: 1px solid var(--border-color);
-}
-
-main#main-content[data-page="projects"] .project-item {
-    border: 0 !important;
-    border-bottom: 1px solid var(--border-color) !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    overflow: visible;
-    transition: none;
-    box-shadow: none !important;
-}
-
-main#main-content[data-page="projects"] .project-item:hover,
-main#main-content[data-page="projects"] .project-item:focus-within {
-    border-color: var(--border-color) !important;
-    box-shadow: none !important;
-    transform: none !important;
-}
-
-main#main-content[data-page="projects"] .project-item a {
-    display: block !important;
-    padding: 1rem 0 !important;
-}
-
-.project-card-media,
-main#main-content[data-page="projects"] .project-item img {
+.project-card-media {
     display: none !important;
 }
 
@@ -3857,7 +3138,6 @@ main#main-content[data-page="projects"] .project-item img {
     display: none !important;
 }
 
-main#main-content[data-page="projects"],
 main#main-content.project-detail-page {
     max-width: min(100%, 48rem) !important;
 }
@@ -4017,56 +3297,15 @@ footer {
     margin-top: 0.35rem !important;
 }
 
-main#main-content[data-page="writings"],
 main#main-content[data-page="publications"] {
     max-width: min(100%, 46rem) !important;
 }
 
-main#main-content[data-page="writings"] .section-intro,
 main#main-content[data-page="publications"] .section-intro,
-#writings-directory,
 .publications-status {
     max-width: min(100%, 46rem) !important;
     margin-left: auto !important;
     margin-right: auto !important;
-}
-
-#writings-directory .writing-item {
-    border: 0 !important;
-    border-top: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    align-items: start !important;
-    justify-content: start !important;
-    row-gap: 0.45rem;
-    padding: 1rem 0 !important;
-    text-align: left !important;
-}
-
-#writings-directory .writing-item:last-child {
-    border-bottom: 0 !important;
-}
-
-#writings-directory a,
-#writings-directory .explanatory-text,
-#writings-directory .writing-themes,
-#writings-directory .writing-meta,
-#writings-directory .date {
-    text-align: left !important;
-}
-
-#writings-directory .explanatory-text,
-#writings-directory .writing-themes {
-    margin: 0.45rem 0 0 !important;
-}
-
-#writings-directory .writing-meta {
-    margin-top: 0.2rem !important;
-}
-
-#writings-directory .date {
-    margin-top: 0 !important;
 }
 
 .publications-status,
@@ -4267,28 +3506,24 @@ footer p {
         margin-right: auto !important;
     }
 
-    main#main-content[data-page="writings"],
     main#main-content[data-page="publications"],
-    main#main-content[data-page="projects"],
-    main#main-content.project-detail-page {
+main#main-content.project-detail-page {
         max-width: min(100%, var(--layout-primary-measure)) !important;
     }
 
-    main#main-content[data-page="writings"] > :is(h1, .section-intro, #writing-filter-controls, #writings-directory),
     main#main-content[data-page="publications"] > :is(h1, .section-intro, .directory-toolbar, #publications-directory),
-    .project-note-header,
-    .project-note-grid,
-    .content-crosslinks {
+.project-note-header,
+.project-note-grid,
+.content-crosslinks {
         width: min(100%, var(--layout-primary-measure));
         max-width: min(100%, var(--layout-primary-measure)) !important;
         margin-left: auto !important;
         margin-right: auto !important;
     }
 
-    main#main-content[data-page="writings"] .directory-empty-state,
     main#main-content[data-page="publications"] .directory-empty-state,
-    main#main-content[data-page="publications"] .publications-status,
-    .project-facts {
+main#main-content[data-page="publications"] .publications-status,
+.project-facts {
         width: 100%;
         max-width: 100% !important;
         margin-left: auto !important;
@@ -4513,42 +3748,6 @@ html.dark-theme body {
     border-color: var(--accent);
     background: var(--accent-soft);
     color: var(--link-hover-color) !important;
-}
-
-.dark-theme :is(
-    .toolbar-field select,
-    .toolbar-field input[type="search"],
-    #writing-filter-controls select
-) {
-    border-color: var(--border-strong);
-    background: var(--surface-1);
-    color: var(--text-color);
-}
-
-.dark-theme :is(
-    .toolbar-field select,
-    .toolbar-field input[type="search"],
-    #writing-filter-controls select
-):is(:hover, :focus-visible) {
-    border-color: var(--accent);
-    background: var(--surface-2);
-}
-
-.dark-theme :is(
-    .home-directory,
-    .home-directory-row,
-    #writings-directory .writing-item,
-    main#main-content[data-page="projects"] #projects-grid,
-    main#main-content[data-page="projects"] .project-item,
-    .project-note-header,
-    .project-note-grid article,
-    .project-hero,
-    .content-crosslinks,
-    .site-contact,
-    .publications-status,
-    .directory-empty-state
-) {
-    border-color: var(--border-color) !important;
 }
 
 .dark-theme .resume-action-primary {

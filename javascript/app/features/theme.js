@@ -1,5 +1,6 @@
 import { STORAGE_KEYS } from '../config.js';
 import { all } from '../utils/dom.js';
+import { getStoredValue, setStoredValue } from '../utils/storage.js';
 
 const DARK_THEME_CLASS = 'dark-theme';
 
@@ -26,7 +27,7 @@ export function updateThemeToggleVisuals() {
 }
 
 export function applyInitialThemePreference() {
-    const savedTheme = localStorage.getItem(STORAGE_KEYS.theme);
+    const savedTheme = getStoredValue(STORAGE_KEYS.theme);
     if (savedTheme === 'dark') {
         document.documentElement.classList.add(DARK_THEME_CLASS);
     } else if (savedTheme === 'light') {
@@ -42,6 +43,6 @@ export function applyInitialThemePreference() {
 export function toggleTheme() {
     document.documentElement.classList.toggle(DARK_THEME_CLASS);
     const isDarkMode = updateThemeToggleVisuals();
-    localStorage.setItem(STORAGE_KEYS.theme, isDarkMode ? 'dark' : 'light');
+    setStoredValue(STORAGE_KEYS.theme, isDarkMode ? 'dark' : 'light');
     return isDarkMode;
 }

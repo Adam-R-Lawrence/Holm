@@ -2,6 +2,7 @@ import { STORAGE_KEYS, TRANSLATION_FILES } from '../config.js';
 import { appState } from '../state.js';
 import { all, byId } from '../utils/dom.js';
 import { fetchJsonCached } from '../utils/fetch.js';
+import { getStoredValue, setStoredValue } from '../utils/storage.js';
 
 const localizedCopy = {
     english: {
@@ -85,6 +86,7 @@ const localizedCopy = {
 };
 
 const normalizeLanguage = language => (language === 'chinese' ? 'chinese' : 'english');
+let translationRequestId = 0;
 
 export function setActiveLanguage(language) {
     appState.activeLanguage = normalizeLanguage(language);
@@ -97,12 +99,12 @@ export function getActiveLanguage() {
 
 export function persistLanguage(language) {
     const normalized = normalizeLanguage(language);
-    localStorage.setItem(STORAGE_KEYS.language, normalized);
+    setStoredValue(STORAGE_KEYS.language, normalized);
     return normalized;
 }
 
 export function getPreferredLanguage() {
-    const storedLanguage = localStorage.getItem(STORAGE_KEYS.language);
+    const storedLanguage = getStoredValue(STORAGE_KEYS.language);
     if (storedLanguage) {
         return normalizeLanguage(storedLanguage);
     }
@@ -115,7 +117,7 @@ export function getPreferredLanguage() {
     }
 
     const inferredLanguage = browserLanguage.toLowerCase().startsWith('zh') ? 'chinese' : 'english';
-    localStorage.setItem(STORAGE_KEYS.language, inferredLanguage);
+    setStoredValue(STORAGE_KEYS.language, inferredLanguage);
     return inferredLanguage;
 }
 
@@ -171,9 +173,11 @@ async function getTranslations(language) {
 }
 
 export async function applyTranslations(language = getActiveLanguage()) {
+    const requestId = ++translationRequestId;
     const normalized = setActiveLanguage(language);
     const dictionary = await getTranslations(normalized);
-    if (!dictionary || typeof dictionary !== 'object') {
+    if (requestId !== translationRequestId || normalized !== getActiveLanguage()
+        || !dictionary || typeof dictionary !== 'object') {
         return;
     }
 

@@ -1,6 +1,7 @@
 import { COMMITS_API_URL, LAST_UPDATED_CACHE_MS, STORAGE_KEYS } from '../config.js';
 import { getActiveLanguage } from '../i18n/localization.js';
 import { byId } from '../utils/dom.js';
+import { getStoredValue, setStoredValue } from '../utils/storage.js';
 
 function replaceFooterYearPlaceholder() {
     const footerText = byId('footer-text');
@@ -32,8 +33,8 @@ function formatLastUpdatedDate(isoDate) {
 }
 
 function getCachedLastUpdatedDate() {
-    const cachedDate = localStorage.getItem(STORAGE_KEYS.lastUpdatedDate);
-    const cachedTime = Number.parseInt(localStorage.getItem(STORAGE_KEYS.lastUpdatedTime) || '0', 10);
+    const cachedDate = getStoredValue(STORAGE_KEYS.lastUpdatedDate);
+    const cachedTime = Number.parseInt(getStoredValue(STORAGE_KEYS.lastUpdatedTime) || '0', 10);
     const cacheAge = Date.now() - cachedTime;
     const isIsoDate = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(cachedDate || '');
     return isIsoDate && Number.isFinite(Date.parse(cachedDate))
@@ -41,8 +42,8 @@ function getCachedLastUpdatedDate() {
 }
 
 function cacheLastUpdatedDate(isoDate) {
-    localStorage.setItem(STORAGE_KEYS.lastUpdatedDate, isoDate);
-    localStorage.setItem(STORAGE_KEYS.lastUpdatedTime, String(Date.now()));
+    setStoredValue(STORAGE_KEYS.lastUpdatedDate, isoDate);
+    setStoredValue(STORAGE_KEYS.lastUpdatedTime, String(Date.now()));
 }
 
 async function fetchLatestCommitDate() {

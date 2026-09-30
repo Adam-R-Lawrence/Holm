@@ -107,36 +107,6 @@ function bindShellControls() {
     });
 
     bindMobileNavToggle();
-    bindResponsiveResumeTarget();
-}
-
-function bindResponsiveResumeTarget() {
-    const resumeLink = document.getElementById('header-resume');
-
-    if (!resumeLink || resumeLink.dataset.holmBoundResponsiveTarget === 'true') {
-        return;
-    }
-
-    const mobileQuery = window.matchMedia('(max-width: 58rem)');
-    const syncResumeTarget = () => {
-        if (mobileQuery.matches) {
-            resumeLink.setAttribute('target', '_blank');
-            resumeLink.setAttribute('rel', 'noopener');
-            return;
-        }
-
-        resumeLink.removeAttribute('target');
-        resumeLink.removeAttribute('rel');
-    };
-
-    if (typeof mobileQuery.addEventListener === 'function') {
-        mobileQuery.addEventListener('change', syncResumeTarget);
-    } else if (typeof mobileQuery.addListener === 'function') {
-        mobileQuery.addListener(syncResumeTarget);
-    }
-
-    syncResumeTarget();
-    resumeLink.dataset.holmBoundResponsiveTarget = 'true';
 }
 
 function bindMobileNavToggle() {
@@ -178,8 +148,13 @@ function bindMobileNavToggle() {
     });
 
     document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' && header.classList.contains('nav-open')) {
+            const restoreFocus = nav.contains(document.activeElement);
             closeMenu();
+            if (restoreFocus) {
+                event.preventDefault();
+                toggle.focus();
+            }
         }
     });
 

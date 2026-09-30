@@ -245,6 +245,81 @@ test('footer update date follows the selected language, including after reload',
     await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
 });
 
+for (const initialLanguage of ['english', 'chinese']) {
+    test(`rapid language changes ignore stale translations from ${initialLanguage}`, async ({ page }) => {
+        await stubSharedThirdPartyRequests(page);
+        await page.addInitScript(language => localStorage.setItem('language', language), initialLanguage);
+        const delayedLanguage = initialLanguage === 'english' ? 'zh' : 'en';
+        const translations = require(`../../data/translations_${delayedLanguage}.json`);
+        let releaseTranslation;
+        const translationReady = new Promise(resolve => { releaseTranslation = resolve; });
+        await page.route(`**/data/translations_${delayedLanguage}.json`, async route => {
+            await translationReady;
+            await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(translations) });
+        });
+
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        const isChinese = initialLanguage === 'chinese';
+        await expect(page.locator('#last-updated')).toHaveText(isChinese ? '2026年2月20日' : 'February 20, 2026');
+        const delayedRequest = page.waitForRequest(`**/data/translations_${delayedLanguage}.json`);
+        const firstToggle = page.evaluate(() => window.toggleLanguage());
+        try {
+            await delayedRequest;
+            await page.evaluate(() => window.toggleLanguage());
+        } finally {
+            releaseTranslation();
+            await firstToggle;
+        }
+
+        await expect(page.locator('html')).toHaveAttribute('lang', isChinese ? 'zh' : 'en');
+        await expect(page.locator('.language-toggle')).toHaveAttribute('aria-pressed', String(isChinese));
+        await expect(page.locator('#header-nav-list a')).toHaveText(
+            isChinese ? ['主页', '出版物', '简历'] : ['Home', 'Publications', 'Resume']
+        );
+        await expect(page.locator('#home-writings-heading')).toHaveText(isChinese ? '文章' : 'Writings');
+        await expect(page.locator('.home-directory-title').first()).toHaveText(
+            writings[0].title[initialLanguage]
+        );
+        await expect(page.locator('#last-updated')).toHaveText(isChinese ? '2026年2月20日' : 'February 20, 2026');
+    });
+}
+
+for (const blockedStorage of ['access', 'read', 'write']) {
+    test(`content and controls work when browser storage ${blockedStorage} is blocked`, async ({ page }) => {
+        await stubSharedThirdPartyRequests(page);
+        const pageErrors = [];
+        page.on('pageerror', error => pageErrors.push(error.message));
+        await page.addInitScript(mode => {
+            const denyStorage = () => { throw new DOMException('Storage access denied', 'SecurityError'); };
+            if (mode === 'access') {
+                Object.defineProperty(window, 'localStorage', { get: denyStorage });
+            } else {
+                Storage.prototype[mode === 'read' ? 'getItem' : 'setItem'] = denyStorage;
+            }
+        }, blockedStorage);
+
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('.home-writing-row')).toHaveCount(writings.length);
+        await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
+        await page.locator('.theme-toggle').click();
+        await expect(page.locator('html')).toHaveClass(/dark-theme/);
+        await page.locator('.theme-toggle').click();
+        await expect(page.locator('html')).not.toHaveClass(/dark-theme/);
+        await page.locator('.language-toggle').click();
+        await expect(page.locator('#header-home')).toHaveText('主页');
+        await expect(page.locator('#last-updated')).toHaveText('2026年2月20日');
+        await expect(page.locator('.home-directory-title').first()).toHaveText(writings[0].title.chinese);
+        await page.locator('.language-toggle').click();
+        await expect(page.locator('#header-home')).toHaveText('Home');
+        await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
+
+        await page.goto('/publications/', { waitUntil: 'domcontentloaded' });
+        await expect(page.locator('.publications-list-item')).toContainText('A multi-GPU-centric finite element multiphysics modeling framework');
+        await expect(page.locator('#last-updated')).toHaveText('February 20, 2026');
+        expect(pageErrors).toEqual([]);
+    });
+}
+
 test('Chinese mode gives controls localized names and identifies English article content', async ({ page }) => {
     await stubSharedThirdPartyRequests(page);
     await page.goto('/', { waitUntil: 'domcontentloaded' });
@@ -288,7 +363,7 @@ test('homepage embeds the newest video from the channel uploads playlist', async
     await page.setViewportSize({ width: 375, height: 812 });
     await expectNoHorizontalOverflow(page, '/');
     const frameBox = await video.boundingBox();
-    expect(frameBox.height).toBeGreaterThanOrEqual(200);
+    expect(frameBox.width / frameBox.height).toBeCloseTo(16 / 9, 1);
 
     await page.locator('.language-toggle').click();
     await expect(page.locator('#home-video-heading')).toHaveText('最新视频');
@@ -958,8 +1033,7 @@ test('writing article mobile nav opens with primary links visible', async ({ bro
         await expect(navLinks.nth(0)).toBeVisible();
         await expect(navLinks.nth(1)).toBeVisible();
         await expect(navLinks.nth(2)).toBeVisible();
-        await expect(page.locator('#header-resume')).toHaveAttribute('target', '_blank');
-        await expect(page.locator('#header-resume')).toHaveAttribute('rel', 'noopener');
+        await expect(page.locator('#header-resume')).not.toHaveAttribute('target', '_blank');
     }
 
     await context.close();

@@ -22,6 +22,7 @@
 
     let existingPublications = [];
     let workingPublications = [];
+    let existingLoadState = 'loading';
 
     const TYPE_MAP_BIBTEX = {
         article: 'journal',
@@ -142,6 +143,14 @@
 
     const renderExisting = () => {
         existingTableBody.innerHTML = '';
+        if (existingLoadState === 'loading') {
+            existingCount.textContent = 'Loading current data…';
+            return;
+        }
+        if (existingLoadState === 'failed') {
+            existingCount.textContent = 'Unable to load current data. Merging is unavailable.';
+            return;
+        }
         if (existingPublications.length === 0) {
             existingCount.textContent = 'No existing publications found.';
             return;
@@ -152,6 +161,10 @@
             existingTableBody.appendChild(row);
         });
         existingCount.textContent = `${existingPublications.length} item(s) loaded from data/publications.json.`;
+    };
+
+    const updateMergeAvailability = () => {
+        mergeBtn.disabled = existingLoadState !== 'ready' || workingPublications.length === 0;
     };
 
     const renderWorking = () => {
@@ -172,7 +185,7 @@
         const hasWorking = workingPublications.length > 0;
         copyBtn.disabled = !hasWorking;
         downloadBtn.disabled = !hasWorking;
-        mergeBtn.disabled = !hasWorking;
+        updateMergeAvailability();
         resetBtn.disabled = !hasWorking;
     };
 
@@ -317,6 +330,11 @@
     };
 
     const mergeWithExisting = () => {
+        if (existingLoadState !== 'ready') {
+            throw new Error(existingLoadState === 'loading'
+                ? 'Existing publications are still loading. Wait before merging.'
+                : 'Existing publications could not be loaded. Reload the page before merging.');
+        }
         const lookup = new Map();
         const keyFor = pub => `${pub.title.toLowerCase()}-${pub.year || 'na'}`;
         const merged = [];
@@ -373,12 +391,23 @@
                 return response.json();
             })
             .then(data => {
-                existingPublications = Array.isArray(data) ? data.map(normalizePublication) : [];
+                if (!Array.isArray(data) || data.some(pub => !pub
+                    || typeof pub !== 'object'
+                    || Array.isArray(pub)
+                    || typeof pub.title !== 'string'
+                    || !sanitizeText(pub.title))) {
+                    throw new Error('Existing publications.json must be an array of publications with nonempty titles.');
+                }
+                existingPublications = data.map(normalizePublication);
+                existingLoadState = 'ready';
                 renderExisting();
+                updateMergeAvailability();
             })
             .catch(error => {
                 existingPublications = [];
+                existingLoadState = 'failed';
                 renderExisting();
+                updateMergeAvailability();
                 handleError(error);
             });
     };
